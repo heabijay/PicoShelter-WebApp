@@ -1,0 +1,18 @@
+app {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.main-content {
+    overflow: auto;
+    flex: 1;
+}
+
+.component-center {
+    height: 100%!important;
+    margin: 0!important;
+    display: flex!important;
+    flex-wrap: wrap!important;
+    align-items: center;
+}
