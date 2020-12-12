@@ -1,0 +1,36 @@
+{
+    "version": 1,
+    "projects": {
+        "picoshelter-webapp": {
+            "projectType": "application",
+            "root": "",
+            "sourceRoot": "src",
+            "architect": {
+                "build": {
+                    "builder": "@angular-devkit/build-angular:browser",
+                    "options": {
+                        "outputPath": "dist/picoshelter-webapp",
+                        "index": "src/index.html",
+                        "main": "src/main.ts",
+                        "polyfills": "src/polyfills.ts",
+                        "assets": [
+                            "src/assets"
+                        ],
+                        "tsConfig": "tsconfig.json",
+                        "aot": true
+                    }
+                },
+                "serve": {
+                    "builder": "@angular-devkit/build-angular:dev-server",
+                    "options": {
+                        "browserTarget": "picoshelter-webapp:build"
+                    }
+                }
+            }
+        }
+    },
+    "defaultProject": "picoshelter-webapp",
+    "cli": {
+        "analytics": false
+    }
+}
