@@ -9,8 +9,8 @@ app {
     flex: 1;
 }
 
-.component-center {
-    height: 100%!important;
+.component-fill {
+    min-height: 100%!important;
     margin: 0!important;
     display: flex!important;
     flex-wrap: wrap!important;

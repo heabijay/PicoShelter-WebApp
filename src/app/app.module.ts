@@ -6,6 +6,9 @@ import { AppComponent } from "./app.component";
 import { NavbarComponent } from "./navbar/navbar.component"
 import { appRoutes } from "./app.routes"
 import { HomeComponent } from "./home/home.component";
+import { NotFoundComponent } from "./not-found/not-found.component";
+import { RegistrationComponent } from "./registration/registration.component";
+import { LoginComponent } from "./login/login.component";
 
 @NgModule({
     imports: [
@@ -16,7 +19,10 @@ import { HomeComponent } from "./home/home.component";
     declarations: [
         AppComponent,
         NavbarComponent,
-        HomeComponent
+        HomeComponent,
+        NotFoundComponent,
+        RegistrationComponent,
+        LoginComponent
     ],
     bootstrap: [
         AppComponent
