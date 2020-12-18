@@ -1,8 +1,16 @@
 <div class="component-fill jumbotron jumbotron-fluid">
-    <div class="container text-center">
-        <h1 class="display-4">Sorry, this content is unavailable</h1>
-        <p class="lead">You will be automatically returned back in {{seconds}} seconds</p>
-        <button class="btn btn-primary mx-1" type="button" routerLink="/">Main page</button>
-        <button class="btn btn-primary mx-1" type="button" (click)="returnBack()">Return back</button>
+    <div class="container d-flex justify-content-center">
+        <div class="d-flex flex-row">
+            <div class="text-right">
+                <h1 class="display-1">#</h1>
+            </div>
+            <div class="flex-grow-1 col align-self-center">
+                <h2>Sorry, this content is unavailable</h2>
+                <p class="lead mb-0 text-break">Traceroute url: {{router.url}}</p>
+                <p class="lead text-secondary small">Possible HTTP Codes: 403, 404</p>
+                <button class="btn btn-primary m-1" type="button" routerLink="/">Main page</button>
+                <button class="btn btn-primary m-1" type="button" (click)="location.back()">Return back</button>
+            </div>
+        </div>
     </div>
 </div>

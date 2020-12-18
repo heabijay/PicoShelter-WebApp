@@ -1,23 +1,38 @@
 <div class="component-fill">
-    <div class="container col-xs-12 col-sm-8 col-md-6 col-lg-3">
+    <form #loginForm="ngForm" novalidate class="container col-xs-12 col-sm-8 col-md-6 col-lg-3">
         <h1 class="display-4 text-center">Welcome</h1>
         <div class="form-group">
             <label>Login:</label>
-            <div class="input-group mb-2 mr-sm-2">
+            <div class="input-group">
                 <div class="input-group-prepend">
                     <div class="input-group-text">@</div>
                 </div>
-                <input type="text" class="form-control" placeholder="Username/Email">
+                <input name="username" #username="ngModel" required type="text" class="form-control validatorsStyles" placeholder="Username/Email" [(ngModel)]="user.username">
+            </div>
+            <div [hidden]="username.valid || username.untouched" class="alert-danger small font-italic px-1">
+                <p>Username required</p>
             </div>
         </div>
         <div class="form-group">
             <label>Password:</label>
-            <input type="password" class="form-control" placeholder="Password">
+            <input name="password" #password="ngModel" required type="password" class="form-control validatorsStyles" placeholder="Password" [(ngModel)]="user.password">
+            <div [hidden]="password.valid || password.untouched" class="alert-danger small font-italic px-1">
+                <p>Password required</p>
+            </div>
         </div>
-        <button type="submit" class="btn btn-primary btn-block">Login</button>
-        <div class="text-center my-1">
+        <button type="submit" class="btn btn-primary btn-block" [disabled]="loginForm.invalid || isLogging" (click)="login()">
+            <ng-container *ngIf="!isLogging; else Logging">
+                Login
+            </ng-container>
+            <ng-template #Logging>
+                Logging...
+            </ng-template>
+        </button>
+        <div [hidden]="error == null" class="alert alert-danger my-2">
+            {{error}}
+        </div>
+        <div class="text-center mt-2">
             <a class="text-center text-secondary" routerLink="/registration">Need to register?</a>
         </div>
-    </div>
+    </form>
 </div>
-

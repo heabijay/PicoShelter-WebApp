@@ -15,4 +15,10 @@ app {
     display: flex!important;
     flex-wrap: wrap!important;
     align-items: center;
+    justify-content: center;
+}
+
+input.validatorsStyles.ng-touched.ng-invalid 
+{
+    border:solid red 2px;
 }

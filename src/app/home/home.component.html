@@ -1,6 +1,14 @@
 <div class="component-fill jumbotron jumbotron-fluid">
     <div class="container">
-        <h1 class="display-4 text-break">Welcome, %username%</h1>
+        <h1 class="display-4 text-break">Welcome, 
+            <ng-container *ngIf="currentUser == null; else logginedTemplate">
+                %username%
+            </ng-container>
+            <ng-template #logginedTemplate>
+                {{currentUser?.profile?.firstname}} {{currentUser?.profile?.lastname}}
+            </ng-template>
+            
+        </h1>
         <p class="lead">PicoShelter is launching...</p>
         <hr class="my-2">
     </div>

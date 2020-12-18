@@ -8,7 +8,7 @@
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="collapsibleNavId">
-        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+        <ul class="navbar-nav mr-auto mt-2 mt-sm-0">
             <!-- <li class="nav-item active">
                 <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
             </li> -->
@@ -16,8 +16,46 @@
                 <a class="nav-link" routerLink="/upload">Upload</a>
             </li>
         </ul>
-        <div class="my-2 my-lg-0">
-            <button class="btn btn-primary my-2 my-sm-0" routerLink="/login">Login</button>
-        </div>
+        <ul class="navbar-nav nav-flex-icons">
+            <ng-container *ngIf="currentUser == null; else loginedTemplate">
+                <li class="nav-item ml-0 ml-sm-1 mt-1 mt-sm-0" routerLinkActive="d-none">
+                    <button class="btn btn-secondary" routerLink="/login">Login</button>
+                </li>
+                <li class="nav-item ml-0 ml-sm-1 mt-1 mt-sm-0" routerLinkActive="d-none">
+                    <button class="btn btn-primary" routerLink="/registration">Register</button>
+                </li>
+            </ng-container>
+            <ng-template #loginedTemplate>
+                <li #logined class="nav-item dropdown">
+                    <summary class="d-flex flex-row" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <ng-container *ngIf="avatarLink == null; else notNullTemplate">
+                            
+                        </ng-container>
+                        <ng-template #notNullTemplate>
+                            <ng-container *ngIf="avatarLink == 'none'; else avatarTemplate">
+                                <img src="assets/icons/user_gradient.png" class="rounded-circle z-depth-0" height="40">
+                            </ng-container>
+                            <ng-template #avatarTemplate>
+                                <img [src]="avatarLink" class="rounded-circle z-depth-0" height="40">
+                            </ng-template>
+                        </ng-template>
+                        
+                        <ng-template #avatarTemplate>
+                            <img [src]="" class="rounded-circle z-depth-0" height="40">
+                        </ng-template>
+
+                        <div class="d-flex flex-column mx-2 justify-content-center">
+                            <h6 class="my-0">{{currentUser?.profile?.firstname}} {{currentUser?.profile?.lastname}}</h6>
+                            <p class="my-0 small text-secondary">@{{currentUser?.username}}</p>
+                        </div>
+                        <span class="dropdown-toggle align-self-center"></span>
+                    </summary>
+                    <div class="dropdown-menu dropdown-menu-lg-right dropdown-secondary mt-1">
+                        <button class="btn dropdown-item" [routerLink]="[ '/profiles/', currentUser.id ]">My Profile</button>
+                        <button class="btn dropdown-item" (click)="logout()">Logout</button>
+                    </div>
+                </li>
+            </ng-template>
+        </ul>
     </div>
 </nav>
