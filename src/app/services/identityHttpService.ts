@@ -1,28 +1,41 @@
 import { Injectable } from "@angular/core";
-import { HttpService } from "./httpService";
+import { HttpService } from "../abstract/httpService";
 import { UserLoginDto } from "../models/userLoginDto";
 import { UserLoginByEmailDto } from "../models/userLoginByEmailDto";
+import { TokenService } from "./tokenService";
+import { UserInfo } from "../models/userInfo";
+import { SuccessResponseDto } from "../models/successResponseDto";
+import { HttpClient } from "@angular/common/http"
 
 
 @Injectable()
-export class IdentityHttpService {
-    subPath = "/api/Auth";
+export class IdentityHttpService extends HttpService {
+    protected subPath = "/api/Auth";
 
-    constructor(private httpService: HttpService) {
-        
+    constructor(protected httpClient: HttpClient, private identityService: TokenService) {
+        super(httpClient);
     }
 
     login(userLoginDto: UserLoginDto) {
-        return this.httpService.httpClient.post(
-            this.httpService.serverUrl + this.subPath + "/login",
+        return this.httpClient.post(
+            this.serverUrl + this.subPath + "/login",
             userLoginDto
         );
     }
 
     loginByEmail(userLoginByEmailDto: UserLoginByEmailDto) {
-        return this.httpService.httpClient.post(
-            this.httpService.serverUrl + this.subPath + "/elogin",
+        return this.httpClient.post(
+            this.serverUrl + this.subPath + "/elogin",
             userLoginByEmailDto
+        );
+    }
+
+    getCurrentUser() {
+        return this.httpClient.get<SuccessResponseDto<UserInfo>>(
+            this.serverUrl + this.subPath + "/getInfo",
+            {
+                headers: this.identityService.getHeaders()
+            }
         );
     }
 }

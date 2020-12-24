@@ -8,5 +8,6 @@ export const appRoutes: Routes = [
     { path: "", component: HomeComponent },
     { path: "login", component: LoginComponent },
     { path: "registration", component: RegistrationComponent },
+    { path: "not-found", component: NotFoundComponent },
     { path: "**", component: NotFoundComponent }
 ]

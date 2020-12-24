@@ -1,11 +1,11 @@
 <div class="component-fill jumbotron jumbotron-fluid">
     <div class="container">
         <h1 class="display-4 text-break">Welcome, 
-            <ng-container *ngIf="currentUser == null; else logginedTemplate">
+            <ng-container *ngIf="currentUserService.currentUser == null; else logginedTemplate">
                 %username%
             </ng-container>
             <ng-template #logginedTemplate>
-                {{currentUser?.profile?.firstname}} {{currentUser?.profile?.lastname}}
+                {{currentUserService.currentUser?.profile?.firstname}} {{currentUserService.currentUser?.profile?.lastname}}
             </ng-template>
             
         </h1>

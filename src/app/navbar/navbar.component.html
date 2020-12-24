@@ -28,22 +28,7 @@
             <ng-template #loginedTemplate>
                 <li #logined class="nav-item dropdown">
                     <summary class="d-flex flex-row" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <ng-container *ngIf="avatarLink == null; else notNullTemplate">
-                            
-                        </ng-container>
-                        <ng-template #notNullTemplate>
-                            <ng-container *ngIf="avatarLink == 'none'; else avatarTemplate">
-                                <img src="assets/icons/user_gradient.png" class="rounded-circle z-depth-0" height="40">
-                            </ng-container>
-                            <ng-template #avatarTemplate>
-                                <img [src]="avatarLink" class="rounded-circle z-depth-0" height="40">
-                            </ng-template>
-                        </ng-template>
-                        
-                        <ng-template #avatarTemplate>
-                            <img [src]="" class="rounded-circle z-depth-0" height="40">
-                        </ng-template>
-
+                        <img [src]="currentUserAvatarLink" onload="this.style.display='block'" onError="this.src='assets/icons/user_gradient.png'" class="rounded-circle z-depth-0" height="40" style="display: none;">
                         <div class="d-flex flex-column mx-2 justify-content-center">
                             <h6 class="my-0">{{currentUser?.profile?.firstname}} {{currentUser?.profile?.lastname}}</h6>
                             <p class="my-0 small text-secondary">@{{currentUser?.username}}</p>

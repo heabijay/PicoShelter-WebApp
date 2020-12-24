@@ -1,19 +1,22 @@
-import { Inject, Injectable } from "@angular/core"
+import { HttpClient } from "@angular/common/http";
+import { Injectable } from "@angular/core"
 import { Observable } from "rxjs"
-import { HttpService } from "./httpService"
+import { HttpService } from "../abstract/httpService"
+import { TokenService } from "./tokenService";
 
 @Injectable()
-export class ProfilesHttpService {
-    constructor(private httpService: HttpService) {
+export class ProfilesHttpService extends HttpService {
 
+    constructor(protected httpClient: HttpClient, private identityService: TokenService) {
+        super(httpClient)
     }
 
     getProfileLink(id: number) {
-        return this.httpService.serverUrl + "/profiles/" + id;
+        return this.serverUrl + "/profiles/" + id;
     }
 
     getProfileLinkByUsername(username: string) {
-        return this.httpService.serverUrl + "/p/" + username
+        return this.serverUrl + "/p/" + username
     }
 
 
@@ -27,18 +30,20 @@ export class ProfilesHttpService {
 
 
     getAvatarHead(id: number) {
-        return this.httpService.httpClient.head(this.getAvatarLink(id), {
+        return this.httpClient.head(this.getAvatarLink(id), {
             observe: "response"
         });
     }
 
     getAvatarHeadByUsername(username: string) {
-        return this.httpService.httpClient.head(this.getAvatarLinkByUsername(username));
+        return this.httpClient.head(this.getAvatarLinkByUsername(username), {
+            observe: "response"
+        });
     }
 
 
     getAvatar(id: number) : Observable<Blob> {
-        return this.httpService.httpClient.get(
+        return this.httpClient.get(
             this.getAvatarLink(id), 
             {
                 responseType: "blob"
@@ -47,11 +52,31 @@ export class ProfilesHttpService {
     }
 
     getAvatarByUsername(username: string) : Observable<Blob> {
-        return this.httpService.httpClient.get(
+        return this.httpClient.get(
             this.getAvatarLinkByUsername(username), 
             {
                 responseType: "blob"
             }
         )
     }
+
+    getProfile(id: number) {
+        return this.httpClient.get(
+            this.getProfileLink(id), 
+            {
+                headers: this.identityService.getHeaders()
+            }
+        );
+    }
+
+    getProfileByUsername(username: string) {
+        return this.httpClient.get(
+            this.getProfileByUsername(username), 
+            {
+                headers: this.identityService.getHeaders()
+            }
+        );
+    }
+
+    
 }

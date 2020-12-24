@@ -1,61 +1,46 @@
-import { HttpResponse } from "@angular/common/http";
 import { Component } from "@angular/core";
-import { DomSanitizer, SafeUrl } from "@angular/platform-browser";
 import { Router } from "@angular/router";
 import { Subscription } from "rxjs";
+import { SuccessResponseDto } from "../models/successResponseDto";
 import { UserInfo } from "../models/userInfo";
 import { UserLoginData } from "../models/userLoginData";
-import { IdentityService } from "../services/identityService";
+import { IdentityHttpService } from "../services/identityHttpService";
 import { ProfilesHttpService } from "../services/profilesHttpService";
+import { CurrentUserService } from "../services/currentUserService";
+import { TokenService } from "../services/tokenService";
 
 @Component({
     selector: "navbar",
     templateUrl: "./navbar.component.html",
     providers: [
-        ProfilesHttpService
+        ProfilesHttpService,
+        IdentityHttpService
     ]
 })
 export class NavbarComponent {
-    avatarLink: string = null;
     currentUser: UserInfo;
     subscription: Subscription;
-    subscriptionAvatar: Subscription;
+
+    get currentUserAvatarLink() {
+        if (this.currentUser?.id != null)
+            return this.profilesHttpService.getAvatarLink(this.currentUser?.id);
+        return null;
+    }
 
     constructor(
-        private identityService: IdentityService, 
+        private tokenService: TokenService,
+        private currentUserService: CurrentUserService, 
         private router: Router,
-        private profilesHttpService: ProfilesHttpService,
+        private profilesHttpService: ProfilesHttpService
     ) {
         
     }
 
-    refreshInfo(data: UserLoginData) {
-        this.avatarLink = null;
-        this.currentUser = data?.user;
-        if (this.currentUser != null) {
-            this.subscriptionAvatar = this.profilesHttpService.getAvatarHead(this.currentUser.id).subscribe(
-                (data: any) => {
-                    if (data.status == 200) {
-                        this.avatarLink = this.profilesHttpService.getAvatarLink(this.currentUser.id)
-                    }
-                    else {
-                        this.avatarLink = "none";
-                    }
-                },
-                error => {
-                    this.avatarLink = "none";
-                }
-            ).add(
-                () => this.subscriptionAvatar.unsubscribe()
-            );
-        }
-    }
-
     ngOnInit(): void {
-        this.subscription = this.identityService.onIdentityChanged.subscribe(data => {
-            this.refreshInfo(data);
+        this.subscription = this.currentUserService.onCurrentUserChanged.subscribe(data => {
+            this.currentUser = this.currentUserService.currentUser;
         });
-        this.refreshInfo(this.identityService.getIdentity());
+        this.currentUser = this.currentUserService.currentUser;
     }
 
     ngOnDestroy(): void {
@@ -63,7 +48,7 @@ export class NavbarComponent {
     }
 
     logout() {
-        this.identityService.deleteIdentity();
+        this.tokenService.setTokenWithProfile(null);
         this.router.navigateByUrl("/");
     }
 

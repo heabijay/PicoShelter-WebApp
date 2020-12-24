@@ -1,4 +1,35 @@
-<navbar></navbar>
-<div class="main-content">
-    <router-outlet></router-outlet>
-</div>
+<ng-container *ngIf="isLoaded; else notLoadedTemplate">
+    <ng-container *ngIf="!isServerFailure; else serverFailureTemplate">
+        <navbar></navbar>
+        <div class="main-content">
+            <router-outlet></router-outlet>
+        </div>
+    </ng-container>
+    <ng-template #serverFailureTemplate>
+        <div class="component-fill jumbotron jumbotron-fluid">
+            <div class="d-flex justify-content-center">
+                <div class="d-flex flex-row">
+                    <div class="text-right">
+                        <h1 class="display-1">@</h1>
+                    </div>
+                    <div class="flex-grow-1 col align-self-center">
+                        <h2>Server is unavailable</h2>
+                        <p class="lead mb-0 text-break">It's propably maintenance. We think it will be fast. Try again later.</p>
+                        <button class="btn btn-primary m-1 mt-2" type="button" onClick="window.location.reload();">Refresh page</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ng-template>
+</ng-container>
+<ng-template #notLoadedTemplate>
+    <div class="component-fill align-items-start jumbotron jumbotron-fluid">
+        <div class="container d-flex flex-column">
+            <div class="">
+                <h1>PicoShelter</h1>
+                <p class="lead mb-0 text-break text-secondary">Please wait, connecting to server...</p>
+            </div>
+        </div>
+    </div>
+</ng-template>
+

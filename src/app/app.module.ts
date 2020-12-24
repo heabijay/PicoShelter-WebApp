@@ -9,16 +9,22 @@ import { HomeComponent } from "./home/home.component";
 import { NotFoundComponent } from "./not-found/not-found.component";
 import { RegistrationComponent } from "./registration/registration.component";
 import { LoginComponent } from "./login/login.component";
-import { HttpService } from "./services/httpService";
 import { HttpClientModule } from "@angular/common/http";
-import { IdentityService } from "./services/identityService";
+import { TokenService } from "./services/tokenService";
+import { CurrentUserService } from "./services/currentUserService";
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { ToastrModule } from "ngx-toastr";
 
 @NgModule({
     imports: [
         HttpClientModule,
         BrowserModule,
         RouterModule.forRoot(appRoutes),
-        FormsModule
+        FormsModule,
+        BrowserAnimationsModule,
+        ToastrModule.forRoot({
+            progressBar: true
+        })
     ],
     declarations: [
         AppComponent,
@@ -29,13 +35,13 @@ import { IdentityService } from "./services/identityService";
         LoginComponent
     ],
     providers: [
-        HttpService,
-        IdentityService
+        TokenService,
+        CurrentUserService
     ],
     bootstrap: [
         AppComponent
     ]
 })
 export class AppModule {
-
+    
 }

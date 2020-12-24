@@ -1,18 +1,13 @@
 import { Component } from "@angular/core";
 import { UserInfo } from "../models/userInfo";
-import { IdentityService } from "../services/identityService";
+import { CurrentUserService } from "../services/currentUserService"
 
 @Component({
     templateUrl: "./home.component.html"
 })
 export class HomeComponent {
-    currentUser: UserInfo;
 
-    constructor(private identityService: IdentityService) {
+    constructor(public currentUserService: CurrentUserService) {
 
-    }
-
-    ngOnInit(): void {
-        this.currentUser = this.identityService.getIdentity()?.user;
     }
 }
