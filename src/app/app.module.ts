@@ -14,6 +14,7 @@ import { TokenService } from "./services/tokenService";
 import { CurrentUserService } from "./services/currentUserService";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { ToastrModule } from "ngx-toastr";
+import { ComparePasswordDirective } from "./directives/compare-password.directive"
 
 @NgModule({
     imports: [
@@ -32,7 +33,8 @@ import { ToastrModule } from "ngx-toastr";
         HomeComponent,
         NotFoundComponent,
         RegistrationComponent,
-        LoginComponent
+        LoginComponent,
+        ComparePasswordDirective
     ],
     providers: [
         TokenService,

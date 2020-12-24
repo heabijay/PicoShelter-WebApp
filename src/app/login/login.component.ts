@@ -1,5 +1,5 @@
 import { Component } from "@angular/core";
-import { Observable } from "rxjs";
+import { from, Observable } from "rxjs";
 import { UserLoginByEmailDto } from "../models/userLoginByEmailDto";
 import { UserLoginData } from "../models/userLoginData";
 import { UserLoginDto } from "../models/userLoginDto";
@@ -10,8 +10,7 @@ import { TokenService } from "../services/tokenService";
 import { Router } from "@angular/router";
 import { CurrentUserService } from "../services/currentUserService";
 import { ToastrService } from "ngx-toastr";
-
-const emailRegex = /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/gm;
+import { emailRegex } from "../registration/registration.component"
 
 @Component({
     templateUrl: "./login.component.html",
@@ -21,7 +20,6 @@ const emailRegex = /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/g
 })
 export class LoginComponent {
     isAlreadyLoggined: boolean = false;
-    // error: string;
     isLogging: boolean = false;
     user = new UserLoginDto();
 
@@ -45,7 +43,6 @@ export class LoginComponent {
 
     login() {
         this.isLogging = true;
-        // this.error = null;
         let loginQuery: Observable<Object>;
         if (emailRegex.test(this.user.username)) {
             let LoginEntity = new UserLoginByEmailDto();

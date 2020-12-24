@@ -6,6 +6,7 @@ import { TokenService } from "./tokenService";
 import { UserInfo } from "../models/userInfo";
 import { SuccessResponseDto } from "../models/successResponseDto";
 import { HttpClient } from "@angular/common/http"
+import { UserRegistrationDto } from "../models/userRegistrationDto";
 
 
 @Injectable()
@@ -27,6 +28,13 @@ export class IdentityHttpService extends HttpService {
         return this.httpClient.post(
             this.serverUrl + this.subPath + "/elogin",
             userLoginByEmailDto
+        );
+    }
+
+    register(userRegistrationDto: UserRegistrationDto) {
+        return this.httpClient.post(
+            this.serverUrl + this.subPath + "/register",
+            userRegistrationDto
         );
     }
 

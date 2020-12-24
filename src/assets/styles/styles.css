@@ -22,3 +22,7 @@ input.validatorsStyles.ng-touched.ng-invalid
 {
     border:solid red 2px;
 }
+
+.bg-particles {
+    background-image: url("../backgrounds/particles.svg");
+}
