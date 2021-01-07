@@ -8,6 +8,9 @@ import { IdentityHttpService } from "../services/identityHttpService";
 import { UserLoginData } from "../models/userLoginData";
 import { SuccessResponseDto } from "../models/successResponseDto";
 import { HttpErrorResponse } from "@angular/common/http";
+import { ErrorResponseDto } from "../models/errorResponseDto";
+import { ErrorType } from "../enum/ErrorType";
+import { FormControl, FormGroup, NgForm } from "@angular/forms";
 
 export const emailRegex = /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/gm;
 
@@ -17,7 +20,7 @@ export const emailRegex = /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2
 export class RegistrationComponent {
     isProceeding: boolean = false;
     user = new UserRegistrationDto();
-    
+
     constructor(
         private identityHttpService: IdentityHttpService, 
         private tokenService: TokenService,
@@ -51,7 +54,19 @@ export class RegistrationComponent {
                 }
             },
             (e: HttpErrorResponse) => {
-                this.toastrService.error(e.error.error.message);
+                let error = e.error as ErrorResponseDto;
+                if (error != null) {                    
+                    switch (ErrorType[error.error.type]) {
+                        case ErrorType.MODEL_NOT_VALID:
+                            return;
+                        case ErrorType.USERNAME_ALREADY_REGISTERED:
+                            return;
+                        case ErrorType.EMAIL_ALREADY_REGISTERED:
+                            return;
+                    }
+                }
+
+                this.toastrService.error("Something went wrong. :(");
             }
         ).add(
             () => this.isProceeding = false

@@ -15,6 +15,7 @@ import { CurrentUserService } from "./services/currentUserService";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { ToastrModule } from "ngx-toastr";
 import { ComparePasswordDirective } from "./directives/compare-password.directive"
+import { ProfilesComponent } from "./profiles/profiles.component";
 
 @NgModule({
     imports: [
@@ -33,6 +34,7 @@ import { ComparePasswordDirective } from "./directives/compare-password.directiv
         HomeComponent,
         NotFoundComponent,
         RegistrationComponent,
+        ProfilesComponent,
         LoginComponent,
         ComparePasswordDirective
     ],

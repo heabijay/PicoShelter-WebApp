@@ -13,31 +13,36 @@
                 <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
             </li> -->
             <li class="nav-item">
-                <a class="nav-link" routerLink="/upload">Upload</a>
+                <a class="nav-link" routerLink="/upload"><i class="far fa-cloud-upload-alt"></i> Upload</a>
             </li>
         </ul>
         <ul class="navbar-nav nav-flex-icons">
             <ng-container *ngIf="currentUser == null; else loginedTemplate">
                 <li class="nav-item ml-0 ml-sm-1 mt-1 mt-sm-0" routerLinkActive="d-none">
-                    <button class="btn btn-secondary" routerLink="/login">Login</button>
+                    <button class="btn btn-secondary" routerLink="/login"><i class="fas fa-sign-in"></i> Login</button>
                 </li>
                 <li class="nav-item ml-0 ml-sm-1 mt-1 mt-sm-0" routerLinkActive="d-none">
-                    <button class="btn btn-primary" routerLink="/registration">Register</button>
+                    <button class="btn btn-primary" routerLink="/registration"><i class="fas fa-user-plus"></i> Register</button>
                 </li>
             </ng-container>
             <ng-template #loginedTemplate>
                 <li #logined class="nav-item dropdown">
                     <summary class="d-flex flex-row" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <img [src]="currentUserAvatarLink" onload="this.style.display='block'" onError="this.src='assets/icons/user_gradient.png'" class="rounded-circle z-depth-0" height="40" style="display: none;">
+                        <img [src]="currentUserAvatarLink" onload="this.style.display='block'" class="rounded-circle z-depth-0" height="40" style="display: none;">
                         <div class="d-flex flex-column mx-2 justify-content-center">
-                            <h6 class="my-0">{{currentUser?.profile?.firstname}} {{currentUser?.profile?.lastname}}</h6>
-                            <p class="my-0 small text-secondary">@{{currentUser?.username}}</p>
+                            <ng-container *ngIf="currentUser?.profile?.firstname != null || currentUser?.profile?.lastname != null; else nameExist">
+                                <h6 class="my-0">{{currentUser?.profile?.firstname}} {{currentUser?.profile?.lastname}}</h6>
+                                <p class="my-0 small text-secondary">@{{currentUser?.username}}</p>
+                            </ng-container>
+                            <ng-template #nameExist>
+                                <h6 class="my-0">{{currentUser?.username}}</h6>
+                            </ng-template>
                         </div>
                         <span class="dropdown-toggle align-self-center"></span>
                     </summary>
                     <div class="dropdown-menu dropdown-menu-lg-right dropdown-secondary mt-1">
-                        <button class="btn dropdown-item" [routerLink]="[ '/profiles/', currentUser.id ]">My Profile</button>
-                        <button class="btn dropdown-item" (click)="logout()">Logout</button>
+                        <button class="btn dropdown-item" [routerLink]="[ '/profiles/', currentUser.id ]"><i class="fas fa-user-alt"></i> My Profile</button>
+                        <button class="btn dropdown-item" (click)="logout()"><i class="fas fa-sign-out-alt"></i> Logout</button>
                     </div>
                 </li>
             </ng-template>

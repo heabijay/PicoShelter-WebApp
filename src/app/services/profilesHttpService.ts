@@ -2,7 +2,9 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core"
 import { Observable } from "rxjs"
 import { HttpService } from "../abstract/httpService"
+import { SuccessResponseDto } from "../models/successResponseDto";
 import { TokenService } from "./tokenService";
+import { ProfileInfoDto } from "../models/profileInfoDto";
 
 @Injectable()
 export class ProfilesHttpService extends HttpService {
@@ -61,7 +63,7 @@ export class ProfilesHttpService extends HttpService {
     }
 
     getProfile(id: number) {
-        return this.httpClient.get(
+        return this.httpClient.get<SuccessResponseDto<ProfileInfoDto>>(
             this.getProfileLink(id), 
             {
                 headers: this.identityService.getHeaders()
@@ -70,13 +72,11 @@ export class ProfilesHttpService extends HttpService {
     }
 
     getProfileByUsername(username: string) {
-        return this.httpClient.get(
+        return this.httpClient.get<SuccessResponseDto<ProfileInfoDto>>(
             this.getProfileByUsername(username), 
             {
                 headers: this.identityService.getHeaders()
             }
         );
     }
-
-    
 }
