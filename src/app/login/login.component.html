@@ -1,5 +1,5 @@
 <div class="component-fill">
-    <form #loginForm="ngForm" novalidate class="container col-xs-12 col-sm-8 col-md-6 col-lg-3">
+    <form name="loginForm" #loginForm="ngForm" (ngSubmit)="login()" novalidate class="container col-xs-12 col-sm-8 col-md-6 col-lg-3">
         <h1 class="display-4 text-center">Welcome</h1>
         <div class="form-group">
             <label>Login:</label>
@@ -7,20 +7,21 @@
                 <div class="input-group-prepend">
                     <div class="input-group-text">@</div>
                 </div>
-                <input name="username" #username="ngModel" required type="text" class="form-control validatorsStyles" placeholder="Username/Email" [(ngModel)]="user.username">
+                <input [ngClass]="{ 'is-invalid': username.touched && username.invalid }" (input)="onFieldsChanged()" name="username" #username="ngModel" required type="text" class="form-control" placeholder="Username/Email" [(ngModel)]="user.username">
             </div>
-            <div [hidden]="username.valid || username.untouched" class="alert-danger small font-italic px-1">
-                <p>Username required</p>
+            <div [hidden]="username.valid || username.untouched">
+                <p class="invalid-feedback d-block" *ngIf="username.errors?.required">Username required</p>
             </div>
         </div>
         <div class="form-group">
             <label>Password:</label>
-            <input name="password" #password="ngModel" required type="password" class="form-control validatorsStyles" placeholder="Password" [(ngModel)]="user.password">
-            <div [hidden]="password.valid || password.untouched" class="alert-danger small font-italic px-1">
-                <p>Password required</p>
+            <input [ngClass]="{ 'is-invalid': password.touched && password.invalid }" (input)="onFieldsChanged()" name="password" #password="ngModel" required type="password" class="form-control validatorsStyles" placeholder="Password" [(ngModel)]="user.password">
+            <div [hidden]="password.valid || password.untouched">
+                <p class="invalid-feedback d-block" *ngIf="password.errors?.required">Password required</p>
+                <p class="invalid-feedback d-block" *ngIf="password.errors?.incorrectCredentials">Username or password is incorrect</p>
             </div>
         </div>
-        <button type="submit" class="btn btn-primary btn-block" [disabled]="loginForm.invalid || isLogging" (click)="login()">
+        <button type="submit" class="btn btn-primary btn-block" [disabled]="loginForm.invalid || isLogging">
             <ng-container *ngIf="!isLogging; else Logging">
                 Login
             </ng-container>
