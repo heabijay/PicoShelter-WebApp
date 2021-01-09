@@ -73,7 +73,7 @@ export class ProfilesHttpService extends HttpService {
 
     getProfileByUsername(username: string) {
         return this.httpClient.get<SuccessResponseDto<ProfileInfoDto>>(
-            this.getProfileByUsername(username), 
+            this.getProfileLinkByUsername(username), 
             {
                 headers: this.identityService.getHeaders()
             }

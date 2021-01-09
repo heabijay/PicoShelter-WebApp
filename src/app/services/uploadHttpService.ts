@@ -13,14 +13,19 @@ export class UploadHttpService extends HttpService {
         super(httpClient);
     }
 
-    uploadImage(dto: UploadImageDto) : Observable<HttpEvent<any>> {
+    uploadImage(dto: UploadImageDto, isAnonymously: boolean = false) : Observable<HttpEvent<any>> {
         let formData = new FormData();
-        formData.append('title', dto.title);
+        formData.append('title', dto.title == null ? "" : dto.title);
         formData.append('file', dto.file);
-        dto.joinToAlbums.forEach(el => {
+        dto.joinToAlbums?.forEach(el => {
             formData.append('joinToAlbums', el.toString());
         });
-        formData.append('deleteInHours', dto.deleteInHours.toString());
+
+        if (dto.deleteInHours == 0)
+            formData.append('deleteInHours', "");
+        else 
+            formData.append('deleteInHours', dto.deleteInHours.toString());
+        
         formData.append('isPublic', dto.isPublic.toString());
         formData.append('quality', dto.quality.toString());
     
@@ -29,7 +34,8 @@ export class UploadHttpService extends HttpService {
             formData, 
             {
                 reportProgress: true,
-                responseType: 'json'
+                observe: 'events',
+                headers: (isAnonymously ? null : this.identityService.getHeaders())
             }
         );
     }

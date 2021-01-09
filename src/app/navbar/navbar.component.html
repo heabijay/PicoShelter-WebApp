@@ -9,11 +9,11 @@
     </button>
     <div class="collapse navbar-collapse" id="collapsibleNavId">
         <ul class="navbar-nav mr-auto mt-2 mt-sm-0">
-            <!-- <li class="nav-item active">
-                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-            </li> -->
             <li class="nav-item">
-                <a class="nav-link" routerLink="/upload"><i class="far fa-cloud-upload-alt"></i> Upload</a>
+                <a class="nav-link" routerLink="/upload" routerLinkActive="active"><i class="far fa-cloud-upload-alt"></i> Upload</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" [href]="profilesHttpService.serverUrl + '/apidocs'"><i class="far fa-code"></i> API</a>
             </li>
         </ul>
         <ul class="navbar-nav nav-flex-icons">

@@ -20,6 +20,10 @@ export class ImagesHttpService extends HttpService {
         return this.serverUrl + "/i/" + code;
     }
 
+    getImageDirectLink(code: string, ext: string) {
+        return this.serverUrl + "/i/" + code + '.' + ext.replace("jpeg", "jpg");
+    }
+
     getThumbnailBlob(code: string) : Observable<Blob> {
         return this.httpClient.get(
             this.getImageLink(code) + "/thumbnail.jpg", 

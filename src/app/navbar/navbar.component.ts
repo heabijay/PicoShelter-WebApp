@@ -31,7 +31,7 @@ export class NavbarComponent {
         private tokenService: TokenService,
         private currentUserService: CurrentUserService, 
         private router: Router,
-        private profilesHttpService: ProfilesHttpService
+        public profilesHttpService: ProfilesHttpService
     ) {
         
     }
