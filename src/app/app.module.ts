@@ -16,6 +16,11 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { ToastrModule } from "ngx-toastr";
 import { ComparePasswordDirective } from "./directives/compare-password.directive"
 import { ProfilesComponent } from "./profiles/profiles.component";
+import { ImagesComponent } from "./profiles/images/images.component";
+import { AlbumsComponent } from "./profiles/albums/albums.component";
+import { OverviewComponent } from "./profiles/overview/overview.component";
+import { ProfilesDataService } from "./profiles/profiles.data.service";
+import { UploadComponent } from "./upload/upload.component";
 
 @NgModule({
     imports: [
@@ -34,13 +39,18 @@ import { ProfilesComponent } from "./profiles/profiles.component";
         HomeComponent,
         NotFoundComponent,
         RegistrationComponent,
-        ProfilesComponent,
         LoginComponent,
-        ComparePasswordDirective
+        ProfilesComponent,
+        OverviewComponent,
+        AlbumsComponent,
+        ImagesComponent,
+        ComparePasswordDirective,
+        UploadComponent
     ],
     providers: [
         TokenService,
-        CurrentUserService
+        CurrentUserService,
+        ProfilesDataService,
     ],
     bootstrap: [
         AppComponent

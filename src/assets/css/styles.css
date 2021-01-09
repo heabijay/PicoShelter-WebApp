@@ -22,30 +22,6 @@ app {
     background-image: url("../backgrounds/particles.svg");
 }
 
-img.resize-fill-height {
-    position: absolute; 
-    top: 50%;
-    left: 50%;
-    height: 100%;
-    transform: translate(-50%, -50%);
-}
-
-img.resize-fill-width {
-    position: absolute; 
-    top: 50%;
-    left: 50%;
-    height: 100%;
-    transform: translate(-50%, -50%);
-}
-
-.bg-gradient-deepBlue {
-    background-image: linear-gradient(to right, #6a11cb 0%, #2575fc 100%);
-}
-
-.bg-gradient-mailuBeach {
-    background-image: linear-gradient(to right, #4facfe 0%, #00f2fe 100%);
-}
-
 .text-shadow-1-1-grey {
     text-shadow: 1px 1px grey;
 }
@@ -79,10 +55,11 @@ img.resize-fill-width {
 }
 
 .image-thumbnail-zoomIn {
-    transition: all .25s ease-in-out;
+    transition: all .15s;
+    transition-timing-function: ease;
 }
 
 .image-thumbnail-zoomIn:hover {
-    transform: scale(1.5);
+    transform: scale(1.25);
     opacity: 0.8;
 }

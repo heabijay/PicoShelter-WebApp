@@ -10,7 +10,8 @@
                 <input type="text" [ngClass]="{ 'is-invalid': username.touched && username.invalid }" class="form-control" placeholder="Username" required name="username" [(ngModel)]="user.username" #username="ngModel" pattern="^[a-zA-Z0-9_]{3,20}$">
             </div>
             <div [hidden]="username.valid || username.untouched">
-                <p class="invalid-feedback d-block">Username length must be 3..20, can contains numbers, letters and '_'</p>
+                <p class="invalid-feedback d-block" *ngIf="username.errors?.required || username.errors?.pattern">Username length must be 3..20, can contains numbers, letters and '_'</p>
+                <p class="invalid-feedback d-block" *ngIf="username.errors?.alreadyRegistered">This username already registered.</p>
             </div>
         </div>
         <div class="form-group">
@@ -19,7 +20,8 @@
                 <input type="text" [ngClass]="{ 'is-invalid': email.touched && email.invalid }" class="form-control" placeholder="username@email.com" required name="email" [(ngModel)]="user.email" #email="ngModel" pattern="^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$">
             </div>
             <div [hidden]="email.valid || email.untouched">
-                <p class="invalid-feedback d-block">Email is invalid</p>
+                <p class="invalid-feedback d-block" *ngIf="email.errors?.required || email.errors?.pattern">Email doesn't matching default email template. Example: abc123@gmail.com</p>
+                <p class="invalid-feedback d-block" *ngIf="email.errors?.alreadyRegistered">This email already registered.</p>
             </div>
         </div>
         <div class="form-group">

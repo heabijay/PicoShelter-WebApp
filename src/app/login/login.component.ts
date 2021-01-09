@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, ViewChild } from "@angular/core";
 import { from, Observable } from "rxjs";
 import { UserLoginByEmailDto } from "../models/userLoginByEmailDto";
 import { UserLoginData } from "../models/userLoginData";
@@ -11,6 +11,9 @@ import { Router } from "@angular/router";
 import { CurrentUserService } from "../services/currentUserService";
 import { ToastrService } from "ngx-toastr";
 import { emailRegex } from "../registration/registration.component"
+import { NgForm, NgModel } from "@angular/forms";
+import { ErrorResponseDto } from "../models/errorResponseDto";
+import { ErrorType } from "../enum/ErrorType";
 
 @Component({
     templateUrl: "./login.component.html",
@@ -22,6 +25,10 @@ export class LoginComponent {
     isAlreadyLoggined: boolean = false;
     isLogging: boolean = false;
     user = new UserLoginDto();
+
+    @ViewChild("loginForm") loginForm: NgForm;
+    @ViewChild("username") usernameField: NgModel;
+    @ViewChild("password") passwordField: NgModel;
 
     constructor(
         private identityHttpService: IdentityHttpService, 
@@ -42,6 +49,7 @@ export class LoginComponent {
     }
 
     login() {
+        this.loginForm.control.markAllAsTouched();
         this.isLogging = true;
         let loginQuery: Observable<Object>;
         if (emailRegex.test(this.user.username)) {
@@ -58,14 +66,38 @@ export class LoginComponent {
                 if (data.success) {
                     this.tokenService.setTokenWithProfile(data.data);
                     this.router.navigateByUrl("/profiles/" + data.data.user.id);
-                    this.toastrService.success("Login successful!");
                 }
             },
             (e: HttpErrorResponse) => {
-                this.toastrService.error(e.error.error.message);
+                let error = e.error as ErrorResponseDto;
+                if (error != null) {                    
+                    switch (ErrorType[error.error.type]) {
+                        case ErrorType.CREDENTIALS_INCORRECT:
+                            this.usernameField.control.setErrors({
+                                'incorrectCredentials': true,
+                            });
+                            this.passwordField.control.setErrors({
+                                'incorrectCredentials': true,
+                            });
+                            return;
+                    }
+                }
+
+                this.toastrService.error("Something went wrong. :(");
             }
         ).add(
             () => this.isLogging = false
         )
+    }
+
+    onFieldsChanged() {
+        this.usernameField.control.setErrors({
+            'incorrectCredentials': null,
+        });
+        this.usernameField.control.updateValueAndValidity();
+        this.passwordField.control.setErrors({
+            'incorrectCredentials': null,
+        });
+        this.passwordField.control.updateValueAndValidity();
     }
 }

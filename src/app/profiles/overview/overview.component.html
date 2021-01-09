@@ -1,0 +1,33 @@
+<div class="container mt-5" *ngIf="profile?.images && profile?.images.length > 0">
+    <div class="row align-items-end">
+        <h1 class="col">Images</h1>
+        <a href="/" routerLink="images">
+            <h1 class="col lead text-right text-uppercase text-secondary">More <i class="fas fa-angle-double-right"></i></h1>
+        </a>
+    </div>
+    <hr class="my-1">
+    <div class="row mx-n1">
+        <div *ngFor="let image of imageThumbnailUrls" 
+            class="col-4 
+                col-sm-3
+                col-md-2 
+                col-lg-1 
+                square 
+                d-inline-block
+                p-1">
+            <div class="image-thumbnail-frame">
+                <div class="image-thumbnail image-thumbnail-zoomIn" [style.background-image]="image == null ? none : 'url(' + image + ')'"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container mt-4" *ngIf="profile?.albums && profile?.albums.length > 0">
+    <div class="row align-items-end">
+        <h1 class="col"><i class="fa fa-album" aria-hidden="true"></i> Albums</h1>
+        <a href="/">
+            <h1 class="col lead text-right text-uppercase text-secondary">More <i class="fas fa-angle-double-right"></i></h1>
+        </a>
+    </div>
+    <hr class="my-1">
+</div>
