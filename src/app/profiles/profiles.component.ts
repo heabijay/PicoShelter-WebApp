@@ -35,7 +35,7 @@ export class ProfilesComponent {
             dataService.clearData();
 
             var id: number = param["id"];
-            var username: string = param["username"];
+            var username: string = param["username"];            
 
             var requestMethod : Observable<SuccessResponseDto<ProfileInfoDto>>;
 
@@ -73,20 +73,5 @@ export class ProfilesComponent {
                 () => req.unsubscribe()
             )
         });
-    }
-
-    copyBeautifulLink() {
-        const selBox = document.createElement('textarea');
-        selBox.style.position = 'fixed';
-        selBox.style.left = '0';
-        selBox.style.top = '0';
-        selBox.style.opacity = '0';
-        selBox.value = window.location.origin + "/p/" + this.profile.userinfo.username;
-        document.body.appendChild(selBox);
-        selBox.focus();
-        selBox.select();
-        document.execCommand('copy');
-        document.body.removeChild(selBox);
-        this.toastrService.success("Link copied to clipboard!");
     }
 }
