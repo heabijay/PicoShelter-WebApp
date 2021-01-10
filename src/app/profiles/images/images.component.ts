@@ -1,8 +1,11 @@
 import { Component, SecurityContext } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Subscription } from 'rxjs';
+import { ImageShortInfoDto } from 'src/app/models/imageShortInfoDto';
 import { ProfileInfoDto } from 'src/app/models/profileInfoDto';
+import { ImageCacheService } from 'src/app/services/imageCacheService';
 import { ImagesHttpService } from 'src/app/services/imagesHttpService';
+import { ImageThumbnailViewModel } from '../models/imageThumbnailViewModel';
 import { ProfilesDataService } from '../profiles.data.service';
 
 @Component({
@@ -10,13 +13,14 @@ import { ProfilesDataService } from '../profiles.data.service';
 })
 export class ImagesComponent {
     profile: ProfileInfoDto;
-    imageThumbnailUrls = new Array<string>();
+    imageThumbnailViewModel = new Array<ImageThumbnailViewModel>();
     subscription: Subscription;
 
     constructor(
         private imagesService: ImagesHttpService,
         private sanitizer: DomSanitizer,
-        private dataService: ProfilesDataService
+        private dataService: ProfilesDataService,
+        private imageCacheService: ImageCacheService
     ) {
 
     }
@@ -37,23 +41,18 @@ export class ImagesComponent {
     onProfileDataRefresh(data: ProfileInfoDto) {
         this.profile = data;
         if (this.profile != null)
-            this.loadImageThumbnails(data.images.map(t => t.imageCode));
+            this.loadImageThumbnails(data.images.data);
     }
 
-    loadImageThumbnails(codes: Array<string>) {
-        this.imageThumbnailUrls.length = codes.length;
-        for (let i = 0; i < codes.length; i++) {
-            let sub = this.imagesService.getThumbnailBlob(codes[i]).subscribe(
-                blob => {
-                    let objUrl = URL.createObjectURL(blob);
-                    this.imageThumbnailUrls[i] = this.sanitizer.sanitize(
-                        SecurityContext.RESOURCE_URL,
-                        this.sanitizer.bypassSecurityTrustResourceUrl(objUrl)
-                    );
-                }
-            ).add(
-                () => sub.unsubscribe()
-            );
+    loadImageThumbnails(data: Array<ImageShortInfoDto>) {
+        this.imageThumbnailViewModel.length = data.length;
+        for (let i = 0; i < data.length; i++) {
+            this.imageThumbnailViewModel[i] = new ImageThumbnailViewModel();
+            this.imageThumbnailViewModel[i].info = data[i];
+            let sub = this.imageCacheService.requestThumbnailUsingCache(data[i].imageCode, code => this.imagesService.getThumbnailBlob(code))
+                .subscribe(
+                    link => this.imageThumbnailViewModel[i].resourceUrl = link
+                );
         }
     }
 }

@@ -58,6 +58,7 @@ export class UploadComponent {
     ngOnInit(): void {
         this.dto.deleteInHours = 0;
         this.dto.quality = 95;
+        this.dto.isPublic = false;
 
         if (this.currentUserService.currentUser == null)
         {

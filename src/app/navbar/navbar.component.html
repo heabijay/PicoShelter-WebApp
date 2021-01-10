@@ -41,8 +41,9 @@
                         <span class="dropdown-toggle align-self-center"></span>
                     </summary>
                     <div class="dropdown-menu dropdown-menu-lg-right dropdown-secondary mt-1">
-                        <button class="btn dropdown-item" [routerLink]="[ '/profiles/', currentUser.id ]"><i class="fas fa-user-alt"></i> My Profile</button>
-                        <button class="btn dropdown-item" (click)="logout()"><i class="fas fa-sign-out-alt"></i> Logout</button>
+                        <button class="btn dropdown-item" [routerLink]="[ '/profiles/', currentUser.id ]"><i class="fas fa-user-alt pr-1"></i> My Profile</button>
+                        <button class="btn dropdown-item"><i class="fas fa-cog pr-1" aria-hidden="true"></i> Settings</button>
+                        <button class="btn dropdown-item" (click)="logout()"><i class="fas fa-sign-out-alt pr-1"></i> Logout</button>
                     </div>
                 </li>
             </ng-template>

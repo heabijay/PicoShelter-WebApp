@@ -4,21 +4,24 @@ import { ImagesHttpService } from '../../services/imagesHttpService';
 import { ProfilesDataService } from '../profiles.data.service';
 import { Subscription } from 'rxjs';
 import { ProfileInfoDto } from '../../models/profileInfoDto';
+import { ImageShortInfoDto } from 'src/app/models/imageShortInfoDto';
+import { ImageCacheService } from '../../services/imageCacheService';
+import { ImageThumbnailViewModel } from '../models/imageThumbnailViewModel';
 
 @Component({
     templateUrl: './overview.component.html'
 })
 export class OverviewComponent {
     profile: ProfileInfoDto;
-    imageThumbnailUrls = new Array<string>();
+    imageThumbnailViewModel = new Array<ImageThumbnailViewModel>();
     subscription: Subscription;
 
     constructor(
         private imagesService: ImagesHttpService,
-        private sanitizer: DomSanitizer,
-        private dataService: ProfilesDataService
+        private dataService: ProfilesDataService,
+        private imageCacheService: ImageCacheService
     ) {
-
+        
     }
 
     ngOnInit(): void {
@@ -37,23 +40,18 @@ export class OverviewComponent {
     onProfileDataRefresh(data: ProfileInfoDto) {
         this.profile = data;
         if (this.profile != null)
-            this.loadImageThumbnails(data.images.map(t => t.imageCode));
+            this.loadImageThumbnails(data.images.data);
     }
 
-    loadImageThumbnails(codes: Array<string>) {
-        this.imageThumbnailUrls.length = codes.length;
-        for (let i = 0; i < codes.length; i++) {
-            let sub = this.imagesService.getThumbnailBlob(codes[i]).subscribe(
-                blob => {
-                    let objUrl = URL.createObjectURL(blob);
-                    this.imageThumbnailUrls[i] = this.sanitizer.sanitize(
-                        SecurityContext.RESOURCE_URL,
-                        this.sanitizer.bypassSecurityTrustResourceUrl(objUrl)
-                    );
-                }
-            ).add(
-                () => sub.unsubscribe()
-            );
+    loadImageThumbnails(data: Array<ImageShortInfoDto>) {
+        this.imageThumbnailViewModel.length = data.length;
+        for (let i = 0; i < data.length; i++) {
+            this.imageThumbnailViewModel[i] = new ImageThumbnailViewModel();
+            this.imageThumbnailViewModel[i].info = data[i];
+            let sub = this.imageCacheService.requestThumbnailUsingCache(data[i].imageCode, code => this.imagesService.getThumbnailBlob(code))
+                .subscribe(
+                    link => this.imageThumbnailViewModel[i].resourceUrl = link
+                );
         }
     }
 }
