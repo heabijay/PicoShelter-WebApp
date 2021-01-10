@@ -3,6 +3,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { Subscription } from 'rxjs';
 import { ImageShortInfoDto } from 'src/app/models/imageShortInfoDto';
 import { ProfileInfoDto } from 'src/app/models/profileInfoDto';
+import { CurrentUserService } from 'src/app/services/currentUserService';
 import { ImageCacheService } from 'src/app/services/imageCacheService';
 import { ImagesHttpService } from 'src/app/services/imagesHttpService';
 import { ImageThumbnailViewModel } from '../models/imageThumbnailViewModel';
@@ -16,10 +17,15 @@ export class ImagesComponent {
     imageThumbnailViewModel = new Array<ImageThumbnailViewModel>();
     subscription: Subscription;
 
+    get isMyAccount() {
+        return this.currentUserService.currentUser?.id == this.profile?.userinfo?.id;
+    }
+
     constructor(
         private imagesService: ImagesHttpService,
         private sanitizer: DomSanitizer,
         private dataService: ProfilesDataService,
+        private currentUserService: CurrentUserService,
         private imageCacheService: ImageCacheService
     ) {
 

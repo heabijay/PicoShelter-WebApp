@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, NavigationStart, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Observable, Subscription } from 'rxjs';
 import { ProfileInfoDto } from '../models/profileInfoDto';
@@ -21,6 +21,9 @@ export class ProfilesComponent {
     profile = new ProfileInfoDto();
     avatarUrl: string;
     paramSubscription: Subscription;
+    urlSubscription: Subscription; 
+
+    isOverview: boolean;
 
     constructor(
         private router: Router,
@@ -29,13 +32,13 @@ export class ProfilesComponent {
         private currentUserService: CurrentUserService,
         private toastrService: ToastrService,
         private dataService: ProfilesDataService
-    ) { 
+    ) {
         this.paramSubscription = this.activatedRoute.params.subscribe(param => 
         {
             dataService.clearData();
 
             var id: number = param["id"];
-            var username: string = param["username"];            
+            var username: string = param["username"];
 
             var requestMethod : Observable<SuccessResponseDto<ProfileInfoDto>>;
 
@@ -73,5 +76,20 @@ export class ProfilesComponent {
                 () => req.unsubscribe()
             )
         });
+    }
+
+    ngOnInit(): void {
+        this.urlSubscription = this.router.events.subscribe(
+            event => {
+                if (event instanceof NavigationStart) {
+                    this.isOverview = (event.url.match(/\//g) || []).length <= 2;
+                }
+            }
+        );
+        this.isOverview = (this.router.url.match(/\//g) || []).length <= 2;
+    }
+
+    ngOnDestroy(): void {
+        this.urlSubscription.unsubscribe();
     }
 }

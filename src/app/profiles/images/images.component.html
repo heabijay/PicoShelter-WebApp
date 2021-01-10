@@ -1,9 +1,7 @@
 <div class="container mt-5">
-    <div class="row align-items-end">
+    <div class="row align-items-center">
         <h1 class="col">Images</h1>
-        <a href="/">
-            <h1 class="col lead text-right text-uppercase text-secondary" routerLink="../">More <i class="fas fa-angle-double-right"></i></h1>
-        </a>
+        <button *ngIf="isMyAccount" class="btn btn-primary mr-3" type="button"><i class="fa fa-plus mr-2" aria-hidden="true"></i>Upload</button>
     </div>
     <hr class="my-1">
     <div class="row mx-n1">
@@ -31,5 +29,9 @@
         <p *ngIf="profile?.images?.data?.length == 0" class="text-muted text-center w-100 mt-3 lead">
             There's no pictures. Yet.
         </p>
+
+        <small *ngIf="profile?.images?.data?.length > 0 && imageThumbnailViewModel.length == profile?.images?.totalCount" class="text-muted text-center w-100 mt-3">
+            Totally {{profile?.images?.totalCount}} image 
+        </small>
     </div>
 </div>
