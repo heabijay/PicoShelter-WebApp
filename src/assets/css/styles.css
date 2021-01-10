@@ -63,3 +63,34 @@ app {
     transform: scale(1.25);
     opacity: 0.8;
 }
+
+.image-thumnail-overlay-shared {
+    padding: .25rem;
+    color: white;
+    position: absolute; 
+    right: 4px; 
+    pointer-events: none; 
+    opacity: 0.5; 
+    top: 0; 
+    z-index: 1000; 
+    text-shadow: 1px 1px #000000;
+}
+
+.image-thumnail-overlay-loading {
+    color: white;
+    position: absolute; 
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none; 
+    opacity: 0.5; 
+    z-index: 1000; 
+}
+
+.overflow-x-hidden {
+    overflow-x: hidden;
+}
+
+.overflow-y-hidden {
+    overflow-y: hidden;
+}

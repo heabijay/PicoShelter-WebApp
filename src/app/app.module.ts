@@ -21,6 +21,7 @@ import { AlbumsComponent } from "./profiles/albums/albums.component";
 import { OverviewComponent } from "./profiles/overview/overview.component";
 import { ProfilesDataService } from "./profiles/profiles.data.service";
 import { UploadComponent } from "./upload/upload.component";
+import { ImageCacheService } from "./services/imageCacheService";
 
 @NgModule({
     imports: [
@@ -51,6 +52,7 @@ import { UploadComponent } from "./upload/upload.component";
         TokenService,
         CurrentUserService,
         ProfilesDataService,
+        ImageCacheService
     ],
     bootstrap: [
         AppComponent

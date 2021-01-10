@@ -1,6 +1,6 @@
 <!-- <div [ngClass]="isUploaded ? 'bg-gradient-dustyGrass' : 'bg-gradient-saintPetersburg'" class="jumbotron component-fill" style="transition: all 0.5s ease;"> -->
-<div class="bg-gradient-saintPetersburg jumbotron component-fill" style="transition: all 0.5s ease;">
-    <div *ngIf="dto.file" class="m-3 d-none d-lg-flex col-md-6 justify-content-center" style="max-height: 70vh; max-width: 70vw;">
+<div class="bg-gradient-saintPetersburg jumbotron component-fill overflow-x-hidden">
+    <div *ngIf="dto.file" class="m-3 d-none d-lg-flex col-lg-6 justify-content-center mw-100 mh-100">
         <ng-container *ngIf="previewImageUrl; else previewNotLoaded">
             <img class="img-fluid" [src]="previewImageUrl" style="object-fit: contain;"/>
         </ng-container>
@@ -48,7 +48,7 @@
                     <input type="text" class="form-control" name="title" #title="ngModel" [(ngModel)]="dto.title" maxlength="32" placeholder="Title">
                 </div>
                 <div class="custom-control custom-checkbox mb-3">
-                    <input type="checkbox" class="custom-control-input" [disabled]="isAnonymous" name="isPublic" #isPublic="ngModel" id="isPublic" [(ngModel)]="dto.isPublic" required>
+                    <input type="checkbox" class="custom-control-input" [disabled]="isAnonymous" name="isPublic" #isPublic="ngModel" id="isPublic" [(ngModel)]="dto.isPublic">
                     <label class="custom-control-label" for="isPublic">Make public</label>
                     <small class="form-text text-muted">It's allow you to share this image simplify by link</small>
                 </div>

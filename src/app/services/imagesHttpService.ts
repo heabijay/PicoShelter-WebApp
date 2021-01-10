@@ -7,8 +7,6 @@ import { TokenService } from "./tokenService";
 import { ProfileInfoDto } from "../models/profileInfoDto";
 import { ImageCacheDto } from "../models/imageCacheDto";
 
-var ImageCache: Array<ImageCacheDto>;
-
 @Injectable()
 export class ImagesHttpService extends HttpService {
 
