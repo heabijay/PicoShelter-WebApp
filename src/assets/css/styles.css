@@ -4,6 +4,10 @@ app {
     height: 100vh;
 }
 
+summary {
+    outline: none;
+}
+
 .main-content {
     overflow: auto;
     flex: 1;
@@ -93,4 +97,22 @@ app {
 
 .overflow-y-hidden {
     overflow-y: hidden;
+}
+
+.transition-all-025 {
+    transition: all 0.25s;
+}
+
+.onHoverBlack:hover {
+    background-color: rgba(0, 0, 0, 0.15);
+}
+
+.onHoverBlack .visibleOnHoverBlack {
+    opacity: 0;
+    visibility: collapse;
+}
+
+.onHoverBlack:hover .visibleOnHoverBlack {
+    visibility: visible;
+    opacity: 1;
 }
