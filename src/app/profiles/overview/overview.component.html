@@ -1,7 +1,7 @@
 <div class="container mt-5">
     <div class="row align-items-end">
         <h1 class="col">Images</h1>
-        <a href="/" routerLink="images">
+        <a class="text-decoration-none" routerLink="images">
             <h1 class="col lead text-right text-uppercase text-secondary">More <i class="fas fa-angle-double-right"></i></h1>
         </a>
     </div>
@@ -37,7 +37,7 @@
 <div class="container mt-4" *ngIf="profile?.albums?.data && profile?.albums?.data?.length > 0">
     <div class="row align-items-end">
         <h1 class="col">Albums</h1>
-        <a href="/">
+        <a class="text-decoration-none" routerLink="albums">
             <h1 class="col lead text-right text-uppercase text-secondary">More <i class="fas fa-angle-double-right"></i></h1>
         </a>
     </div>
