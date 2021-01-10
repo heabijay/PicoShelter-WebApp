@@ -5,6 +5,8 @@ import { HttpService } from "../abstract/httpService"
 import { SuccessResponseDto } from "../models/successResponseDto";
 import { TokenService } from "./tokenService";
 import { ProfileInfoDto } from "../models/profileInfoDto";
+import { PaginationResultDto } from "../models/paginationResultDto";
+import { ImageShortInfoDto } from "../models/imageShortInfoDto";
 
 @Injectable()
 export class ProfilesHttpService extends HttpService {
@@ -78,5 +80,20 @@ export class ProfilesHttpService extends HttpService {
                 headers: this.identityService.getHeaders()
             }
         );
+    }
+
+    getProfileImages(id: number, starts?: number, count?: number) {
+        let url = this.getProfileLink(id) + '/images?';
+        if (starts != null)
+            url += "starts=" + starts + "&";
+        if (count != null)
+            url += "count=" + count + "&";
+        
+        return this.httpClient.get<SuccessResponseDto<PaginationResultDto<ImageShortInfoDto>>>(
+            url,
+            {
+                headers: this.identityService.getHeaders()
+            }
+        )
     }
 }

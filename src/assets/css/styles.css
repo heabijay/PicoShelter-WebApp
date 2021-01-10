@@ -34,6 +34,7 @@ summary {
     content: "";
     display: block;
     background-color: transparent;
+    pointer-events: none;
     padding-bottom: 100%;
 }
 
