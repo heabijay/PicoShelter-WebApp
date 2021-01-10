@@ -1,4 +1,4 @@
-<div class="container mt-5">
+<div class="container mt-5" id="images">
     <div class="row align-items-center">
         <h1 class="col">Images</h1>
         <button *ngIf="isMyAccount" class="btn btn-primary mr-3" type="button" routerLink="/upload"><i class="fa fa-plus mr-2" aria-hidden="true"></i>Upload</button>
@@ -11,8 +11,7 @@
                 col-md-2 
                 col-lg-1 
                 square 
-                d-inline-block p-1" 
-                >
+                d-inline-block p-1" >
             <div class="image-thumbnail-frame" [routerLink]="'/i/' + image?.info?.imageCode">
                 <div class="image-thumnail-overlay-shared" *ngIf="image?.info?.isPublic">
                     <i class="fa fa-link" aria-hidden="true"></i>
@@ -23,14 +22,15 @@
                 <div class="image-thumbnail image-thumbnail-zoomIn" [style.background-image]="image?.resourceUrl == null ? none : 'url(' + image.resourceUrl + ')'"></div>
             </div>
         </div>
-        <p *ngIf="profile?.images == null" class="text-muted text-center w-100 mt-3">
-            <i class="fa fa fa-spinner-third fa-spin" aria-hidden="true"></i>
-        </p>
         <p *ngIf="profile?.images?.data?.length == 0" class="text-muted text-center w-100 mt-3 lead">
             There's no pictures. Yet.
         </p>
 
-        <small *ngIf="profile?.images?.data?.length > 0 && imageThumbnailViewModel.length == profile?.images?.totalCount" class="text-muted text-center w-100 mt-3">
+        <p *ngIf="isLoading" class="text-muted text-center w-100 mt-3">
+            <i class="fa fa fa-spinner-third fa-spin" aria-hidden="true"></i>
+        </p>
+        <button *ngIf="!isAllImagesLoaded && !isLoading" (click)="loadNextPage()" class="btn btn-primary w-100 mt-3" type="button"><i class="fa fa-bolt mr-2" aria-hidden="true"></i>Load more images</button>
+        <small *ngIf="profile?.images?.data?.length > 0 && isAllImagesLoaded" class="text-muted text-center w-100 mt-3">
             Totally {{profile?.images?.totalCount}} image(s)
         </small>
     </div>
