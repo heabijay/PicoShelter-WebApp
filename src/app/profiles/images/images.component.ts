@@ -18,13 +18,14 @@ export class ImagesComponent {
     subscription: Subscription;
 
     isLoading: boolean = true;
+    selectedCount: number = 0;
 
     get isMyAccount() {
         return this.currentUserService.currentUser?.id == this.profile?.userinfo?.id;
     }
 
     get isAllImagesLoaded() {
-        return this.imageThumbnailViewModel.length == this.profile?.images?.totalCount;
+        return this.imageThumbnailViewModel.length >= this.profile?.images?.totalCount;
     }
 
     constructor(
@@ -77,12 +78,23 @@ export class ImagesComponent {
             const sub = this.profilesService.getProfileImages(this.profile.userinfo.id, startIndex, size).subscribe(
                 data => {
                     if (data.success) {
+                        this.profile.images.totalCount = data.data.totalCount;
                         this.loadImageThumbnails(data.data.data);
                     }
                 }
             ).add(
                 () => this.isLoading = false
             );
+        } else {
+            this.isLoading = false;
         }
+    }
+
+    toggleSelect(item: ImageThumbnailViewModel) {
+        item.selected = !item.selected;
+        if (item.selected)
+            this.selectedCount++;
+        else 
+            this.selectedCount--;
     }
 }
