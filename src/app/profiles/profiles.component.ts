@@ -53,7 +53,7 @@ export class ProfilesComponent {
             else {
                 this.avatarUrl = this.profilesService.getAvatarLinkByUsername(username);
 
-                if (this.currentUserService.currentUser.username.toLowerCase() == username.toLowerCase())
+                if (this.currentUserService.currentUser?.username?.toLowerCase() == username.toLowerCase())
                     this.profile.userinfo = this.currentUserService.currentUser;
 
                 requestMethod = this.profilesService.getProfileByUsername(username);

@@ -75,7 +75,18 @@ summary {
     position: absolute; 
     right: 4px; 
     pointer-events: none; 
-    opacity: 0.5; 
+    opacity: 0.3; 
+    top: 0; 
+    z-index: 1000; 
+    text-shadow: 1px 1px #000000;
+}
+
+.image-thumnail-overlay-selected {
+    margin: .25rem;
+    color: white;
+    position: absolute; 
+    left: 4px;
+    opacity: 0.3;
     top: 0; 
     z-index: 1000; 
     text-shadow: 1px 1px #000000;
@@ -88,7 +99,7 @@ summary {
     left: 50%;
     transform: translate(-50%, -50%);
     pointer-events: none; 
-    opacity: 0.5; 
+    opacity: 0.3; 
     z-index: 1000; 
 }
 
