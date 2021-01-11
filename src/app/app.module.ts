@@ -22,6 +22,7 @@ import { OverviewComponent } from "./profiles/overview/overview.component";
 import { ProfilesDataService } from "./profiles/profiles.data.service";
 import { UploadComponent } from "./upload/upload.component";
 import { ImageCacheService } from "./services/imageCacheService";
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
     imports: [
@@ -32,7 +33,8 @@ import { ImageCacheService } from "./services/imageCacheService";
         BrowserAnimationsModule,
         ToastrModule.forRoot({
             progressBar: true
-        })
+        }),
+        NgbModule
     ],
     declarations: [
         AppComponent,
