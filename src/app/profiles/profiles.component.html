@@ -1,4 +1,4 @@
-<div class="text-white" *ngIf="profile">
+<div class="text-white">
     <ng-container *ngIf="isOverview; else notOverview">
         <div class="jumbotron jumbotron-fluid bg-gradient-mailuBeach pb-2 mb-0">
             <div class="container">
@@ -10,13 +10,21 @@
                                 <span>{{profile?.userinfo?.profile?.firstname}} </span>
                                 <span>{{profile?.userinfo?.profile?.lastname}}</span>
                             </h1>
-                            <h4>@{{profile?.userinfo?.username}}</h4>
+                            <div>
+                                <summary class="d-inline-block pr-1" (click)="copyBeautifulLink()" placement="right" ngbTooltip="Click to copy beautiful link">
+                                    <h4 class="d-inline-block">@{{profile?.userinfo?.username}}</h4>
+                                </summary>
+                            </div>
                         </ng-container>
                         <ng-template #nameExist>
-                            <h1 class="display-4 d-inline text-shadow-1-1-grey">{{profile?.userinfo?.username}}</h1>
+                            <div>
+                                <summary class="d-inline-block pr-1" (click)="copyBeautifulLink()" placement="right" ngbTooltip="Click to copy beautiful link">
+                                    <h1 class="d-inline-block" class="display-4 d-inline text-shadow-1-1-grey">{{profile?.userinfo?.username}}</h1>
+                                </summary>
+                            </div>
                         </ng-template>
                         <span class="lead">
-                            <span class="badge badge-dark text-uppercase ml-1 align-top">{{profile?.userinfo?.role}}</span>
+                            <span class="badge badge-dark text-uppercase align-top">{{profile?.userinfo?.role}}</span>
                         </span>                
                     </div>
                 </div>

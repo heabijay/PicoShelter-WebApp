@@ -13,17 +13,16 @@
                 col-md-2 
                 col-lg-1 
                 square 
-                d-inline-block p-1" 
-                >
-            <div class="image-thumbnail-frame" [routerLink]="'/i/' + image?.info?.imageCode">
+                d-inline-block p-1" >
+            <summary class="image-thumbnail-frame"  placement="bottom" [ngbTooltip]="image?.info?.title">
                 <div class="image-thumnail-overlay-shared" *ngIf="image?.info?.isPublic">
                     <i class="fa fa-link" aria-hidden="true"></i>
                 </div>
                 <div class="image-thumnail-overlay-loading" *ngIf="image?.resourceUrl == null">
                     <i class="fa fa fa-spinner-third fa-spin" aria-hidden="true"></i>
                 </div>
-                <div class="image-thumbnail image-thumbnail-zoomIn" [style.background-image]="image?.resourceUrl == null ? none : 'url(' + image.resourceUrl + ')'"></div>
-            </div>
+                <div [routerLink]="'/i/' + image?.info?.imageCode" class="image-thumbnail image-thumbnail-zoomIn" [style.background-image]="image?.resourceUrl == null ? none : 'url(' + image.resourceUrl + ')'"></div>
+            </summary>
         </div>
         <p *ngIf="profile?.images == null" class="text-muted text-center w-100 mt-3">
             <i class="fa fa fa-spinner-third fa-spin" aria-hidden="true"></i>
@@ -43,7 +42,7 @@
     </div>
     <hr class="my-1">
     <p *ngIf="profile?.albums == null" class="text-muted text-center w-100 mt-3">
-        <i class="fa fa fa-spinner-third fa-spin" aria-hidden="true"></i>
+        <i class="fa fa-spinner-third fa-spin" aria-hidden="true"></i>
     </p>
     <p *ngIf="profile?.albums?.data?.length == 0" class="text-muted text-center w-100 mt-3 lead">
         There's no pictures. Yet.

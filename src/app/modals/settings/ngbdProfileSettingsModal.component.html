@@ -1,0 +1,24 @@
+<div class="modal-header">
+    <h4 class="modal-title">Settings</h4>
+    <button type="button" class="btn close" aria-label="Close" (click)="close()">
+    <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <div class="d-flex">
+        <ul class="list-group mr-2" role="tablist">
+            <summary>
+                <li class="list-group-item text-center list-group-item-action active"><i class="fas fa-user-alt mr-md-2"></i><span class="d-none d-sm-inline">Profile</span></li>
+            </summary>
+            <summary>
+                <li class="list-group-item text-center list-group-item-action"><i class="fas fa-lock mr-md-2"></i><span class="d-none d-sm-inline">Security</span></li>
+            </summary>
+        </ul>
+        <div class="flex-fill overflow-hidden">
+            
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-outline-primary" (click)="close()">Ok</button>
+</div>

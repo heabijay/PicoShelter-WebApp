@@ -1,0 +1,19 @@
+<div class="modal-header">
+    <h4 class="modal-title">Images deleting</h4>
+    <button type="button" class="btn close" aria-label="Close" (click)="close()">
+    <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <ng-container *ngIf="isProceeding; else notProceeding">
+        <p class="text-center text-danger font-weight-bold">Deleting {{completedItems}}/{{imageCodes.length}}</p>
+        <ngb-progressbar type="danger" [value]="completedItems" [animated]="true" [max]="items.length" [striped]="true"></ngb-progressbar>
+    </ng-container>
+    <ng-template #notProceeding>
+        <p>Are you sure you want to delete {{imageCodes.length}} images?</p>
+    </ng-template>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-outline-secondary" (click)="close()">Cancel</button>
+    <button *ngIf="!isProceeding" type="button" class="btn btn-danger" (click)="delete()">Ok</button>
+</div>
