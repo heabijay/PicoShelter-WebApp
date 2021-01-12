@@ -1,13 +1,14 @@
 import { Component } from "@angular/core";
 import { Router } from "@angular/router";
 import { Subscription } from "rxjs";
-import { SuccessResponseDto } from "../models/successResponseDto";
 import { UserInfo } from "../models/userInfo";
-import { UserLoginData } from "../models/userLoginData";
 import { IdentityHttpService } from "../services/identityHttpService";
 import { ProfilesHttpService } from "../services/profilesHttpService";
 import { CurrentUserService } from "../services/currentUserService";
 import { TokenService } from "../services/tokenService";
+import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
+import { ToastrService } from "ngx-toastr";
+import { NgbdProfileSettingsModalComponent } from "../modals/settings/ngbdProfileSettingsModal.component"
 
 @Component({
     selector: "navbar",
@@ -31,7 +32,9 @@ export class NavbarComponent {
         private tokenService: TokenService,
         private currentUserService: CurrentUserService, 
         private router: Router,
-        public profilesHttpService: ProfilesHttpService
+        public profilesHttpService: ProfilesHttpService,
+        private modalService: NgbModal,
+        private toastrService: ToastrService
     ) {
         
     }
@@ -54,5 +57,21 @@ export class NavbarComponent {
 
     gotoMyProfile() {
         this.router.navigateByUrl(this.profilesHttpService.getProfileLink(this.currentUser.id));
+    }
+
+    openSettingsModal() {
+        const modalRef = this.modalService.open(NgbdProfileSettingsModalComponent, { centered: true, size: "xl" });
+        // modalRef.result.then(
+        //     result => {
+        //         const r = result as { success: number, failed: number };
+        //         if (r.failed > 0) {
+        //             this.toastrService.error(r.failed + " image(s) wasn't deleted due error.");
+        //         }
+        //         if (r.success > 0) {
+        //             this.toastrService.success(r.success + " image(s) deleted!");
+        //             this.reload();
+        //         }
+        //     }
+        // )
     }
 }

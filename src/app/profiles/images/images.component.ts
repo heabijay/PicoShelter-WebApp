@@ -1,5 +1,9 @@
-import { Component, HostListener, SecurityContext } from '@angular/core';
+import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
+import { NgbdProfileImageDeletingModalComponent } from 'src/app/modals/profileImageDeleting/NgbdProfileImageDeletingModal.component';
 import { ImageShortInfoDto } from 'src/app/models/imageShortInfoDto';
 import { ProfileInfoDto } from 'src/app/models/profileInfoDto';
 import { CurrentUserService } from 'src/app/services/currentUserService';
@@ -10,7 +14,10 @@ import { ImageThumbnailViewModel } from '../models/imageThumbnailViewModel';
 import { ProfilesDataService } from '../profiles.data.service';
 
 @Component({
-    templateUrl: './images.component.html'
+    templateUrl: './images.component.html',
+    providers: [
+        NgbActiveModal
+    ]
 })
 export class ImagesComponent {
     profile: ProfileInfoDto;
@@ -29,11 +36,14 @@ export class ImagesComponent {
     }
 
     constructor(
+        private router: Router,
         private imagesService: ImagesHttpService,
         private dataService: ProfilesDataService,
         private currentUserService: CurrentUserService,
         private profilesService: ProfilesHttpService,
-        private imageCacheService: ImageCacheService
+        private imageCacheService: ImageCacheService,
+        private modalService: NgbModal,
+        private toastrService: ToastrService
     ) {
         
     }
@@ -96,5 +106,29 @@ export class ImagesComponent {
             this.selectedCount++;
         else 
             this.selectedCount--;
+    }
+
+    deleteSelectedImages() {
+        const modalRef = this.modalService.open(NgbdProfileImageDeletingModalComponent, { centered: true });
+        modalRef.componentInstance.imageCodes = this.imageThumbnailViewModel.filter(t => t.selected == true).map(t => t.info.imageCode);
+        modalRef.result.then(
+            result => {
+                const r = result as { success: number, failed: number };
+                if (r.failed > 0) {
+                    this.toastrService.error(r.failed + " image(s) wasn't deleted due error.");
+                }
+                if (r.success > 0) {
+                    this.toastrService.success(r.success + " image(s) deleted!");
+                    this.reload();
+                }
+            }
+        )
+    }
+
+    reload() {
+        const currentUrl = this.router.url;
+        this.router.navigateByUrl("/not-found", { skipLocationChange: true }).then(() => {
+            this.router.navigateByUrl(currentUrl);
+        })
     }
 }

@@ -12,6 +12,9 @@ import { ErrorType } from "../enum/ErrorType";
 import { ImagesHttpService } from "../services/imagesHttpService";
 import { copyToClipboard } from "../static/copyToClipboard"
 import { Router } from "@angular/router";
+import { UploadExitGuard } from "../guards/upload.exit.guard";
+import { Observable } from "rxjs";
+import { ComponentCanDeactivate } from "../guards/componentCanDeactivate";
 
 @Component({
     templateUrl: "./upload.component.html",
@@ -20,7 +23,7 @@ import { Router } from "@angular/router";
         ImagesHttpService
     ]
 })
-export class UploadComponent {
+export class UploadComponent implements UploadExitGuard {
     @ViewChild("uploadForm") uploadForm: NgForm;
     @ViewChild("file") fileField: NgModel;
     @ViewChild("deleteInHours") deleteInHoursField: NgModel;
@@ -53,6 +56,14 @@ export class UploadComponent {
         private router: Router
     ) {
         
+    }
+    canDeactivate(component: ComponentCanDeactivate): boolean | Observable<boolean> {  
+        if (this.isUploading && !this.isUploaded) {
+            return confirm("File is still uploading. Are you sure you want leave?")
+        }
+        else {
+            return true;
+        }
     }
 
     ngOnInit(): void {

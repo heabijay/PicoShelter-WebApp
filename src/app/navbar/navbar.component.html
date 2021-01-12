@@ -26,8 +26,8 @@
                 </li>
             </ng-container>
             <ng-template #loginedTemplate>
-                <li #logined class="nav-item" ngbDropdown>
-                    <summary class="d-flex flex-row align-items-center" ngbDropdownToggle aria-haspopup="true" aria-expanded="false">
+                <li #logined class="nav-item dropdown">
+                    <summary class="d-flex flex-row" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <img [src]="currentUserAvatarLink" onload="this.style.display='block'" class="rounded-circle z-depth-0" height="40" style="display: none;">
                         <div class="d-flex flex-column mx-2 justify-content-center">
                             <ng-container *ngIf="currentUser?.profile?.firstname != null || currentUser?.profile?.lastname != null; else nameExist">
@@ -38,10 +38,11 @@
                                 <h6 class="my-0">{{currentUser?.username}}</h6>
                             </ng-template>
                         </div>
+                        <span class="dropdown-toggle align-self-center"></span>
                     </summary>
-                    <div ngbDropdownMenu class="dropdown-menu dropdown-menu-lg-right dropdown-secondary mt-1">
+                    <div class="dropdown-menu dropdown-menu-lg-right dropdown-secondary mt-1">
                         <button class="btn dropdown-item" [routerLink]="[ '/profiles/', currentUser.id ]"><i class="fas fa-user-alt pr-1"></i> My Profile</button>
-                        <button class="btn dropdown-item"><i class="fas fa-cog pr-1" aria-hidden="true"></i> Settings</button>
+                        <button class="btn dropdown-item" (click)="openSettingsModal()"><i class="fas fa-cog pr-1" aria-hidden="true"></i> Settings</button>
                         <button class="btn dropdown-item" (click)="logout()"><i class="fas fa-sign-out-alt pr-1"></i> Logout</button>
                     </div>
                 </li>

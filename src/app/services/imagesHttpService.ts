@@ -31,4 +31,13 @@ export class ImagesHttpService extends HttpService {
             }
         )
     }
+
+    deleteImage(code: string) {
+        return this.httpClient.delete(
+            this.getImageLink(code),
+            {
+                headers: this.identityService.getHeaders()
+            }
+        )
+    }
 }

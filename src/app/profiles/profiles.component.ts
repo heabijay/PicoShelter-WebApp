@@ -8,6 +8,7 @@ import { CurrentUserService } from '../services/currentUserService';
 import { ProfilesHttpService } from "../services/profilesHttpService"
 import { ImagesHttpService } from "../services/imagesHttpService"
 import { ProfilesDataService } from './profiles.data.service';
+import { copyToClipboard } from "../static/copyToClipboard"
 
 @Component({
     templateUrl: './profiles.component.html',
@@ -91,5 +92,10 @@ export class ProfilesComponent {
 
     ngOnDestroy(): void {
         this.urlSubscription.unsubscribe();
+    }
+
+    copyBeautifulLink() {
+        copyToClipboard(window.location.origin + "/p/" + this.profile.userinfo.username);
+        this.toastrService.info("Link copied to clipboard!");
     }
 }
