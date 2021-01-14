@@ -7,6 +7,7 @@ import { ProfilesComponent } from "./profiles/profiles.component";
 import { profileRoutes } from "./profiles/profiles.routes";
 import { UploadComponent } from "./upload/upload.component";
 import { UploadExitGuard } from "./guards/upload.exit.guard";
+import { ImagesComponent } from "./images/images.component";
 
 export const appRoutes: Routes = [
     { path: "", component: HomeComponent },
@@ -16,5 +17,6 @@ export const appRoutes: Routes = [
     { path: "upload", component: UploadComponent, canDeactivate: [UploadExitGuard] },
     { path: "profiles/:id", component: ProfilesComponent, children: profileRoutes },
     { path: "p/:username", component: ProfilesComponent, children: profileRoutes },
+    { path: "i/:code", component: ImagesComponent },
     { path: "**", component: NotFoundComponent }
 ]

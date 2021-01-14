@@ -16,7 +16,7 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { ToastrModule } from "ngx-toastr";
 import { ComparePasswordDirective } from "./directives/compare-password.directive"
 import { ProfilesComponent } from "./profiles/profiles.component";
-import { ImagesComponent } from "./profiles/images/images.component";
+import { ImagesComponent as ProfileImagesComponent } from "./profiles/images/images.component";
 import { AlbumsComponent } from "./profiles/albums/albums.component";
 import { OverviewComponent } from "./profiles/overview/overview.component";
 import { ProfilesDataService } from "./profiles/profiles.data.service";
@@ -28,6 +28,7 @@ import { NgbdProfileSettingsModalComponent } from './modals/settings/ngbdProfile
 import { ProfileSettingsSecurityPageComponent } from './modals/settings/securityPage/profileSettingsSecurityPage.component';
 import { ProfileSettingsProfilePageComponent } from './modals/settings/profilePage/profileSettingsProfilePage.component';
 import { UploadExitGuard } from "./guards/upload.exit.guard";
+import { ImagesComponent } from "./images/images.component";
 
 @NgModule({
     imports: [
@@ -51,13 +52,14 @@ import { UploadExitGuard } from "./guards/upload.exit.guard";
         ProfilesComponent,
         OverviewComponent,
         AlbumsComponent,
-        ImagesComponent,
+        ProfileImagesComponent,
         ComparePasswordDirective,
         UploadComponent,
         NgbdProfileImageDeletingModalComponent,
         NgbdProfileSettingsModalComponent,
         ProfileSettingsSecurityPageComponent,
-        ProfileSettingsProfilePageComponent
+        ProfileSettingsProfilePageComponent,
+        ImagesComponent
     ],
     providers: [
         TokenService,
