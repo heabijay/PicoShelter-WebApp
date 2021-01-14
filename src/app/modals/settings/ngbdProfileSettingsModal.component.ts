@@ -9,10 +9,6 @@ export class NgbdProfileSettingsModalComponent {
     constructor(
         public activeModal: NgbActiveModal
     ) {
-
-    }
-
-    ngOnInit(): void {
         
     }
 

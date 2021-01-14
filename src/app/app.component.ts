@@ -10,7 +10,8 @@ import { TokenService } from "./services/tokenService";
     templateUrl: "./app.component.html",
     providers: [
         IdentityHttpService,
-        CurrentUserService
+        CurrentUserService,
+        TokenService
     ]
 })
 export class AppComponent {
@@ -19,6 +20,7 @@ export class AppComponent {
 
     constructor(
         private currentUserService: CurrentUserService,
+        private tokenService: TokenService,
         private identityHttpService: IdentityHttpService
     ) {
 
@@ -32,7 +34,12 @@ export class AppComponent {
             },
             (error: HttpErrorResponse) =>
             {
-                if (error.status != 401 && error.status != 404)
+                if (error.status == 401) {
+                    this.tokenService.setTokenWithProfile(null);
+                    return;
+                }
+
+                if (error.status != 403 && error.status != 404)
                     this.isServerFailure = true;
             }
         ).add(

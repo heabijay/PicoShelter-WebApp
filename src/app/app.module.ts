@@ -25,6 +25,8 @@ import { ImageCacheService } from "./services/imageCacheService";
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgbdProfileImageDeletingModalComponent } from './modals/profileImageDeleting/NgbdProfileImageDeletingModal.component';
 import { NgbdProfileSettingsModalComponent } from './modals/settings/ngbdProfileSettingsModal.component';
+import { ProfileSettingsSecurityPageComponent } from './modals/settings/securityPage/profileSettingsSecurityPage.component';
+import { ProfileSettingsProfilePageComponent } from './modals/settings/profilePage/profileSettingsProfilePage.component';
 import { UploadExitGuard } from "./guards/upload.exit.guard";
 
 @NgModule({
@@ -53,7 +55,9 @@ import { UploadExitGuard } from "./guards/upload.exit.guard";
         ComparePasswordDirective,
         UploadComponent,
         NgbdProfileImageDeletingModalComponent,
-        NgbdProfileSettingsModalComponent
+        NgbdProfileSettingsModalComponent,
+        ProfileSettingsSecurityPageComponent,
+        ProfileSettingsProfilePageComponent
     ],
     providers: [
         TokenService,

@@ -7,6 +7,7 @@ import { UserInfo } from "../models/userInfo";
 import { SuccessResponseDto } from "../models/successResponseDto";
 import { HttpClient } from "@angular/common/http"
 import { UserRegistrationDto } from "../models/userRegistrationDto";
+import { UserChangePasswordDto } from "../models/userChangePasswordDto";
 
 
 @Injectable()
@@ -45,5 +46,15 @@ export class IdentityHttpService extends HttpService {
                 headers: this.identityService.getHeaders()
             }
         );
+    }
+
+    changePassword(changePasswordDto: UserChangePasswordDto) {
+        return this.httpClient.put(
+            this.serverUrl + this.subPath + "/changepassword",
+            changePasswordDto,
+            {
+                headers: this.identityService.getHeaders()
+            }
+        )
     }
 }
