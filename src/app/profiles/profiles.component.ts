@@ -60,7 +60,7 @@ export class ProfilesComponent {
                 requestMethod = this.profilesService.getProfileByUsername(username);
             }
 
-            let req = requestMethod.subscribe(
+            requestMethod.subscribe(
                 data => {
                     if (data != null && data.success) {
                         this.profile = data.data;
@@ -73,9 +73,7 @@ export class ProfilesComponent {
                         skipLocationChange: true
                     });
                 }
-            ).add(
-                () => req.unsubscribe()
-            )
+            );
         });
     }
 

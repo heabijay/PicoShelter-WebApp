@@ -25,10 +25,10 @@
                 <div class="image-thumnail-overlay-loading" *ngIf="image?.resourceUrl == null">
                     <i class="fa fa-spinner-third fa-spin" aria-hidden="true"></i>
                 </div>
-                <summary *ngIf="isMyAccount" [style.opacity]="(image.selected ? 1 : 0.3)" class="image-thumnail-overlay-selected" (click)="toggleSelect(image)">
+                <summary *ngIf="isMyAccount" [style.opacity]="(image.selected ? 1 : 0.3)" class="image-thumnail-overlay-selected px-1" (click)="toggleSelect(image)">
                     <i [ngClass]="{'text-primary': image.selected, 'fas': image.selected }" class="far fa-check-square"></i>
                 </summary>
-                <div [routerLink]="'/i/' + image?.info?.imageCode" class="image-thumbnail image-thumbnail-zoomIn" [style.background-image]="image?.resourceUrl == null ? none : 'url(' + image.resourceUrl + ')'"></div>
+                <div [routerLink]="'/i/' + image?.info?.imageCode" class="image-thumbnail image-thumbnail-zoomIn" [style.background-image]="image?.resourceUrl == null ? 'none' : 'url(' + image.resourceUrl + ')'"></div>
             </summary>
         </div>
         <p *ngIf="profile?.images?.data?.length == 0" class="text-muted text-center w-100 mt-3 lead">
@@ -36,7 +36,7 @@
         </p>
 
         <p *ngIf="isLoading" class="text-muted text-center w-100 mt-3">
-            <i class="fa fa fa-spinner-third fa-spin" aria-hidden="true"></i>
+            <i class="fa fa-spinner-third fa-spin" aria-hidden="true"></i>
         </p>
         <button *ngIf="!isAllImagesLoaded && !isLoading" (click)="loadNextPage()" class="btn btn-primary w-100 mt-3" type="button"><i class="fa fa-bolt mr-2" aria-hidden="true"></i>Load more images</button>
         <small *ngIf="profile?.images?.data?.length > 0 && isAllImagesLoaded" class="text-muted text-center w-100 mt-3">

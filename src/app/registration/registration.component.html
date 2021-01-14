@@ -33,7 +33,7 @@
         </div>
         <div class="form-group">
             <label>Confirm Password:</label>
-        <input type="password" [ngClass]="{ 'is-invalid': confirmPassword.touched && confirmPassword.invalid }" class="form-control" placeholder="Password" name="confirmPassword" ngModel #confirmPassword="ngModel" compare-password="password">
+            <input type="password" [ngClass]="{ 'is-invalid': confirmPassword.touched && confirmPassword.invalid }" class="form-control" placeholder="Password" name="confirmPassword" ngModel #confirmPassword="ngModel" compare-password="password">
             <div [hidden]="confirmPassword.valid || confirmPassword.untouched">
                 <p class="invalid-feedback d-block">Password doesn't match</p>
             </div>
