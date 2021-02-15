@@ -7,7 +7,7 @@
 <div class="modal-body">
     <ng-container *ngIf="isProceeding; else notProceeding">
         <p class="text-center text-danger font-weight-bold">Deleting {{completedItems}}/{{imageCodes.length}}</p>
-        <ngb-progressbar type="danger" [value]="completedItems" [animated]="true" [max]="items.length" [striped]="true"></ngb-progressbar>
+        <ngb-progressbar type="danger" [value]="completedItems" [animated]="true" [max]="imageCodes.length" [striped]="true"></ngb-progressbar>
     </ng-container>
     <ng-template #notProceeding>
         <p>Are you sure you want to delete {{imageCodes.length}} images?</p>

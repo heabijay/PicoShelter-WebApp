@@ -12,6 +12,9 @@ import { TokenService } from "./services/tokenService";
         IdentityHttpService,
         CurrentUserService,
         TokenService
+    ],
+    styles: [
+        "../node_modules/ng2-image-viewer/imageviewer.scss"
     ]
 })
 export class AppComponent {

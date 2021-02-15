@@ -1,0 +1,46 @@
+<div class="modal-header">
+    <h4 class="modal-title">Album settings</h4>
+    <button type="button" class="btn close" aria-label="Close" (click)="close()">
+    <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <form #albumCreateFrom="ngForm" name="albumCreateFrom">
+        <fieldset [disabled]="isProceeding">
+            <div class="form-group">
+                <label class="text-muted text-uppercase" for="title">Title</label>
+                <input [ngClass]="{ 'is-invalid': title.touched && title.invalid }" id="title" class="form-control" type="text" name="title" [(ngModel)]="dto.title" #title="ngModel" maxlength="64" />
+            </div>
+            <div class="custom-control custom-checkbox mb-3">
+                <input type="checkbox" class="custom-control-input" name="isSetUsercode" ngModel #isSetUsercode="ngModel" id="isSetUsercode">
+                <label class="custom-control-label" for="isSetUsercode">Set usercode</label>
+                <small class="form-text text-muted">You can set your own link</small>
+            </div>
+            <div class="form-group" *ngIf="isSetUsercode.value">
+                <label class="text-muted text-uppercase" for="usercode">Usercode</label>
+                <input [ngClass]="{ 'is-invalid': userCode.touched && userCode.invalid }" id="userCode" class="form-control" type="text" name="userCode" [(ngModel)]="dto.userCode" #userCode="ngModel" required pattern="^[a-zA-Z0-9_]{3,20}$"/>
+                <div [hidden]="userCode.valid || userCode.untouched">
+                    <p class="invalid-feedback d-block" *ngIf="userCode.errors?.required || userCode.errors?.pattern">Usercode length must be 3..20, can contains numbers, letters and '_'</p>
+                    <p class="invalid-feedback d-block" *ngIf="userCode.errors?.alreadyRegistered">This usercode already registered.</p>
+                </div>
+                <small *ngIf="userCode.valid" class="form-text text-muted">Short link will be <b>{{userCodeLink}}</b></small>
+            </div>
+            <div class="custom-control custom-checkbox mb-3">
+                <input type="checkbox" class="custom-control-input" name="isPublic" [(ngModel)]="dto.isPublic" #isPublic="ngModel" id="isPublic">
+                <label class="custom-control-label" for="isPublic">Make public</label>
+                <small class="form-text text-muted">It's allow you to share this album simplify by link</small>
+            </div>
+        </fieldset>
+    </form>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-outline-secondary" (click)="close()">Cancel</button>
+    <button [disabled]="albumCreateFrom.invalid || isProceeding" type="button" class="btn btn-primary" (click)="create()">
+        <ng-container *ngIf="isProceeding; else notProceeding">
+            <i class="fa fa-spinner-third fa-spin mr-2" aria-hidden="true"></i>Confirming
+        </ng-container>
+        <ng-template #notProceeding>
+            Confirm
+        </ng-template>
+    </button>
+</div>

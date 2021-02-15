@@ -19,6 +19,7 @@
     "@angular/router": "~10.0.0",
     "@ng-bootstrap/ng-bootstrap": "^8.0.1",
     "bootstrap": "^4.5.0",
+    "ngx-pinch-zoom": "^2.5.4",
     "ngx-toastr": "^13.2.0",
     "rxjs": "~6.5.5",
     "zone.js": "~0.10.3"

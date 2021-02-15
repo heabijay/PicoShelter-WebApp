@@ -1,50 +1,60 @@
 <div class="component-fill">
-    <form name="registrationForm" #registrationForm="ngForm" (ngSubmit)="register()" novalidate class="container col-xs-12 col-sm-8 col-md-6 col-lg-3">
-        <h1 class="display-4 text-center">Registration</h1>
-        <div class="form-group">
-            <label>Username:</label>
-            <div class="input-group">
-                <div class="input-group-prepend">
-                    <div class="input-group-text">@</div>
+    <ng-container *ngIf="isNeedCheckEmail; else noNeedCheckEmailYet">
+        <div class="alert alert-success" role="alert">
+            <h4 class="alert-heading">Well done!</h4>
+            <p>Now you need check your email <b>{{user.email}}</b> and finish a registration.</p>
+            <hr>
+            <button class="btn btn-success btn-block" type="button" routerLink="/login">Switch to login page</button>
+        </div>
+    </ng-container>
+    <ng-template #noNeedCheckEmailYet>
+        <form name="registrationForm" #registrationForm="ngForm" (ngSubmit)="register()" novalidate class="container col-xs-12 col-sm-8 col-md-6 col-lg-3">
+            <h1 class="display-4 text-center">Registration</h1>
+            <div class="form-group">
+                <label>Username:</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">@</div>
+                    </div>
+                    <input type="text" [ngClass]="{ 'is-invalid': username.touched && username.invalid }" class="form-control" placeholder="Username" required name="username" [(ngModel)]="user.username" #username="ngModel" pattern="^[a-zA-Z0-9_]{3,20}$">
                 </div>
-                <input type="text" [ngClass]="{ 'is-invalid': username.touched && username.invalid }" class="form-control" placeholder="Username" required name="username" [(ngModel)]="user.username" #username="ngModel" pattern="^[a-zA-Z0-9_]{3,20}$">
+                <div [hidden]="username.valid || username.untouched">
+                    <p class="invalid-feedback d-block" *ngIf="username.errors?.required || username.errors?.pattern">Username length must be 3..20, can contains numbers, letters and '_'</p>
+                    <p class="invalid-feedback d-block" *ngIf="username.errors?.alreadyRegistered">This username already registered.</p>
+                </div>
             </div>
-            <div [hidden]="username.valid || username.untouched">
-                <p class="invalid-feedback d-block" *ngIf="username.errors?.required || username.errors?.pattern">Username length must be 3..20, can contains numbers, letters and '_'</p>
-                <p class="invalid-feedback d-block" *ngIf="username.errors?.alreadyRegistered">This username already registered.</p>
+            <div class="form-group">
+                <label>Email:</label>
+                <div class="input-group">
+                    <input type="text" [ngClass]="{ 'is-invalid': email.touched && email.invalid }" class="form-control" placeholder="username@email.com" required name="email" [(ngModel)]="user.email" #email="ngModel" pattern="^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$">
+                </div>
+                <div [hidden]="email.valid || email.untouched">
+                    <p class="invalid-feedback d-block" *ngIf="email.errors?.required || email.errors?.pattern">Email doesn't matching default email template. Example: abc123@gmail.com</p>
+                    <p class="invalid-feedback d-block" *ngIf="email.errors?.alreadyRegistered">This email already registered.</p>
+                </div>
             </div>
-        </div>
-        <div class="form-group">
-            <label>Email:</label>
-            <div class="input-group">
-                <input type="text" [ngClass]="{ 'is-invalid': email.touched && email.invalid }" class="form-control" placeholder="username@email.com" required name="email" [(ngModel)]="user.email" #email="ngModel" pattern="^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$">
+            <div class="form-group">
+                <label>Password:</label>
+                <input type="password" [ngClass]="{ 'is-invalid': password.touched && password.invalid }" class="form-control" placeholder="Password" required name="password" [(ngModel)]="user.password" pattern="^(?=.*[0-9]+.*)(?=.*[a-zA-Z]+.*)[0-9a-zA-Z]{6,}$" #password="ngModel" compare-password="confirmPassword" parent="true">
+                <div [hidden]="password.valid || password.untouched">
+                    <p class="invalid-feedback d-block">Password must contain at least one letter, at least one number, and be longer than six charaters</p>
+                </div>
             </div>
-            <div [hidden]="email.valid || email.untouched">
-                <p class="invalid-feedback d-block" *ngIf="email.errors?.required || email.errors?.pattern">Email doesn't matching default email template. Example: abc123@gmail.com</p>
-                <p class="invalid-feedback d-block" *ngIf="email.errors?.alreadyRegistered">This email already registered.</p>
+            <div class="form-group">
+                <label>Confirm Password:</label>
+                <input type="password" [ngClass]="{ 'is-invalid': confirmPassword.touched && confirmPassword.invalid }" class="form-control" placeholder="Password" name="confirmPassword" ngModel #confirmPassword="ngModel" compare-password="password">
+                <div [hidden]="confirmPassword.valid || confirmPassword.untouched">
+                    <p class="invalid-feedback d-block">Password doesn't match</p>
+                </div>
             </div>
-        </div>
-        <div class="form-group">
-            <label>Password:</label>
-            <input type="password" [ngClass]="{ 'is-invalid': password.touched && password.invalid }" class="form-control" placeholder="Password" required name="password" [(ngModel)]="user.password" pattern="^(?=.*[0-9]+.*)(?=.*[a-zA-Z]+.*)[0-9a-zA-Z]{6,}$" #password="ngModel" compare-password="confirmPassword" parent="true">
-            <div [hidden]="password.valid || password.untouched">
-                <p class="invalid-feedback d-block">Password must contain at least one letter, at least one number, and be longer than six charaters</p>
-            </div>
-        </div>
-        <div class="form-group">
-            <label>Confirm Password:</label>
-            <input type="password" [ngClass]="{ 'is-invalid': confirmPassword.touched && confirmPassword.invalid }" class="form-control" placeholder="Password" name="confirmPassword" ngModel #confirmPassword="ngModel" compare-password="password">
-            <div [hidden]="confirmPassword.valid || confirmPassword.untouched">
-                <p class="invalid-feedback d-block">Password doesn't match</p>
-            </div>
-        </div>
-        <button type="submit" class="btn btn-primary btn-block" [disabled]="registrationForm.invalid || isProceeding">
-            <ng-container *ngIf="!isProceeding; else Proceeding">
-                Submit
-            </ng-container>
-            <ng-template #Proceeding>
-                Proceeding
-            </ng-template>
-        </button>
-    </form>
+            <button type="submit" class="btn btn-primary btn-block" [disabled]="registrationForm.invalid || isProceeding">
+                <ng-container *ngIf="!isProceeding; else Proceeding">
+                    Submit
+                </ng-container>
+                <ng-template #Proceeding>
+                    Proceeding
+                </ng-template>
+            </button>
+        </form>
+    </ng-template>
 </div>

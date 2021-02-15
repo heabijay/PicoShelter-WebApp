@@ -29,6 +29,11 @@ import { ProfileSettingsSecurityPageComponent } from './modals/settings/security
 import { ProfileSettingsProfilePageComponent } from './modals/settings/profilePage/profileSettingsProfilePage.component';
 import { UploadExitGuard } from "./guards/upload.exit.guard";
 import { ImagesComponent } from "./images/images.component";
+import { PinchZoomModule } from "ngx-pinch-zoom"
+import { FileSizePipe } from "./pipes/fileSizePipe"
+import { FormatTimePipe } from "./pipes/formatTimePipe"
+import { NgbdImageEditModalComponent } from './modals/imageEdit/ngbdImageEditModal.component';
+import { NgbdAlbumCreateModalComponent } from './modals/albumCreate/ngbdAlbumCreateModal.component';
 
 @NgModule({
     imports: [
@@ -40,7 +45,8 @@ import { ImagesComponent } from "./images/images.component";
         ToastrModule.forRoot({
             progressBar: true
         }),
-        NgbModule
+        NgbModule,
+        PinchZoomModule
     ],
     declarations: [
         AppComponent,
@@ -59,7 +65,11 @@ import { ImagesComponent } from "./images/images.component";
         NgbdProfileSettingsModalComponent,
         ProfileSettingsSecurityPageComponent,
         ProfileSettingsProfilePageComponent,
-        ImagesComponent
+        ImagesComponent,
+        FileSizePipe,
+        FormatTimePipe,
+        NgbdImageEditModalComponent,
+        NgbdAlbumCreateModalComponent
     ],
     providers: [
         TokenService,

@@ -1,0 +1,43 @@
+<div class="modal-header">
+    <h4 class="modal-title">Editing image</h4>
+    <button type="button" class="btn close" aria-label="Close" (click)="close()">
+    <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <fieldset [disabled]="isProceeding">
+        <div class="form-group">
+            <label class="text-muted text-uppercase" for="title">Title</label>
+            <input [ngClass]="{ 'is-invalid': title.touched && title.invalid }" id="title" class="form-control" type="text" name="title" [(ngModel)]="dto.title" #title="ngModel" maxlength="64" />
+        </div>
+        <div class="custom-control custom-checkbox mb-3">
+            <input type="checkbox" class="custom-control-input" name="isChangeLifetime" [(ngModel)]="dto.isChangeLifetime" #isChangeLifetime="ngModel" id="isChangeLifetime">
+            <label class="custom-control-label" for="isChangeLifetime">Change image lifetime</label>
+        </div>
+        <div class="form-group" [hidden]="!isChangeLifetime.value">
+            <select [ngClass]="{ 'is-invalid': deleteInHours.touched && deleteInHours.invalid }" name="deleteInHours" [(ngModel)]="dto.deleteInHours" #deleteInHours="ngModel" class="custom-select" required>
+                <option value="0">Save for Forever</option>
+                <option value="1">Save for 1 Hour</option>
+                <option value="24">Save for 24 Hours</option>
+                <option value="168">Save for Week</option>
+                <option value="720">Save for Month</option>
+            </select>
+        </div>
+        <div class="custom-control custom-checkbox mb-3">
+            <input type="checkbox" class="custom-control-input" name="isPublic" [(ngModel)]="dto.isPublic" #isPublic="ngModel" id="isPublic">
+            <label class="custom-control-label" for="isPublic">Make public</label>
+            <small class="form-text text-muted">It's allow you to share this image simplify by link</small>
+        </div>
+    </fieldset>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-outline-secondary" (click)="close()">Cancel</button>
+    <button [disabled]="isProceeding" type="button" class="btn btn-primary" (click)="update()">
+        <ng-container *ngIf="isProceeding; else notProceeding">
+            <i class="fa fa-spinner-third fa-spin mr-2" aria-hidden="true"></i>Updating
+        </ng-container>
+        <ng-template #notProceeding>
+            Ok
+        </ng-template>
+    </button>
+</div>

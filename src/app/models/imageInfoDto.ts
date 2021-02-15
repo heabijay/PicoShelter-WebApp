@@ -8,5 +8,5 @@ export class ImageInfoDto {
     isPublic: boolean;
     user: UserInfo;
     uploadedTime: Date;
-    autoDeleteIn: Date;
+    autoDeleteIn?: Date;
 }
