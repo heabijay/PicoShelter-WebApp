@@ -1,5 +1,4 @@
 import { Component, ViewChild } from '@angular/core';
-import { UserInfo } from 'src/app/models/userInfo';
 import { CurrentUserService } from 'src/app/services/currentUserService';
 import { ProfilesHttpService } from 'src/app/services/profilesHttpService';
 import { ProfileHttpService } from 'src/app/services/profileHttpService';
@@ -8,7 +7,6 @@ import { ToastrService } from 'ngx-toastr';
 import { NgForm, NgModel } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ErrorResponseDto } from 'src/app/models/errorResponseDto';
-import { S_IWGRP } from 'constants';
 import { ErrorType } from 'src/app/enum/ErrorType';
 
 @Component({

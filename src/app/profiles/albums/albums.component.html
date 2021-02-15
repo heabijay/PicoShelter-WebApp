@@ -1,0 +1,53 @@
+<div class="container mt-5" id="albums">
+    <div class="d-flex flex-column flex-sm-row align-items-sm-center">
+        <h1 class="mr-2 flex-grow-1">Albums</h1>
+        <div *ngIf="isMyAccount" class="d-flex flex-column flex-sm-row">
+            <button (click)="createAlbum()" class="btn btn-primary" type="button"><i class="fa fa-plus mr-2" aria-hidden="true"></i>Create</button>
+            <!-- <div class="d-flex flex-row" *ngIf="selectedCount > 0">
+                <button class="btn flex-grow-1 btn-success mt-2 mt-sm-0 ml-sm-1" type="button"><i class="fas fa-share-alt mr-2"></i>Share <span *ngIf="selectedCount > 1">as album</span></button>
+                <button class="btn flex-grow-1 btn-danger mt-2 mt-sm-0 ml-1" type="button" (click)="deleteSelectedImages()"><i class="fas fa-trash mr-2"></i>Delete</button>
+            </div> -->
+        </div>
+    </div>
+    <hr class="my-1">
+    <div class="row mx-n1">
+        <div *ngFor="let album of albums"
+            class="col-md-6 col-lg-4 my-2">
+            <summary class="bg-gradient-saintPetersburg h-100" style="border-radius: 10px">
+                <div style="border-radius: 10px" class="h-100 bg-image-cover" [style.background-image]="album.thumbnailResourceUrl ? 'url(' + album.thumbnailResourceUrl + ')' : 'none'">
+                    <div [ngClass]="{'bg-white-transparent': album.thumbnailResourceUrl}" class="h-100" style="border-radius: 10px">
+                        <div class="onHoverBlack p-3 h-100" style="border-radius: 10px">
+                            <div class="d-flex flex-column flex-md-row overflow-hidden h-100 align-items-center">
+                                <div class="flex-fill align-self-start align-self-md-center">
+                                    <h6 class="text-uppercase font-weight-bold lead">
+                                        <ng-container *ngIf="album.dto.title; else noTitle">
+                                            {{album.dto.title}}
+                                        </ng-container>
+                                        <ng-template #noTitle>
+                                            <span class="text-muted">Untitled</span>
+                                        </ng-template>
+                                    </h6>
+                                    <div>
+                                        <p class="badge badge-info text-uppercase m-0">Without images</p>
+                                    </div>
+                                </div>
+                                <div class="p-1"><i class="fa-lg fas fa-angle-double-right"></i></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </summary>
+        </div>
+        <p *ngIf="albums.length == 0" class="text-muted text-center w-100 mt-3 lead">
+            There's no albums. Yet.
+        </p>
+
+        <p *ngIf="isLoading" class="text-muted text-center w-100 mt-3">
+            <i class="fa fa-spinner-third fa-spin" aria-hidden="true"></i>
+        </p>
+        <!-- <button *ngIf="!isAllImagesLoaded && !isLoading" (click)="loadNextPage()" class="btn btn-primary w-100 mt-3" type="button"><i class="fa fa-bolt mr-2" aria-hidden="true"></i>Load more images</button>
+        <small *ngIf="profile?.images?.data?.length > 0 && isAllImagesLoaded" class="text-muted text-center w-100 mt-3">
+            Totally {{profile?.images?.totalCount}} image(s)
+        </small> -->
+    </div>
+</div>

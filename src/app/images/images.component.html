@@ -1,1 +1,116 @@
-Images Component
+<ng-container *ngIf="info; else noInfo">
+    <div class="component-fill flex-column justify-content-start">
+        <div class="bg-gradient-kindSteel w-100 border shadow-sm">
+            <div class="d-flex flex-column flex-md-row mt-3 mt-md-0">
+                <div class="col-12 col-md-1 col-lg-2 d-flex align-items-center">
+                    <summary class="m-1" *ngIf="!isFirstPage" (click)="location.back()">
+                        <i class="fa-2x fas fa-arrow-left text-secondary"></i>
+                    </summary>
+                </div>
+                <div class="col-12 col-md-10 col-lg-8 mt-md-3">
+                    <h1 *ngIf="info.title" class="display-4">{{info.title}}</h1>
+                    <p class="float-left">
+                        <ng-container *ngIf="info.user; else noUser">
+                            <p class="text-muted m-0">
+                                <span class="text-uppercase">Uploaded by </span>
+                                <a [routerLink]="'/profiles/' + info.user.id">
+                                    <ng-container *ngIf="info.user.profile.firstname || info.user.profile.lastname; else noName">
+                                        {{info.user.profile.firstname}} {{info.user.profile.lastname}} (@{{info.user.username}})
+                                    </ng-container>
+                                    <ng-template #noName>
+                                        @{{info.user.username}}
+                                    </ng-template>
+                                </a>
+                            </p>
+                        </ng-container>
+                        <ng-template #noUser>
+                            <p class="text-muted m-0 text-uppercase">Anonymous upload</p>
+                        </ng-template>
+                    </p>
+                    <p class="float-right text-muted">{{infoUploadedDate | date:'short'}}</p>
+                </div>
+            </div>
+        </div>
+        <div class="w-100 row flex-fill m-0 pt-3">
+            <div class="col-12 col-md-8 col-lg-10 px-3 p-0">
+                <ng-container *ngIf="imageResourceUrl; else notImageYet">
+                    <pinch-zoom class="w-100 h-100 bg-white pz-icon-right" [limit-zoom]='5' style="min-height: 70vh;">
+                        <div class="h-100 w-100 pz-image-background" [style.background-image]="'url(' + imageResourceUrl + ')'"></div>
+                    </pinch-zoom>
+                </ng-container>
+                <ng-template #notImageYet>
+                    <div class="h-100 w-100 pz-image-background d-flex justify-content-center align-items-center text-shadow-1-1-grey" [style.background-image]="thumbnailResourceUrl ? 'url(' + thumbnailResourceUrl + ')' : 'none'">
+                        <i class="fa fa-2x fa-spinner-third fa-spin" aria-hidden="true"></i>
+                    </div>
+                </ng-template>
+            </div>
+            <div class="col-12 col-md-4 col-lg-2">
+                <div class="mt-3">
+                    <div class="list-group text-center" id="list-tab" role="tablist">
+                        <div *ngIf="imageWidth && imageHeight" class="text-muted lead">
+                            <p class="text-uppercase m-0">{{info.imageType}}</p>
+                            <p class="m-0">{{imageWidth}}x{{imageHeight}}</p>
+                            <p>{{imageSize | fileSize}}</p>
+                        </div>
+
+                        <div *ngIf="info.autoDeleteIn">
+                            <p class="m-0 text-muted">Will be auto deleted</p>
+                            <ng-container *ngIf="countToDelete > 0; else countNegative">
+                                <p>{{countToDelete | formatTime}}</p>
+                            </ng-container>
+                            <ng-template #countNegative>
+                                <p>right now</p>
+                            </ng-template>
+                            
+                        </div>
+
+                        <summary (click)="downloadImage()" class="list-group-item border-0 list-group-item-action px-0 px-sm-2">
+                            <ng-container *ngIf="isRequestedDownload; else noRequestedDownload">
+                                <i class="fa fa-spinner-third fa-spin mr-2" aria-hidden="true"></i>Preparing download
+                            </ng-container>
+                            <ng-template #noRequestedDownload>
+                                <i class="fas fa-download mr-2"></i>Download
+                            </ng-template>
+                        </summary>
+                        <hr class="w-100 m-0"/>
+                        <summary *ngIf="isAdminAccess" (click)="performIsPublicCbChanged()" class="list-group-item border-0 list-group-item-action px-0 px-sm-2">
+                            <div class="custom-control custom-switch">
+                                <input type="checkbox" [(ngModel)]="isPublicStateViewModel" [disabled]="isPublicStateChanging" (change)="onIsPublicCbChanged($event)" class="custom-control-input" id="isPublicSwitch" style="cursor: pointer;">
+                                <label class="custom-control-label" for="isPublicSwitch" style="cursor: pointer;">Public access</label>
+                            </div>
+                        </summary>
+                        <summary *ngIf="info.isPublic" (click)="copyLink()" class="list-group-item border-0 list-group-item-action px-0 px-sm-2"><i class="fas fa-share mr-2"></i>Copy link</summary>
+                        <summary *ngIf="info.isPublic" (click)="copyDirectLink()" class="list-group-item border-0 list-group-item-action px-0 px-sm-2"><i class="fas fa-external-link-alt mr-2"></i>Copy direct link</summary>
+                    
+                        <div *ngIf="isAdminAccess">
+                            <hr class="w-100 m-0"/>
+                            <summary (click)="editImage()" class="list-group-item border-0 list-group-item-action px-0 px-sm-2"><i class="far fa-edit mr-2"></i>Edit</summary>
+                            <summary (click)="deleteImage()" class="list-group-item border-0 list-group-item-action px-0 px-sm-2"><i class="fas fa-trash mr-2"></i>Delete</summary>
+                        </div>
+                    </div>
+                    <!-- <div *ngIf="info.autoDeleteIn" class="d-block mb-3">
+                        <p class="float-left m-0">Will be deleted: </p>
+                        <p class="float-right m-0">{{deletedInTime}}</p>
+                    </div>
+                    <button class="btn btn-secondary btn-block" type="button">Share</button> -->
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-container>
+<ng-template #noInfo>
+    <div class="component-fill">
+        <i class="fa fa-2x fa-spinner-third fa-spin" aria-hidden="true"></i>
+    </div>
+</ng-template>
+
+<!-- <div class="row m-0">
+    <div class="col-6">
+        <pinch-zoom [limit-zoom]="10">
+            <img [src]="thumbnailUrl"/> 
+        </pinch-zoom>
+    </div>
+    <div class="col-6">
+        Some info
+    </div>
+</div> -->

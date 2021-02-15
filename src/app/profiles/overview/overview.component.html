@@ -19,7 +19,7 @@
                     <i class="fa fa-link" aria-hidden="true"></i>
                 </div>
                 <div class="image-thumnail-overlay-loading" *ngIf="image?.resourceUrl == null">
-                    <i class="fa fa fa-spinner-third fa-spin" aria-hidden="true"></i>
+                    <i class="fa fa-spinner-third fa-spin" aria-hidden="true"></i>
                 </div>
                 <div [routerLink]="'/i/' + image?.info?.imageCode" class="image-thumbnail image-thumbnail-zoomIn" [style.background-image]="image?.resourceUrl == null ? 'none' : 'url(' + image.resourceUrl + ')'"></div>
             </summary>
@@ -33,7 +33,7 @@
     </div>
 </div>
 
-<div class="container mt-4" *ngIf="profile?.albums?.data && profile?.albums?.data?.length > 0">
+<div class="container mt-4" *ngIf="profile?.albums?.data">
     <div class="row align-items-end">
         <h1 class="col">Albums</h1>
         <a class="text-decoration-none" routerLink="albums">
@@ -45,6 +45,6 @@
         <i class="fa fa-spinner-third fa-spin" aria-hidden="true"></i>
     </p>
     <p *ngIf="profile?.albums?.data?.length == 0" class="text-muted text-center w-100 mt-3 lead">
-        There's no pictures. Yet.
+        There's no albums. Yet.
     </p>
 </div>

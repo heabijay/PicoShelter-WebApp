@@ -9,28 +9,30 @@
         </div>
         <div *ngIf="isPasswordChanging">
             <form name="changePasswordForm" #changePasswordForm="ngForm" novalidate>
-                <div class="row m-0">
-                    <label for="currentPassword" class="col-12 col-form-label pl-0">Current password: </label>
-                    <input type="password" [ngClass]="{ 'is-invalid': currentPassword.touched && currentPassword.invalid }" class="col-12 form-control" id="currentPassword" name="currentPassword" ngModel #currentPassword="ngModel" [(ngModel)]="changePwdDto.currentPassword" required placeholder="********">
-                    <div [hidden]="currentPassword.valid || currentPassword.untouched">
-                        <p class="invalid-feedback d-block" *ngIf="currentPassword.errors?.required">Current password required</p>
-                        <p class="invalid-feedback d-block" *ngIf="currentPassword.errors?.incorrectCredentials">Entered password is incorrect</p>
+                <fieldset [disabled]="isPasswordProceeding">
+                    <div class="row m-0">
+                        <label for="currentPassword" class="col-12 col-form-label pl-0">Current password: </label>
+                        <input type="password" [ngClass]="{ 'is-invalid': currentPassword.touched && currentPassword.invalid }" class="col-12 form-control" id="currentPassword" name="currentPassword" ngModel #currentPassword="ngModel" [(ngModel)]="changePwdDto.currentPassword" required placeholder="********">
+                        <div [hidden]="currentPassword.valid || currentPassword.untouched">
+                            <p class="invalid-feedback d-block" *ngIf="currentPassword.errors?.required">Current password required</p>
+                            <p class="invalid-feedback d-block" *ngIf="currentPassword.errors?.incorrectCredentials">Entered password is incorrect</p>
+                        </div>
                     </div>
-                </div>
-                <div class="row m-0">
-                    <label for="newPassword" class="col-12 col-form-label pl-0">New password: </label>
-                    <input type="password" [ngClass]="{ 'is-invalid': newPassword.touched && newPassword.invalid }" class="col-12 form-control" id="newPassword" name="newPassword" required pattern="^(?=.*[0-9]+.*)(?=.*[a-zA-Z]+.*)[0-9a-zA-Z]{6,}$" [(ngModel)]="changePwdDto.newPassword" #newPassword="ngModel" compare-password="confirmPassword" parent="true" placeholder="********">
-                    <div [hidden]="newPassword.valid || newPassword.untouched">
-                        <p class="invalid-feedback d-block">Password must contain at least one letter, at least one number, and be longer than six charaters</p>
+                    <div class="row m-0">
+                        <label for="newPassword" class="col-12 col-form-label pl-0">New password: </label>
+                        <input type="password" [ngClass]="{ 'is-invalid': newPassword.touched && newPassword.invalid }" class="col-12 form-control" id="newPassword" name="newPassword" required pattern="^(?=.*[0-9]+.*)(?=.*[a-zA-Z]+.*)[0-9a-zA-Z]{6,}$" [(ngModel)]="changePwdDto.newPassword" #newPassword="ngModel" compare-password="confirmPassword" parent="true" placeholder="********">
+                        <div [hidden]="newPassword.valid || newPassword.untouched">
+                            <p class="invalid-feedback d-block">Password must contain at least one letter, at least one number, and be longer than six charaters</p>
+                        </div>
                     </div>
-                </div>
-                <div class="row m-0">
-                    <label for="confirmPassword" class="col-12 col-form-label pl-0">Confirm password: </label>
-                    <input type="password" [ngClass]="{ 'is-invalid': confirmPassword.touched && confirmPassword.invalid }" class="col-12 form-control" id="confirmPassword" name="confirmPassword" ngModel #confirmPassword="ngModel" compare-password="newPassword" placeholder="********">
-                    <div [hidden]="confirmPassword.valid || confirmPassword.untouched">
-                        <p class="invalid-feedback d-block">Password doesn't match</p>
+                    <div class="row m-0">
+                        <label for="confirmPassword" class="col-12 col-form-label pl-0">Confirm password: </label>
+                        <input type="password" [ngClass]="{ 'is-invalid': confirmPassword.touched && confirmPassword.invalid }" class="col-12 form-control" id="confirmPassword" name="confirmPassword" ngModel #confirmPassword="ngModel" compare-password="newPassword" placeholder="********">
+                        <div [hidden]="confirmPassword.valid || confirmPassword.untouched">
+                            <p class="invalid-feedback d-block">Password doesn't match</p>
+                        </div>
                     </div>
-                </div>
+                </fieldset>
                 <div class="d-flex flex-row mt-2">
                     <button type="submit" class="btn col btn-success mr-2" [disabled]="changePasswordForm.invalid || isPasswordProceeding" (click)="changePassword()">
                         <ng-container *ngIf="isPasswordProceeding; else notProceeding">

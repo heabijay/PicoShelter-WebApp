@@ -46,7 +46,7 @@ export class ProfilesComponent {
             if (id != null) {
                 this.avatarUrl = this.profilesService.getAvatarLink(id);
 
-                if (this.currentUserService.currentUser.id == id)
+                if (this.currentUserService.currentUser?.id == id)
                     this.profile.userinfo = this.currentUserService.currentUser;
 
                 requestMethod = this.profilesService.getProfile(id);

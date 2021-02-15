@@ -19,6 +19,7 @@ export const emailRegex = /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2
 })
 export class RegistrationComponent {
     isProceeding: boolean = false;
+    isNeedCheckEmail: boolean = false;
     user = new UserRegistrationDto();
 
     @ViewChild("registrationForm") registrationForm: NgForm;
@@ -53,12 +54,8 @@ export class RegistrationComponent {
         registrationEntity.username = this.user.username;
         registrationEntity.password = this.user.password;
         this.identityHttpService.register(registrationEntity).subscribe(
-            (data: SuccessResponseDto<UserLoginData>) => {
-                if (data.success) {
-                    this.tokenService.setTokenWithProfile(data.data);
-                    this.router.navigateByUrl("/profiles/" + data.data.user.id);
-                    this.toastrService.success("Registration successful!");
-                }
+            (data) => {
+                this.isNeedCheckEmail = true;
             },
             (e: HttpErrorResponse) => {
                 let error = e.error as ErrorResponseDto;
