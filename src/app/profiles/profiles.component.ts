@@ -9,13 +9,15 @@ import { ProfilesHttpService } from "../services/profilesHttpService"
 import { ImagesHttpService } from "../services/imagesHttpService"
 import { ProfilesDataService } from './profiles.data.service';
 import { copyToClipboard } from "../static/copyToClipboard"
+import { AlbumHttpService } from '../services/albumHttpService';
 
 @Component({
     templateUrl: './profiles.component.html',
     providers: [
         ProfilesHttpService,
         CurrentUserService,
-        ImagesHttpService
+        ImagesHttpService,
+        AlbumHttpService
     ]
 })
 export class ProfilesComponent {
@@ -32,16 +34,17 @@ export class ProfilesComponent {
         private profilesService: ProfilesHttpService,
         private currentUserService: CurrentUserService,
         private toastrService: ToastrService,
-        private dataService: ProfilesDataService
+        private dataService: ProfilesDataService,
+        private albumService: AlbumHttpService
     ) {
         this.paramSubscription = this.activatedRoute.params.subscribe(param => 
         {
             dataService.clearData();
 
-            var id: number = param["id"];
-            var username: string = param["username"];
+            const id: number = param["id"];
+            const username: string = param["username"];
 
-            var requestMethod : Observable<SuccessResponseDto<ProfileInfoDto>>;
+            let requestMethod : Observable<SuccessResponseDto<ProfileInfoDto>>;
 
             if (id != null) {
                 this.avatarUrl = this.profilesService.getAvatarLink(id);

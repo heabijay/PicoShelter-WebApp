@@ -6,12 +6,14 @@ import { Subscription } from 'rxjs';
 import { NgbdProfileImageDeletingModalComponent } from 'src/app/modals/profileImageDeleting/NgbdProfileImageDeletingModal.component';
 import { ImageShortInfoDto } from 'src/app/models/imageShortInfoDto';
 import { ProfileInfoDto } from 'src/app/models/profileInfoDto';
+import { AlbumHttpService } from 'src/app/services/albumHttpService';
 import { CurrentUserService } from 'src/app/services/currentUserService';
 import { ImageCacheService } from 'src/app/services/imageCacheService';
 import { ImagesHttpService } from 'src/app/services/imagesHttpService';
 import { ProfilesHttpService } from 'src/app/services/profilesHttpService';
 import { ImageThumbnailViewModel } from '../models/imageThumbnailViewModel';
 import { ProfilesDataService } from '../profiles.data.service';
+import { copyToClipboard } from "../../static/copyToClipboard";
 
 @Component({
     templateUrl: './images.component.html',
@@ -26,6 +28,8 @@ export class ImagesComponent {
 
     isLoading: boolean = true;
     selectedCount: number = 0;
+
+    isSharing: boolean = false;
 
     get isMyAccount() {
         return this.currentUserService.currentUser?.id == this.profile?.userinfo?.id;
@@ -43,7 +47,8 @@ export class ImagesComponent {
         private profilesService: ProfilesHttpService,
         private imageCacheService: ImageCacheService,
         private modalService: NgbModal,
-        private toastrService: ToastrService
+        private toastrService: ToastrService,
+        private albumService: AlbumHttpService
     ) {
         
     }
@@ -62,6 +67,7 @@ export class ImagesComponent {
     }
 
     onProfileDataRefresh(data: ProfileInfoDto) {
+        this.imageThumbnailViewModel = new Array<ImageThumbnailViewModel>();
         this.profile = data;
         if (this.profile != null) {
             this.loadImageThumbnails(data.images.data);
@@ -130,5 +136,50 @@ export class ImagesComponent {
         this.router.navigateByUrl("/not-found", { skipLocationChange: true }).then(() => {
             this.router.navigateByUrl(currentUrl);
         })
+    }
+
+    
+    startSharing() {
+        this.isSharing = true;
+        const selectedItems = this.imageThumbnailViewModel.filter(t => t.selected == true);
+        if (this.selectedCount == 1) {
+            const dto = selectedItems[0].info;
+
+            if (dto.isPublic) {
+                copyToClipboard(window.location.origin + "/i/" + dto.imageCode);
+                this.toastrService.info("Link copied to clipboard!");
+                this.isSharing = false;
+            }
+            else {
+                this.imagesService.changePublicState(dto.imageCode, true).subscribe(
+                    data => {
+                        dto.isPublic = true;
+                        copyToClipboard(window.location.origin + "/i/" + dto.imageCode);
+                        this.toastrService.info("Link copied to clipboard!");
+                    },
+                    error => {
+                        this.toastrService.error("Something went wrong :(");
+                    }
+                ).add(
+                    () => this.isSharing = false
+                );
+            }
+        }
+        else {
+            const ids = selectedItems.map(t => t.info.imageId);
+            this.albumService.createAndShare(ids).subscribe(
+                data => {
+                    if (data.success) {
+                        copyToClipboard(window.location.origin + "/a/" + data.data.code);
+                        this.toastrService.info("Link copied to clipboard!");
+                    }
+                },
+                error => {
+                    this.toastrService.error("Something went wrong :(");
+                }
+            ).add(
+                () => this.isSharing = false
+            );
+        }
     }
 }
