@@ -34,6 +34,7 @@ import { FileSizePipe } from "./pipes/fileSizePipe"
 import { FormatTimePipe } from "./pipes/formatTimePipe"
 import { NgbdImageEditModalComponent } from './modals/imageEdit/ngbdImageEditModal.component';
 import { NgbdAlbumCreateModalComponent } from './modals/albumCreate/ngbdAlbumCreateModal.component';
+import { ConfirmComponent } from "./confirm/confirm.component"
 
 @NgModule({
     imports: [
@@ -69,7 +70,8 @@ import { NgbdAlbumCreateModalComponent } from './modals/albumCreate/ngbdAlbumCre
         FileSizePipe,
         FormatTimePipe,
         NgbdImageEditModalComponent,
-        NgbdAlbumCreateModalComponent
+        NgbdAlbumCreateModalComponent,
+        ConfirmComponent
     ],
     providers: [
         TokenService,

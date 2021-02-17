@@ -55,12 +55,11 @@ export class TokenService {
 
     getHeaders() {
         let token = this.access_token;
+        var headers = new HttpHeaders();
         if (token != null) {
-            return new HttpHeaders({
-                "Authorization": "Bearer " + token.access_token
-            })
+            headers = headers.set("Authorization", "Bearer " + token.access_token);
         }
         
-        return null;
+        return headers;
     }
 }

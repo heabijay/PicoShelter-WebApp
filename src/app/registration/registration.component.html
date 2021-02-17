@@ -26,7 +26,7 @@
             <div class="form-group">
                 <label>Email:</label>
                 <div class="input-group">
-                    <input type="text" [ngClass]="{ 'is-invalid': email.touched && email.invalid }" class="form-control" placeholder="username@email.com" required name="email" [(ngModel)]="user.email" #email="ngModel" pattern="^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$">
+                    <input type="email" [ngClass]="{ 'is-invalid': email.touched && email.invalid }" class="form-control" placeholder="username@email.com" required name="email" [(ngModel)]="user.email" #email="ngModel" pattern="^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$">
                 </div>
                 <div [hidden]="email.valid || email.untouched">
                     <p class="invalid-feedback d-block" *ngIf="email.errors?.required || email.errors?.pattern">Email doesn't matching default email template. Example: abc123@gmail.com</p>
@@ -35,7 +35,7 @@
             </div>
             <div class="form-group">
                 <label>Password:</label>
-                <input type="password" [ngClass]="{ 'is-invalid': password.touched && password.invalid }" class="form-control" placeholder="Password" required name="password" [(ngModel)]="user.password" pattern="^(?=.*[0-9]+.*)(?=.*[a-zA-Z]+.*)[0-9a-zA-Z]{6,}$" #password="ngModel" compare-password="confirmPassword" parent="true">
+                <input type="password" [ngClass]="{ 'is-invalid': password.touched && password.invalid }" class="form-control" placeholder="Password" required name="password" [(ngModel)]="user.password" pattern="^(?=.*[0-9]+.*)(?=.*[a-zA-Z]+.*).{6,}$" #password="ngModel" compare-password="confirmPassword" parent="true">
                 <div [hidden]="password.valid || password.untouched">
                     <p class="invalid-feedback d-block">Password must contain at least one letter, at least one number, and be longer than six charaters</p>
                 </div>
@@ -52,7 +52,7 @@
                     Submit
                 </ng-container>
                 <ng-template #Proceeding>
-                    Proceeding
+                    <i class="fa fa-spinner-third fa-spin" aria-hidden="true"></i>
                 </ng-template>
             </button>
         </form>

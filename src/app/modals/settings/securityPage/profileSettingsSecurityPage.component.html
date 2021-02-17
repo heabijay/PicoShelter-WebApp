@@ -1,50 +1,96 @@
 <div class="d-flex flex-column">
     <div class="w-100">
-        <div *ngIf="!isPasswordChanging">
-            <div class="row m-0">
+        <ng-container *ngIf="!isSomeChanging; else someChanging">
+            <div class="row m-0 align-items-center">
+                <div class="flex-fill">
+                    <h5>Email</h5>
+                    <p class="m-0">
+                        Your current email is 
+                        <b>
+                            <ng-container *ngIf="currentEmail == null; else emailLoaded">
+                                <i class="fa fa-spinner-third fa-spin ml-2" aria-hidden="true"></i>
+                            </ng-container>
+                            <ng-template #emailLoaded>
+                                {{currentEmail}}
+                            </ng-template>
+                        </b>
+                        
+                    </p>
+                </div>
+                <a role="button" class="text-primary" (click)="startEmailChanging()">Change</a>
+            </div>
+            <hr/>
+            <div class="row m-0 align-items-center">
                 <h5 class="flex-fill">Password</h5>
                 <a role="button" class="text-primary" (click)="startPasswordChanging()">Change</a>
             </div>
             <hr/>
-        </div>
-        <div *ngIf="isPasswordChanging">
-            <form name="changePasswordForm" #changePasswordForm="ngForm" novalidate>
-                <fieldset [disabled]="isPasswordProceeding">
-                    <div class="row m-0">
-                        <label for="currentPassword" class="col-12 col-form-label pl-0">Current password: </label>
-                        <input type="password" [ngClass]="{ 'is-invalid': currentPassword.touched && currentPassword.invalid }" class="col-12 form-control" id="currentPassword" name="currentPassword" ngModel #currentPassword="ngModel" [(ngModel)]="changePwdDto.currentPassword" required placeholder="********">
-                        <div [hidden]="currentPassword.valid || currentPassword.untouched">
-                            <p class="invalid-feedback d-block" *ngIf="currentPassword.errors?.required">Current password required</p>
-                            <p class="invalid-feedback d-block" *ngIf="currentPassword.errors?.incorrectCredentials">Entered password is incorrect</p>
+        </ng-container>
+        <ng-template #someChanging>
+            <div *ngIf="isEmailChanging">
+                <form name="changeEmailForm" #changeEmailForm="ngForm" novalidate>
+                    <fieldset [disabled]="isEmailProceeding">
+                        <div class="row m-0">
+                            <label for="newEmailField" class="col-12 col-form-label pl-0">New email: </label>
+                            <input type="email" [ngClass]="{ 'is-invalid': newEmailField.touched && newEmailField.invalid }" class="col-12 form-control" id="newEmailField" name="newEmailField" ngModel #newEmailField="ngModel" [(ngModel)]="newEmail" required placeholder="abc123@gmail.com" pattern="^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$">
+                            <div [hidden]="newEmailField.valid || newEmailField.untouched">
+                                <p class="invalid-feedback d-block" *ngIf="newEmailField.errors?.required || newEmailField.errors?.pattern">Email doesn't matching default email template.</p>
+                                <p class="invalid-feedback d-block" *ngIf="newEmailField.errors?.alreadyRegistered">This email already registered.</p>
+                            </div>
                         </div>
+                    </fieldset>
+                    <div class="d-flex flex-row mt-2">
+                        <button type="submit" class="btn col btn-success mr-2" [disabled]="changeEmailForm.invalid || isEmailProceeding" (click)="changeEmail()">
+                            <ng-container *ngIf="isEmailProceeding; else notProceeding">
+                                <i class="fa fa-spinner-third fa-spin" aria-hidden="true"></i>
+                            </ng-container>
+                            <ng-template #notProceeding>
+                                Confirm
+                            </ng-template>
+                        </button>
+                        <button type="button" class="btn col btn-outline-danger" [disabled]="isEmailProceeding" (click)="closeChanging()">Discard</button>
                     </div>
-                    <div class="row m-0">
-                        <label for="newPassword" class="col-12 col-form-label pl-0">New password: </label>
-                        <input type="password" [ngClass]="{ 'is-invalid': newPassword.touched && newPassword.invalid }" class="col-12 form-control" id="newPassword" name="newPassword" required pattern="^(?=.*[0-9]+.*)(?=.*[a-zA-Z]+.*)[0-9a-zA-Z]{6,}$" [(ngModel)]="changePwdDto.newPassword" #newPassword="ngModel" compare-password="confirmPassword" parent="true" placeholder="********">
-                        <div [hidden]="newPassword.valid || newPassword.untouched">
-                            <p class="invalid-feedback d-block">Password must contain at least one letter, at least one number, and be longer than six charaters</p>
+                </form>
+            </div>
+            <div *ngIf="isPasswordChanging">
+                <form name="changePasswordForm" #changePasswordForm="ngForm" novalidate>
+                    <fieldset [disabled]="isPasswordProceeding">
+                        <div class="row m-0">
+                            <label for="currentPassword" class="col-12 col-form-label pl-0">Current password: </label>
+                            <input type="password" [ngClass]="{ 'is-invalid': currentPassword.touched && currentPassword.invalid }" class="col-12 form-control" id="currentPassword" name="currentPassword" ngModel #currentPassword="ngModel" [(ngModel)]="changePwdDto.currentPassword" required placeholder="********">
+                            <div [hidden]="currentPassword.valid || currentPassword.untouched">
+                                <p class="invalid-feedback d-block" *ngIf="currentPassword.errors?.required">Current password required</p>
+                                <p class="invalid-feedback d-block" *ngIf="currentPassword.errors?.incorrectCredentials">Entered password is incorrect</p>
+                            </div>
                         </div>
-                    </div>
-                    <div class="row m-0">
-                        <label for="confirmPassword" class="col-12 col-form-label pl-0">Confirm password: </label>
-                        <input type="password" [ngClass]="{ 'is-invalid': confirmPassword.touched && confirmPassword.invalid }" class="col-12 form-control" id="confirmPassword" name="confirmPassword" ngModel #confirmPassword="ngModel" compare-password="newPassword" placeholder="********">
-                        <div [hidden]="confirmPassword.valid || confirmPassword.untouched">
-                            <p class="invalid-feedback d-block">Password doesn't match</p>
+                        <div class="row m-0">
+                            <label for="newPassword" class="col-12 col-form-label pl-0">New password: </label>
+                            <input type="password" [ngClass]="{ 'is-invalid': newPassword.touched && newPassword.invalid }" class="col-12 form-control" id="newPassword" name="newPassword" required pattern="^(?=.*[0-9]+.*)(?=.*[a-zA-Z]+.*).{6,}$" [(ngModel)]="changePwdDto.newPassword" #newPassword="ngModel" compare-password="confirmPassword" parent="true" placeholder="********">
+                            <div [hidden]="newPassword.valid || newPassword.untouched">
+                                <p class="invalid-feedback d-block">Password must contain at least one letter, at least one number, and be longer than six charaters</p>
+                            </div>
                         </div>
+                        <div class="row m-0">
+                            <label for="confirmPassword" class="col-12 col-form-label pl-0">Confirm password: </label>
+                            <input type="password" [ngClass]="{ 'is-invalid': confirmPassword.touched && confirmPassword.invalid }" class="col-12 form-control" id="confirmPassword" name="confirmPassword" ngModel #confirmPassword="ngModel" compare-password="newPassword" placeholder="********">
+                            <div [hidden]="confirmPassword.valid || confirmPassword.untouched">
+                                <p class="invalid-feedback d-block">Password doesn't match</p>
+                            </div>
+                        </div>
+                    </fieldset>
+                    <div class="d-flex flex-row mt-2">
+                        <button type="submit" class="btn col btn-success mr-2" [disabled]="changePasswordForm.invalid || isPasswordProceeding" (click)="changePassword()">
+                            <ng-container *ngIf="isPasswordProceeding; else notProceeding">
+                                <i class="fa fa-spinner-third fa-spin" aria-hidden="true"></i>
+                            </ng-container>
+                            <ng-template #notProceeding>
+                                Confirm
+                            </ng-template>
+                        </button>
+                        <button type="button" class="btn col btn-outline-danger" [disabled]="isPasswordProceeding" (click)="closeChanging()">Discard</button>
                     </div>
-                </fieldset>
-                <div class="d-flex flex-row mt-2">
-                    <button type="submit" class="btn col btn-success mr-2" [disabled]="changePasswordForm.invalid || isPasswordProceeding" (click)="changePassword()">
-                        <ng-container *ngIf="isPasswordProceeding; else notProceeding">
-                            <i class="fa fa-spinner-third fa-spin mr-2" aria-hidden="true"></i>Confirming
-                        </ng-container>
-                        <ng-template #notProceeding>
-                            Confirm
-                        </ng-template>
-                    </button>
-                    <button type="button" class="btn col btn-outline-danger" [disabled]="isPasswordProceeding" (click)="closePasswordChanging()">Discard</button>
-                </div>
-            </form>
-        </div>
+                </form>
+            </div>
+        </ng-template>
     </div>
 </div>
