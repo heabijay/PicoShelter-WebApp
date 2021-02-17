@@ -82,7 +82,7 @@ export class AlbumsComponent {
 
             if (el.dto.title == null) {
                 el.dto.previewImage = new ImageShortInfoDto();
-                el.thumbnailResourceUrl = "https://localhost:5001/profiles/1/avatar.jpg";
+                el.thumbnailResourceUrl = "https://localhost:5000/profiles/1/avatar.jpg";
             }
             this.albums.push(el);
         }

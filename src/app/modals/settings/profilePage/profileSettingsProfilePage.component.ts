@@ -142,7 +142,7 @@ export class ProfileSettingsProfilePageComponent {
             this.avatarFile = file;
             this.isAvatarPreviewLoading = true;
 
-            var reader = new FileReader();
+            const reader = new FileReader();
             reader.readAsDataURL(file);
             reader.onload = (_event) => {
                 this.avatarFileLink = reader.result;

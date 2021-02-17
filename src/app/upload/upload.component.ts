@@ -90,7 +90,7 @@ export class UploadComponent implements UploadExitGuard {
                 return;
             };
 
-            var reader = new FileReader();
+            const reader = new FileReader();
             reader.readAsDataURL(file);
             reader.onload = (_event) => {
                 this.previewImageUrl = reader.result;
@@ -150,7 +150,7 @@ export class UploadComponent implements UploadExitGuard {
                     this.progress = Math.round(100 * event.loaded / event.total);
                 }
                 else if (event.type == HttpEventType.Response) {
-                    var response = event.body as SuccessResponseDto<ImageInfoDto>;
+                    const response = event.body as SuccessResponseDto<ImageInfoDto>;
                     if (response.success) {
                         this.uploadedInfo = response.data;
                         this.isUploaded = true;
