@@ -46,7 +46,7 @@ export class ImagesComponent {
     urlSubscription: Subscription;
 
     get isAdminAccess() {
-        return this.currentUserService.currentUser?.id == this.info.user?.id
+        return this.info.user?.id != null && this.currentUserService.currentUser?.id == this.info.user?.id
     }
 
     constructor(

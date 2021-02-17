@@ -1,0 +1,78 @@
+<div class="jumbotron shadow-sm">
+    <div class="container col-md-6">
+        <h1 class="display-4 text-break">Confirmation</h1>
+        <p>Here you can activate a key(token) to activate. It could be a some bonuses, events, etc.</p>
+        <div class="form-group">
+            <label class="text-muted text-uppercase" for="keyInput" *ngIf="!isKeyEntered">Key</label>
+            <div class="input-group">
+                <input [ngClass]="{ 'is-invalid': keyInput.touched && keyInput.invalid }" class="form-control text-center" [readonly]="isKeyEntered" [style.filter]="isKeyEntered ? 'blur(3px)' : 'none'" type="text" spellcheck="false" id="keyInput" name="keyInput" [(ngModel)]="key" #keyInput="ngModel" placeholder="XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX" pattern="^\w{8}-\w{4}-\w{4}-\w{4}-\w{12}$" required maxlength="36" />
+                <div class="input-group-append" *ngIf="!isKeyEntered">
+                    <button class="btn btn-outline-secondary" [disabled]="keyInput.invalid" type="button" (click)="loadInfo()"><i class="fas fa-check mr-2"></i>Activate</button>
+                </div>
+            </div>
+            <div [hidden]="keyInput.valid || keyInput.untouched">
+                <p class="invalid-feedback d-block" *ngIf="keyInput.errors?.required || keyInput.errors?.pattern">Entered key is invalid.</p>
+                <p class="invalid-feedback d-block" *ngIf="keyInput.errors?.notFound">This key not found!</p>
+                <p class="invalid-feedback d-block" *ngIf="keyInput.errors?.needAuthorize">This key needs authorized user.</p>
+                <p class="invalid-feedback d-block" *ngIf="keyInput.errors?.couldntActivate">This key couldn't be activated.</p>
+            </div>
+        </div>
+        <hr/>
+        <div *ngIf="confirmationType != null">
+            <p class="m-1"><span class="text-muted text-uppercase">Type: </span> {{confirmationTypeStr}}</p>
+            <p class="m-1">
+                <span class="text-muted text-uppercase">Status: </span>
+                <ng-container *ngIf="!isConfirmationActivated; else confirmationActivated">
+                    <ng-container *ngIf="isConfirmationActivating; else notActivating">
+                        <span class="badge badge-secondary">Attempt to activate</span>
+                    </ng-container>
+                    <ng-template #notActivating>
+                        <span class="badge badge-info">Not Activated</span>
+                    </ng-template>
+                </ng-container>
+                <ng-template #confirmationActivated>
+                    <span class="badge badge-success">Activated</span>
+                </ng-template>
+            </p>
+        </div>
+
+        
+        <div [ngSwitch]="confirmationType" *ngIf="!isConfirmationActivated && !isConfirmationActivating">
+            <div *ngSwitchCase="ConfirmationType.PasswordRestore">
+                <hr/>
+                <form name="changePasswordForm" #changePasswordForm="ngForm" novalidate>
+                    <fieldset [disabled]="isPasswordProceeding">
+                        <div class="row m-0">
+                            <label for="newPassword" class="col-12 col-form-label pl-0">New password: </label>
+                            <input type="password" [ngClass]="{ 'is-invalid': newPassword.touched && newPassword.invalid }" class="col-12 form-control" id="newPassword" name="newPassword" required pattern="^(?=.*[0-9]+.*)(?=.*[a-zA-Z]+.*).{6,}$" [(ngModel)]="changePasswordNew" #newPassword="ngModel" compare-password="confirmPassword" parent="true" placeholder="********">
+                            <div [hidden]="newPassword.valid || newPassword.untouched">
+                                <p class="invalid-feedback d-block">Password must contain at least one letter, at least one number, and be longer than six charaters</p>
+                            </div>
+                        </div>
+                        <div class="row m-0">
+                            <label for="confirmPassword" class="col-12 col-form-label pl-0">Confirm password: </label>
+                            <input type="password" [ngClass]="{ 'is-invalid': confirmPassword.touched && confirmPassword.invalid }" class="col-12 form-control" id="confirmPassword" name="confirmPassword" ngModel #confirmPassword="ngModel" compare-password="newPassword" placeholder="********">
+                            <div [hidden]="confirmPassword.valid || confirmPassword.untouched">
+                                <p class="invalid-feedback d-block">Password doesn't match</p>
+                            </div>
+                        </div>
+                    </fieldset>
+                    <div class="d-flex flex-row mt-2">
+                        <button type="submit" class="btn col btn-success mr-2" [disabled]="changePasswordForm.invalid || isPasswordProceeding" (click)="changePassword()">
+                            <ng-container *ngIf="isPasswordProceeding; else notProceeding">
+                                <i class="fa fa-spinner-third fa-spin" aria-hidden="true"></i>
+                            </ng-container>
+                            <ng-template #notProceeding>
+                                Confirm
+                            </ng-template>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div *ngIf="isInfoLoading || isConfirmationActivating" class="text-center m-3">
+            <i class="fa fa-spinner-third fa-spin" aria-hidden="true"></i>
+        </div>
+    </div>
+</div>

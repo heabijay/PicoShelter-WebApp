@@ -1,39 +1,69 @@
 <div class="component-fill">
-    <form name="loginForm" #loginForm="ngForm" (ngSubmit)="login()" novalidate class="container col-xs-12 col-sm-8 col-md-6 col-lg-3">
-        <h1 class="display-4 text-center">Welcome</h1>
-        <div class="form-group">
-            <label>Login:</label>
-            <div class="input-group">
-                <div class="input-group-prepend">
-                    <div class="input-group-text">@</div>
+    <div class="container col-xs-12 col-sm-8 col-md-6 col-lg-3">
+        <ng-container *ngIf="isLoginWindow; else resetPasswordWindow">
+            <form name="loginForm" #loginForm="ngForm" (ngSubmit)="login()" novalidate>
+                <h1 class="display-4 text-center">Welcome</h1>
+                <div class="form-group">
+                    <label>Login:</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">@</div>
+                        </div>
+                        <input [ngClass]="{ 'is-invalid': username.touched && username.invalid }" (input)="onFieldsChanged()" name="username" #username="ngModel" required type="text" class="form-control" placeholder="Username/Email" [(ngModel)]="user.username">
+                    </div>
+                    <div [hidden]="username.valid || username.untouched">
+                        <p class="invalid-feedback d-block" *ngIf="username.errors?.required">Username required</p>
+                    </div>
                 </div>
-                <input [ngClass]="{ 'is-invalid': username.touched && username.invalid }" (input)="onFieldsChanged()" name="username" #username="ngModel" required type="text" class="form-control" placeholder="Username/Email" [(ngModel)]="user.username">
-            </div>
-            <div [hidden]="username.valid || username.untouched">
-                <p class="invalid-feedback d-block" *ngIf="username.errors?.required">Username required</p>
-            </div>
-        </div>
-        <div class="form-group">
-            <label>Password:</label>
-            <input [ngClass]="{ 'is-invalid': password.touched && password.invalid }" (input)="onFieldsChanged()" name="password" #password="ngModel" required type="password" class="form-control validatorsStyles" placeholder="Password" [(ngModel)]="user.password">
-            <div [hidden]="password.valid || password.untouched">
-                <p class="invalid-feedback d-block" *ngIf="password.errors?.required">Password required</p>
-                <p class="invalid-feedback d-block" *ngIf="password.errors?.incorrectCredentials">Username or password is incorrect</p>
-            </div>
-        </div>
-        <button type="submit" class="btn btn-primary btn-block" [disabled]="loginForm.invalid || isLogging">
-            <ng-container *ngIf="!isLogging; else Logging">
-                Login
-            </ng-container>
-            <ng-template #Logging>
-                Logging...
-            </ng-template>
-        </button>
-        <!-- <div [hidden]="error == null" class="alert alert-danger my-2">
-            {{error}}
-        </div> -->
-        <div class="text-center mt-2">
-            <a class="text-center text-secondary" routerLink="/registration">Need to register?</a>
-        </div>
-    </form>
+                <div class="form-group">
+                    <label>Password:</label>
+                    <input [ngClass]="{ 'is-invalid': password.touched && password.invalid }" (input)="onFieldsChanged()" name="password" #password="ngModel" required type="password" class="form-control" placeholder="Password" [(ngModel)]="user.password">
+                    <div [hidden]="password.valid || password.untouched">
+                        <p class="invalid-feedback d-block" *ngIf="password.errors?.required">Password required</p>
+                        <p class="invalid-feedback d-block" *ngIf="password.errors?.incorrectCredentials">Username or password is incorrect</p>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block" [disabled]="loginForm.invalid || isLogging">
+                    <ng-container *ngIf="!isLogging; else Logging">
+                        Login
+                    </ng-container>
+                    <ng-template #Logging>
+                        <i class="fa fa-spinner-third fa-spin" aria-hidden="true"></i>
+                    </ng-template>
+                </button>
+                <div class="text-center mt-2">
+                    <summary>
+                        <a class="text-center text-secondary" (click)="startPasswordReset()">Forgot password?</a>
+                    </summary>
+                </div>
+            </form>
+        </ng-container>
+        <ng-template #resetPasswordWindow>
+            <form name="resetPasswordFrom" #resetPasswordFrom="ngForm" (ngSubmit)="resetPassword()" novalidate>
+                <h1 class="display-4 text-center">Welcome</h1>
+                <h4 class="text-center">Password Reset</h4>
+                <div class="form-group">
+                    <label>Email:</label>
+                    <input [ngClass]="{ 'is-invalid': recoveryEmailField.touched && recoveryEmailField.invalid }" name="recoveryEmailField" #recoveryEmailField="ngModel" required pattern="^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$" type="email" class="form-control" placeholder="abc123@gmail.com" [(ngModel)]="recoveryEmail">
+                    <div [hidden]="recoveryEmailField.valid || recoveryEmailField.untouched">
+                        <p class="invalid-feedback d-block" *ngIf="recoveryEmailField.errors?.required || recoveryEmailField.errors?.pattern">Email doesn't matching default email template.</p>
+                        <p class="invalid-feedback d-block" *ngIf="recoveryEmailField.errors?.notFound">This email isn't registered.</p>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block" [disabled]="resetPasswordFrom.invalid || isReseting">
+                    <ng-container *ngIf="!isReseting; else reseting">
+                        Reset
+                    </ng-container>
+                    <ng-template #reseting>
+                        <i class="fa fa-spinner-third fa-spin" aria-hidden="true"></i>
+                    </ng-template>
+                </button>
+                <div class="text-center mt-2">
+                    <summary>
+                        <a class="text-center text-secondary" (click)="stopPasswordReset()">I remembered!</a>
+                    </summary>
+                </div>
+            </form>
+        </ng-template>
+    </div>
 </div>

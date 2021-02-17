@@ -57,4 +57,33 @@ export class IdentityHttpService extends HttpService {
             }
         )
     }
+
+    getEmail() {
+        return this.httpClient.get<SuccessResponseDto<string>>(
+            this.serverUrl + this.subPath + "/email",
+            {
+                headers: this.identityService.getHeaders()
+            }
+        )
+    }
+
+    changeEmail(newEmail: string) {
+        return this.httpClient.put(
+            this.serverUrl + this.subPath + "/changeemail",
+            '"' + newEmail + '"',
+            {
+                headers: this.identityService.getHeaders().set("Content-Type", "application/json")
+            }
+        )
+    }
+
+    resetPassword(email: string) {
+        return this.httpClient.post(
+            this.serverUrl + this.subPath + "/resetpassword",
+            '"' + email + '"',
+            {
+                headers: this.identityService.getHeaders().set("Content-Type", "application/json")
+            }
+        )
+    }
 }

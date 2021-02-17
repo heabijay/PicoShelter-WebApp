@@ -30,6 +30,13 @@ export class LoginComponent {
     @ViewChild("username") usernameField: NgModel;
     @ViewChild("password") passwordField: NgModel;
 
+    isLoginWindow: boolean = true;
+    isReseting: boolean = false;
+    recoveryEmail: string;
+
+    @ViewChild("resetPasswordFrom") resetPasswordFrom: NgForm;
+    @ViewChild("recoveryEmailField") recoveryEmailField: NgModel;
+
     constructor(
         private identityHttpService: IdentityHttpService, 
         private tokenService: TokenService, 
@@ -99,5 +106,41 @@ export class LoginComponent {
             'incorrectCredentials': null,
         });
         this.passwordField.control.updateValueAndValidity();
+    }
+
+    
+    startPasswordReset() {
+        this.recoveryEmail = this.user.username;
+        this.isLoginWindow = false;
+    }
+
+    stopPasswordReset() {
+        this.isLoginWindow = true;
+        this.user.username = this.recoveryEmail;
+    }
+
+    resetPassword() {
+        this.resetPasswordFrom.control.markAllAsTouched();
+        this.isReseting = true;
+        this.identityHttpService.resetPassword(this.recoveryEmail).subscribe(
+            data => {
+                this.toastrService.success("Instruction sent to your email.")
+
+                this.stopPasswordReset();
+            },
+            (e: HttpErrorResponse) => {
+                switch (e.status) {
+                    case 404:
+                        this.recoveryEmailField.control.setErrors({
+                            'notFound': true,
+                        });
+                        return;
+                }
+
+                this.toastrService.error("Something went wrong. :(");
+            }
+        ).add(
+            () => this.isReseting = false
+        )
     }
 }
