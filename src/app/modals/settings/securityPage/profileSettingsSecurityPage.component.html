@@ -65,9 +65,9 @@
                         </div>
                         <div class="row m-0">
                             <label for="newPassword" class="col-12 col-form-label pl-0">New password: </label>
-                            <input type="password" [ngClass]="{ 'is-invalid': newPassword.touched && newPassword.invalid }" class="col-12 form-control" id="newPassword" name="newPassword" required pattern="^(?=.*[0-9]+.*)(?=.*[a-zA-Z]+.*).{6,}$" [(ngModel)]="changePwdDto.newPassword" #newPassword="ngModel" compare-password="confirmPassword" parent="true" placeholder="********">
+                            <input type="password" [ngClass]="{ 'is-invalid': newPassword.touched && newPassword.invalid }" class="col-12 form-control" id="newPassword" name="newPassword" required pattern="^(?=.*[0-9]+.*).{6,}$" [(ngModel)]="changePwdDto.newPassword" #newPassword="ngModel" compare-password="confirmPassword" parent="true" placeholder="********">
                             <div [hidden]="newPassword.valid || newPassword.untouched">
-                                <p class="invalid-feedback d-block">Password must contain at least one letter, at least one number, and be longer than six charaters</p>
+                                <p class="invalid-feedback d-block">Password must contain at least one number, and be longer than six charaters</p>
                             </div>
                         </div>
                         <div class="row m-0">

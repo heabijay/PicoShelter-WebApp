@@ -225,7 +225,7 @@ export class ImagesComponent {
             result => {
                 const r = result as { success: number, failed: number };
                 if (r.failed > 0) {
-                    this.toastrService.error(r.failed + " image(s) wasn't deleted due error.");
+                    this.toastrService.error(r.failed + " image(s) wasn't deleted due to error.");
                 }
                 if (r.success > 0) {
                     this.toastrService.success(r.success + " image(s) deleted!");
