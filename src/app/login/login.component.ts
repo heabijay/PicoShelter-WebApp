@@ -76,18 +76,16 @@ export class LoginComponent {
                 }
             },
             (e: HttpErrorResponse) => {
-                let error = e.error as ErrorResponseDto;
-                if (error != null) {                    
-                    switch (ErrorType[error.error.type]) {
-                        case ErrorType.CREDENTIALS_INCORRECT:
-                            this.usernameField.control.setErrors({
-                                'incorrectCredentials': true,
-                            });
-                            this.passwordField.control.setErrors({
-                                'incorrectCredentials': true,
-                            });
-                            return;
-                    }
+                let error = e?.error as ErrorResponseDto;
+                switch (ErrorType[error?.error?.type]) {
+                    case ErrorType.CREDENTIALS_INCORRECT:
+                        this.usernameField.control.setErrors({
+                            'incorrectCredentials': true,
+                        });
+                        this.passwordField.control.setErrors({
+                            'incorrectCredentials': true,
+                        });
+                        return;
                 }
 
                 this.toastrService.error("Something went wrong. :(");
