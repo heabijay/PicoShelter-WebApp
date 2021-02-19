@@ -7,7 +7,7 @@
     </div>
     <hr class="my-1">
     <div class="row mx-n1">
-        <div *ngFor="let image of imageThumbnailViewModel" 
+        <div *ngFor="let image of imageThumbnailViewModels" 
             class="col-4 
                 col-sm-3
                 col-md-2 
@@ -15,7 +15,7 @@
                 square 
                 d-inline-block p-1" >
             <summary class="image-thumbnail-frame"  placement="bottom" [ngbTooltip]="image?.info?.title">
-                <div class="image-thumnail-overlay-shared" *ngIf="image?.info?.isPublic">
+                <div class="image-thumnail-overlay-shared" *ngIf="image?.info?.isPublic && isMyAccount">
                     <i class="fa fa-link" aria-hidden="true"></i>
                 </div>
                 <div class="image-thumnail-overlay-loading" *ngIf="image?.resourceUrl == null">
@@ -41,10 +41,40 @@
         </a>
     </div>
     <hr class="my-1">
-    <p *ngIf="profile?.albums == null" class="text-muted text-center w-100 mt-3">
-        <i class="fa fa-spinner-third fa-spin" aria-hidden="true"></i>
-    </p>
-    <p *ngIf="profile?.albums?.data?.length == 0" class="text-muted text-center w-100 mt-3 lead">
-        There's no albums. Yet.
-    </p>
+    <div class="row mx-n1">
+        <div *ngFor="let album of albumViewModels"
+            class="col-md-6 col-lg-4 my-2">
+            <summary class="bg-gradient-saintPetersburg h-100" style="border-radius: 10px" [routerLink]="'/a/' + album.dto.code">
+                <div style="border-radius: 10px;" class="h-100 bg-image-cover" [style.background-image]="album.thumbnailResourceUrl ? 'url(' + album.thumbnailResourceUrl + ')' : 'none'">
+                    <div [ngClass]="{'bg-white-transparent': album.thumbnailResourceUrl}" class="h-100" style="border-radius: 10px;">
+                        <div class="onHoverBlack p-3 h-100" style="border-radius: 10px">
+                            <div class="d-flex flex-column flex-md-row overflow-hidden h-100 align-items-center">
+                                <div class="flex-fill align-self-start align-self-md-center">
+                                    <h6 class="text-uppercase font-weight-bold lead">
+                                        <ng-container *ngIf="album.dto.title; else noTitle">
+                                            {{album.dto.title}}
+                                        </ng-container>
+                                        <ng-template #noTitle>
+                                            <span class="text-black-50">Untitled</span>
+                                        </ng-template>
+                                    </h6>
+                                    <div [style.opacity]="album.dto.previewImage == null ? 1 : 0">
+                                        <p class="badge badge-info text-uppercase m-0">Without images</p>
+                                    </div>
+                                </div>
+                                <div class="p-1"><i class="fa-lg fas fa-angle-double-right"></i></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </summary>
+        </div>
+
+        <p *ngIf="profile?.albums == null" class="text-muted text-center w-100 mt-3">
+            <i class="fa fa-spinner-third fa-spin" aria-hidden="true"></i>
+        </p>
+        <p *ngIf="profile?.albums?.data?.length == 0" class="text-muted text-center w-100 mt-3 lead">
+            There's no albums. Yet.
+        </p>
+    </div>
 </div>
