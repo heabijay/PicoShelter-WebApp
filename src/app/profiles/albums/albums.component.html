@@ -14,8 +14,8 @@
         <div *ngFor="let album of albums"
             class="col-md-6 col-lg-4 my-2">
             <summary class="bg-gradient-saintPetersburg h-100" style="border-radius: 10px" [routerLink]="'/a/' + album.dto.code">
-                <div style="border-radius: 10px" class="h-100 bg-image-cover" [style.background-image]="album.thumbnailResourceUrl ? 'url(' + album.thumbnailResourceUrl + ')' : 'none'">
-                    <div [ngClass]="{'bg-white-transparent': album.thumbnailResourceUrl}" class="h-100" style="border-radius: 10px">
+                <div style="border-radius: 10px;" class="h-100 bg-image-cover" [style.background-image]="album.thumbnailResourceUrl ? 'url(' + album.thumbnailResourceUrl + ')' : 'none'">
+                    <div [ngClass]="{'bg-white-transparent': album.thumbnailResourceUrl}" class="h-100" style="border-radius: 10px;">
                         <div class="onHoverBlack p-3 h-100" style="border-radius: 10px">
                             <div class="d-flex flex-column flex-md-row overflow-hidden h-100 align-items-center">
                                 <div class="flex-fill align-self-start align-self-md-center">
@@ -24,10 +24,10 @@
                                             {{album.dto.title}}
                                         </ng-container>
                                         <ng-template #noTitle>
-                                            <span class="text-muted">Untitled</span>
+                                            <span class="text-black-50">Untitled</span>
                                         </ng-template>
                                     </h6>
-                                    <div>
+                                    <div [style.opacity]="album.dto.previewImage == null ? 1 : 0">
                                         <p class="badge badge-info text-uppercase m-0">Without images</p>
                                     </div>
                                 </div>
@@ -45,9 +45,10 @@
         <p *ngIf="isLoading" class="text-muted text-center w-100 mt-3">
             <i class="fa fa-spinner-third fa-spin" aria-hidden="true"></i>
         </p>
-        <!-- <button *ngIf="!isAllImagesLoaded && !isLoading" (click)="loadNextPage()" class="btn btn-primary w-100 mt-3" type="button"><i class="fa fa-bolt mr-2" aria-hidden="true"></i>Load more images</button>
-        <small *ngIf="profile?.images?.data?.length > 0 && isAllImagesLoaded" class="text-muted text-center w-100 mt-3">
-            Totally {{profile?.images?.totalCount}} image(s)
-        </small> -->
+
+        <button *ngIf="!isAllAlbumsLoaded && !isLoading" (click)="loadNextPage()" class="btn btn-primary w-100 mt-3" type="button"><i class="fa fa-bolt mr-2" aria-hidden="true"></i>Load more albums</button>
+        <small *ngIf="profile?.albums?.data?.length > 0 && isAllAlbumsLoaded" class="text-muted text-center w-100 mt-3">
+            Totally {{profile?.albums?.totalCount}} album(s)
+        </small>
     </div>
 </div>

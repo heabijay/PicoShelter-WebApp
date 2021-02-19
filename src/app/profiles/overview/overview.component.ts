@@ -7,19 +7,30 @@ import { ProfileInfoDto } from '../../models/profileInfoDto';
 import { ImageShortInfoDto } from 'src/app/models/imageShortInfoDto';
 import { ImageCacheService } from '../../services/imageCacheService';
 import { ImageThumbnailViewModel } from '../models/imageThumbnailViewModel';
+import { AlbumViewModel } from '../models/albumViewModel';
+import { AlbumShortInfoDto } from 'src/app/models/albumShortInfoDto';
+import { AlbumsHttpService } from 'src/app/services/albumsHttpService';
+import { CurrentUserService } from 'src/app/services/currentUserService';
 
 @Component({
     templateUrl: './overview.component.html'
 })
 export class OverviewComponent {
     profile: ProfileInfoDto;
-    imageThumbnailViewModel = new Array<ImageThumbnailViewModel>();
+    imageThumbnailViewModels = new Array<ImageThumbnailViewModel>();
+    albumViewModels = new Array<AlbumViewModel>();
     subscription: Subscription;
+
+    get isMyAccount() {
+        return this.currentUserService.currentUser?.id == this.profile?.userinfo?.id;
+    }
 
     constructor(
         private imagesService: ImagesHttpService,
         private dataService: ProfilesDataService,
-        private imageCacheService: ImageCacheService
+        private imageCacheService: ImageCacheService,
+        private currentUserService: CurrentUserService,
+        private albumsService: AlbumsHttpService
     ) {
         
     }
@@ -40,18 +51,39 @@ export class OverviewComponent {
     onProfileDataRefresh(data: ProfileInfoDto) {
         this.profile = data;
         if (this.profile != null)
-            this.loadImageThumbnails(data.images.data);
+        {
+            this.loadImageThumbnails(data.images.data.slice(0, 12));
+            this.loadAlbums(data.albums.data.slice(0, 3));
+        }
     }
 
     loadImageThumbnails(data: Array<ImageShortInfoDto>) {
-        this.imageThumbnailViewModel.length = data.length;
+        this.imageThumbnailViewModels.length = data.length;
         for (let i = 0; i < data.length; i++) {
-            this.imageThumbnailViewModel[i] = new ImageThumbnailViewModel();
-            this.imageThumbnailViewModel[i].info = data[i];
-            let sub = this.imageCacheService.requestThumbnailUsingCache(data[i].imageCode, code => this.imagesService.getThumbnailBlob(code))
+            const el = new ImageThumbnailViewModel();
+            el.info = data[i];
+            let sub = this.imageCacheService.requestThumbnailUsingCache(el.info.imageCode, code => this.imagesService.getThumbnailBlob(code))
                 .subscribe(
-                    link => this.imageThumbnailViewModel[i].resourceUrl = link
+                    link => el.resourceUrl = link
                 );
+            
+            this.imageThumbnailViewModels[i] = el;
+        }
+    }
+
+    loadAlbums(dtos: Array<AlbumShortInfoDto>) {
+        for (let i = 0; i < dtos.length; i++) {
+            const el = new AlbumViewModel();
+            el.dto = dtos[i];
+            
+            if (el.dto?.previewImage != null) {
+                const sub = this.imageCacheService.requestThumbnailUsingCache(el.dto.previewImage.imageCode, code => this.albumsService.getThumbnail(el.dto.code, el.dto.previewImage.imageCode))
+                    .subscribe(
+                        link => el.thumbnailResourceUrl = link
+                    );
+            }
+
+            this.albumViewModels.push(el);
         }
     }
 }

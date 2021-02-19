@@ -13,6 +13,8 @@ import { ProfilesHttpService } from 'src/app/services/profilesHttpService';
 import { ProfilesDataService } from '../profiles.data.service';
 import { AlbumViewModel } from '../models/albumViewModel';
 import { ImageShortInfoDto } from 'src/app/models/imageShortInfoDto';
+import { AlbumHttpService } from 'src/app/services/albumHttpService';
+import { AlbumsHttpService } from 'src/app/services/albumsHttpService';
 
 @Component({
     templateUrl: './albums.component.html'
@@ -27,6 +29,10 @@ export class AlbumsComponent {
         return this.currentUserService.currentUser?.id == this.profile?.userinfo?.id;
     }
 
+    get isAllAlbumsLoaded() {
+        return this.albums.length >= this.profile?.albums?.totalCount;
+    }
+
     isLoading: boolean = false;
 
     constructor(
@@ -36,7 +42,9 @@ export class AlbumsComponent {
         private profilesService: ProfilesHttpService,
         private imageCacheService: ImageCacheService,
         private modalService: NgbModal,
-        private toastrService: ToastrService
+        private albumService: AlbumHttpService,
+        private toastrService: ToastrService,
+        private albumsService: AlbumsHttpService
     ) {
 
     }
@@ -78,13 +86,33 @@ export class AlbumsComponent {
             const el = new AlbumViewModel();
             el.dto = dtos[i];
             
-            // TODO: Implement thumbnail lazy load
-
-            if (el.dto.title == null) {
-                el.dto.previewImage = new ImageShortInfoDto();
-                el.thumbnailResourceUrl = "https://localhost:5000/profiles/1/avatar.jpg";
+            if (el.dto?.previewImage != null) {
+                const sub = this.imageCacheService.requestThumbnailUsingCache(el.dto.previewImage.imageCode, code => this.albumsService.getThumbnail(el.dto.code, el.dto.previewImage.imageCode))
+                    .subscribe(
+                        link => el.thumbnailResourceUrl = link
+                    );
             }
+
             this.albums.push(el);
+        }
+    }
+
+    loadNextPage(size: number = 36) {
+        if (!this.isAllAlbumsLoaded) {
+            this.isLoading = true;
+            const startIndex = this.albums.length;
+            const sub = this.profilesService.getProfileAlbums(this.profile.userinfo.id, startIndex, size).subscribe(
+                data => {
+                    if (data.success) {
+                        this.profile.images.totalCount = data.data.totalCount;
+                        this.loadAlbums(data.data.data);
+                    }
+                }
+            ).add(
+                () => this.isLoading = false
+            );
+        } else {
+            this.isLoading = false;
         }
     }
 }

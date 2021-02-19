@@ -7,6 +7,7 @@ import { TokenService } from "./tokenService";
 import { ProfileInfoDto } from "../models/profileInfoDto";
 import { PaginationResultDto } from "../models/paginationResultDto";
 import { ImageShortInfoDto } from "../models/imageShortInfoDto";
+import { AlbumShortInfoDto } from "../models/albumShortInfoDto";
 
 @Injectable()
 export class ProfilesHttpService extends HttpService {
@@ -90,6 +91,21 @@ export class ProfilesHttpService extends HttpService {
             url += "count=" + count + "&";
         
         return this.httpClient.get<SuccessResponseDto<PaginationResultDto<ImageShortInfoDto>>>(
+            url,
+            {
+                headers: this.identityService.getHeaders()
+            }
+        )
+    }
+
+    getProfileAlbums(id: number, starts?: number, count?: number) {
+        let url = this.getProfileLink(id) + '/albums?';
+        if (starts != null)
+            url += "starts=" + starts + "&";
+        if (count != null)
+            url += "count=" + count + "&";
+        
+        return this.httpClient.get<SuccessResponseDto<PaginationResultDto<AlbumShortInfoDto>>>(
             url,
             {
                 headers: this.identityService.getHeaders()

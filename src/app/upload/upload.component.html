@@ -13,8 +13,8 @@
         <ng-container *ngIf="isUploaded; else notUploaded">
             <div class="alert alert-success">
                 <p *ngIf="uploadedInfo.title" class="font-weight-bold">{{uploadedInfo.title}}</p>
-                <p class="m-0">Link: <a [href]="uploadedLink" target="_blank">{{uploadedLink}}</a> <summary class="fas fa-copy float-right" (click)="copyLink()"></summary></p>
-                <p class="m-0" *ngIf="uploadedInfo.isPublic">Direct link: <a [href]="uploadedDirectLink" target="_blank">{{uploadedDirectLink}}</a> <summary class="fas fa-copy float-right" (click)="copyDirectLink()"></summary></p>
+                <p class="m-0">Link: <a [href]="uploadedLink" class="text-break" target="_blank">{{uploadedLink}}</a> <summary class="fas fa-copy float-right" (click)="copyLink()"></summary></p>
+                <p class="m-0" *ngIf="uploadedInfo.isPublic">Direct link: <a class="text-break" [href]="uploadedDirectLink" target="_blank">{{uploadedDirectLink}}</a> <summary class="fas fa-copy float-right" (click)="copyDirectLink()"></summary></p>
                 <p class="mt-1 m-0" *ngIf="uploadedInfo.autoDeleteIn">Auto Delete: {{uploadedInfo.autoDeleteIn | date:'medium'}}</p>
             </div>
             <button type="button" class="btn btn-primary btn-block" (click)="reinit()">

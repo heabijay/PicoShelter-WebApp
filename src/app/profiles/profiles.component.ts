@@ -10,6 +10,7 @@ import { ImagesHttpService } from "../services/imagesHttpService"
 import { ProfilesDataService } from './profiles.data.service';
 import { copyToClipboard } from "../static/copyToClipboard"
 import { AlbumHttpService } from '../services/albumHttpService';
+import { AlbumsHttpService } from '../services/albumsHttpService';
 
 @Component({
     templateUrl: './profiles.component.html',
@@ -17,7 +18,8 @@ import { AlbumHttpService } from '../services/albumHttpService';
         ProfilesHttpService,
         CurrentUserService,
         ImagesHttpService,
-        AlbumHttpService
+        AlbumHttpService,
+        AlbumsHttpService
     ]
 })
 export class ProfilesComponent {
@@ -35,7 +37,8 @@ export class ProfilesComponent {
         private currentUserService: CurrentUserService,
         private toastrService: ToastrService,
         private dataService: ProfilesDataService,
-        private albumService: AlbumHttpService
+        private albumService: AlbumHttpService,
+        private albumsService: AlbumsHttpService
     ) {
         this.paramSubscription = this.activatedRoute.params.subscribe(param => 
         {
