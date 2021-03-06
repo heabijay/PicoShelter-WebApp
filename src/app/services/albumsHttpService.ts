@@ -30,8 +30,16 @@ export class AlbumsHttpService extends HttpService {
         return this.getAlbumLink(albumCode) + '/' + imageCode;
     }
 
+    getImageLinkByUsercode(albumUsercode: string, imageCode: string) {
+        return this.getAlbumLinkByUsercode(albumUsercode) + '/' + imageCode;
+    }
+
     getImageDirectLink(albumCode: string, imageCode: string, imageExt: string) {
         return this.getImageLink(albumCode, imageCode) + '.' + imageExt.replace("jpeg", "jpg"); 
+    }
+
+    getImageDirectLinkByUserCode(albumUsercode: string, imageCode: string, imageExt: string) {
+        return this.getImageLinkByUsercode(albumUsercode, imageCode) + '.' + imageExt.replace("jpeg", "jpg"); 
     }
     
     getImageBlob(albumCode: string, imageCode: string, imageExt: string)

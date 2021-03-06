@@ -12,21 +12,17 @@
                     <p class="float-left text-muted m-0">
                         <span class="text-uppercase">Uploaded by </span>
                         <a [routerLink]="'/profiles/' + info.user.id">
-                            <ng-container *ngIf="info.user.profile.firstname || info.user.profile.lastname; else noName">
-                                {{info.user.profile.firstname}} {{info.user.profile.lastname}} (@{{info.user.username}})
-                            </ng-container>
-                            <ng-template #noName>
-                                @{{info.user.username}}
-                            </ng-template>
+                            <ng-container *ngIf="info.user.profile.firstname || info.user.profile.lastname; else noName">{{info.user.profile.firstname}} {{info.user.profile.lastname}} (@{{info.user.username}})</ng-container>
+                            <ng-template #noName>@{{info.user.username}}</ng-template>
                         </a>
                         <ng-container *ngIf="albumInfo.title; else noTitle">
-                            <span class="text-uppercase">In album</span>
+                            <span class="text-uppercase"> In album </span>
                             <a [routerLink]="'../'">
                                 {{albumInfo.title}}
                             </a>
                         </ng-container>
                         <ng-template #noTitle>
-                            <span class="text-uppercase">In</span>
+                            <span class="text-uppercase"> In </span> 
                             <a class="text-uppercase" [routerLink]="'../'">
                                 Album
                             </a>
@@ -85,20 +81,25 @@
                                 <i class="fas fa-external-link-alt mr-2"></i>Open in new tab
                             </ng-template>
                         </summary>
-                        <hr class="w-100 m-0"/>
-                        <summary *ngIf="isAdminAccess" (click)="performIsPublicCbChanged()" class="list-group-item border-0 list-group-item-action px-0 px-sm-2">
-                            <div class="custom-control custom-switch">
-                                <input type="checkbox" [(ngModel)]="isPublicStateViewModel" [disabled]="isPublicStateChanging" (change)="onIsPublicCbChanged($event)" class="custom-control-input" id="isPublicSwitch" style="cursor: pointer;">
-                                <label class="custom-control-label" for="isPublicSwitch" style="cursor: pointer;">Public access</label>
-                            </div>
+                        <summary (click)="showLinks()" class="list-group-item border-0 list-group-item-action px-0 px-sm-2">
+                            <i class="fas fa-link mr-2"></i>Links
                         </summary>
-                        <summary *ngIf="info.isPublic" (click)="copyLink()" class="list-group-item border-0 list-group-item-action px-0 px-sm-2"><i class="fas fa-share mr-2"></i>Copy link</summary>
-                        <summary *ngIf="info.isPublic" (click)="copyDirectLink()" class="list-group-item border-0 list-group-item-action px-0 px-sm-2"><i class="fas fa-external-link-alt mr-2"></i>Copy direct link</summary>
-                    
+
                         <div *ngIf="isAdminAccess">
                             <hr class="w-100 m-0"/>
                             <summary (click)="editImage()" class="list-group-item border-0 list-group-item-action px-0 px-sm-2"><i class="far fa-edit mr-2"></i>Edit</summary>
-                            <summary (click)="deleteImage()" class="list-group-item border-0 list-group-item-action px-0 px-sm-2"><i class="fas fa-trash mr-2"></i>Delete</summary>
+                            <summary (click)="deleteImage()" class="list-group-item border-0 list-group-item-action px-0 px-sm-2"><i class="fas fa-trash mr-2"></i>Delete Image</summary>
+                        </div>
+                        <div *ngIf="albumInfo.accessRole <= roleType.editor">
+                            <hr class="w-100 m-0"/>
+                            <summary (click)="dropFromAlbum()" class="list-group-item border-0 list-group-item-action px-0 px-sm-2">
+                                <ng-container *ngIf="isDropping; else noDropping">
+                                    <i class="fa fa-spinner-third fa-spin mr-2" aria-hidden="true"></i>Dropping
+                                </ng-container>
+                                <ng-template #noDropping>
+                                    <i class="fas fa-ban mr-2"></i>Drop from album
+                                </ng-template>
+                            </summary>
                         </div>
                     </div>
                 </div>

@@ -21,7 +21,7 @@
                 <div class="image-thumnail-overlay-loading" *ngIf="image?.resourceUrl == null">
                     <i class="fa fa-spinner-third fa-spin" aria-hidden="true"></i>
                 </div>
-                <div [routerLink]="'/i/' + image?.info?.imageCode" class="image-thumbnail image-thumbnail-zoomIn" [style.background-image]="image?.resourceUrl == null ? 'none' : 'url(' + image.resourceUrl + ')'"></div>
+                <a [routerLink]="'/i/' + image?.info?.imageCode" class="image-thumbnail image-thumbnail-zoomIn" [style.background-image]="image?.resourceUrl == null ? 'none' : 'url(' + image.resourceUrl + ')'"></a>
             </summary>
         </div>
         <p *ngIf="profile?.images == null" class="text-muted text-center w-100 mt-3">

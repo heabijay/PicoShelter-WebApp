@@ -24,7 +24,7 @@
                             <i class="fa fa-spinner-third fa-spin mr-2" aria-hidden="true"></i> Dropping
                         </ng-container>
                         <ng-template #notDropping>
-                            <i class="fas fa-trash mr-2"></i>Drop
+                            <i class="fas fa-ban mr-2"></i>Drop
                         </ng-template>
                     </button>
                 </div>
@@ -42,10 +42,10 @@
                         <div class="image-thumnail-overlay-loading" *ngIf="image?.resourceUrl == null">
                             <i class="fa fa-spinner-third fa-spin" aria-hidden="true"></i>
                         </div>
-                        <summary *ngIf="album.accessRole <= roleType.admin" [style.opacity]="(image.selected ? 1 : 0.3)" class="image-thumnail-overlay-selected px-1" (click)="toggleSelect(image)">
+                        <summary *ngIf="album.accessRole <= roleType.editor" [style.opacity]="(image.selected ? 1 : 0.3)" class="image-thumnail-overlay-selected px-1" (click)="toggleSelect(image)">
                             <i [ngClass]="{'text-primary': image.selected, 'fas': image.selected }" class="far fa-check-square"></i>
                         </summary>
-                        <div [routerLink]="image?.info?.imageCode" class="image-thumbnail image-thumbnail-zoomIn" [style.background-image]="image?.resourceUrl == null ? 'none' : 'url(' + image.resourceUrl + ')'"></div>
+                        <a [routerLink]="image?.info?.imageCode" class="image-thumbnail image-thumbnail-zoomIn" [style.background-image]="image?.resourceUrl == null ? 'none' : 'url(' + image.resourceUrl + ')'"></a>
                     </summary>
                 </div>
                 <p *ngIf="album?.images?.totalCount == 0" class="text-muted text-center w-100 mt-3 lead">
