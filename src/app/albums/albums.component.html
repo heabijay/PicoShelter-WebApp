@@ -1,0 +1,67 @@
+<ng-container *ngIf="album != null; else noInfo">
+    <div class="flex-column justify-content-start">
+        <div class="bg-gradient-fruitBlend text-white w-100 border-bottom border-top shadow-sm">
+            <div class="mt-3 mt-md-0">
+                <div class="container mt-md-3">
+                    <h1 *ngIf="album.title" class="display-4" style="font-size: 2.5em;">{{album.title}}</h1>
+                    <p class="text-uppercase lead">
+                        <span>Album</span>
+                        <span> • </span>
+                        <span><a class="text-white" href="#">{{album.users.totalCount}} members</a></span>
+                        <span> • </span>
+                        <span>{{album.images.totalCount}} pictures</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="container mt-3">
+            <div class="d-flex flex-column flex-sm-row align-items-sm-center justify-content-end">
+                <div class="d-flex flex-column flex-sm-row mb-2">
+                    <button *ngIf="album.accessRole <= roleType.editor" class="btn btn-primary" type="button" (click)="addImage()"><i class="fa fa-plus mr-2" aria-hidden="true"></i>Add</button>
+                    <button *ngIf="album.accessRole <= roleType.admin" class="btn btn-secondary ml-sm-1 mt-1 mt-sm-0" type="button" (click)="editAlbum()"><i class="far fa-edit mr-2"></i>Edit</button>
+                    <button *ngIf="selectedCount > 0 && album.accessRole <= roleType.editor" [disabled]="isDropping" class="btn btn-danger ml-sm-1 mt-1 mt-sm-0" type="button" (click)="dropImages()">
+                        <ng-container *ngIf="isDropping; else notDropping">
+                            <i class="fa fa-spinner-third fa-spin mr-2" aria-hidden="true"></i> Dropping
+                        </ng-container>
+                        <ng-template #notDropping>
+                            <i class="fas fa-trash mr-2"></i>Drop
+                        </ng-template>
+                    </button>
+                </div>
+            </div>
+            <hr class="my-1" *ngIf="album.accessRole <= roleType.editor">
+            <div class="row mx-n1">
+                <div *ngFor="let image of imageThumbnailViewModel" 
+                    class="col-4 
+                        col-sm-3
+                        col-md-2 
+                        col-lg-1 
+                        square 
+                        d-inline-block p-1" >
+                    <summary class="image-thumbnail-frame" placement="bottom" [ngbTooltip]="image?.info?.title">
+                        <div class="image-thumnail-overlay-loading" *ngIf="image?.resourceUrl == null">
+                            <i class="fa fa-spinner-third fa-spin" aria-hidden="true"></i>
+                        </div>
+                        <summary *ngIf="album.accessRole <= roleType.admin" [style.opacity]="(image.selected ? 1 : 0.3)" class="image-thumnail-overlay-selected px-1" (click)="toggleSelect(image)">
+                            <i [ngClass]="{'text-primary': image.selected, 'fas': image.selected }" class="far fa-check-square"></i>
+                        </summary>
+                        <div [routerLink]="image?.info?.imageCode" class="image-thumbnail image-thumbnail-zoomIn" [style.background-image]="image?.resourceUrl == null ? 'none' : 'url(' + image.resourceUrl + ')'"></div>
+                    </summary>
+                </div>
+                <p *ngIf="album?.images?.totalCount == 0" class="text-muted text-center w-100 mt-3 lead">
+                    There's no pictures.
+                </p>
+        
+                <p *ngIf="isLoading" class="text-muted text-center w-100 mt-3">
+                    <i class="fa fa-spinner-third fa-spin" aria-hidden="true"></i>
+                </p>
+                <button *ngIf="!isAllImagesLoaded && !isLoading" (click)="loadNextPage()" class="btn btn-primary w-100 mt-3" type="button"><i class="fa fa-bolt mr-2" aria-hidden="true"></i>Load more images</button>
+            </div>
+        </div>
+    </div>
+</ng-container>
+<ng-template #noInfo>
+    <div class="component-fill">
+        <i class="fa fa-2x fa-spinner-third fa-spin" aria-hidden="true"></i>
+    </div>
+</ng-template>

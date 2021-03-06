@@ -1,12 +1,10 @@
 import { Component, Input } from "@angular/core"
 import { NgbActiveModal } from "@ng-bootstrap/ng-bootstrap"
-import { ImageShortInfoDto } from "../../models/imageShortInfoDto"
-import { ImageCacheService } from "../../services/imageCacheService";
 import { ImagesHttpService } from "../../services/imagesHttpService";
 
 @Component({
     selector: "ngbd-profileimagedeleting-modal",
-    templateUrl: "./NgbdProfileImageDeletingModal.component.html",
+    templateUrl: "./ngbdProfileImageDeletingModal.component.html",
     providers: [
         ImagesHttpService
     ]
@@ -46,6 +44,7 @@ export class NgbdProfileImageDeletingModalComponent {
             ).add(
                 () => {
                     if (this.completedItems >= this.imageCodes.length) {
+                        this.isProceeding = false;
                         this.close();
                     }
                 }

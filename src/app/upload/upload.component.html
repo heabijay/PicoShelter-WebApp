@@ -26,7 +26,7 @@
                 <div [hidden]="!currentUserService.currentUser" class="custom-control custom-checkbox">
                     <input type="checkbox" class="custom-control-input" [(ngModel)]="isAnonymous" name="isAnonymous" id="isAnonymous" (change)="onAnonymousCheckChanged()">
                     <label class="custom-control-label" for="isAnonymous">As Anonymous</label>
-                    <small class="form-text text-muted">If you want upload an image without adding to own gallery</small>
+                    <small class="form-text text-muted">If you want to upload an image without adding it to your own gallery</small>
                 </div>
     
                 <div class="custom-file mt-3">
@@ -49,7 +49,7 @@
                 <div class="custom-control custom-checkbox mb-3">
                     <input type="checkbox" class="custom-control-input" [disabled]="isAnonymous" name="isPublic" #isPublic="ngModel" id="isPublic" [(ngModel)]="dto.isPublic">
                     <label class="custom-control-label" for="isPublic">Make public</label>
-                    <small class="form-text text-muted">It's allow you to share this image simplify by link</small>
+                    <small class="form-text text-muted">It allows you to share this image simplify by link</small>
                 </div>
                 <div class="form-group">
                     <select [ngClass]="{ 'is-invalid': deleteInHours.touched && deleteInHours.invalid }" name="deleteInHours" #deleteInHours="ngModel" [(ngModel)]="dto.deleteInHours" (change)="onDeleteInHoursChanged()" class="custom-select" required>
@@ -60,18 +60,18 @@
                         <option value="720">Save for Month</option>
                     </select>
                     <div [hidden]="deleteInHours.valid || deleteInHours.untouched">
-                        <p class="invalid-feedback d-block" *ngIf="deleteInHours.errors?.lifetimeForbidden">Anonymous upload doesn't allow you select lifetime shelter</p>
+                        <p class="invalid-feedback d-block" *ngIf="deleteInHours.errors?.lifetimeForbidden">Anonymous upload doesn't allow you to select lifetime shelter</p>
                     </div>
                 </div>
     
                 <div class="form-group">
                     <select [ngClass]="{ 'is-invalid': quality.touched && quality.invalid }" name="quality" #quality="ngModel" [(ngModel)]="dto.quality" (change)="onQualityChanged()" class="custom-select" required>
-                        <option value="95">Good Quality</option>
-                        <option value="70">Medium Quality</option>
+                        <option value="75">Good Quality</option>
+                        <option value="40">Medium Quality</option>
                         <option value="100">Original Quality</option>
                     </select>
-                    <small *ngIf="dto.quality == 95" class="form-text text-muted">Best choice to share and save any non-transperent image</small>
-                    <small *ngIf="dto.quality == 70" class="form-text text-muted">Well compressed image to embedding anywhere</small>
+                    <small *ngIf="dto.quality == 75" class="form-text text-muted">The best choice to share and save any non-transparent image</small>
+                    <small *ngIf="dto.quality == 40" class="form-text text-muted">Well compressed image to embedding anywhere</small>
                     <small *ngIf="dto.quality == 100" class="form-text text-muted">Excellent quality without any changes!</small>
                     <div [hidden]="quality.valid || quality.untouched">
                         <p class="invalid-feedback d-block" *ngIf="quality.errors?.qualityForbidden">This quality disallowed for anonymous upload</p>

@@ -1,0 +1,46 @@
+<div class="modal-header">
+    <h4 class="modal-title">Select pictures to add</h4>
+    <button type="button" class="btn close" aria-label="Close" (click)="close()">
+    <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <label class="text-muted text-uppercase">My gallery</label>
+    <div class="row mx-0">
+        <div *ngFor="let image of imageThumbnailViewModel" 
+            class="col-4 
+                col-sm-3
+                col-md-2 
+                col-lg-1 
+                square 
+                d-inline-block p-1" >
+            <div class="image-thumbnail-frame" placement="bottom" [ngbTooltip]="image?.info?.title">
+                <div class="image-thumnail-overlay-loading" *ngIf="image?.resourceUrl == null">
+                    <i class="fa fa-spinner-third fa-spin" aria-hidden="true"></i>
+                </div>
+                <summary *ngIf="isMyAccount" [style.opacity]="(image.selected ? 1 : 0.3)" class="image-thumnail-overlay-selected px-1" (click)="toggleSelect(image)">
+                    <i [ngClass]="{'text-primary': image.selected, 'fas': image.selected }" class="far fa-check-square"></i>
+                </summary>
+                <div class="image-thumbnail image-thumbnail-zoomIn" [style.background-image]="image?.resourceUrl == null ? 'none' : 'url(' + image.resourceUrl + ')'"></div>
+            </div>
+        </div>
+        <p *ngIf="totalCount == 0" class="text-muted text-center w-100 mt-3 lead">
+            There's no pictures. Yet.
+        </p>
+
+        <p *ngIf="isLoading" class="text-muted text-center w-100 mt-3">
+            <i class="fa fa-spinner-third fa-spin" aria-hidden="true"></i>
+        </p>
+        <button *ngIf="!isAllImagesLoaded && !isLoading" (click)="loadNextPage()" class="btn btn-primary w-100 mt-3" type="button"><i class="fa fa-bolt mr-2" aria-hidden="true"></i>Load more images</button>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-outline-secondary" (click)="close()">Cancel</button>
+    <button [disabled]="isProceeding" *ngIf="selectedCount > 0" type="button" class="btn btn-primary" (click)="confirm()">
+        <ng-container *ngIf="isProceeding; else notProceeding">
+            <i class="fa fa-spinner-third fa-spin" aria-hidden="true"></i>
+        </ng-container>
+        <ng-template #notProceeding>
+            Add {{selectedCount}} images
+        </ng-template>
+    </button>
+</div>

@@ -9,6 +9,8 @@ import { UploadComponent } from "./upload/upload.component";
 import { UploadExitGuard } from "./guards/upload.exit.guard";
 import { ImagesComponent } from "./images/images.component";
 import { ConfirmComponent } from "./confirm/confirm.component";
+import { AlbumsComponent } from "./albums/albums.component";
+import { ImagesComponent as AlbumImagesComponent } from "./albums/images/images.component";
 
 export const appRoutes: Routes = [
     { path: "", component: HomeComponent },
@@ -19,6 +21,10 @@ export const appRoutes: Routes = [
     { path: "profiles/:id", component: ProfilesComponent, children: profileRoutes },
     { path: "p/:username", component: ProfilesComponent, children: profileRoutes },
     { path: "i/:code", component: ImagesComponent },
+    { path: "a/:code", component: AlbumsComponent },
+    { path: "s/:usercode", component: AlbumsComponent },
+    { path: "a/:code/:imgCode", component: AlbumImagesComponent },
+    { path: "s/:usercode/:imgCode", component: AlbumImagesComponent },
     { path: "confirm", component: ConfirmComponent },
     { path: "**", component: NotFoundComponent }
 ]

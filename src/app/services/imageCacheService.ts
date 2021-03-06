@@ -1,7 +1,9 @@
 import { Injectable, SecurityContext } from "@angular/core";
 import { ImageCacheDto } from "../models/imageCacheDto";
-import { Observable, Subject, of } from "rxjs";
+import { Observable, Subject, of, Subscription } from "rxjs";
 import { DomSanitizer } from "@angular/platform-browser";
+
+var imageCacheDb = new Array<ImageCacheDto>();
 
 @Injectable()
 export class ImageCacheService {
@@ -11,76 +13,72 @@ export class ImageCacheService {
         
     }
 
-    imageCacheDb = new Array<ImageCacheDto>();
-
     getImage(code: string) : ImageCacheDto {
-        return this.imageCacheDb.filter(t => t.code.toUpperCase() == code.toUpperCase())[0];
-    }
-
-    setImageThumbnail(code: string, thumbnailResUrl: string) {
-        const item = this.imageCacheDb.filter(t => t.code.toUpperCase() == code.toUpperCase())[0];
-        if (item) {
-            item.thumbnailResourceUrl = thumbnailResUrl;
-        }
-        else {
-            const newItem = new ImageCacheDto();
-            newItem.code = code;
-            newItem.thumbnailResourceUrl = thumbnailResUrl;
-            this.imageCacheDb.push(newItem);
-        }
-    }
-
-    setImage(code: string, imageResUrl: string) {
-        const item = this.imageCacheDb.filter(t => t.code.toUpperCase() == code.toUpperCase())[0];
-        if (item) {
-            item.imageResourceUrl = imageResUrl;
-        }
-        else {
-            const newItem = new ImageCacheDto();
-            newItem.code = code;
-            newItem.imageResourceUrl = imageResUrl;
-            this.imageCacheDb.push(newItem);
-        }
+        return imageCacheDb.filter(t => t.code.toUpperCase() == code.toUpperCase())[0];
     }
 
     requestThumbnailUsingCache(code: string, request: (code: string) => Observable<Blob>) : Observable<string> {
-        const url = this.getImage(code)?.thumbnailResourceUrl;
-        if (url) {
-            return of(url);
+        let el = this.getImage(code);
+
+        if (el == null) {
+            el = new ImageCacheDto();
+            el.code = code;
+            imageCacheDb.push(el);
         }
-        else {
+
+        if (el?.thumbnailResourceUrl) {
+            return of(el?.thumbnailResourceUrl);
+        }
+        else if (el?.thumbnailSub == null) {
             const subject = new Subject<string>();
             request(code).subscribe(
                 blob => {
                     const link = this.resourceUrlOfBlob(blob);
-                    this.setImageThumbnail(code, link);
+                    el.thumbnailResourceUrl = link;
                     subject.next(link);
                 },
                 error => subject.error(error),
-                () => subject.complete()
+                () => {
+                    subject.complete();
+                    el.thumbnailSub = null;
+                }
             );
-            return subject.asObservable();
+            el.thumbnailSub = subject.asObservable();
         }
+
+        return el?.thumbnailSub;
     }
 
     requestImageUsingCache(code: string, request: (code) => Observable<Blob>) : Observable<string> {
-        const url = this.getImage(code)?.imageResourceUrl;
-        if (url) {
-            return of(url);
+        let el = this.getImage(code);
+
+        if (el == null) {
+            el = new ImageCacheDto();
+            el.code = code;
+            imageCacheDb.push(el);
         }
-        else {
+
+        if (el?.imageResourceUrl) {
+            return of(el?.imageResourceUrl);
+        }
+        else if (el?.imageSub == null) {
             const subject = new Subject<string>();
             request(code).subscribe(
                 blob => {
                     const link = this.resourceUrlOfBlob(blob);
-                    this.setImage(code, link);
+                    el.imageResourceUrl = link;
                     subject.next(link);
                 },
                 error => subject.error(error),
-                () => subject.complete()
+                () => {
+                    subject.complete();
+                    el.imageSub = null;
+                }
             );
-            return subject.asObservable();
+            el.imageSub = subject.asObservable();
         }
+
+        return el?.imageSub;
     }
 
     resourceUrlOfBlob(blob: Blob) {

@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
-import { NgbdProfileImageDeletingModalComponent } from 'src/app/modals/profileImageDeleting/NgbdProfileImageDeletingModal.component';
+import { NgbdProfileImageDeletingModalComponent } from 'src/app/modals/profileImageDeleting/ngbdProfileImageDeletingModal.component';
 import { ImageShortInfoDto } from 'src/app/models/imageShortInfoDto';
 import { ProfileInfoDto } from 'src/app/models/profileInfoDto';
 import { AlbumHttpService } from 'src/app/services/albumHttpService';
@@ -67,7 +67,6 @@ export class ImagesComponent {
     }
 
     onProfileDataRefresh(data: ProfileInfoDto) {
-        this.imageThumbnailViewModel = new Array<ImageThumbnailViewModel>();
         this.profile = data;
         if (this.profile != null) {
             this.loadImageThumbnails(data.images.data);
@@ -91,7 +90,7 @@ export class ImagesComponent {
         if (!this.isAllImagesLoaded) {
             this.isLoading = true;
             const startIndex = this.imageThumbnailViewModel.length;
-            const sub = this.profilesService.getProfileImages(this.profile.userinfo.id, startIndex, size).subscribe(
+            const sub = this.profilesService.getImages(this.profile.userinfo.id, startIndex, size).subscribe(
                 data => {
                     if (data.success) {
                         this.profile.images.totalCount = data.data.totalCount;
@@ -127,6 +126,9 @@ export class ImagesComponent {
                     this.toastrService.success(r.success + " image(s) deleted!");
                     this.reload();
                 }
+            },
+            rejected => {
+                
             }
         )
     }
@@ -139,40 +141,22 @@ export class ImagesComponent {
     }
 
     
-    startSharing() {
+    shareImage() {
         this.isSharing = true;
         const selectedItems = this.imageThumbnailViewModel.filter(t => t.selected == true);
-        if (this.selectedCount == 1) {
-            const dto = selectedItems[0].info;
+        const dto = selectedItems[0].info;
 
-            if (dto.isPublic) {
-                copyToClipboard(window.location.origin + "/i/" + dto.imageCode);
-                this.toastrService.info("Link copied to clipboard!");
-                this.isSharing = false;
-            }
-            else {
-                this.imagesService.changePublicState(dto.imageCode, true).subscribe(
-                    data => {
-                        dto.isPublic = true;
-                        copyToClipboard(window.location.origin + "/i/" + dto.imageCode);
-                        this.toastrService.info("Link copied to clipboard!");
-                    },
-                    error => {
-                        this.toastrService.error("Something went wrong :(");
-                    }
-                ).add(
-                    () => this.isSharing = false
-                );
-            }
+        if (dto.isPublic) {
+            copyToClipboard(window.location.origin + "/i/" + dto.imageCode);
+            this.toastrService.info("Link copied to clipboard!");
+            this.isSharing = false;
         }
         else {
-            const ids = selectedItems.map(t => t.info.imageId);
-            this.albumService.createAndShare(ids).subscribe(
+            this.imagesService.changePublicState(dto.imageCode, true).subscribe(
                 data => {
-                    if (data.success) {
-                        copyToClipboard(window.location.origin + "/a/" + data.data.code);
-                        this.toastrService.info("Link copied to clipboard!");
-                    }
+                    dto.isPublic = true;
+                    copyToClipboard(window.location.origin + "/i/" + dto.imageCode);
+                    this.toastrService.info("Link copied to clipboard!");
                 },
                 error => {
                     this.toastrService.error("Something went wrong :(");
@@ -181,5 +165,24 @@ export class ImagesComponent {
                 () => this.isSharing = false
             );
         }
+    }
+
+    shareAsAlbum() {
+        this.isSharing = true;
+        const selectedItems = this.imageThumbnailViewModel.filter(t => t.selected == true);
+        const ids = selectedItems.map(t => t.info.imageId);
+        this.albumService.createAndShare(ids).subscribe(
+            data => {
+                if (data.success) {
+                    copyToClipboard(window.location.origin + "/a/" + data.data.code);
+                    this.toastrService.info("Link copied to clipboard!");
+                }
+            },
+            error => {
+                this.toastrService.error("Something went wrong :(");
+            }
+        ).add(
+            () => this.isSharing = false
+        );
     }
 }

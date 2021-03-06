@@ -6,7 +6,7 @@ import { ImagesHttpService } from "../../services/imagesHttpService";
 
 @Component({
     selector: "ngbd-profileimageedit-modal",
-    templateUrl: "./NgbdImageEditModal.component.html",
+    templateUrl: "./ngbdImageEditModal.component.html",
     providers: [
         ImagesHttpService
     ]

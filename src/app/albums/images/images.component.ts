@@ -3,29 +3,34 @@ import { Location } from '@angular/common';
 import { Component } from '@angular/core';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Subscription, timer } from 'rxjs';
-import { ImageInfoDto } from '../models/imageInfoDto';
-import { ImageCacheService } from '../services/imageCacheService';
-import { ImagesHttpService } from '../services/imagesHttpService';
-import { copyToClipboard } from "../static/copyToClipboard"
-import { downloadFileQuery } from "../static/downloadFileQuery"
-import { dateFromUTС } from "../static/dateFromUTC"
+import { Observable, Subscription, timer } from 'rxjs';
+import { ImageInfoDto } from '../../models/imageInfoDto';
+import { ImageCacheService } from '../../services/imageCacheService';
+import { copyToClipboard } from "../../static/copyToClipboard"
+import { downloadFileQuery } from "../../static/downloadFileQuery"
+import { dateFromUTС } from "../../static/dateFromUTC"
 import { ToastrService } from 'ngx-toastr';
-import { CurrentUserService } from '../services/currentUserService';
+import { CurrentUserService } from '../../services/currentUserService';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { NgbdProfileImageDeletingModalComponent } from '../modals/profileImageDeleting/ngbdProfileImageDeletingModal.component';
-import { ImageEditDto } from '../models/imageEditDto';
-import { NgbdImageEditModalComponent } from '../modals/imageEdit/ngbdImageEditModal.component';
+import { NgbdProfileImageDeletingModalComponent } from '../../modals/profileImageDeleting/ngbdProfileImageDeletingModal.component';
+import { ImageEditDto } from '../../models/imageEditDto';
+import { NgbdImageEditModalComponent } from '../../modals/imageEdit/ngbdImageEditModal.component';
+import { AlbumsHttpService } from 'src/app/services/albumsHttpService';
+import { ImagesHttpService } from 'src/app/services/imagesHttpService';
+import { AlbumInfoDto } from 'src/app/models/albumInfoDto';
+import { SuccessResponseDto } from 'src/app/models/successResponseDto';
 
 @Component({
     templateUrl: './images.component.html',
     providers: [
+        AlbumsHttpService,
         ImagesHttpService
     ]
 })
 export class ImagesComponent {
-    code: string;
+    imageCode: string;
     info: ImageInfoDto;
+    albumInfo: AlbumInfoDto;
     infoUploadedDate: Date;
     imageResourceUrl: string;
     thumbnailResourceUrl: string;
@@ -41,6 +46,7 @@ export class ImagesComponent {
     isPublicStateChanging: boolean;
     isPublicStateViewModel: boolean;
     isRequestedDownload: boolean;
+    isRequestedOpen: boolean;
 
     paramSubscription: Subscription;
     urlSubscription: Subscription;
@@ -54,14 +60,19 @@ export class ImagesComponent {
         private activatedRoute: ActivatedRoute,
         private imageCache: ImageCacheService,
         private imagesService: ImagesHttpService,
+        private albumsService: AlbumsHttpService,
         private currentUserService: CurrentUserService,
         public location: Location,
         private modalService: NgbModal,
+        private sanitizer: DomSanitizer,
         private toastrService: ToastrService
     ) { 
         this.paramSubscription = this.activatedRoute.params.subscribe(param => 
         {
-            this.code = param["code"];
+            const albumCode = param["code"];
+            const albumUserCode = param["usercode"];
+            this.imageCode = param["imgCode"];
+
             this.isFirstPage = (this.location.getState() as any).navigationId == 1;
             this.imageResourceUrl = null;
             this.info = null;
@@ -70,31 +81,51 @@ export class ImagesComponent {
             this.imageWidth = null;
             this.isRequestedDownload = false;
 
-            this.imagesService.getImageInfo(this.code).subscribe(
+            let req: Observable<SuccessResponseDto<AlbumInfoDto>>;
+            if (albumCode != null)
+                req = this.albumsService.getInfo(albumCode);
+            else
+                req = this.albumsService.getInfoByUsercode(albumUserCode);
+
+            req.subscribe(
                 data => {
                     if (data.success) {
-                        this.info = data.data;
-                        this.infoUploadedDate = dateFromUTС(data.data.uploadedTime);
-                        this.isPublicStateViewModel = data.data.isPublic;
-                        if (data.data.autoDeleteIn) {
-                            this.countToDelete = dateFromUTС(data.data.autoDeleteIn).getTime() - new Date().getTime();
-                            this.countDownToDeleteSub = timer(0, 1000).subscribe(
-                                () => this.countToDelete -= 1000
-                            );
-                        }
-                        else {
-                            this.countDownToDeleteSub = null;
-                        }
-
-                        this.loadThumbnail(data.data.imageCode);
-                        this.loadImage(data.data.imageCode, data.data.imageType);
+                        this.albumInfo = data.data;
+                        this.albumsService.getImageInfo(this.albumInfo.code, this.imageCode).subscribe(
+                            data => {
+                                if (data.success) {
+                                    this.info = data.data;
+                                    this.onDataLoaded();
+                                }
+                            },
+                            error => {
+                                this.redirectNotFound();
+                            }
+                        );
                     }
                 },
                 error => {
                     this.redirectNotFound();
                 }
-            )
+            );
         });
+    }
+
+    onDataLoaded() {
+        this.infoUploadedDate = dateFromUTС(this.info.uploadedTime);
+        this.isPublicStateViewModel = this.info.isPublic;
+        if (this.info.autoDeleteIn) {
+            this.countToDelete = dateFromUTС(this.info.autoDeleteIn).getTime() - new Date().getTime();
+            this.countDownToDeleteSub = timer(0, 1000).subscribe(
+                () => this.countToDelete -= 1000
+            );
+        }
+        else {
+            this.countDownToDeleteSub = null;
+        }
+
+        this.loadThumbnail(this.info.imageCode);
+        this.loadImage(this.info.imageCode, this.info.imageType);
     }
 
     redirectNotFound() {
@@ -106,7 +137,7 @@ export class ImagesComponent {
     loadImage(code: string, ext: string) {
         this.imageCache.requestImageUsingCache(
             code, 
-            code => this.imagesService.getImageBlob(code, ext)
+            code => this.albumsService.getImageBlob(this.albumInfo.code, code, ext)
         ).subscribe(
             url => {
                 this.imageResourceUrl = url;
@@ -119,6 +150,11 @@ export class ImagesComponent {
                 {
                     this.isRequestedDownload = false;
                     this.downloadImage();
+                }
+
+                if (this.isRequestedOpen) {
+                    this.isRequestedOpen = false;
+                    this.openInNewTab();
                 }
             },
             (error: HttpErrorResponse) => {
@@ -160,7 +196,7 @@ export class ImagesComponent {
     loadThumbnail(code: string) {
         this.imageCache.requestThumbnailUsingCache(
             code,
-            code => this.imagesService.getThumbnailBlob(code)
+            code => this.albumsService.getThumbnailBlob(this.albumInfo.code, code)
         ).subscribe(
             data => {
                 this.thumbnailResourceUrl = data;
@@ -214,6 +250,25 @@ export class ImagesComponent {
         }
     }
 
+    openInNewTab() {
+        if (this.imageResourceUrl != null) {
+            window.open(this.imageResourceUrl, "_blank");
+        }
+        else if (this.info?.isPublic == true) {
+            window.open(this.imagesService.getImageDirectLink(this.info.imageCode, this.info.imageType), "_blank");
+            downloadFileQuery(
+                this.imageResourceUrl, 
+                (this.info.title ?? ("PicoShelter-" + this.info.imageCode)) + '.' + this.info.imageType.replace("jpeg", "jpg")
+            );
+        }
+        else if (this.albumInfo?.isPublic) {
+            window.open(this.albumsService.getImageDirectLink(this.albumInfo.code, this.info.imageCode, this.info.imageType), "_blank");
+        }
+        else {
+            this.isRequestedOpen = true;
+        }
+    }
+
     editImage() {
         const modalRef = this.modalService.open(NgbdImageEditModalComponent, { centered: true });
         modalRef.componentInstance.imageInfoDto = this.info;
@@ -235,7 +290,7 @@ export class ImagesComponent {
 
     deleteImage() {
         const modalRef = this.modalService.open(NgbdProfileImageDeletingModalComponent, { centered: true });
-        modalRef.componentInstance.imageCodes = [this.code];
+        modalRef.componentInstance.imageCodes = [this.imageCode];
         modalRef.result.then(
             result => {
                 const r = result as { success: number, failed: number };

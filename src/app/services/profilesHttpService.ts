@@ -65,7 +65,7 @@ export class ProfilesHttpService extends HttpService {
         )
     }
 
-    getProfile(id: number) {
+    getInfo(id: number) {
         return this.httpClient.get<SuccessResponseDto<ProfileInfoDto>>(
             this.getProfileLink(id), 
             {
@@ -74,7 +74,7 @@ export class ProfilesHttpService extends HttpService {
         );
     }
 
-    getProfileByUsername(username: string) {
+    getInfoByUsername(username: string) {
         return this.httpClient.get<SuccessResponseDto<ProfileInfoDto>>(
             this.getProfileLinkByUsername(username), 
             {
@@ -83,7 +83,7 @@ export class ProfilesHttpService extends HttpService {
         );
     }
 
-    getProfileImages(id: number, starts?: number, count?: number) {
+    getImages(id: number, starts?: number, count?: number) {
         let url = this.getProfileLink(id) + '/images?';
         if (starts != null)
             url += "starts=" + starts + "&";
@@ -98,7 +98,7 @@ export class ProfilesHttpService extends HttpService {
         )
     }
 
-    getProfileAlbums(id: number, starts?: number, count?: number) {
+    getAlbums(id: number, starts?: number, count?: number) {
         let url = this.getProfileLink(id) + '/albums?';
         if (starts != null)
             url += "starts=" + starts + "&";

@@ -4,12 +4,30 @@
         <div *ngIf="isMyAccount" class="d-flex flex-column flex-sm-row">
             <button class="btn btn-primary" type="button" routerLink="/upload"><i class="fa fa-plus mr-2" aria-hidden="true"></i>Upload</button>
             <div class="d-flex flex-row" *ngIf="selectedCount > 0">
-                <button class="btn flex-grow-1 btn-success mt-2 mt-sm-0 ml-sm-1" type="button" [disabled]="isSharing" (click)="startSharing()">
+                <div *ngIf="selectedCount == 1" class="btn-group flex-grow-1 mt-2 mt-sm-0 ml-sm-1">
+                    <button type="button" class="btn btn-success dropdown-toggle" [disabled]="isSharing" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <ng-container *ngIf="isSharing; else notSharing">
+                            <i class="fa fa-spinner-third fa-spin mr-2" aria-hidden="true"></i>Sharing
+                        </ng-container>
+                        <ng-template #notSharing>
+                            <i class="fas fa-share-alt mr-2"></i>Share
+                        </ng-template>
+                    </button>
+                    <div class="dropdown-menu dropdown-menu-right" style="z-index: 1100;">
+                        <summary (click)="shareImage()">
+                            <a class="dropdown-item"><i class="fas fa-link mr-2"></i>Make the image public</a>
+                        </summary>
+                        <summary (click)="shareAsAlbum()">
+                            <a class="dropdown-item"><i class="fas fa-layer-group mr-2"></i>Share as public album</a>
+                        </summary>
+                    </div>
+                </div>
+                <button *ngIf="selectedCount > 1" class="btn flex-grow-1 btn-success mt-2 mt-sm-0 ml-sm-1" type="button" [disabled]="isSharing" (click)="shareAsAlbum()">
                     <ng-container *ngIf="isSharing; else notSharing">
                         <i class="fa fa-spinner-third fa-spin mr-2" aria-hidden="true"></i>Sharing
                     </ng-container>
                     <ng-template #notSharing>
-                        <i class="fas fa-share-alt mr-2"></i>Share <span *ngIf="selectedCount > 1">as album</span>
+                        <i class="fas fa-share-alt mr-2"></i>Share as album
                     </ng-template>
                 </button>
                 <button class="btn flex-grow-1 btn-danger mt-2 mt-sm-0 ml-1" type="button" (click)="deleteSelectedImages()"><i class="fas fa-trash mr-2"></i>Delete</button>
@@ -38,7 +56,7 @@
                 <div [routerLink]="'/i/' + image?.info?.imageCode" class="image-thumbnail image-thumbnail-zoomIn" [style.background-image]="image?.resourceUrl == null ? 'none' : 'url(' + image.resourceUrl + ')'"></div>
             </summary>
         </div>
-        <p *ngIf="profile?.images?.data?.length == 0" class="text-muted text-center w-100 mt-3 lead">
+        <p *ngIf="profile?.images?.totalCount == 0" class="text-muted text-center w-100 mt-3 lead">
             There's no pictures. Yet.
         </p>
 
@@ -46,7 +64,7 @@
             <i class="fa fa-spinner-third fa-spin" aria-hidden="true"></i>
         </p>
         <button *ngIf="!isAllImagesLoaded && !isLoading" (click)="loadNextPage()" class="btn btn-primary w-100 mt-3" type="button"><i class="fa fa-bolt mr-2" aria-hidden="true"></i>Load more images</button>
-        <small *ngIf="profile?.images?.data?.length > 0 && isAllImagesLoaded" class="text-muted text-center w-100 mt-3">
+        <small *ngIf="profile?.images?.totalCount > 0 && isAllImagesLoaded" class="text-muted text-center w-100 mt-3">
             Totally {{profile?.images?.totalCount}} image(s)
         </small>
     </div>

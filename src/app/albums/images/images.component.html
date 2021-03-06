@@ -1,4 +1,4 @@
-<ng-container *ngIf="info; else noInfo">
+<ng-container *ngIf="info && albumInfo; else noInfo">
     <div class="component-fill flex-column justify-content-start">
         <div class="bg-gradient-kindSteel w-100 border-bottom border-top shadow-sm">
             <div class="d-flex flex-column flex-md-row mt-3 mt-md-0">
@@ -9,25 +9,30 @@
                 </div>
                 <div class="col-12 col-md-10 col-lg-8 mt-md-3">
                     <h1 *ngIf="info.title" class="display-4">{{info.title}}</h1>
-                    <p class="float-left">
-                        <ng-container *ngIf="info.user; else noUser">
-                            <p class="text-muted m-0">
-                                <span class="text-uppercase">Uploaded by </span>
-                                <a [routerLink]="'/profiles/' + info.user.id">
-                                    <ng-container *ngIf="info.user.profile.firstname || info.user.profile.lastname; else noName">
-                                        {{info.user.profile.firstname}} {{info.user.profile.lastname}} (@{{info.user.username}})
-                                    </ng-container>
-                                    <ng-template #noName>
-                                        @{{info.user.username}}
-                                    </ng-template>
-                                </a>
-                            </p>
+                    <p class="float-left text-muted m-0">
+                        <span class="text-uppercase">Uploaded by </span>
+                        <a [routerLink]="'/profiles/' + info.user.id">
+                            <ng-container *ngIf="info.user.profile.firstname || info.user.profile.lastname; else noName">
+                                {{info.user.profile.firstname}} {{info.user.profile.lastname}} (@{{info.user.username}})
+                            </ng-container>
+                            <ng-template #noName>
+                                @{{info.user.username}}
+                            </ng-template>
+                        </a>
+                        <ng-container *ngIf="albumInfo.title; else noTitle">
+                            <span class="text-uppercase">In album</span>
+                            <a [routerLink]="'../'">
+                                {{albumInfo.title}}
+                            </a>
                         </ng-container>
-                        <ng-template #noUser>
-                            <p class="text-muted m-0 text-uppercase">Anonymous upload</p>
+                        <ng-template #noTitle>
+                            <span class="text-uppercase">In</span>
+                            <a class="text-uppercase" [routerLink]="'../'">
+                                Album
+                            </a>
                         </ng-template>
                     </p>
-                    <p class="float-right text-muted">{{infoUploadedDate | date:'dd.MM.yy, h:mm aa'}}</p>
+                    <p class="float-right text-muted ml-2">{{infoUploadedDate | date:'dd.MM.yy, h:mm aa'}}</p>
                 </div>
             </div>
         </div>
@@ -70,6 +75,14 @@
                             </ng-container>
                             <ng-template #noRequestedDownload>
                                 <i class="fas fa-download mr-2"></i>Download
+                            </ng-template>
+                        </summary>
+                        <summary (click)="openInNewTab()" class="list-group-item border-0 list-group-item-action px-0 px-sm-2">
+                            <ng-container *ngIf="isRequestedOpen; else noRequestedOpen">
+                                <i class="fa fa-spinner-third fa-spin mr-2" aria-hidden="true"></i>Preparing open
+                            </ng-container>
+                            <ng-template #noRequestedOpen>
+                                <i class="fas fa-external-link-alt mr-2"></i>Open in new tab
                             </ng-template>
                         </summary>
                         <hr class="w-100 m-0"/>
