@@ -12,11 +12,11 @@
                 <input [ngClass]="{ 'is-invalid': title.touched && title.invalid }" id="title" class="form-control" type="text" name="title" [(ngModel)]="dto.title" #title="ngModel" maxlength="64" />
             </div>
             <div class="custom-control custom-checkbox mb-3">
-                <input type="checkbox" class="custom-control-input" name="isSetUsercode" ngModel #isSetUsercode="ngModel" id="isSetUsercode">
+                <input type="checkbox" class="custom-control-input" name="isSetUsercode" [(ngModel)]="isSetUsercodeCheck"  id="isSetUsercode">
                 <label class="custom-control-label" for="isSetUsercode">Set usercode</label>
                 <small class="form-text text-muted">You can set your own link</small>
             </div>
-            <div class="form-group" *ngIf="isSetUsercode.value">
+            <div class="form-group" *ngIf="isSetUsercodeCheck">
                 <label class="text-muted text-uppercase" for="usercode">Usercode</label>
                 <input [ngClass]="{ 'is-invalid': userCode.touched && userCode.invalid }" id="userCode" class="form-control" type="text" name="userCode" [(ngModel)]="dto.userCode" #userCode="ngModel" required pattern="^[a-zA-Z0-9_]{3,20}$"/>
                 <div [hidden]="userCode.valid || userCode.untouched">
@@ -32,15 +32,40 @@
             </div>
         </fieldset>
     </form>
+
+    <div *ngIf="targetCode">
+        <hr />
+        <p class="m-0 text-primary">
+            <summary>
+                Manage members
+            </summary>
+        </p>
+        <p class="m-0 text-danger">
+            <ng-container *ngIf="isAlbumDeleting; else notDeleting">
+                <i class="fa fa-spinner-third mr-2 fa-spin" aria-hidden="true"></i>
+                Deleting
+            </ng-container>
+            <ng-template #notDeleting>
+                <summary (click)="deleteAlbum()">
+                    Delete album
+                </summary>
+            </ng-template>
+        </p>
+    </div>
 </div>
 <div class="modal-footer">
     <button type="button" class="btn btn-outline-secondary" (click)="close()">Cancel</button>
-    <button [disabled]="albumCreateFrom.invalid || isProceeding" type="button" class="btn btn-primary" (click)="create()">
+    <button [disabled]="albumCreateFrom.invalid || isProceeding" type="button" class="btn btn-primary" (click)="confirm()">
         <ng-container *ngIf="isProceeding; else notProceeding">
             <i class="fa fa-spinner-third fa-spin" aria-hidden="true"></i>
         </ng-container>
         <ng-template #notProceeding>
-            Confirm
+            <ng-container *ngIf="targetCode; else createNew">
+                Change
+            </ng-container>
+            <ng-template #createNew>
+                Create
+            </ng-template>
         </ng-template>
     </button>
 </div>

@@ -33,7 +33,7 @@ export class AlbumsComponent {
         return this.albums.length >= this.profile?.albums?.totalCount;
     }
 
-    isLoading: boolean = false;
+    isLoading: boolean = true;
 
     constructor(
         private currentUserService: CurrentUserService,
@@ -64,8 +64,11 @@ export class AlbumsComponent {
 
     onProfileDataRefresh(data: ProfileInfoDto) {
         this.profile = data;
-        if (this.profile != null && this.profile.albums) {
-            this.loadAlbums(this.profile.albums.data);
+        if (this.profile != null) {
+            this.isLoading = false;
+
+            if (this.profile.albums)
+                this.loadAlbums(this.profile.albums.data);
         }
     }
 
@@ -77,6 +80,9 @@ export class AlbumsComponent {
                 if (r != null) {
                     this.router.navigateByUrl("/a/" + r.code);
                 }
+            },
+            rejected => {
+                
             }
         )
     }
@@ -85,9 +91,9 @@ export class AlbumsComponent {
         for (let i = 0; i < dtos.length; i++) {
             const el = new AlbumViewModel();
             el.dto = dtos[i];
-            
+
             if (el.dto?.previewImage != null) {
-                const sub = this.imageCacheService.requestThumbnailUsingCache(el.dto.previewImage.imageCode, code => this.albumsService.getThumbnail(el.dto.code, el.dto.previewImage.imageCode))
+                const sub = this.imageCacheService.requestThumbnailUsingCache(el.dto.previewImage.imageCode, code => this.albumsService.getThumbnailBlob(el.dto.code, el.dto.previewImage.imageCode))
                     .subscribe(
                         link => el.thumbnailResourceUrl = link
                     );
@@ -101,7 +107,7 @@ export class AlbumsComponent {
         if (!this.isAllAlbumsLoaded) {
             this.isLoading = true;
             const startIndex = this.albums.length;
-            const sub = this.profilesService.getProfileAlbums(this.profile.userinfo.id, startIndex, size).subscribe(
+            const sub = this.profilesService.getAlbums(this.profile.userinfo.id, startIndex, size).subscribe(
                 data => {
                     if (data.success) {
                         this.profile.images.totalCount = data.data.totalCount;

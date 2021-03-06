@@ -55,7 +55,7 @@ export class ProfilesComponent {
                 if (this.currentUserService.currentUser?.id == id)
                     this.profile.userinfo = this.currentUserService.currentUser;
 
-                requestMethod = this.profilesService.getProfile(id);
+                requestMethod = this.profilesService.getInfo(id);
             }
             else {
                 this.avatarUrl = this.profilesService.getAvatarLinkByUsername(username);
@@ -63,7 +63,7 @@ export class ProfilesComponent {
                 if (this.currentUserService.currentUser?.username?.toLowerCase() == username.toLowerCase())
                     this.profile.userinfo = this.currentUserService.currentUser;
 
-                requestMethod = this.profilesService.getProfileByUsername(username);
+                requestMethod = this.profilesService.getInfoByUsername(username);
             }
 
             requestMethod.subscribe(

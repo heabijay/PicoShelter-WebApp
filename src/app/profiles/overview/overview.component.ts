@@ -52,8 +52,8 @@ export class OverviewComponent {
         this.profile = data;
         if (this.profile != null)
         {
-            this.loadImageThumbnails(data.images.data.slice(0, 12));
-            this.loadAlbums(data.albums.data.slice(0, 3));
+            this.loadImageThumbnails(data?.images?.data?.slice(0, 12));
+            this.loadAlbums(data?.albums?.data?.slice(0, 3));
         }
     }
 
@@ -72,12 +72,12 @@ export class OverviewComponent {
     }
 
     loadAlbums(dtos: Array<AlbumShortInfoDto>) {
-        for (let i = 0; i < dtos.length; i++) {
+        for (let i = 0; i < dtos?.length; i++) {
             const el = new AlbumViewModel();
             el.dto = dtos[i];
             
             if (el.dto?.previewImage != null) {
-                const sub = this.imageCacheService.requestThumbnailUsingCache(el.dto.previewImage.imageCode, code => this.albumsService.getThumbnail(el.dto.code, el.dto.previewImage.imageCode))
+                const sub = this.imageCacheService.requestThumbnailUsingCache(el.dto.previewImage.imageCode, code => this.albumsService.getThumbnailBlob(el.dto.code, el.dto.previewImage.imageCode))
                     .subscribe(
                         link => el.thumbnailResourceUrl = link
                     );

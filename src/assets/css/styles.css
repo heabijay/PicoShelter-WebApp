@@ -58,7 +58,6 @@ summary {
     height: 100%;
     width: 100%;
     background-repeat: no-repeat;
-    cursor: pointer;
 }
 
 .image-thumbnail-zoomIn {
@@ -92,6 +91,33 @@ summary {
     top: 0; 
     z-index: 1000; 
     text-shadow: 1px 1px #000000;
+}
+
+@media (min-width: 320px) and (max-width: 575.98px) {
+    .image-thumnail-overlay-shared {
+        font-size: 1.5rem;
+    }
+    .image-thumnail-overlay-selected {
+        font-size: 1.5rem;
+    }
+}
+
+@media (min-width: 576px) and (max-width: 767.98px) {
+    .image-thumnail-overlay-shared {
+        font-size: 1.3rem;
+    }
+    .image-thumnail-overlay-selected {
+        font-size: 1.3rem;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 991.98px) {
+    .image-thumnail-overlay-shared {
+        font-size: 1.2rem;
+    }
+    .image-thumnail-overlay-selected {
+        font-size: 1.2rem;
+    }
 }
 
 .image-thumnail-overlay-loading {

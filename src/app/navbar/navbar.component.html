@@ -26,12 +26,12 @@
                 </li>
             </ng-container>
             <ng-template #loginedTemplate>
-                <li #logined class="nav-item dropdown">
+                <li class="nav-item dropdown">
                     <summary class="d-flex flex-row" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <img [src]="currentUserAvatarLink" onload="this.style.display='block'" class="rounded-circle z-depth-0" height="40" style="display: none;">
                         <div class="d-flex flex-column mx-2 justify-content-center">
                             <ng-container *ngIf="currentUser?.profile?.firstname != null || currentUser?.profile?.lastname != null; else nameExist">
-                                <h6 class="my-0">{{currentUser?.profile?.firstname}} {{currentUser?.profile?.lastname}}</h6>
+                                <h6 class="my-0 text-center">{{currentUser?.profile?.firstname}} {{currentUser?.profile?.lastname}}</h6>
                                 <p class="my-0 small text-secondary">@{{currentUser?.username}}</p>
                             </ng-container>
                             <ng-template #nameExist>

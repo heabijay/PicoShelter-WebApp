@@ -68,7 +68,7 @@ export class UploadComponent implements UploadExitGuard {
 
     ngOnInit(): void {
         this.dto.deleteInHours = 0;
-        this.dto.quality = 95;
+        this.dto.quality = 75;
         this.dto.isPublic = false;
 
         if (this.currentUserService.currentUser == null)
@@ -81,7 +81,6 @@ export class UploadComponent implements UploadExitGuard {
     onFileInputChanged(event) {
         if(event.target.files.length > 0) {
             const file = (event.target.files[0] as File);
-            this.dto.file = file;
 
             if (file.size >= 10 * 1024 * 1024) {
                 this.fileField.control.setErrors({
@@ -89,7 +88,8 @@ export class UploadComponent implements UploadExitGuard {
                 });
                 return;
             };
-
+            
+            this.dto.file = file;
             const reader = new FileReader();
             reader.readAsDataURL(file);
             reader.onload = (_event) => {
@@ -108,8 +108,8 @@ export class UploadComponent implements UploadExitGuard {
             if (this.dto.deleteInHours == 0)
                 this.dto.deleteInHours = 720;
 
-            if (this.dto.quality > 95)
-                this.dto.quality = 95;
+            if (this.dto.quality > 75)
+                this.dto.quality = 75;
         } 
         else {
             this.qualityField.control.setErrors({
@@ -125,7 +125,7 @@ export class UploadComponent implements UploadExitGuard {
     }
 
     onQualityChanged() {
-        if (this.isAnonymous && this.dto.quality > 95) {
+        if (this.isAnonymous && this.dto.quality > 75) {
             this.qualityField.control.setErrors({
                 'qualityForbidden': true
             });

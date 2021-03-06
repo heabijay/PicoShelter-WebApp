@@ -1,4 +1,4 @@
-import { NgModule } from "@angular/core";
+import { LOCALE_ID, NgModule } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { BrowserModule } from "@angular/platform-browser";
 import { RouterModule } from "@angular/router";
@@ -17,13 +17,13 @@ import { ToastrModule } from "ngx-toastr";
 import { ComparePasswordDirective } from "./directives/compare-password.directive"
 import { ProfilesComponent } from "./profiles/profiles.component";
 import { ImagesComponent as ProfileImagesComponent } from "./profiles/images/images.component";
-import { AlbumsComponent } from "./profiles/albums/albums.component";
+import { AlbumsComponent as ProfileAlbumsComponent } from "./profiles/albums/albums.component";
 import { OverviewComponent } from "./profiles/overview/overview.component";
 import { ProfilesDataService } from "./profiles/profiles.data.service";
 import { UploadComponent } from "./upload/upload.component";
 import { ImageCacheService } from "./services/imageCacheService";
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { NgbdProfileImageDeletingModalComponent } from './modals/profileImageDeleting/NgbdProfileImageDeletingModal.component';
+import { NgbdProfileImageDeletingModalComponent } from './modals/profileImageDeleting/ngbdProfileImageDeletingModal.component';
 import { NgbdProfileSettingsModalComponent } from './modals/settings/ngbdProfileSettingsModal.component';
 import { ProfileSettingsSecurityPageComponent } from './modals/settings/securityPage/profileSettingsSecurityPage.component';
 import { ProfileSettingsProfilePageComponent } from './modals/settings/profilePage/profileSettingsProfilePage.component';
@@ -35,6 +35,11 @@ import { FormatTimePipe } from "./pipes/formatTimePipe"
 import { NgbdImageEditModalComponent } from './modals/imageEdit/ngbdImageEditModal.component';
 import { NgbdAlbumCreateModalComponent } from './modals/albumCreate/ngbdAlbumCreateModal.component';
 import { ConfirmComponent } from "./confirm/confirm.component"
+import { AlbumsComponent } from "./albums/albums.component"
+import { NgbdAlbumAddImageModalComponent } from './modals/albumAddImage/ngbdAlbumAddImageModal.component';
+import { NgbdConfirmModalComponent } from './modals/confirm/ngbdConfirmModal.component';
+import { ImagesComponent as AlbumImagesComponent } from "./albums/images/images.component";
+import { NgbdAlbumImageLinksModalComponent } from "./modals/albumImageLinks/ngbdAlbumImageLinksModal.component"
 
 @NgModule({
     imports: [
@@ -58,7 +63,7 @@ import { ConfirmComponent } from "./confirm/confirm.component"
         LoginComponent,
         ProfilesComponent,
         OverviewComponent,
-        AlbumsComponent,
+        ProfileAlbumsComponent,
         ProfileImagesComponent,
         ComparePasswordDirective,
         UploadComponent,
@@ -71,7 +76,12 @@ import { ConfirmComponent } from "./confirm/confirm.component"
         FormatTimePipe,
         NgbdImageEditModalComponent,
         NgbdAlbumCreateModalComponent,
-        ConfirmComponent
+        ConfirmComponent,
+        AlbumsComponent,
+        NgbdAlbumAddImageModalComponent,
+        NgbdConfirmModalComponent,
+        AlbumImagesComponent,
+        NgbdAlbumImageLinksModalComponent
     ],
     providers: [
         TokenService,
