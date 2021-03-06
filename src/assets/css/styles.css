@@ -55,6 +55,7 @@ summary {
 .image-thumbnail {
     background-size: cover;
     background-position: center;
+    display: block;
     height: 100%;
     width: 100%;
     background-repeat: no-repeat;
@@ -62,6 +63,7 @@ summary {
 
 .image-thumbnail-zoomIn {
     transition: all .15s;
+    transform: scale(1.02);
     transition-timing-function: ease;
 }
 

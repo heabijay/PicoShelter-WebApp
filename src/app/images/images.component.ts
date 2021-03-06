@@ -41,6 +41,7 @@ export class ImagesComponent {
     isPublicStateChanging: boolean;
     isPublicStateViewModel: boolean;
     isRequestedDownload: boolean;
+    isRequestedOpen: boolean;
 
     paramSubscription: Subscription;
     urlSubscription: Subscription;
@@ -115,10 +116,14 @@ export class ImagesComponent {
                 });
                 this.receiveImageData(url);
 
-                if (this.isRequestedDownload)
-                {
+                if (this.isRequestedDownload) {
                     this.isRequestedDownload = false;
                     this.downloadImage();
+                }
+
+                if (this.isRequestedOpen) {
+                    this.isRequestedOpen = false;
+                    this.openInNewTab();
                 }
             },
             (error: HttpErrorResponse) => {
@@ -211,6 +216,18 @@ export class ImagesComponent {
         }
         else {
             this.isRequestedDownload = true;
+        }
+    }
+
+    openInNewTab() {
+        if (this.imageResourceUrl != null) {
+            window.open(this.imageResourceUrl, "_blank");
+        }
+        else if (this.info?.isPublic == true) {
+            window.open(this.imagesService.getImageDirectLink(this.info.imageCode, this.info.imageType), "_blank");
+        }
+        else {
+            this.isRequestedOpen = true;
         }
     }
 

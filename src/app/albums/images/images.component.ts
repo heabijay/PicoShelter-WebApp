@@ -19,6 +19,9 @@ import { AlbumsHttpService } from 'src/app/services/albumsHttpService';
 import { ImagesHttpService } from 'src/app/services/imagesHttpService';
 import { AlbumInfoDto } from 'src/app/models/albumInfoDto';
 import { SuccessResponseDto } from 'src/app/models/successResponseDto';
+import { AlbumUserRole } from 'src/app/enum/albumUserRole';
+import { NgbdConfirmModalComponent } from 'src/app/modals/confirm/ngbdConfirmModal.component';
+import { NgbdAlbumImageLinksModalComponent } from 'src/app/modals/albumImageLinks/ngbdAlbumImageLinksModal.component';
 
 @Component({
     templateUrl: './images.component.html',
@@ -28,6 +31,8 @@ import { SuccessResponseDto } from 'src/app/models/successResponseDto';
     ]
 })
 export class ImagesComponent {
+    roleType = AlbumUserRole;
+
     imageCode: string;
     info: ImageInfoDto;
     albumInfo: AlbumInfoDto;
@@ -47,6 +52,7 @@ export class ImagesComponent {
     isPublicStateViewModel: boolean;
     isRequestedDownload: boolean;
     isRequestedOpen: boolean;
+    isDropping: boolean;
 
     paramSubscription: Subscription;
     urlSubscription: Subscription;
@@ -256,10 +262,6 @@ export class ImagesComponent {
         }
         else if (this.info?.isPublic == true) {
             window.open(this.imagesService.getImageDirectLink(this.info.imageCode, this.info.imageType), "_blank");
-            downloadFileQuery(
-                this.imageResourceUrl, 
-                (this.info.title ?? ("PicoShelter-" + this.info.imageCode)) + '.' + this.info.imageType.replace("jpeg", "jpg")
-            );
         }
         else if (this.albumInfo?.isPublic) {
             window.open(this.albumsService.getImageDirectLink(this.albumInfo.code, this.info.imageCode, this.info.imageType), "_blank");
@@ -312,6 +314,50 @@ export class ImagesComponent {
                 
             }
         )
+    }
+
+    dropFromAlbum() {
+        if (!this.isDropping) {
+            const modalRef = this.modalService.open(NgbdConfirmModalComponent, { centered: true });
+            modalRef.componentInstance.text = "Are you sure you want to drop this image from album?";
+            modalRef.result.then(
+                result => {
+                    const r = result as boolean;
+
+                    if (r == true) {
+                        this.isDropping = true;
+                        this.albumsService.deleteImages(
+                            this.albumInfo.code,
+                            [this.info.imageId]
+                        ).subscribe(
+                            data => {
+                                this.toastrService.success("Images successfully dropped!");
+
+                                if (this.isFirstPage) {
+                                    this.redirectNotFound();
+                                }
+                                else {
+                                    this.location.back();
+                                }
+                            },
+                            error => {
+                                this.toastrService.error("Something went wrong while image dropping :(");
+                            }
+                        ).add(
+                            () => this.isDropping = false
+                        );
+                    }
+                },
+                rejected => {
+
+                }
+            )
+        }
+    }
+
+    showLinks() {
+        const modalRef = this.modalService.open(NgbdAlbumImageLinksModalComponent, { centered: true });
+        modalRef.componentInstance.text = "Are you sure you want to drop this image from album?";
     }
 
     reload() {

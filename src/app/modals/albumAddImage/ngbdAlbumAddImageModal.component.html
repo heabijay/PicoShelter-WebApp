@@ -21,7 +21,7 @@
                 <summary *ngIf="isMyAccount" [style.opacity]="(image.selected ? 1 : 0.3)" class="image-thumnail-overlay-selected px-1" (click)="toggleSelect(image)">
                     <i [ngClass]="{'text-primary': image.selected, 'fas': image.selected }" class="far fa-check-square"></i>
                 </summary>
-                <div class="image-thumbnail image-thumbnail-zoomIn" [style.background-image]="image?.resourceUrl == null ? 'none' : 'url(' + image.resourceUrl + ')'"></div>
+                <a [href]="'/i/' + image?.info?.imageCode" target="_blank" class="image-thumbnail image-thumbnail-zoomIn" [style.background-image]="image?.resourceUrl == null ? 'none' : 'url(' + image.resourceUrl + ')'"></a>
             </div>
         </div>
         <p *ngIf="totalCount == 0" class="text-muted text-center w-100 mt-3 lead">
