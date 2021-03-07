@@ -5,7 +5,79 @@
     </button>
 </div>
 <div class="modal-body">
-    
+    <div *ngIf="imageInfo.isPublic">
+        <p class="text-uppercase text-muted">Provided by <b>image</b> public access</p>
+        <div>
+            <label>Link:</label>
+            <div class="input-group mb-2">
+                <input type="text" [ngModel]="imageLink" class="form-control bg-white" readonly>
+                <summary class="input-group-prepend" (click)="copyLink(imageLink)">
+                    <div class="input-group-text"><i class="far fa-copy"></i></div>
+                </summary>
+            </div>
+        </div>
+        <div>
+            <label>Direct link:</label>
+            <div class="input-group mb-2">
+                <input type="text" [ngModel]="imageDirectLink" class="form-control bg-white" readonly>
+                <summary class="input-group-prepend" (click)="copyLink(imageDirectLink)">
+                    <div class="input-group-text"><i class="far fa-copy"></i></div>
+                </summary>
+            </div>
+        </div>
+    </div>
+    <hr *ngIf="imageInfo.isPublic && albumInfo.isPublic" class="w-100"/>
+    <div *ngIf="albumInfo.isPublic">
+        <p class="text-uppercase text-muted">Provided by <b>album</b> public access</p>
+        <div>
+            <div>
+                <label>Link:</label>
+                <div class="input-group mb-2">
+                    <input type="text" [ngModel]="albumImageLink" class="form-control bg-white" readonly>
+                    <summary class="input-group-prepend" (click)="copyLink(albumImageLink)">
+                        <div class="input-group-text"><i class="far fa-copy"></i></div>
+                    </summary>
+                </div>
+            </div>
+            <div>
+                <label>Direct link:</label>
+                <div class="input-group mb-2">
+                    <input type="text" [ngModel]="albumImageDirectLink" class="form-control bg-white" readonly>
+                    <summary class="input-group-prepend" (click)="copyLink(albumImageDirectLink)">
+                        <div class="input-group-text"><i class="far fa-copy"></i></div>
+                    </summary>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="albumInfo.usercode">
+            <p class="text-uppercase text-muted mt-3 mb-2">With album usercode</p>
+            <div>
+                <label>Link:</label>
+                <div class="input-group mb-2">
+                    <input type="text" [ngModel]="albumImageLinkByUsercode" class="form-control bg-white" readonly>
+                    <summary class="input-group-prepend" (click)="copyLink(albumImageLinkByUsercode)">
+                        <div class="input-group-text"><i class="far fa-copy"></i></div>
+                    </summary>
+                </div>
+            </div>
+            <div>
+                <label>Direct link:</label>
+                <div class="input-group mb-2">
+                    <input type="text" [ngModel]="albumImageDirectLinkByUsercode" class="form-control bg-white" readonly>
+                    <summary class="input-group-prepend" (click)="copyLink(albumImageDirectLinkByUsercode)">
+                        <div class="input-group-text"><i class="far fa-copy"></i></div>
+                    </summary>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="!imageInfo.isPublic && !albumInfo.isPublic">
+        <p>There are no public links available due:</p>
+        <ul>
+            <li>Image disabled public access.</li>
+            <li>Album disabled public access.</li>
+        </ul>
+    </div>
 </div>
 <div class="modal-footer">
     <button type="button" class="btn btn-primary" (click)="close()">Close</button>

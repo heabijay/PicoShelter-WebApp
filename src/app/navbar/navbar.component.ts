@@ -8,7 +8,7 @@ import { CurrentUserService } from "../services/currentUserService";
 import { TokenService } from "../services/tokenService";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { ToastrService } from "ngx-toastr";
-import { NgbdProfileSettingsModalComponent } from "../modals/settings/ngbdProfileSettingsModal.component"
+import { NgbdProfileSettingsModalComponent } from "../modals/settings/ngbdProfileSettingsModal.component";
 
 @Component({
     selector: "navbar",

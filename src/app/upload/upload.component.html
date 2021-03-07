@@ -38,6 +38,9 @@
                         <p class="invalid-feedback d-block" *ngIf="file.errors?.sizeOverflow">File size must be &lt; 10MB.</p>
                         <p class="invalid-feedback d-block" *ngIf="file.errors?.invalidFile">Selected file is unsupported. Sorry.</p>
                     </div>
+                    <div *ngIf="dto?.file?.type == 'image/gif'">
+                        <p class="valid-feedback d-block text-info">Note: you can save GIF animation by select 'Original Quality'.</p>
+                    </div>
                 </div>
                 <div *ngIf="previewImageUrl" class="mt-3 d-flex d-lg-none justify-content-center mw-100" style="max-height: 70vh;">
                     <img class="img-fluid" [src]="previewImageUrl" style="object-fit: contain;"/>
