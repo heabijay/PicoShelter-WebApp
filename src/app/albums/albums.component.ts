@@ -1,5 +1,5 @@
 import { Location } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
 import { AlbumInfoDto } from '../models/albumInfoDto';
@@ -15,7 +15,8 @@ import { ToastrService } from 'ngx-toastr';
 import { NgbdConfirmModalComponent } from '../modals/confirm/ngbdConfirmModal.component';
 import { NgbdAlbumCreateModalComponent } from '../modals/albumCreate/ngbdAlbumCreateModal.component';
 import { AlbumCreateDto } from '../models/albumCreateDto';
-import { rejects } from 'assert';
+import { dateFromUTС } from "../static/dateFromUTC";
+import { copyToClipboard } from '../static/copyToClipboard';
 
 @Component({
     templateUrl: './albums.component.html',
@@ -37,6 +38,18 @@ export class AlbumsComponent {
 
     get isAllImagesLoaded() {
         return this.imageThumbnailViewModel.length >= this.album?.images?.totalCount;
+    }
+
+    get albumCreatedDate() {
+        return dateFromUTС(this.album?.createdDate);
+    }
+
+    get albumLink() {
+        return window.location.origin + "/a/" + this.album?.code;
+    }
+
+    get albumLinkByUsercode() {
+        return window.location.origin + "/s/" + this.album?.usercode;
     }
 
     constructor(
@@ -110,12 +123,85 @@ export class AlbumsComponent {
         }
     }
 
-    toggleSelect(item: ImageThumbnailViewModel) {
-        item.selected = !item.selected;
-        if (item.selected)
+    setSelect(item: ImageThumbnailViewModel, value: boolean) {
+        if (item.selected == value)
+            return;
+        
+        item.selected = value;
+        if (value) {
             this.selectedCount++;
-        else 
+        }
+        else {
             this.selectedCount--;
+        }
+    }
+
+    toggleSelect(item: ImageThumbnailViewModel) {
+        this.setSelect(item, !item.selected);
+    }
+
+    lastSelectedItem: ImageThumbnailViewModel;
+    performToggleSelect(item: ImageThumbnailViewModel, event) {
+        const newValue = !item.selected;
+
+        if (this.lastSelectedItem && event.shiftKey) {
+            this.imageThumbnailViewModel.filter(t => t.preselect).forEach(t => t.preselect = false);
+            this.actionToSelection(this.lastSelectedItem, item, (t: ImageThumbnailViewModel) => this.setSelect(t, newValue));
+        }
+        else {
+            this.toggleSelect(item);
+        }
+
+        if (item.selected) this.lastSelectedItem = item;
+        else this.lastSelectedItem = null;
+    }
+
+    isShiftPressed: boolean;
+    @HostListener('document:keydown', ['$event'])
+    handleKeyPressEvent(event: KeyboardEvent) { 
+        if (event.shiftKey) {
+            this.isShiftPressed = true;
+
+            if (this.lastSelectedItem && this.mouseHoverItem) {
+                this.actionToSelection(this.lastSelectedItem, this.mouseHoverItem, (t: ImageThumbnailViewModel) => t.preselect = true);
+            }
+        }
+    }
+
+    @HostListener('document:keyup', ['$event'])
+    handleKeyUpEvent(event: KeyboardEvent) { 
+        if (event.key == "Shift")
+        {
+            this.isShiftPressed = false;
+            this.imageThumbnailViewModel.filter(t => t.preselect).forEach(t => t.preselect = false);
+        }
+    }
+
+    mouseHoverItem: ImageThumbnailViewModel;
+    onMouseEnter(item: ImageThumbnailViewModel) {
+        this.mouseHoverItem = item;
+
+        if (this.lastSelectedItem && this.isShiftPressed) {
+            this.imageThumbnailViewModel.filter(t => t.preselect).forEach(t => t.preselect = false);
+            this.actionToSelection(this.lastSelectedItem, item, (t: ImageThumbnailViewModel) => t.preselect = true);
+        }
+    }
+    
+    onMouseLeave(item: ImageThumbnailViewModel) {
+        this.mouseHoverItem = null;
+    }
+
+    actionToSelection(from: ImageThumbnailViewModel, to: ImageThumbnailViewModel, action) {
+        const fromIndex = this.imageThumbnailViewModel.findIndex(t => t == from);
+        const toIndex = this.imageThumbnailViewModel.findIndex(t => t == to);
+
+        const min = toIndex < fromIndex ? toIndex : fromIndex;
+        const max = toIndex > fromIndex ? toIndex : fromIndex;
+
+        for (let i = min; i <= max; i++) {
+            const el = this.imageThumbnailViewModel[i];
+            action(el);
+        }
     }
 
     addImage() {
@@ -199,5 +285,10 @@ export class AlbumsComponent {
                 
             }
         )
+    }
+
+    copyLink(url: string) {
+        copyToClipboard(url);
+        this.toastrService.info("Link copied to clipboard!");
     }
 }

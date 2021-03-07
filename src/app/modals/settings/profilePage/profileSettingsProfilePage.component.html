@@ -22,7 +22,7 @@
                                         <div class="avatarChangeOverlay flex-row">
                                             <summary (click)="performSetAvatar()"><i class="fas fa-camera mr-2"></i></summary>|<summary (click)="deleteAvatar()"><i class="fas fa-ban ml-2"></i></summary>
                                         </div>
-                                        <div class="image-thumnail-overlay-loading" *ngIf="isAvatarPreviewLoading">
+                                        <div class="image-thumbnail-overlay-loading" *ngIf="isAvatarPreviewLoading">
                                             <i class="fa fa-spinner-third fa-spin" aria-hidden="true"></i>
                                         </div>
                                         <input id="file" name="file" ngModel #file="ngModel" type="file" accept="image/*" class="d-none" (change)="onAvatarFileChanged($event)">

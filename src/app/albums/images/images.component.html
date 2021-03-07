@@ -28,7 +28,7 @@
                             </a>
                         </ng-template>
                     </p>
-                    <p class="float-right text-muted ml-2">{{infoUploadedDate | date:'dd.MM.yy, h:mm aa'}}</p>
+                    <p class="float-right text-muted ml-2">{{infoUploadedDate | date:'dd.MM.yy, hh:mm aa'}}</p>
                 </div>
             </div>
         </div>
@@ -81,7 +81,7 @@
                                 <i class="fas fa-external-link-alt mr-2"></i>Open in new tab
                             </ng-template>
                         </summary>
-                        <summary (click)="showLinks()" class="list-group-item border-0 list-group-item-action px-0 px-sm-2">
+                        <summary *ngIf="info.isPublic || albumInfo.isPublic" (click)="showLinks()" class="list-group-item border-0 list-group-item-action px-0 px-sm-2">
                             <i class="fas fa-link mr-2"></i>Links
                         </summary>
 

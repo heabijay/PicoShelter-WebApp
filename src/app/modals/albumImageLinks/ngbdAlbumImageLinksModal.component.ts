@@ -1,19 +1,34 @@
 import { Component, Input } from "@angular/core"
 import { NgbActiveModal } from "@ng-bootstrap/ng-bootstrap"
+import { ToastrService } from "ngx-toastr";
 import { AlbumInfoDto } from "src/app/models/albumInfoDto";
 import { ImageInfoDto } from "src/app/models/imageInfoDto";
 import { AlbumsHttpService } from "src/app/services/albumsHttpService";
+import { CurrentUserService } from "src/app/services/currentUserService";
+import { ImagesHttpService } from "src/app/services/imagesHttpService";
+import { BooleanLiteral } from "typescript";
+import { copyToClipboard } from "../../static/copyToClipboard"
 
 @Component({
     selector: "ngbd-albumimagelinks-modal",
     templateUrl: "./NgbdAlbumImageLinksModal.component.html",
     providers: [
-        AlbumsHttpService
+        AlbumsHttpService,
+        ImagesHttpService
     ]
 })
 export class NgbdAlbumImageLinksModalComponent {
     @Input() albumInfo: AlbumInfoDto;
     @Input() imageInfo: ImageInfoDto;
+
+    get imageLink() {
+        return window.location.origin + "/i/" + this.imageInfo?.imageCode;
+    }
+
+
+    get imageDirectLink() {
+        return this.imagesService.getImageDirectLink(this.imageInfo?.imageCode, this.imageInfo?.imageType);
+    }
 
     get albumImageLink() {
         return window.location.origin + "/a/" + this.albumInfo?.code + "/" + this.imageInfo?.imageCode;
@@ -33,13 +48,17 @@ export class NgbdAlbumImageLinksModalComponent {
 
     constructor(
         public activeModal: NgbActiveModal,
-        private albumsService: AlbumsHttpService
+        private albumsService: AlbumsHttpService,
+        private imagesService: ImagesHttpService,
+        private toastrService: ToastrService,
+        private currentUser: CurrentUserService
     ) {
 
     }
 
-    ngOnInit(): void {
-        
+    copyLink(url: string) {
+        copyToClipboard(url);
+        this.toastrService.info("Link copied to clipboard!");
     }
 
     close() {

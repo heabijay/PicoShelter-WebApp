@@ -357,7 +357,8 @@ export class ImagesComponent {
 
     showLinks() {
         const modalRef = this.modalService.open(NgbdAlbumImageLinksModalComponent, { centered: true });
-        modalRef.componentInstance.text = "Are you sure you want to drop this image from album?";
+        modalRef.componentInstance.albumInfo = this.albumInfo;
+        modalRef.componentInstance.imageInfo = this.info;
     }
 
     reload() {

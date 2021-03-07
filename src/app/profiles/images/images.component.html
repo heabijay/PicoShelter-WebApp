@@ -43,16 +43,17 @@
                 col-lg-1 
                 square 
                 d-inline-block p-1" >
-            <summary class="image-thumbnail-frame" placement="bottom" [ngbTooltip]="image?.info?.title">
-                <div class="image-thumnail-overlay-shared" *ngIf="isMyAccount && image?.info?.isPublic">
+            <summary class="image-thumbnail-frame" (mouseenter)="onMouseEnter(image)" (mouseleave)="onMouseLeave(image)" placement="bottom" [ngbTooltip]="image?.info?.title">
+                <div class="image-thumbnail-overlay-shared" *ngIf="isMyAccount && image?.info?.isPublic">
                     <i class="fa fa-link" aria-hidden="true"></i>
                 </div>
-                <div class="image-thumnail-overlay-loading" *ngIf="image?.resourceUrl == null">
+                <div class="image-thumbnail-overlay-loading" *ngIf="image?.resourceUrl == null">
                     <i class="fa fa-spinner-third fa-spin" aria-hidden="true"></i>
                 </div>
-                <summary *ngIf="isMyAccount" [style.opacity]="(image.selected ? 1 : 0.3)" class="image-thumnail-overlay-selected px-1" (click)="toggleSelect(image)">
+                <summary *ngIf="isMyAccount" [style.opacity]="(image.selected ? 1 : 0.3)" class="image-thumbnail-overlay-selected px-1" (click)="performToggleSelect(image, $event)">
                     <i [ngClass]="{'text-primary': image.selected, 'fas': image.selected }" class="far fa-check-square"></i>
                 </summary>
+                <div *ngIf="image?.preselect" class="image-thumbnail-overlay-preselect"></div>
                 <a [routerLink]="'/i/' + image?.info?.imageCode" class="image-thumbnail image-thumbnail-zoomIn" [style.background-image]="image?.resourceUrl == null ? 'none' : 'url(' + image.resourceUrl + ')'"></a>
             </summary>
         </div>

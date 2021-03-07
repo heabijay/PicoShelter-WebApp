@@ -49,6 +49,9 @@ summary {
     height: 100%;
     width: 100%;
     overflow: hidden;
+    display: block;
+    position: relative;
+    user-select: none;
     background-color: grey;
 }
 
@@ -72,11 +75,10 @@ summary {
     opacity: 0.8;
 }
 
-.image-thumnail-overlay-shared {
-    padding: .25rem;
+.image-thumbnail-overlay-shared {
     color: white;
-    position: absolute; 
-    right: 4px; 
+    position: absolute;
+    right: 3px; 
     pointer-events: none; 
     opacity: 0.3; 
     top: 0; 
@@ -84,45 +86,54 @@ summary {
     text-shadow: 1px 1px #000000;
 }
 
-.image-thumnail-overlay-selected {
-    margin: .25rem;
+.image-thumbnail-overlay-selected {
     color: white;
-    position: absolute; 
-    left: 4px;
+    position: absolute;
+    left: 3px;
     opacity: 0.3;
     top: 0; 
-    z-index: 1000; 
+    z-index: 200; 
     text-shadow: 1px 1px #000000;
 }
 
+.image-thumbnail-overlay-preselect {
+    background-color: #007bff;
+    z-index: 10;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    opacity: 0.45;
+    pointer-events: none;
+}
+
 @media (min-width: 320px) and (max-width: 575.98px) {
-    .image-thumnail-overlay-shared {
+    .image-thumbnail-overlay-shared {
         font-size: 1.5rem;
     }
-    .image-thumnail-overlay-selected {
+    .image-thumbnail-overlay-selected {
         font-size: 1.5rem;
     }
 }
 
 @media (min-width: 576px) and (max-width: 767.98px) {
-    .image-thumnail-overlay-shared {
+    .image-thumbnail-overlay-shared {
         font-size: 1.3rem;
     }
-    .image-thumnail-overlay-selected {
+    .image-thumbnail-overlay-selected {
         font-size: 1.3rem;
     }
 }
 
 @media (min-width: 768px) and (max-width: 991.98px) {
-    .image-thumnail-overlay-shared {
+    .image-thumbnail-overlay-shared {
         font-size: 1.2rem;
     }
-    .image-thumnail-overlay-selected {
+    .image-thumbnail-overlay-selected {
         font-size: 1.2rem;
     }
 }
 
-.image-thumnail-overlay-loading {
+.image-thumbnail-overlay-loading {
     color: white;
     position: absolute; 
     top: 50%;
@@ -162,6 +173,10 @@ summary {
 .onHoverBlack:hover .visibleOnHoverBlack {
     visibility: visible;
     opacity: 1;
+}
+
+.onHoverUnderline:hover {
+    text-decoration: underline;
 }
 
 .border-100vh {

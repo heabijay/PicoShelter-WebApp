@@ -15,10 +15,10 @@
                 square 
                 d-inline-block p-1" >
             <summary class="image-thumbnail-frame"  placement="bottom" [ngbTooltip]="image?.info?.title">
-                <div class="image-thumnail-overlay-shared" *ngIf="image?.info?.isPublic && isMyAccount">
+                <div class="image-thumbnail-overlay-shared" *ngIf="image?.info?.isPublic && isMyAccount">
                     <i class="fa fa-link" aria-hidden="true"></i>
                 </div>
-                <div class="image-thumnail-overlay-loading" *ngIf="image?.resourceUrl == null">
+                <div class="image-thumbnail-overlay-loading" *ngIf="image?.resourceUrl == null">
                     <i class="fa fa-spinner-third fa-spin" aria-hidden="true"></i>
                 </div>
                 <a [routerLink]="'/i/' + image?.info?.imageCode" class="image-thumbnail image-thumbnail-zoomIn" [style.background-image]="image?.resourceUrl == null ? 'none' : 'url(' + image.resourceUrl + ')'"></a>
