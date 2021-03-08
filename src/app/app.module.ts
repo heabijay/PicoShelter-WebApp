@@ -45,7 +45,7 @@ import { NgbdAlbumImageLinksModalComponent } from "./modals/albumImageLinks/ngbd
     imports: [
         HttpClientModule,
         BrowserModule,
-        RouterModule.forRoot(appRoutes, { relativeLinkResolution: 'legacy' }),
+        RouterModule.forRoot(appRoutes),
         FormsModule,
         BrowserAnimationsModule,
         ToastrModule.forRoot({
