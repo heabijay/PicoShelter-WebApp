@@ -36,7 +36,7 @@
     <div *ngIf="targetCode">
         <hr />
         <p class="m-0 text-primary">
-            <summary>
+            <summary class="onHoverUnderline" (click)="openMembers()">
                 Manage members
             </summary>
         </p>
@@ -46,7 +46,7 @@
                 Deleting
             </ng-container>
             <ng-template #notDeleting>
-                <summary (click)="deleteAlbum()">
+                <summary class="onHoverUnderline" (click)="deleteAlbum()">
                     Delete album
                 </summary>
             </ng-template>

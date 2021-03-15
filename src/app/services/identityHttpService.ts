@@ -8,6 +8,8 @@ import { SuccessResponseDto } from "../models/successResponseDto";
 import { HttpClient } from "@angular/common/http"
 import { UserRegistrationDto } from "../models/userRegistrationDto";
 import { UserChangePasswordDto } from "../models/userChangePasswordDto";
+import { PaginationResultDto } from "../models/paginationResultDto";
+import { UserAlbumInviteDto } from "../models/userAlbumInviteDto";
 
 
 @Injectable()
@@ -85,5 +87,20 @@ export class IdentityHttpService extends HttpService {
                 headers: this.identityService.getHeaders().set("Content-Type", "application/json")
             }
         )
+    }
+
+    getAlbumInvites(starts?: number, count?: number) {
+        let url = this.serverUrl + this.subPath + "/getAlbumInvites?";
+        if (starts != null)
+            url += "starts=" + starts + "&";
+        if (count != null)
+            url += "count=" + count + "&";
+        
+        return this.httpClient.get<SuccessResponseDto<PaginationResultDto<UserAlbumInviteDto>>>(
+            url,
+            {
+                headers: this.identityService.getHeaders()
+            }
+        );
     }
 }

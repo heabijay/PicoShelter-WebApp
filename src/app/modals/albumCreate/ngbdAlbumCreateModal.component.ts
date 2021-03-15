@@ -178,6 +178,10 @@ export class NgbdAlbumCreateModalComponent {
         )
     }
 
+    openMembers() {
+        this.activeModal.close(false);
+    }
+
     close() {
         this.activeModal.close(this.result);
     }

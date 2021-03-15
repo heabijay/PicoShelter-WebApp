@@ -80,7 +80,11 @@ export class ImagesComponent {
                         if (data.data.autoDeleteIn) {
                             this.countToDelete = dateFromUTС(data.data.autoDeleteIn).getTime() - new Date().getTime();
                             this.countDownToDeleteSub = timer(0, 1000).subscribe(
-                                () => this.countToDelete -= 1000
+                                () => {
+                                    this.countToDelete -= 1000;
+                                    if (this.countToDelete <= 0)
+                                        this.countDownToDeleteSub?.unsubscribe();
+                                }
                             );
                         }
                         else {

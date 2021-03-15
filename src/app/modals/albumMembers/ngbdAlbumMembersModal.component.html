@@ -1,0 +1,170 @@
+<div class="modal-header">
+    <h4 class="modal-title">Members</h4>
+    <button type="button" class="btn close" aria-label="Close" (click)="close()">
+    <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <div>
+        <label class="text-muted text-uppercase">Joined users ({{totalCount}})</label>
+        <table class="table table-striped table-content-middle table-responsive">
+            <tbody>
+                <tr *ngFor="let profile of albumProfileViewModels">
+                    <td class="fit">
+                        <a [href]="window.location.origin + '/profiles/' + profile?.info?.user?.id" target="_blank">
+                            <img class="rounded-circle z-depth-0" height="50px" [src]="profile?.avatarUrl" onload="this.style.display='block'; this.style.margin='0 0 0 1rem'" onerror="this.style.display='none'" onloadstart="this.style.display='none'" style="display: none; cursor: pointer;">
+                        </a>
+                    </td>
+                    <td class="fit pl-3">
+                        <a [href]="window.location.origin + '/profiles/' + profile?.info?.user?.id" target="_blank" class="text-decoration-none text-dark">
+                            <ng-container *ngIf="profile?.info?.user?.profile?.firstname || profile?.info?.user?.profile?.lastname; else nameExist">
+                                <h5 class="m-0">
+                                    <span>{{profile?.info?.user?.profile?.firstname}} </span>
+                                    <span>{{profile?.info?.user?.profile?.lastname}}</span>
+                                </h5>
+                                <p class="m-0 text-muted">@{{profile?.info?.user?.username}}</p>
+                            </ng-container>
+                            <ng-template #nameExist>
+                                <h5 class="m-0">{{profile?.info?.user?.username}}</h5>
+                            </ng-template>
+                        </a>
+                    </td>
+                    <td class="w-100 mx-3"></td>
+                    <td class="fit">
+                        <i *ngIf="profile.isChangingRole" class="fa fa-spinner-third fa-spin mr-3" aria-hidden="true"></i>
+                    </td>
+                    <td class="fit">
+                        <div class="mr-3">
+                            <select 
+                            [disabled]="
+                                profile.isChangingRole || 
+                                targetAlbumDto?.accessRole > albumUserRole.admin || 
+                                profile?.info?.albumRole <= albumUserRole.admin" 
+                            (change)="onRoleChange(profile, $event)"
+                            [(ngModel)]="profile.roleViewModel"
+                            class="custom-select" 
+                            required 
+                            style="min-width: 150px;">
+                            <option value="0">Admin (Owner)</option>
+                            <option value="1">Editor</option>
+                            <option value="2">Viewer</option>
+                        </select>
+                        </div>
+                    </td>
+                    <td class="fit">
+                        <button 
+                            *ngIf="targetAlbumDto?.accessRole <= albumUserRole.admin && profile?.info?.albumRole > albumUserRole.admin" 
+                            class="btn btn-outline-danger mr-3" 
+                            type="button"
+                            placement="bottom" 
+                            [openDelay]="500" 
+                            (click)="kickUser(profile)"
+                            [disabled]="profile.isDeleting"
+                            ngbTooltip="Kick out">
+                            <ng-container *ngIf="profile.isDeleting; else notDeleting">
+                                <i class="fa fa-spinner-third fa-spin" aria-hidden="true"></i>
+                            </ng-container>
+                            <ng-template #notDeleting>
+                                <i class="fas fa-ban"></i>
+                            </ng-template>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <p *ngIf="isLoading" class="text-muted text-center w-100 mt-3">
+            <i class="fa fa-spinner-third fa-spin" aria-hidden="true"></i>
+        </p>
+        <button *ngIf="!isAllUsersLoaded && !isLoading" (click)="loadNextPage()" class="btn btn-primary w-100 mb-3" type="button"><i class="fa fa-bolt mr-2" aria-hidden="true"></i>Load more</button>
+    </div>
+    <div *ngIf="targetAlbumDto?.accessRole != null && targetAlbumDto?.accessRole <= albumUserRole.admin">
+        <div class="pt-3">
+            <label class="text-muted text-uppercase">Invites sent <span *ngIf="invitesTotalCount">({{invitesTotalCount}})</span></label>
+            <table class="table table-striped table-content-middle table-responsive">
+                <tbody>
+                    <tr *ngFor="let invite of albumInviteViewModels">
+                        <td class="fit">
+                            <a [href]="window.location.origin + '/profiles/' + invite?.info?.id" target="_blank">
+                                <img class="rounded-circle z-depth-0" height="50px" [src]="invite?.avatarUrl" onload="this.style.display='block'; this.style.margin='0 0 0 1rem'" onerror="this.style.display='none'" onloadstart="this.style.display='none'" style="display: none; cursor: pointer;">
+                            </a>
+                        </td>
+                        <td class="fit pl-3">
+                            <a [href]="window.location.origin + '/profiles/' + invite?.info?.id" target="_blank" class="text-decoration-none text-dark">
+                                <ng-container *ngIf="invite?.info?.profile?.firstname || invite?.info?.profile?.lastname; else nameExist">
+                                    <h5 class="m-0">
+                                        <span>{{invite?.info?.profile?.firstname}} </span>
+                                        <span>{{invite?.info?.profile?.lastname}}</span>
+                                    </h5>
+                                    <p class="m-0 text-muted">@{{invite?.info?.username}}</p>
+                                </ng-container>
+                                <ng-template #nameExist>
+                                    <h5 class="m-0">{{invite?.info?.username}}</h5>
+                                </ng-template>
+                            </a>
+                        </td>
+                        <td class="w-100 mx-3"></td>
+                        <td class="fit">
+                            <button 
+                                class="btn btn-outline-danger mr-3" 
+                                type="button"
+                                placement="bottom" 
+                                [openDelay]="500" 
+                                (click)="cancelInvite(invite)"
+                                [disabled]="invite.isDeleting"
+                                ngbTooltip="Cancel invite">
+                                <ng-container *ngIf="invite.isDeleting; else notDeleting">
+                                    <i class="fa fa-spinner-third fa-spin" aria-hidden="true"></i>
+                                </ng-container>
+                                <ng-template #notDeleting>
+                                    <i class="fas fa-times"></i>
+                                </ng-template>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <p *ngIf="invitesTotalCount == 0" class="text-muted text-center w-100 lead">
+                There's no invites. Send it now!
+            </p>
+            <p *ngIf="isInvitesLoading" class="text-muted text-center w-100 mt-3">
+                <i class="fa fa-spinner-third fa-spin" aria-hidden="true"></i>
+            </p>
+            <button *ngIf="!isAllInvitesLoaded && !isInvitesLoading" (click)="loadNextInvitesPage()" class="btn btn-primary w-100 mb-3" type="button"><i class="fa fa-bolt mr-2" aria-hidden="true"></i>Load more</button>
+        </div>
+        <div class="form-group m-3">
+            <div class="input-group">
+                <input [ngClass]="{ 'is-invalid': sendInvite.touched && sendInvite.invalid }" class="form-control" [readonly]="isInviteSending" type="text" spellcheck="false" id="sendInvite" name="sendInvite" ngModel #sendInvite="ngModel" placeholder="@username" />
+                <div class="input-group-append">
+                    <button class="btn btn-outline-primary" [disabled]="sendInvite.invalid || sendInvite.value == '' || isInviteSending" type="button" (click)="sendInviteByUsername(sendInvite.value)">
+                        <ng-container *ngIf="isInviteSending; else notSending">
+                            <i class="fa fa-spinner-third fa-spin mr-2" aria-hidden="true"></i>Inviting
+                        </ng-container>
+                        <ng-template #notSending>
+                            <i class="far fa-paper-plane mr-2"></i>Invite
+                        </ng-template>
+                    </button>
+                </div>
+            </div>
+            <div [hidden]="sendInvite.valid || sendInvite.untouched">
+                <p class="invalid-feedback d-block" *ngIf="sendInvite.errors?.notFound">Entered username not found!</p>
+                <p class="invalid-feedback d-block" *ngIf="sendInvite.errors?.alreadyInvited">Selected user is already invited!</p>
+                <p class="invalid-feedback d-block" *ngIf="sendInvite.errors?.alreadyJoined">Selected user is already joined!</p>
+            </div>
+        </div>
+    </div>
+<div class="modal-footer">
+    <p class="text-danger float-left">
+        <ng-container *ngIf="isLeaving; else notLeaving">
+            <i class="fa fa-spinner-third mr-2 fa-spin" aria-hidden="true"></i>
+            Leaving
+        </ng-container>
+        <ng-template #notLeaving>
+            <summary *ngIf="targetAlbumDto?.accessRole > albumUserRole.admin" (click)="leaveFromAlbum()" class="onHoverUnderline">
+                Leave from album
+            </summary>
+        </ng-template>
+    </p>
+    
+    <div class="flex-fill"></div>
+    <button type="button" class="btn btn-outline-secondary" (click)="close()">Close</button>
+</div>

@@ -32,7 +32,7 @@
         <p *ngIf="isLoading" class="text-muted text-center w-100 mt-3">
             <i class="fa fa-spinner-third fa-spin" aria-hidden="true"></i>
         </p>
-        <button *ngIf="!isAllImagesLoaded && !isLoading" (click)="loadNextPage()" class="btn btn-primary w-100 mt-3" type="button"><i class="fa fa-bolt mr-2" aria-hidden="true"></i>Load more images</button>
+        <button *ngIf="!isAllImagesLoaded && !isLoading" (click)="loadNextPage()" class="btn btn-primary w-100 mt-2 mb-3" type="button"><i class="fa fa-bolt mr-2" aria-hidden="true"></i>Load more images</button>
 </div>
 <div class="modal-footer">
     <button type="button" class="btn btn-outline-secondary" (click)="close()">Cancel</button>
