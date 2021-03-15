@@ -19,17 +19,17 @@
         <ul class="navbar-nav nav-flex-icons">
             <ng-container *ngIf="currentUser == null; else loginedTemplate">
                 <li class="nav-item ml-0 ml-sm-1 mt-1 mt-sm-0" routerLinkActive="d-none">
-                    <button class="btn btn-secondary" routerLink="/login"><i class="fas fa-sign-in"></i> Login</button>
+                    <button class="btn btn-secondary" routerLink="/login" data-toggle="collapse" data-target="#collapsibleNavId.show"><i class="fas fa-sign-in"></i> Login</button>
                 </li>
                 <li class="nav-item ml-0 ml-sm-1 mt-1 mt-sm-0" routerLinkActive="d-none">
-                    <button class="btn btn-primary" routerLink="/registration"><i class="fas fa-user-plus"></i> Register</button>
+                    <button class="btn btn-primary" routerLink="/registration" data-toggle="collapse" data-target="#collapsibleNavId.show"><i class="fas fa-user-plus"></i> Register</button>
                 </li>
             </ng-container>
             <ng-template #loginedTemplate>
                 <li class="nav-item dropdown">
                     <summary class="d-flex flex-row" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <img [src]="currentUserAvatarLink" onload="this.style.display='block'" class="rounded-circle z-depth-0" height="40" style="display: none;">
-                        <div class="d-flex flex-column mx-2 justify-content-center">
+                        <div class="d-flex flex-column ml-2 justify-content-center">
                             <ng-container *ngIf="currentUser?.profile?.firstname != null || currentUser?.profile?.lastname != null; else nameExist">
                                 <h6 class="my-0 text-center">{{currentUser?.profile?.firstname}} {{currentUser?.profile?.lastname}}</h6>
                                 <p class="my-0 small text-secondary">@{{currentUser?.username}}</p>
@@ -38,10 +38,83 @@
                                 <h6 class="my-0">{{currentUser?.username}}</h6>
                             </ng-template>
                         </div>
-                        <span class="dropdown-toggle align-self-center"></span>
+                        <i *ngIf="notificationsCount > 0" class="align-self-start text-danger ml-1 fa-xs fas fa-circle" style="font-size: 0.5rem;"></i>
+                        <span class="ml-2 dropdown-toggle align-self-center"></span>
                     </summary>
                     <div class="dropdown-menu dropdown-menu-lg-right dropdown-secondary mt-1">
                         <button class="btn dropdown-item" data-toggle="collapse" data-target="#collapsibleNavId.show" [routerLink]="[ '/profiles/', currentUser.id ]"><i class="fas fa-user-alt pr-1"></i> My Profile</button>
+                        <button class="btn dropdown-item" [disabled]="notificationsCount == 0" (click)="prepairViewModels()" id="dropdownNotificationsButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <div class="d-inline-block position-relative mr-2">
+                                <i class="fas fa-bell"></i>
+                                <i *ngIf="notificationsCount > 0" class="position-absolute text-danger ml-1 fa-xs fas fa-circle" style="font-size: 0.5rem; top: 0; right: 0;"></i>
+                            </div>Notifications
+                            <span *ngIf="notificationsCount > 0">({{notificationsCount}})</span>
+                        </button>
+                        <span *ngIf="notificationsCount > 0" class="dropdown-menu dropdown-menu-right p-4 m-1 m-sm-0" (click)="$event.stopPropagation()" style="top: auto; min-width: 33vw; max-width: 100vw;">
+                            <div *ngIf="lastAlbumInvitesResponse?.totalCount > 0">
+                                <h6 class="dropdown-header p-0 mb-3 text-uppercase">Album Invites ({{lastAlbumInvitesResponse?.totalCount}})</h6>
+                                <table class="table table-striped table-content-middle table-responsive">
+                                    <tbody>
+                                        <tr *ngFor="let vm of albumInvitesViewModels">
+                                            <td class="fit pl-3">
+                                                <span class="text-decoration-none text-dark">
+                                                    <h6 class="text-uppercase font-weight-bold lead text-break">
+                                                        <ng-container *ngIf="vm?.info?.album?.title; else noTitle">
+                                                            {{vm.info.album.title}}
+                                                        </ng-container>
+                                                        <ng-template #noTitle>
+                                                            <span class="text-black-50">Untitled</span>
+                                                        </ng-template>
+                                                    </h6>
+                                                    <p class="m-0 text-muted">Code: {{vm?.info?.album?.code}}</p>
+                                                </span>
+                                            </td>
+                                            <td class="w-100 mx-3"></td>
+                                            <td class="fit">
+                                                <button 
+                                                    class="btn btn-outline-success mr-2"
+                                                    type="button"
+                                                    placement="bottom" 
+                                                    [openDelay]="500" 
+                                                    (click)="acceptInvite(vm)"
+                                                    [disabled]="vm.isJoining"
+                                                    ngbTooltip="Accept invite"
+                                                    style="border-radius: 100vh; height: 2.7rem; width: 2.7rem;">
+                                                    <ng-container *ngIf="vm.isJoining; else notJoining">
+                                                        <i class="fa fa-spinner-third fa-spin" aria-hidden="true"></i>
+                                                    </ng-container>
+                                                    <ng-template #notJoining>
+                                                        <i class="fas fa-check"></i>
+                                                    </ng-template>
+                                                </button>
+                                            </td>
+                                            <td class="fit">
+                                                <button 
+                                                    class="btn btn-outline-danger mr-2" 
+                                                    type="button"
+                                                    placement="bottom" 
+                                                    [openDelay]="500" 
+                                                    (click)="discardInvite(vm)"
+                                                    [disabled]="vm.isCancelling"
+                                                    ngbTooltip="Discard invite"
+                                                    style="border-radius: 100vh; height: 2.7rem; width: 2.7rem;">
+                                                    <ng-container *ngIf="vm.isCancelling; else notCancelling">
+                                                        <i class="fa fa-spinner-third fa-spin" aria-hidden="true"></i>
+                                                    </ng-container>
+                                                    <ng-template #notCancelling>
+                                                        <i class="fas fa-times"></i>
+                                                    </ng-template>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <p *ngIf="isInvitesLoading" class="text-muted text-center w-100 mt-3">
+                                    <i class="fa fa-spinner-third fa-spin" aria-hidden="true"></i>
+                                </p>
+                                <button *ngIf="!isAllInvitesLoaded && !isInvitesLoading" (click)="loadInvitesNextPage()" class="btn btn-primary w-100 mb-3" type="button"><i class="fa fa-bolt mr-2" aria-hidden="true"></i>Load more</button>
+                            </div>
+                        </span>
                         <button class="btn dropdown-item" data-toggle="collapse" data-target="#collapsibleNavId.show" (click)="openSettingsModal()"><i class="fas fa-cog pr-1" aria-hidden="true"></i> Settings</button>
                         <button class="btn dropdown-item" data-toggle="collapse" data-target="#collapsibleNavId.show" (click)="logout()"><i class="fas fa-sign-out-alt pr-1"></i> Logout</button>
                     </div>

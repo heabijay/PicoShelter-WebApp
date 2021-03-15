@@ -3,5 +3,6 @@ export enum ConfirmationType
     EmailRegistration,
     EmailChanging,
     EmailChangingNew,
-    PasswordRestore
+    PasswordRestore,
+    AlbumInvite
 }

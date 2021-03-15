@@ -9,6 +9,9 @@ import { AlbumInfoDto } from "../models/albumInfoDto"
 import { ImageShortInfoDto } from "../models/imageShortInfoDto";
 import { PaginationResultDto } from "../models/paginationResultDto";
 import { ImageInfoDto } from "../models/imageInfoDto";
+import { AlbumProfileInfoDto } from "../models/albumProfileInfoDto";
+import { AlbumUserRole } from "../enum/albumUserRole";
+import { UserInfo } from "../models/userInfo";
 
 
 @Injectable()
@@ -114,6 +117,21 @@ export class AlbumsHttpService extends HttpService {
         )
     }
 
+    getUsers(code: string, starts?: number, count?: number) {
+        let url = this.getAlbumLink(code) + '/users?';
+        if (starts != null)
+            url += "starts=" + starts + "&";
+        if (count != null)
+            url += "count=" + count + "&";
+        
+        return this.httpClient.get<SuccessResponseDto<PaginationResultDto<AlbumProfileInfoDto>>>(
+            url,
+            {
+                headers: this.identityService.getHeaders()
+            }
+        )
+    }
+
     addImages(code: string, imageIds: Array<number>) {
         return this.httpClient.post(
             this.getAlbumLink(code) + '/addimages',
@@ -148,6 +166,66 @@ export class AlbumsHttpService extends HttpService {
     delete(code: string) {
         return this.httpClient.delete(
             this.getAlbumLink(code),
+            {
+                headers: this.identityService.getHeaders()
+            }
+        )
+    }
+
+    deleteMembers(code: string, userIds: Array<number>) {
+        return this.httpClient.request(
+            'DELETE',
+            this.getAlbumLink(code) + '/deleteMembers',
+            {
+                headers: this.identityService.getHeaders(),
+                body: userIds
+            }
+        )
+    }
+
+    changeRole(code: string, profileId: number, role: AlbumUserRole) {
+        return this.httpClient.put(
+            this.getAlbumLink(code) + "/changerole",
+            {
+                profileId: profileId,
+                role: +role
+            },
+            {
+                headers: this.identityService.getHeaders()
+            }
+        )
+    }
+
+    sendInvite(code: string, username: string) {
+        return this.httpClient.post(
+            this.getAlbumLink(code) + "/invite",
+            '"' + username + '"',
+            {
+                headers: this.identityService.getHeaders().set("Content-Type", "application/json")
+            }
+        );
+    }
+
+    deleteInvite(code: string, userId: number) {
+        return this.httpClient.request(
+            'DELETE',
+            this.getAlbumLink(code) + "/invite",
+            {
+                headers: this.identityService.getHeaders(),
+                body: userId
+            }
+        )
+    }
+
+    getInvites(code: string, starts?: number, count?: number) {
+        let url = this.getAlbumLink(code) + '/invites?';
+        if (starts != null)
+            url += "starts=" + starts + "&";
+        if (count != null)
+            url += "count=" + count + "&";
+        
+        return this.httpClient.get<SuccessResponseDto<PaginationResultDto<UserInfo>>>(
+            url,
             {
                 headers: this.identityService.getHeaders()
             }

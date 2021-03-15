@@ -123,7 +123,11 @@ export class ImagesComponent {
         if (this.info.autoDeleteIn) {
             this.countToDelete = dateFromUTС(this.info.autoDeleteIn).getTime() - new Date().getTime();
             this.countDownToDeleteSub = timer(0, 1000).subscribe(
-                () => this.countToDelete -= 1000
+                () => {
+                    this.countToDelete -= 1000;
+                    if (this.countToDelete <= 0)
+                        this.countDownToDeleteSub?.unsubscribe();
+                }
             );
         }
         else {

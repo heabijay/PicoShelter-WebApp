@@ -17,6 +17,7 @@ import { NgbdAlbumCreateModalComponent } from '../modals/albumCreate/ngbdAlbumCr
 import { AlbumCreateDto } from '../models/albumCreateDto';
 import { dateFromUTС } from "../static/dateFromUTC";
 import { copyToClipboard } from '../static/copyToClipboard';
+import { NgbdAlbumMembersModalComponent } from '../modals/albumMembers/ngbdAlbumMembersModal.component';
 
 @Component({
     templateUrl: './albums.component.html',
@@ -280,9 +281,30 @@ export class AlbumsComponent {
                 if (r == true) {
                     this.reload();
                 }
+                else if (r == false)
+                    this.albumMembers();
             },
             rejected => {
                 
+            }
+        )
+    }
+
+    albumMembers() {
+        const modalRef = this.modalService.open(NgbdAlbumMembersModalComponent, { centered: true, size: "lg" });
+        modalRef.componentInstance.targetAlbumDto = this.album;
+        modalRef.result.then(
+            result => {
+                const r = result as boolean;
+
+                if (r == true) {
+                    this.reload();
+                }
+            },
+            rejected => {
+                if (modalRef.componentInstance.result == true) {
+                    this.reload();
+                }
             }
         )
     }

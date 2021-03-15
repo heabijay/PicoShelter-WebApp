@@ -37,6 +37,7 @@ export class ConfirmComponent {
             case ConfirmationType.EmailChangingNew: return "Email changing (Step 2/2)";
             case ConfirmationType.EmailRegistration: return "Account registration";
             case ConfirmationType.PasswordRestore: return "Password restore";
+            case ConfirmationType.AlbumInvite: return "Album invite";
             default: "Unknown type";
         }
     }
@@ -126,6 +127,9 @@ export class ConfirmComponent {
                     case ConfirmationType.EmailChangingNew:
                         this.toastrService.success("Email successfully changed.");
                         break;
+                    case ConfirmationType.AlbumInvite:
+                            this.toastrService.success("You successfully joined to album!");
+                            break;
                     default:
                         this.toastrService.success("Key successfully activated!");
                         break;

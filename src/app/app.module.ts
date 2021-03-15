@@ -40,6 +40,7 @@ import { NgbdAlbumAddImageModalComponent } from './modals/albumAddImage/ngbdAlbu
 import { NgbdConfirmModalComponent } from './modals/confirm/ngbdConfirmModal.component';
 import { ImagesComponent as AlbumImagesComponent } from "./albums/images/images.component";
 import { NgbdAlbumImageLinksModalComponent } from "./modals/albumImageLinks/ngbdAlbumImageLinksModal.component"
+import { NgbdAlbumMembersModalComponent } from "./modals/albumMembers/ngbdAlbumMembersModal.component"
 
 @NgModule({
     imports: [
@@ -81,7 +82,8 @@ import { NgbdAlbumImageLinksModalComponent } from "./modals/albumImageLinks/ngbd
         NgbdAlbumAddImageModalComponent,
         NgbdConfirmModalComponent,
         AlbumImagesComponent,
-        NgbdAlbumImageLinksModalComponent
+        NgbdAlbumImageLinksModalComponent,
+        NgbdAlbumMembersModalComponent
     ],
     providers: [
         TokenService,
