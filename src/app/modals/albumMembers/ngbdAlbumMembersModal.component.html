@@ -132,10 +132,10 @@
             <button *ngIf="!isAllInvitesLoaded && !isInvitesLoading" (click)="loadNextInvitesPage()" class="btn btn-primary w-100 mb-3" type="button"><i class="fa fa-bolt mr-2" aria-hidden="true"></i>Load more</button>
         </div>
         <div class="form-group m-3">
-            <div class="input-group">
+            <form class="input-group" (submit)="sendInviteByUsername(sendInvite.value)">
                 <input [ngClass]="{ 'is-invalid': sendInvite.touched && sendInvite.invalid }" class="form-control" [readonly]="isInviteSending" type="text" spellcheck="false" id="sendInvite" name="sendInvite" ngModel #sendInvite="ngModel" placeholder="@username" />
                 <div class="input-group-append">
-                    <button class="btn btn-outline-primary" [disabled]="sendInvite.invalid || sendInvite.value == '' || isInviteSending" type="button" (click)="sendInviteByUsername(sendInvite.value)">
+                    <button class="btn btn-outline-primary" [disabled]="sendInvite.invalid || sendInvite.value == '' || isInviteSending" type="submit">
                         <ng-container *ngIf="isInviteSending; else notSending">
                             <i class="fa fa-spinner-third fa-spin mr-2" aria-hidden="true"></i>Inviting
                         </ng-container>
@@ -144,7 +144,7 @@
                         </ng-template>
                     </button>
                 </div>
-            </div>
+            </form>
             <div [hidden]="sendInvite.valid || sendInvite.untouched">
                 <p class="invalid-feedback d-block" *ngIf="sendInvite.errors?.notFound">Entered username not found!</p>
                 <p class="invalid-feedback d-block" *ngIf="sendInvite.errors?.alreadyInvited">Selected user is already invited!</p>
