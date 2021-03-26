@@ -66,14 +66,17 @@ export class NavbarComponent {
     }
 
     ngOnInit(): void {
-        this.subscription = this.currentUserService.onCurrentUserChanged.subscribe(this.onCurrentUserUpdated);
+        this.subscription = this.currentUserService.onCurrentUserChanged.subscribe(
+            data => this.onCurrentUserUpdated(data),
+            error => { }
+        );
         this.onCurrentUserUpdated(this.currentUserService.currentUser);
     }
 
     onCurrentUserUpdated(userInfo: UserInfo) {
         const isUserChanged = this.currentUser?.id != userInfo?.id;
         
-        this.currentUser = this.currentUserService.currentUser;
+        this.currentUser = userInfo;
 
         if (isUserChanged) {
             if (this.currentUser == null) {
