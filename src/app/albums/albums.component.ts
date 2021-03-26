@@ -6,8 +6,8 @@ import { AlbumInfoDto } from '../models/albumInfoDto';
 import { ImageShortInfoDto } from '../models/imageShortInfoDto';
 import { SuccessResponseDto } from '../models/successResponseDto';
 import { ImageThumbnailViewModel } from '../profiles/models/imageThumbnailViewModel';
-import { AlbumsHttpService } from '../services/albumsHttpService';
-import { ImageCacheService } from '../services/imageCacheService';
+import { AlbumsHttpService } from '../services/albumsHttp.service';
+import { ImageCacheService } from '../services/imageCache.service';
 import { AlbumUserRole } from "../enum/albumUserRole"
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import { NgbdAlbumAddImageModalComponent } from "../modals/albumAddImage/ngbdAlbumAddImageModal.component";

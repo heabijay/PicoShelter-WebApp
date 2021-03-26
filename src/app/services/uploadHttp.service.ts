@@ -3,7 +3,7 @@ import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { HttpService } from "../abstract/httpService"
 import { UploadImageDto } from "../models/uploadImageDto";
-import { TokenService } from "../services/tokenService"
+import { TokenService } from "./token.service"
 
 @Injectable() 
 export class UploadHttpService extends HttpService {

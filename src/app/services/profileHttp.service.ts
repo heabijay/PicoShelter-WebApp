@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { HttpService } from "../abstract/httpService";
-import { TokenService } from "./tokenService";
+import { TokenService } from "./token.service";
 import { HttpClient, HttpEvent } from "@angular/common/http"
 import { ProfileEditDto } from "../models/profileEditDto"
 import { Observable } from "rxjs";

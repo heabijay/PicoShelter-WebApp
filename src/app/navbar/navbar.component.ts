@@ -2,10 +2,10 @@ import { Component } from "@angular/core";
 import { Router } from "@angular/router";
 import { Subscription, timer } from "rxjs";
 import { UserInfo } from "../models/userInfo";
-import { IdentityHttpService } from "../services/identityHttpService";
-import { ProfilesHttpService } from "../services/profilesHttpService";
-import { CurrentUserService } from "../services/currentUserService";
-import { TokenService } from "../services/tokenService";
+import { IdentityHttpService } from "../services/identityHttp.service";
+import { ProfilesHttpService } from "../services/profilesHttp.service";
+import { CurrentUserService } from "../services/currentUser.service";
+import { TokenService } from "../services/token.service";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { ToastrService } from "ngx-toastr";
 import { NgbdProfileSettingsModalComponent } from "../modals/settings/ngbdProfileSettingsModal.component";
@@ -13,9 +13,9 @@ import { PaginationResultDto } from "../models/paginationResultDto";
 import { AlbumShortInfoDto } from "../models/albumShortInfoDto";
 import { AlbumInviteViewModel } from "./models/albumInviteViewModel"
 import { NgbdConfirmModalComponent } from "../modals/confirm/ngbdConfirmModal.component";
-import { AlbumsHttpService } from "../services/albumsHttpService";
+import { AlbumsHttpService } from "../services/albumsHttp.service";
 import { UserAlbumInviteDto } from "../models/userAlbumInviteDto";
-import { ConfirmationHttpService } from "../services/confirmationHttpService";
+import { ConfirmationHttpService } from "../services/confirmationHttp.service";
 
 @Component({
     selector: "navbar",

@@ -1,9 +1,11 @@
 import { HttpErrorResponse } from "@angular/common/http";
 import { Component } from "@angular/core";
+import { TranslateService } from "@ngx-translate/core";
 import { ToastrService } from "ngx-toastr";
-import { CurrentUserService } from "./services/currentUserService";
-import { IdentityHttpService } from "./services/identityHttpService";
-import { TokenService } from "./services/tokenService";
+import { CurrentUserService } from "./services/currentUser.service";
+import { IdentityHttpService } from "./services/identityHttp.service";
+import { TokenService } from "./services/token.service";
+import { environment } from "./enviroment"
 
 @Component({
     selector: "app",
@@ -24,12 +26,16 @@ export class AppComponent {
     constructor(
         private currentUserService: CurrentUserService,
         private tokenService: TokenService,
-        private identityHttpService: IdentityHttpService
+        private identityHttpService: IdentityHttpService,
+        private translateService: TranslateService
     ) {
 
     }
 
     ngOnInit(): void {
+        this.translateService.setDefaultLang(environment.defaultLocale);
+        this.translateService.use(environment.locales[2]);
+
         this.identityHttpService.getCurrentUser().subscribe(
             data => 
             {

@@ -3,7 +3,7 @@ import { Injectable } from "@angular/core";
 import { Subject } from "rxjs";
 import { AccessTokenDto } from "../models/accessTokenDto";
 import { UserLoginData } from "../models/userLoginData";
-import { CurrentUserService } from "./currentUserService";
+import { CurrentUserService } from "./currentUser.service";
 
 @Injectable()
 export class TokenService {

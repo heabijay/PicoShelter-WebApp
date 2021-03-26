@@ -9,13 +9,13 @@ import { AlbumInfoDto } from "src/app/models/albumInfoDto";
 import { ErrorResponseDto } from "src/app/models/errorResponseDto";
 import { ImageShortInfoDto } from "src/app/models/imageShortInfoDto";
 import { ImageThumbnailViewModel } from "src/app/profiles/models/imageThumbnailViewModel";
-import { AlbumsHttpService } from "src/app/services/albumsHttpService";
-import { CurrentUserService } from "src/app/services/currentUserService";
-import { ImageCacheService } from "src/app/services/imageCacheService";
-import { ImagesHttpService } from "src/app/services/imagesHttpService";
-import { ProfilesHttpService } from "src/app/services/profilesHttpService";
+import { AlbumsHttpService } from "src/app/services/albumsHttp.service";
+import { CurrentUserService } from "src/app/services/currentUser.service";
+import { ImageCacheService } from "src/app/services/imageCache.service";
+import { ImagesHttpService } from "src/app/services/imagesHttp.service";
+import { ProfilesHttpService } from "src/app/services/profilesHttp.service";
 import { AlbumCreateDto } from "../../models/albumCreateDto";
-import { AlbumHttpService } from "../../services/albumHttpService";
+import { AlbumHttpService } from "../../services/albumHttp.service";
 
 @Component({
     selector: "ngbd-albumaddimage-modal",

@@ -1,0 +1,143 @@
+{
+	"login": {
+		"btnLogin": "",
+		"forgotPassword": "",
+		"header": "",
+		"lblPassword": "",
+		"lblUsername": "",
+		"password": {
+			"incorrect": "",
+			"required": ""
+		},
+		"pwdReset": {
+			"btnReset": "",
+			"email": {
+				"notFound": "",
+				"patternError": ""
+			},
+			"header": "",
+			"iRemembered": "",
+			"lblEmail": ""
+		},
+		"username": {
+			"required": ""
+		}
+	},
+	"navbar": {
+		"login": "",
+		"profile": {
+			"logout": "",
+			"myProfile": "",
+			"notifications": "",
+			"settings": ""
+		},
+		"register": "",
+		"upload": ""
+	},
+	"profile": {
+		"albums": {
+			"header": "",
+			"none": "",
+			"noneImagesTag": "",
+			"publicTag": ""
+		},
+		"images": {
+			"btns": {
+				"delete": "",
+				"share": {
+					"asAlbum": "",
+					"label": "",
+					"makeImgPublic": "",
+					"sharing": ""
+				},
+				"upload": ""
+			},
+			"header": "",
+			"none": "",
+			"totalCount": ""
+		},
+		"lblMore": ""
+	},
+	"registration": {
+		"confirmPassword": {
+			"notValid": ""
+		},
+		"email": {
+			"alreadyRegistered": "",
+			"patternInvalid": ""
+		},
+		"header": "",
+		"lblConfirmPassword": "",
+		"lblEmail": "",
+		"lblPassword": "",
+		"lblSubmit": "",
+		"lblUsername": "",
+		"password": {
+			"notValid": ""
+		},
+		"success": {
+			"btnGotoLogin": "",
+			"header": "",
+			"message": ""
+		},
+		"username": {
+			"alreadyRegistered": "",
+			"patternInvalid": ""
+		}
+	},
+	"shared": {
+		"loadMore": "",
+		"untitled": ""
+	},
+	"upload": {
+		"asAnonymous": {
+			"desc": "",
+			"lbl": ""
+		},
+		"btnUpload": "",
+		"file": {
+			"chooseFile": "",
+			"gifTip": "",
+			"invalidFile": "",
+			"invalidFiletype": "",
+			"required": "",
+			"sizeOverflow": ""
+		},
+		"header": "",
+		"makePublic": {
+			"desc": "",
+			"lbl": ""
+		},
+		"quality": {
+			"forbidden": "",
+			"good": {
+				"desc": "",
+				"lbl": ""
+			},
+			"medium": {
+				"desc": "",
+				"lbl": ""
+			},
+			"original": {
+				"desc": "",
+				"lbl": ""
+			}
+		},
+		"saveFor": {
+			"_1hour": "",
+			"_24hours": "",
+			"lifetime": "",
+			"lifetimeForbidden": "",
+			"month": "",
+			"week": ""
+		},
+		"success": {
+			"autoDelete": "",
+			"btnUploadMore": "",
+			"directLink": "",
+			"link": ""
+		},
+		"title": "",
+		"uploading": ""
+	}
+}

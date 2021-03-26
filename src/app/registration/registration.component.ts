@@ -1,10 +1,10 @@
 import { Component, ViewChild } from "@angular/core";
 import { Router } from "@angular/router";
 import { ToastrService } from "ngx-toastr";
-import { CurrentUserService } from "../services/currentUserService";
+import { CurrentUserService } from "../services/currentUser.service";
 import { UserRegistrationDto } from "../models/userRegistrationDto"
-import { TokenService } from "../services/tokenService";
-import { IdentityHttpService } from "../services/identityHttpService";
+import { TokenService } from "../services/token.service";
+import { IdentityHttpService } from "../services/identityHttp.service";
 import { UserLoginData } from "../models/userLoginData";
 import { SuccessResponseDto } from "../models/successResponseDto";
 import { HttpErrorResponse } from "@angular/common/http";

@@ -1,16 +1,16 @@
 import { Component, SecurityContext } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
-import { ImagesHttpService } from '../../services/imagesHttpService';
+import { ImagesHttpService } from '../../services/imagesHttp.service';
 import { ProfilesDataService } from '../profiles.data.service';
 import { Subscription } from 'rxjs';
 import { ProfileInfoDto } from '../../models/profileInfoDto';
 import { ImageShortInfoDto } from 'src/app/models/imageShortInfoDto';
-import { ImageCacheService } from '../../services/imageCacheService';
+import { ImageCacheService } from '../../services/imageCache.service';
 import { ImageThumbnailViewModel } from '../models/imageThumbnailViewModel';
 import { AlbumViewModel } from '../models/albumViewModel';
 import { AlbumShortInfoDto } from 'src/app/models/albumShortInfoDto';
-import { AlbumsHttpService } from 'src/app/services/albumsHttpService';
-import { CurrentUserService } from 'src/app/services/currentUserService';
+import { AlbumsHttpService } from 'src/app/services/albumsHttp.service';
+import { CurrentUserService } from 'src/app/services/currentUser.service';
 
 @Component({
     templateUrl: './overview.component.html'

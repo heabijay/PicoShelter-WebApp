@@ -3,9 +3,9 @@ import { Component, Input, ViewChild } from "@angular/core"
 import { NgbActiveModal, NgbModal } from "@ng-bootstrap/ng-bootstrap"
 import { Subscription } from "rxjs";
 import { AlbumInfoDto } from "src/app/models/albumInfoDto";
-import { AlbumsHttpService } from "src/app/services/albumsHttpService";
-import { ImagesHttpService } from "src/app/services/imagesHttpService";
-import { ProfilesHttpService } from "src/app/services/profilesHttpService";
+import { AlbumsHttpService } from "src/app/services/albumsHttp.service";
+import { ImagesHttpService } from "src/app/services/imagesHttp.service";
+import { ProfilesHttpService } from "src/app/services/profilesHttp.service";
 import { AlbumProfileInfoViewModel } from "../../albums/models/albumProfileInfoViewModel"
 import { AlbumInviteViewModel } from "../../albums/models/albumInviteViewModel"
 import { AlbumUserRole } from "src/app/enum/albumUserRole";
@@ -16,7 +16,7 @@ import { ErrorResponseDto } from "src/app/models/errorResponseDto";
 import { ErrorType } from "src/app/enum/ErrorType";
 import { NgModel } from "@angular/forms";
 import { UserInfo } from "src/app/models/userInfo";
-import { CurrentUserService } from "src/app/services/currentUserService";
+import { CurrentUserService } from "src/app/services/currentUser.service";
 
 @Component({
     selector: "ngbd-albummembers-modal",

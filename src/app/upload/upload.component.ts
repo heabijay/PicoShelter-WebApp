@@ -1,15 +1,15 @@
 import { Component, ViewChild } from "@angular/core";
 import { NgForm, NgModel } from "@angular/forms";
 import { UploadImageDto } from "../models/uploadImageDto";
-import { CurrentUserService } from "../services/currentUserService";
-import { UploadHttpService } from "../services/uploadHttpService";
+import { CurrentUserService } from "../services/currentUser.service";
+import { UploadHttpService } from "../services/uploadHttp.service";
 import { HttpErrorResponse, HttpEvent, HttpEventType } from "@angular/common/http";
 import { SuccessResponseDto } from "../models/successResponseDto";
 import { ImageInfoDto } from "../models/imageInfoDto";
 import { ErrorResponseDto } from "../models/errorResponseDto";
 import { ToastrService } from "ngx-toastr";
 import { ErrorType } from "../enum/ErrorType";
-import { ImagesHttpService } from "../services/imagesHttpService";
+import { ImagesHttpService } from "../services/imagesHttp.service";
 import { copyToClipboard } from "../static/copyToClipboard"
 import { Router } from "@angular/router";
 import { UploadExitGuard } from "../guards/upload.exit.guard";

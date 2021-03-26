@@ -1,7 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
-import { CurrentUserService } from 'src/app/services/currentUserService';
-import { ProfilesHttpService } from 'src/app/services/profilesHttpService';
-import { ProfileHttpService } from 'src/app/services/profileHttpService';
+import { CurrentUserService } from 'src/app/services/currentUser.service';
+import { ProfilesHttpService } from 'src/app/services/profilesHttp.service';
+import { ProfileHttpService } from 'src/app/services/profileHttp.service';
 import { ProfileEditDto } from 'src/app/models/profileEditDto';
 import { ToastrService } from 'ngx-toastr';
 import { NgForm, NgModel } from '@angular/forms';

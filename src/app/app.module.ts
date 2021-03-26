@@ -9,9 +9,9 @@ import { HomeComponent } from "./home/home.component";
 import { NotFoundComponent } from "./not-found/not-found.component";
 import { RegistrationComponent } from "./registration/registration.component";
 import { LoginComponent } from "./login/login.component";
-import { HttpClientModule } from "@angular/common/http";
-import { TokenService } from "./services/tokenService";
-import { CurrentUserService } from "./services/currentUserService";
+import { HttpClient, HttpClientModule } from "@angular/common/http";
+import { TokenService } from "./services/token.service";
+import { CurrentUserService } from "./services/currentUser.service";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { ToastrModule } from "ngx-toastr";
 import { ComparePasswordDirective } from "./directives/compare-password.directive"
@@ -21,7 +21,7 @@ import { AlbumsComponent as ProfileAlbumsComponent } from "./profiles/albums/alb
 import { OverviewComponent } from "./profiles/overview/overview.component";
 import { ProfilesDataService } from "./profiles/profiles.data.service";
 import { UploadComponent } from "./upload/upload.component";
-import { ImageCacheService } from "./services/imageCacheService";
+import { ImageCacheService } from "./services/imageCache.service";
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgbdProfileImageDeletingModalComponent } from './modals/profileImageDeleting/ngbdProfileImageDeletingModal.component';
 import { NgbdProfileSettingsModalComponent } from './modals/settings/ngbdProfileSettingsModal.component';
@@ -41,6 +41,9 @@ import { NgbdConfirmModalComponent } from './modals/confirm/ngbdConfirmModal.com
 import { ImagesComponent as AlbumImagesComponent } from "./albums/images/images.component";
 import { NgbdAlbumImageLinksModalComponent } from "./modals/albumImageLinks/ngbdAlbumImageLinksModal.component"
 import { NgbdAlbumMembersModalComponent } from "./modals/albumMembers/ngbdAlbumMembersModal.component"
+import { MissingTranslationHandler, TranslateLoader, TranslateModule } from "@ngx-translate/core";
+import { HttpLoaderFactory } from "./httpLoaderFactory"
+import { MissingTranslationService } from "./services/missingTranslation.service"
 
 @NgModule({
     imports: [
@@ -49,6 +52,20 @@ import { NgbdAlbumMembersModalComponent } from "./modals/albumMembers/ngbdAlbumM
         RouterModule.forRoot(appRoutes),
         FormsModule,
         BrowserAnimationsModule,
+        TranslateModule.forRoot({
+            loader: {
+                provide: TranslateLoader,
+                useFactory: HttpLoaderFactory,
+                deps: [
+                    HttpClient
+                ]
+            },
+            missingTranslationHandler: {
+                provide: MissingTranslationHandler,
+                useClass: MissingTranslationService
+            },
+            useDefaultLang: false
+        }),
         ToastrModule.forRoot({
             progressBar: true
         }),
