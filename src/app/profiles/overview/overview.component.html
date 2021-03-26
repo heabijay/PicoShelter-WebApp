@@ -1,8 +1,8 @@
 <div class="container mt-5">
     <div class="row align-items-end">
-        <h1 class="col">Images</h1>
+        <h1 class="col">{{ 'profile.images.header' | translate }}</h1>
         <a class="text-decoration-none" routerLink="images">
-            <h1 class="col lead text-right text-uppercase text-secondary">More <i class="fas fa-angle-double-right"></i></h1>
+            <h1 class="col lead text-right text-uppercase text-secondary">{{ 'profile.lblMore' | translate }} <i class="fas fa-angle-double-right"></i></h1>
         </a>
     </div>
     <hr class="my-1">
@@ -28,16 +28,16 @@
             <i class="fa fa fa-spinner-third fa-spin" aria-hidden="true"></i>
         </p>
         <p *ngIf="profile?.images?.totalCount == 0" class="text-muted text-center w-100 mt-3 lead">
-            There's no pictures. Yet.
+            {{ 'profile.images.none' | translate }}
         </p>
     </div>
 </div>
 
 <div class="container mt-4" *ngIf="profile?.albums?.data">
     <div class="row align-items-end">
-        <h1 class="col">Albums</h1>
+        <h1 class="col">{{ 'profile.albums.header' | translate }}</h1>
         <a class="text-decoration-none" routerLink="albums">
-            <h1 class="col lead text-right text-uppercase text-secondary">More <i class="fas fa-angle-double-right"></i></h1>
+            <h1 class="col lead text-right text-uppercase text-secondary">{{ 'profile.lblMore' | translate }} <i class="fas fa-angle-double-right"></i></h1>
         </a>
     </div>
     <hr class="my-1">
@@ -55,16 +55,16 @@
                                             {{album.dto.title}}
                                         </ng-container>
                                         <ng-template #noTitle>
-                                            <span class="text-black-50">Untitled</span>
+                                            <span class="text-black-50">{{ 'shared.untitled' | translate }}</span>
                                         </ng-template>
                                     </h6>
                                     <div class="d-flex flex-row flex-wrap">
 										<div>⁠</div>
                                         <div class="mr-2" *ngIf="isMyAccount && album.dto.isPublic">
-                                            <p class="badge badge-success text-uppercase m-0">Public</p>
+                                            <p class="badge badge-success text-uppercase m-0">{{ 'profile.albums.publicTag' | translate }}</p>
                                         </div>
                                         <div *ngIf="album.dto.previewImage == null">
-                                            <p class="badge badge-info text-uppercase m-0">Without images</p>
+                                            <p class="badge badge-info text-uppercase m-0">{{ 'profile.albums.noneImagesTag' | translate }}</p>
                                         </div>
                                     </div>
                                 </div>
@@ -80,7 +80,7 @@
             <i class="fa fa-spinner-third fa-spin" aria-hidden="true"></i>
         </p>
         <p *ngIf="profile?.albums?.totalCount == 0" class="text-muted text-center w-100 mt-3 lead">
-            There's no albums. Yet.
+            {{ 'profile.albums.none' | translate }}
         </p>
     </div>
 </div>

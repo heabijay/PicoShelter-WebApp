@@ -6,9 +6,9 @@ import { ToastrService } from "ngx-toastr";
 import { ErrorType } from "src/app/enum/ErrorType";
 import { AlbumInfoDto } from "src/app/models/albumInfoDto";
 import { ErrorResponseDto } from "src/app/models/errorResponseDto";
-import { AlbumsHttpService } from "src/app/services/albumsHttpService";
+import { AlbumsHttpService } from "src/app/services/albumsHttp.service";
 import { AlbumCreateDto } from "../../models/albumCreateDto";
-import { AlbumHttpService } from "../../services/albumHttpService";
+import { AlbumHttpService } from "../../services/albumHttp.service";
 import { NgbdConfirmModalComponent } from "../confirm/ngbdConfirmModal.component";
 
 @Component({

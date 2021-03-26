@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { HttpService } from "../abstract/httpService";
-import { TokenService } from "./tokenService";
+import { TokenService } from "./token.service";
 import { HttpClient } from "@angular/common/http"
 import { SuccessResponseDto } from "../models/successResponseDto";
 import { ConfirmationInfoDto } from "../models/confirmationInfoDto";

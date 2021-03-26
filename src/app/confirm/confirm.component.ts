@@ -1,7 +1,7 @@
 import { Component, ViewChild } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { Subscription } from "rxjs";
-import { ConfirmationHttpService } from "../services/confirmationHttpService"
+import { ConfirmationHttpService } from "../services/confirmationHttp.service"
 import { ConfirmationType } from "../enum/confirmationType"
 import { HttpErrorResponse } from "@angular/common/http";
 import { ToastrService } from "ngx-toastr";

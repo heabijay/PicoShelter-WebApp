@@ -5,7 +5,8 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build"
+    "build": "ng build",
+    "update-locale": "ngx-translate-extract -i ./src -o src/assets/locale/en.json -o src/assets/locale/ru.json -o src/assets/locale/uk.json --sort --format namespaced-json"
   },
   "dependencies": {
     "@angular/animations": "^11.2.4",
@@ -17,7 +18,10 @@
     "@angular/platform-browser": "~11.2.4",
     "@angular/platform-browser-dynamic": "~11.2.4",
     "@angular/router": "~11.2.4",
+    "@biesbjerg/ngx-translate-extract": "^7.0.3",
     "@ng-bootstrap/ng-bootstrap": "^8.0.1",
+    "@ngx-translate/core": "^13.0.0",
+    "@ngx-translate/http-loader": "^6.0.0",
     "bootstrap": "^4.5.0",
     "ngx-pinch-zoom": "^2.5.4",
     "ngx-toastr": "^13.2.0",

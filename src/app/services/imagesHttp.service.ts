@@ -3,7 +3,7 @@ import { Injectable } from "@angular/core"
 import { Observable } from "rxjs"
 import { HttpService } from "../abstract/httpService"
 import { SuccessResponseDto } from "../models/successResponseDto";
-import { TokenService } from "./tokenService";
+import { TokenService } from "./token.service";
 import { ProfileInfoDto } from "../models/profileInfoDto";
 import { ImageCacheDto } from "../models/imageCacheDto";
 import { ImageInfoDto } from "../models/imageInfoDto";

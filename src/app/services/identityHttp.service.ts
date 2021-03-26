@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { HttpService } from "../abstract/httpService";
 import { UserLoginDto } from "../models/userLoginDto";
 import { UserLoginByEmailDto } from "../models/userLoginByEmailDto";
-import { TokenService } from "./tokenService";
+import { TokenService } from "./token.service";
 import { UserInfo } from "../models/userInfo";
 import { SuccessResponseDto } from "../models/successResponseDto";
 import { HttpClient } from "@angular/common/http"

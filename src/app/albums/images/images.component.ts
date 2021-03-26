@@ -5,18 +5,18 @@ import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, Subscription, timer } from 'rxjs';
 import { ImageInfoDto } from '../../models/imageInfoDto';
-import { ImageCacheService } from '../../services/imageCacheService';
+import { ImageCacheService } from '../../services/imageCache.service';
 import { copyToClipboard } from "../../static/copyToClipboard"
 import { downloadFileQuery } from "../../static/downloadFileQuery"
 import { dateFromUTС } from "../../static/dateFromUTC"
 import { ToastrService } from 'ngx-toastr';
-import { CurrentUserService } from '../../services/currentUserService';
+import { CurrentUserService } from '../../services/currentUser.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { NgbdProfileImageDeletingModalComponent } from '../../modals/profileImageDeleting/ngbdProfileImageDeletingModal.component';
 import { ImageEditDto } from '../../models/imageEditDto';
 import { NgbdImageEditModalComponent } from '../../modals/imageEdit/ngbdImageEditModal.component';
-import { AlbumsHttpService } from 'src/app/services/albumsHttpService';
-import { ImagesHttpService } from 'src/app/services/imagesHttpService';
+import { AlbumsHttpService } from 'src/app/services/albumsHttp.service';
+import { ImagesHttpService } from 'src/app/services/imagesHttp.service';
 import { AlbumInfoDto } from 'src/app/models/albumInfoDto';
 import { SuccessResponseDto } from 'src/app/models/successResponseDto';
 import { AlbumUserRole } from 'src/app/enum/albumUserRole';

@@ -3,12 +3,12 @@ import { from, Observable } from "rxjs";
 import { UserLoginByEmailDto } from "../models/userLoginByEmailDto";
 import { UserLoginData } from "../models/userLoginData";
 import { UserLoginDto } from "../models/userLoginDto";
-import { IdentityHttpService } from "../services/identityHttpService";
+import { IdentityHttpService } from "../services/identityHttp.service";
 import { SuccessResponseDto } from "../models/successResponseDto"
 import { HttpErrorResponse } from "@angular/common/http";
-import { TokenService } from "../services/tokenService";
+import { TokenService } from "../services/token.service";
 import { Router } from "@angular/router";
-import { CurrentUserService } from "../services/currentUserService";
+import { CurrentUserService } from "../services/currentUser.service";
 import { ToastrService } from "ngx-toastr";
 import { emailRegex } from "../registration/registration.component"
 import { NgForm, NgModel } from "@angular/forms";

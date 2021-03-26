@@ -1,0 +1,143 @@
+{
+	"login": {
+		"btnLogin": "Login",
+		"forgotPassword": "Forgot password?",
+		"header": "Welcome!",
+		"lblPassword": "Password",
+		"lblUsername": "Login",
+		"password": {
+			"incorrect": "Entered credentials is incorrect",
+			"required": "Password is required!"
+		},
+		"pwdReset": {
+			"btnReset": "Reset",
+			"email": {
+				"notFound": "This email isn't registered.",
+				"patternError": "This email doesn't match a default email template."
+			},
+			"header": "Password Reset",
+			"iRemembered": "Stop! I remembered!",
+			"lblEmail": "Email"
+		},
+		"username": {
+			"required": "Username couldn't be empty!"
+		}
+	},
+	"navbar": {
+		"login": "Login",
+		"profile": {
+			"logout": "Logout",
+			"myProfile": "My Profile",
+			"notifications": "Notifications",
+			"settings": "Settings"
+		},
+		"register": "Register",
+		"upload": "Upload"
+	},
+	"profile": {
+		"albums": {
+			"header": "Albums",
+			"none": "There's no albums :(",
+			"noneImagesTag": "Without images",
+			"publicTag": "Public"
+		},
+		"images": {
+			"btns": {
+				"delete": "Delete",
+				"share": {
+					"asAlbum": "Share as album",
+					"label": "Share",
+					"makeImgPublic": "Make the image public",
+					"sharing": "Sharing"
+				},
+				"upload": "Upload"
+			},
+			"header": "Images",
+			"none": "There's no images :(",
+			"totalCount": "Totally {{count}} image(s)"
+		},
+		"lblMore": "More"
+	},
+	"registration": {
+		"confirmPassword": {
+			"notValid": "Password doesn't match"
+		},
+		"email": {
+			"alreadyRegistered": "This email already registered.",
+			"patternInvalid": "Email doesn't matching default email template. Example: abc123@gmail.com"
+		},
+		"header": "Registration",
+		"lblConfirmPassword": "Confirm Password",
+		"lblEmail": "Email",
+		"lblPassword": "Password",
+		"lblSubmit": "Submit",
+		"lblUsername": "Username",
+		"password": {
+			"notValid": "Password must contain at least one number, and be longer than six charaters"
+		},
+		"success": {
+			"btnGotoLogin": ">> Switch to login page >>",
+			"header": "Well done!",
+			"message": "Now you need check your email <b>{{email}}</b> and finish a registration."
+		},
+		"username": {
+			"alreadyRegistered": "This username already registered.",
+			"patternInvalid": "Username length must be 3..20, can contains numbers, letters and '_'"
+		}
+	},
+	"shared": {
+		"loadMore": "Load more",
+		"untitled": "Untitled"
+	},
+	"upload": {
+		"asAnonymous": {
+			"desc": "If you want to upload an image without linking it to your account.",
+			"lbl": "As Anonymous"
+		},
+		"btnUpload": "Receive the shelter <3",
+		"file": {
+			"chooseFile": "Choose file...",
+			"gifTip": "Note: you can save GIF animation by select 'Original Quality'.",
+			"invalidFile": "Selected file is unsupported. Sorry.",
+			"invalidFiletype": "Selected file type invalid.",
+			"required": "You must select an image to upload.",
+			"sizeOverflow": "File size must be < 10MB."
+		},
+		"header": "Image Uploading",
+		"makePublic": {
+			"desc": "It allows you to share this image simplify by link",
+			"lbl": "Make public"
+		},
+		"quality": {
+			"forbidden": "This quality disallowed for anonymous upload",
+			"good": {
+				"desc": "The best choice to share and save any non-transparent image",
+				"lbl": "Good Quality"
+			},
+			"medium": {
+				"desc": "Well compressed image to embedding anywhere",
+				"lbl": "Medium Quality"
+			},
+			"original": {
+				"desc": "Excellent quality without any changes!",
+				"lbl": "Original Quality"
+			}
+		},
+		"saveFor": {
+			"_1hour": "Save for 1 Hour",
+			"_24hours": "Save for 24 Hours",
+			"lifetime": "Save for Forever",
+			"lifetimeForbidden": "Anonymous upload doesn't allow you to select lifetime shelter",
+			"month": "Save for Month",
+			"week": "Save for Week"
+		},
+		"success": {
+			"autoDelete": "Auto Delete",
+			"btnUploadMore": "Upload more",
+			"directLink": "Direct link",
+			"link": "Link"
+		},
+		"title": "Image Uploading",
+		"uploading": "Claiming a new shelter"
+	}
+}

@@ -6,8 +6,8 @@ import { ToastrService } from 'ngx-toastr';
 import { ErrorType } from 'src/app/enum/ErrorType';
 import { ErrorResponseDto } from 'src/app/models/errorResponseDto';
 import { UserChangePasswordDto } from 'src/app/models/userChangePasswordDto';
-import { IdentityHttpService } from 'src/app/services/identityHttpService';
-import { TokenService } from 'src/app/services/tokenService';
+import { IdentityHttpService } from 'src/app/services/identityHttp.service';
+import { TokenService } from 'src/app/services/token.service';
 
 @Component({
     selector: 'profilesettings-securityPage',

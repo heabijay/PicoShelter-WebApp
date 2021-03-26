@@ -1,6 +1,6 @@
 import { Component, Input } from "@angular/core"
 import { NgbActiveModal } from "@ng-bootstrap/ng-bootstrap"
-import { ImagesHttpService } from "../../services/imagesHttpService";
+import { ImagesHttpService } from "../../services/imagesHttp.service";
 
 @Component({
     selector: "ngbd-profileimagedeleting-modal",

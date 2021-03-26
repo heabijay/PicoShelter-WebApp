@@ -7,14 +7,14 @@ import { NgbdAlbumCreateModalComponent } from 'src/app/modals/albumCreate/ngbdAl
 import { AlbumInfoDto } from 'src/app/models/albumInfoDto';
 import { AlbumShortInfoDto } from 'src/app/models/albumShortInfoDto';
 import { ProfileInfoDto } from 'src/app/models/profileInfoDto';
-import { CurrentUserService } from 'src/app/services/currentUserService';
-import { ImageCacheService } from 'src/app/services/imageCacheService';
-import { ProfilesHttpService } from 'src/app/services/profilesHttpService';
+import { CurrentUserService } from 'src/app/services/currentUser.service';
+import { ImageCacheService } from 'src/app/services/imageCache.service';
+import { ProfilesHttpService } from 'src/app/services/profilesHttp.service';
 import { ProfilesDataService } from '../profiles.data.service';
 import { AlbumViewModel } from '../models/albumViewModel';
 import { ImageShortInfoDto } from 'src/app/models/imageShortInfoDto';
-import { AlbumHttpService } from 'src/app/services/albumHttpService';
-import { AlbumsHttpService } from 'src/app/services/albumsHttpService';
+import { AlbumHttpService } from 'src/app/services/albumHttp.service';
+import { AlbumsHttpService } from 'src/app/services/albumsHttp.service';
 
 @Component({
     templateUrl: './albums.component.html'

@@ -4,13 +4,13 @@ import { ToastrService } from 'ngx-toastr';
 import { Observable, Subscription } from 'rxjs';
 import { ProfileInfoDto } from '../models/profileInfoDto';
 import { SuccessResponseDto } from '../models/successResponseDto';
-import { CurrentUserService } from '../services/currentUserService';
-import { ProfilesHttpService } from "../services/profilesHttpService"
-import { ImagesHttpService } from "../services/imagesHttpService"
+import { CurrentUserService } from '../services/currentUser.service';
+import { ProfilesHttpService } from "../services/profilesHttp.service"
+import { ImagesHttpService } from "../services/imagesHttp.service"
 import { ProfilesDataService } from './profiles.data.service';
 import { copyToClipboard } from "../static/copyToClipboard"
-import { AlbumHttpService } from '../services/albumHttpService';
-import { AlbumsHttpService } from '../services/albumsHttpService';
+import { AlbumHttpService } from '../services/albumHttp.service';
+import { AlbumsHttpService } from '../services/albumsHttp.service';
 
 @Component({
     templateUrl: './profiles.component.html',

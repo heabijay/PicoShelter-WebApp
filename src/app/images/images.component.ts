@@ -5,13 +5,13 @@ import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription, timer } from 'rxjs';
 import { ImageInfoDto } from '../models/imageInfoDto';
-import { ImageCacheService } from '../services/imageCacheService';
-import { ImagesHttpService } from '../services/imagesHttpService';
+import { ImageCacheService } from '../services/imageCache.service';
+import { ImagesHttpService } from '../services/imagesHttp.service';
 import { copyToClipboard } from "../static/copyToClipboard"
 import { downloadFileQuery } from "../static/downloadFileQuery"
 import { dateFromUTС } from "../static/dateFromUTC"
 import { ToastrService } from 'ngx-toastr';
-import { CurrentUserService } from '../services/currentUserService';
+import { CurrentUserService } from '../services/currentUser.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { NgbdProfileImageDeletingModalComponent } from '../modals/profileImageDeleting/ngbdProfileImageDeletingModal.component';
 import { ImageEditDto } from '../models/imageEditDto';

@@ -1,6 +1,6 @@
 import { Component } from "@angular/core";
 import { UserInfo } from "../models/userInfo";
-import { CurrentUserService } from "../services/currentUserService"
+import { CurrentUserService } from "../services/currentUser.service"
 
 @Component({
     templateUrl: "./home.component.html"

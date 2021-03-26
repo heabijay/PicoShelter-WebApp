@@ -3,9 +3,9 @@ import { NgbActiveModal } from "@ng-bootstrap/ng-bootstrap"
 import { ToastrService } from "ngx-toastr";
 import { AlbumInfoDto } from "src/app/models/albumInfoDto";
 import { ImageInfoDto } from "src/app/models/imageInfoDto";
-import { AlbumsHttpService } from "src/app/services/albumsHttpService";
-import { CurrentUserService } from "src/app/services/currentUserService";
-import { ImagesHttpService } from "src/app/services/imagesHttpService";
+import { AlbumsHttpService } from "src/app/services/albumsHttp.service";
+import { CurrentUserService } from "src/app/services/currentUser.service";
+import { ImagesHttpService } from "src/app/services/imagesHttp.service";
 import { BooleanLiteral } from "typescript";
 import { copyToClipboard } from "../../static/copyToClipboard"
 
