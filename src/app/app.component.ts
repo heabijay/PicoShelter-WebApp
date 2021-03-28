@@ -35,6 +35,7 @@ export class AppComponent {
     ngOnInit(): void {
         this.translateService.setDefaultLang(environment.defaultLocale);
         this.translateService.use(environment.locales[2]);
+        //this.translateService.use(environment.locales[0]);
 
         this.identityHttpService.getCurrentUser().subscribe(
             data => 

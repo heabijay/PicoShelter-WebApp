@@ -16,6 +16,7 @@ import { NgbdConfirmModalComponent } from "../modals/confirm/ngbdConfirmModal.co
 import { AlbumsHttpService } from "../services/albumsHttp.service";
 import { UserAlbumInviteDto } from "../models/userAlbumInviteDto";
 import { ConfirmationHttpService } from "../services/confirmationHttp.service";
+import { TranslateService } from "@ngx-translate/core";
 
 @Component({
     selector: "navbar",
@@ -60,9 +61,18 @@ export class NavbarComponent {
         private identityService: IdentityHttpService,
         private albumsService: AlbumsHttpService,
         private toastrService: ToastrService,
-        private confirmationService: ConfirmationHttpService
+        private confirmationService: ConfirmationHttpService,
+        private translateService: TranslateService
     ) {
         
+    }
+
+    toggleLocale() {
+        const locale = this.translateService.currentLang;
+        if (locale == "en")
+            this.translateService.use("uk");
+        else
+            this.translateService.use("en");
     }
 
     ngOnInit(): void {
