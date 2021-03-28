@@ -15,6 +15,9 @@
             <li class="nav-item">
                 <a class="nav-link" data-toggle="collapse" data-target="#collapsibleNavId.show" [href]="profilesHttpService.serverUrl + '/apidocs'"><i class="far fa-code"></i> API</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="collapse" data-target="#collapsibleNavId.show" (click)="toggleLocale()" type="button">Toggle language (EN/UK)</a>
+            </li>
         </ul>
         <ul class="navbar-nav nav-flex-icons">
             <ng-container *ngIf="currentUser == null; else loginedTemplate">
