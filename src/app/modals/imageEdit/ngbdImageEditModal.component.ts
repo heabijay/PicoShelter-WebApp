@@ -39,7 +39,12 @@ export class NgbdImageEditModalComponent {
             
             this.isProceeding = true;
             
-            let _dto = this.dto;
+            const _dto = new ImageEditDto();
+            _dto.title = this.dto.title;
+            _dto.isPublic = this.dto.isPublic;
+            _dto.deleteInHours = this.dto.deleteInHours;
+            _dto.isChangeLifetime = this.dto.isChangeLifetime;
+            
             if (_dto.deleteInHours == 0)
                 _dto.deleteInHours = null;
 

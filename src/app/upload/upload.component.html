@@ -15,7 +15,7 @@
                 <p *ngIf="uploadedInfo.title" class="font-weight-bold">{{uploadedInfo.title}}</p>
                 <p class="m-0">{{ 'upload.success.link' | translate }}: <a [href]="uploadedLink" class="text-break" target="_blank">{{uploadedLink}}</a> <summary class="fas fa-copy float-right" (click)="copyLink()"></summary></p>
                 <p class="m-0" *ngIf="uploadedInfo.isPublic">{{ 'upload.success.directLink' | translate }}: <a class="text-break" [href]="uploadedDirectLink" target="_blank">{{uploadedDirectLink}}</a> <summary class="fas fa-copy float-right" (click)="copyDirectLink()"></summary></p>
-                <p class="mt-1 m-0" *ngIf="uploadedInfo.autoDeleteIn">{{ 'upload.success.autoDelete' | translate }}: {{uploadedInfo.autoDeleteIn | date:'medium'}}</p>
+                <p class="mt-1 m-0" *ngIf="uploadedInfo.autoDeleteIn">{{ 'upload.success.autoDelete' | translate }}: {{uploadedInfo.autoDeleteIn | date:'dd.MM.yy, hh:mm aa'}}</p>
             </div>
             <button type="button" class="btn btn-primary btn-block" (click)="reinit()">
                 {{ 'upload.success.btnUploadMore' | translate }}

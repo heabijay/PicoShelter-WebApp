@@ -2,6 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 import { ToastrService } from 'ngx-toastr';
 import { ErrorType } from 'src/app/enum/ErrorType';
 import { ErrorResponseDto } from 'src/app/models/errorResponseDto';
@@ -40,7 +41,8 @@ export class ProfileSettingsSecurityPageComponent {
         private identityService: IdentityHttpService,
         private toastrService: ToastrService,
         private tokenService: TokenService,
-        private router: Router
+        private router: Router,
+        private translateService: TranslateService
     ) {
 
     }
@@ -53,7 +55,7 @@ export class ProfileSettingsSecurityPageComponent {
                 }
             },
             error => {
-                this.currentEmail = "[Something went wrong]";
+                this.currentEmail = "[" + this.translateService.instant("shared.somethingWentWrong") + "]";
             }
         )
     }
@@ -73,7 +75,7 @@ export class ProfileSettingsSecurityPageComponent {
         this.isPasswordProceeding = true;
         this.identityService.changePassword(this.changePwdDto).subscribe(
             data => {
-                this.toastrService.success("Password changed! You will be redirected to login page", null, {
+                this.toastrService.success(this.translateService.instant("modals.settings.securityPage.toastr.passwordChanged"), null, {
                     progressBar: false
                 });
                 this.tokenService.setTokenWithProfile(null);
@@ -96,7 +98,7 @@ export class ProfileSettingsSecurityPageComponent {
                         return;
                 }
 
-                this.toastrService.error("Something went wrong. :(");
+                this.toastrService.error(this.translateService.instant("shared.somethingWentWrong"));
             }
         ).add(
             
@@ -114,7 +116,7 @@ export class ProfileSettingsSecurityPageComponent {
         this.isEmailProceeding = true;
         this.identityService.changeEmail(this.newEmail).subscribe(
             data => {
-                this.toastrService.success("Instruction sent to your current email!");
+                this.toastrService.success(this.translateService.instant("modals.settings.securityPage.toastr.emailChangeSentInstruction"));
                 this.closeChanging();
             },
             (error: HttpErrorResponse) => {
@@ -127,7 +129,7 @@ export class ProfileSettingsSecurityPageComponent {
                         return;
                 }
 
-                this.toastrService.error("Something went wrong. :(");
+                this.toastrService.error(this.translateService.instant("shared.somethingWentWrong"));
             }
         ).add(
             

@@ -154,10 +154,10 @@ export class NavbarComponent {
                     this.lastAlbumInvitesResponse.totalCount--;
                 }
 
-                this.toastrService.success("You successfully joined to album!");
+                this.toastrService.success(this.translateService.instant("navbar.profile.notifications.albumInvites.toastr.accepted"));
             },
             error => {
-                this.toastrService.error("Something went wrong while acception invite :(");
+                this.toastrService.error(this.translateService.instant("shared.somethingWentWrong"));
             }
         ).add(
             () => item.isJoining = false
@@ -183,10 +183,10 @@ export class NavbarComponent {
                     this.lastAlbumInvitesResponse.totalCount--;
                 }
 
-                this.toastrService.info("Invite successfully discarded.");
+                this.toastrService.info(this.translateService.instant("navbar.profile.notifications.albumInvites.toastr.discarded"));
             },
             error => {
-                this.toastrService.error("Something went wrong while discarding invite :(");
+                this.toastrService.error(this.translateService.instant("shared.somethingWentWrong"));
             }
         ).add(
             () => item.isCancelling = false

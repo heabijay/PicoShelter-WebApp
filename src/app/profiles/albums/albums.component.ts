@@ -42,8 +42,6 @@ export class AlbumsComponent {
         private profilesService: ProfilesHttpService,
         private imageCacheService: ImageCacheService,
         private modalService: NgbModal,
-        private albumService: AlbumHttpService,
-        private toastrService: ToastrService,
         private albumsService: AlbumsHttpService
     ) {
 

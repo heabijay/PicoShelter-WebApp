@@ -11,6 +11,7 @@ import { HttpErrorResponse } from "@angular/common/http";
 import { ErrorResponseDto } from "../models/errorResponseDto";
 import { ErrorType } from "../enum/ErrorType";
 import { FormControl, FormGroup, NgForm, NgModel } from "@angular/forms";
+import { TranslateService } from "@ngx-translate/core";
 
 export const emailRegex = /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/gm;
 
@@ -29,11 +30,11 @@ export class RegistrationComponent {
     @ViewChild("confirmPassword") confirmPasswordField: NgModel;
 
     constructor(
-        private identityHttpService: IdentityHttpService, 
-        private tokenService: TokenService,
+        private identityHttpService: IdentityHttpService,
         private currentUserService: CurrentUserService,
         private toastrService: ToastrService,
         private router: Router,
+        private translateService: TranslateService
     ) {
         
     }
@@ -42,7 +43,7 @@ export class RegistrationComponent {
         if (this.currentUserService.currentUser != null)
         {
             this.router.navigateByUrl("/");
-            this.toastrService.info("You're already logined!");
+            this.toastrService.info(this.translateService.instant("login.toastr.alreadyLogined"));
         }
     }
 
@@ -81,7 +82,7 @@ export class RegistrationComponent {
                     }
                 }
 
-                this.toastrService.error("Something went wrong. :(");
+                this.toastrService.error(this.translateService.instant("shared.somethingWentWrong"));
             }
         ).add(
             () => this.isProceeding = false

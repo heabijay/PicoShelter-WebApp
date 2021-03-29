@@ -14,6 +14,7 @@ import { ProfilesHttpService } from 'src/app/services/profilesHttp.service';
 import { ImageThumbnailViewModel } from '../models/imageThumbnailViewModel';
 import { ProfilesDataService } from '../profiles.data.service';
 import { copyToClipboard } from "../../static/copyToClipboard";
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
     templateUrl: './images.component.html',
@@ -48,7 +49,8 @@ export class ImagesComponent {
         private imageCacheService: ImageCacheService,
         private modalService: NgbModal,
         private toastrService: ToastrService,
-        private albumService: AlbumHttpService
+        private albumService: AlbumHttpService,
+        private translateService: TranslateService
     ) {
         
     }
@@ -193,10 +195,10 @@ export class ImagesComponent {
             result => {
                 const r = result as { success: number, failed: number };
                 if (r.failed > 0) {
-                    this.toastrService.error(r.failed + " image(s) wasn't deleted due to error.");
+                    this.toastrService.error(this.translateService.instant("profile.images.deletingFailed", { count: r.failed }));
                 }
                 if (r.success > 0) {
-                    this.toastrService.success(r.success + " image(s) deleted!");
+                    this.toastrService.success(this.translateService.instant("profile.images.deletingSuccess", { count:r.success }));
                     this.reload();
                 }
             },
@@ -221,7 +223,7 @@ export class ImagesComponent {
 
         if (dto.isPublic) {
             copyToClipboard(window.location.origin + "/i/" + dto.imageCode);
-            this.toastrService.info("Link copied to clipboard!");
+            this.toastrService.info(this.translateService.instant("shared.linkCopied"));
             this.isSharing = false;
         }
         else {
@@ -229,10 +231,10 @@ export class ImagesComponent {
                 data => {
                     dto.isPublic = true;
                     copyToClipboard(window.location.origin + "/i/" + dto.imageCode);
-                    this.toastrService.info("Link copied to clipboard!");
+                    this.toastrService.info(this.translateService.instant("shared.linkCopied"));
                 },
                 error => {
-                    this.toastrService.error("Something went wrong :(");
+                    this.toastrService.error(this.translateService.instant("shared.somethingWentWrong"));
                 }
             ).add(
                 () => this.isSharing = false
@@ -248,11 +250,11 @@ export class ImagesComponent {
             data => {
                 if (data.success) {
                     copyToClipboard(window.location.origin + "/a/" + data.data.code);
-                    this.toastrService.info("Link copied to clipboard!");
+                    this.toastrService.info(this.translateService.instant("shared.linkCopied"));
                 }
             },
             error => {
-                this.toastrService.error("Something went wrong :(");
+                this.toastrService.error(this.translateService.instant("shared.somethingWentWrong"));
             }
         ).add(
             () => this.isSharing = false

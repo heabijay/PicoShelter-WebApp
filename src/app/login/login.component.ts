@@ -14,6 +14,7 @@ import { emailRegex } from "../registration/registration.component"
 import { NgForm, NgModel } from "@angular/forms";
 import { ErrorResponseDto } from "../models/errorResponseDto";
 import { ErrorType } from "../enum/ErrorType";
+import { TranslateService } from "@ngx-translate/core";
 
 @Component({
     templateUrl: "./login.component.html",
@@ -42,7 +43,8 @@ export class LoginComponent {
         private tokenService: TokenService, 
         private currentUserService: CurrentUserService,
         private toastrService: ToastrService,
-        private router: Router
+        private router: Router,
+        private translateService: TranslateService
     ) {
         
     }
@@ -51,7 +53,7 @@ export class LoginComponent {
         if (this.currentUserService.currentUser != null)
         {
             this.router.navigateByUrl("/");
-            this.toastrService.info("You're already logined!");
+            this.toastrService.info(this.translateService.instant("login.toastr.alreadyLogined"));
         }
     }
 
@@ -88,7 +90,7 @@ export class LoginComponent {
                         return;
                 }
 
-                this.toastrService.error("Something went wrong. :(");
+                this.toastrService.error(this.translateService.instant("shared.somethingWentWrong"));
             }
         ).add(
             () => this.isLogging = false
@@ -122,7 +124,7 @@ export class LoginComponent {
         this.isReseting = true;
         this.identityHttpService.resetPassword(this.recoveryEmail).subscribe(
             data => {
-                this.toastrService.success("Instruction sent to your email.")
+                this.toastrService.success(this.translateService.instant("login.toastr.resetPwdInstructionSent"));
 
                 this.stopPasswordReset();
             },
@@ -135,7 +137,7 @@ export class LoginComponent {
                         return;
                 }
 
-                this.toastrService.error("Something went wrong. :(");
+                this.toastrService.error(this.translateService.instant("shared.somethingWentWrong"));
             }
         ).add(
             () => this.isReseting = false

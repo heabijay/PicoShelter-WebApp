@@ -1,12 +1,8 @@
 <div class="container mt-5" id="albums">
     <div class="d-flex flex-column flex-sm-row align-items-sm-center">
-        <h1 class="mr-2 flex-grow-1">Albums</h1>
+        <h1 class="mr-2 flex-grow-1">{{ 'profile.albums.header' | translate }}</h1>
         <div *ngIf="isMyAccount" class="d-flex flex-column flex-sm-row">
-            <button (click)="createAlbum()" class="btn btn-primary" type="button"><i class="fa fa-plus mr-2" aria-hidden="true"></i>Create</button>
-            <!-- <div class="d-flex flex-row" *ngIf="selectedCount > 0">
-                <button class="btn flex-grow-1 btn-success mt-2 mt-sm-0 ml-sm-1" type="button"><i class="fas fa-share-alt mr-2"></i>Share <span *ngIf="selectedCount > 1">as album</span></button>
-                <button class="btn flex-grow-1 btn-danger mt-2 mt-sm-0 ml-1" type="button" (click)="deleteSelectedImages()"><i class="fas fa-trash mr-2"></i>Delete</button>
-            </div> -->
+            <button (click)="createAlbum()" class="btn btn-primary" type="button"><i class="fa fa-plus mr-2" aria-hidden="true"></i>{{ 'profile.albums.btnCreate' | translate }}</button>
         </div>
     </div>
     <hr class="my-1">
@@ -15,7 +11,7 @@
             class="col-md-6 col-lg-4 my-2">
             <summary class="bg-gradient-saintPetersburg h-100" style="border-radius: 10px" [routerLink]="'/a/' + album.dto.code">
                 <div style="border-radius: 10px;" class="h-100 bg-image-cover" [style.background-image]="album.thumbnailResourceUrl ? 'url(' + album.thumbnailResourceUrl + ')' : 'none'">
-                    <div [ngClass]="{'bg-white-transparent': album.thumbnailResourceUrl}" class="h-100" style="border-radius: 10px;">
+                    <div [ngClass]="{'bg-gradient-semiWhite': album.thumbnailResourceUrl}" class="h-100" style="border-radius: 10px;">
                         <div class="onHoverBlack p-3 h-100" style="border-radius: 10px">
                             <div class="d-flex flex-row h-100 align-items-center">
                                 <div class="flex-fill align-self-start align-self-md-center">
@@ -24,16 +20,16 @@
                                             {{album.dto.title}}
                                         </ng-container>
                                         <ng-template #noTitle>
-                                            <span class="text-black-50">Untitled</span>
+                                            <span class="text-black-50">{{ 'shared.untitled' | translate }}</span>
                                         </ng-template>
                                     </h6>
                                     <div class="d-flex flex-row flex-wrap">
                                         <div>⁠</div>
                                         <div class="mr-2" *ngIf="isMyAccount && album.dto.isPublic">
-                                            <p class="badge badge-success text-uppercase m-0">Public</p>
+                                            <p class="badge badge-success text-uppercase m-0">{{ 'profile.albums.publicTag' | translate }}</p>
                                         </div>
                                         <div *ngIf="album.dto.previewImage == null">
-                                            <p class="badge badge-info text-uppercase m-0">Without images</p>
+                                            <p class="badge badge-info text-uppercase m-0">{{ 'profile.albums.noneImagesTag' | translate }}</p>
                                         </div>
                                     </div>
                                 </div>
@@ -45,7 +41,7 @@
             </summary>
         </div>
         <p *ngIf="profile?.albums?.totalCount == 0" class="text-muted text-center w-100 mt-3 lead">
-            There's no albums. Yet.
+            {{ 'profile.albums.none' | translate }}
         </p>
 
         <p *ngIf="isLoading" class="text-muted text-center w-100 mt-3">
@@ -54,7 +50,7 @@
 
         <button *ngIf="!isAllAlbumsLoaded && !isLoading" (click)="loadNextPage()" class="btn btn-primary w-100 mt-3" type="button"><i class="fa fa-bolt mr-2" aria-hidden="true"></i>Load more albums</button>
         <small *ngIf="profile?.albums?.totalCount > 0 && isAllAlbumsLoaded" class="text-muted text-center w-100 mt-3">
-            Totally {{profile?.albums?.totalCount}} album(s)
+            {{ 'profile.albums.totalCount' | translate:{'count': profile?.albums?.totalCount} }}
         </small>
     </div>
 </div>

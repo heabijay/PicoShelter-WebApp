@@ -12,7 +12,7 @@
                     <p class="float-left">
                         <ng-container *ngIf="info.user; else noUser">
                             <p class="text-muted m-0">
-                                <span class="text-uppercase">Uploaded by </span>
+                                <span class="text-uppercase">{{ 'images.uploadedBy' | translate }}</span>
                                 <a [routerLink]="'/profiles/' + info.user.id">
                                     <ng-container *ngIf="info.user.profile.firstname || info.user.profile.lastname; else noName">
                                         {{info.user.profile.firstname}} {{info.user.profile.lastname}} (@{{info.user.username}})
@@ -24,10 +24,10 @@
                             </p>
                         </ng-container>
                         <ng-template #noUser>
-                            <p class="text-muted m-0 text-uppercase">Anonymous upload</p>
+                            <p class="text-muted m-0 text-uppercase">{{ 'images.uploadedByAnonymous' | translate }}</p>
                         </ng-template>
                     </p>
-                    <p class="float-right text-muted">{{infoUploadedDate | date:'dd.MM.yy, hh:mm aa'}}</p>
+                    <p class="float-right text-muted ml-2">{{infoUploadedDate | date:'dd.MM.yy, hh:mm aa'}}</p>
                 </div>
             </div>
         </div>
@@ -39,8 +39,11 @@
                     </pinch-zoom>
                 </ng-container>
                 <ng-template #notImageYet>
-                    <div class="h-100 w-100 pz-image-background d-flex justify-content-center align-items-center text-shadow-1-1-grey" [style.background-image]="thumbnailResourceUrl ? 'url(' + thumbnailResourceUrl + ')' : 'none'">
-                        <i class="fa fa-2x fa-spinner-third fa-spin" aria-hidden="true"></i>
+                    <div class="h-100 w-100 pz-image-background d-flex justify-content-center align-items-center text-shadow-1-1-grey" [ngClass]="{'class': true}" [style.background-image]="thumbnailResourceUrl ? 'url(' + thumbnailResourceUrl + ')' : 'none'">
+                        <div class="w-100 square d-flex align-items-center justify-content-center d-md-none" style="max-height: 70vh;">
+                            <i class="fa fa-2x fa-spinner-third fa-spin" aria-hidden="true"></i>
+                        </div>
+                        <i class="fa fa-2x fa-spinner-third fa-spin d-none d-md-block" aria-hidden="true"></i>
                     </div>
                 </ng-template>
             </div>
@@ -54,46 +57,46 @@
                         </div>
 
                         <div *ngIf="info.autoDeleteIn">
-                            <p class="m-0 text-muted">Will be auto deleted</p>
+                            <p class="m-0 text-muted">{{ 'images.autodeletedIn' | translate }}</p>
                             <ng-container *ngIf="countToDelete > 0; else countNegative">
                                 <p>{{countToDelete | formatTime}}</p>
                             </ng-container>
                             <ng-template #countNegative>
-                                <p>right now</p>
+                                <p>{{ 'images.rightNow' | translate }}</p>
                             </ng-template>
                             
                         </div>
 
                         <summary (click)="downloadImage()" class="list-group-item border-0 list-group-item-action px-0 px-sm-2">
                             <ng-container *ngIf="isRequestedDownload; else noRequestedDownload">
-                                <i class="fa fa-spinner-third fa-spin mr-2" aria-hidden="true"></i>Preparing download
+                                <i class="fa fa-spinner-third fa-spin mr-2" aria-hidden="true"></i>{{ 'images.btnDownloadPrepairing' | translate }}
                             </ng-container>
                             <ng-template #noRequestedDownload>
-                                <i class="fas fa-download mr-2"></i>Download
+                                <i class="fas fa-download mr-2"></i>{{ 'images.btnDownload' | translate }}
                             </ng-template>
                         </summary>
                         <summary (click)="openInNewTab()" class="list-group-item border-0 list-group-item-action px-0 px-sm-2">
                             <ng-container *ngIf="isRequestedOpen; else noRequestedOpen">
-                                <i class="fa fa-spinner-third fa-spin mr-2" aria-hidden="true"></i>Preparing open
+                                <i class="fa fa-spinner-third fa-spin mr-2" aria-hidden="true"></i>{{ 'images.btnOpenInNewTabPrepairing' | translate }}
                             </ng-container>
                             <ng-template #noRequestedOpen>
-                                <i class="fas fa-external-link-alt mr-2"></i>Open in new tab
+                                <i class="fas fa-external-link-alt mr-2"></i>{{ 'images.btnOpenInNewTab' | translate }}
                             </ng-template>
                         </summary>
                         <hr class="w-100 m-0"/>
                         <summary *ngIf="isAdminAccess" (click)="performIsPublicCbChanged()" class="list-group-item border-0 list-group-item-action px-0 px-sm-2">
                             <div class="custom-control custom-switch">
                                 <input type="checkbox" [(ngModel)]="isPublicStateViewModel" [disabled]="isPublicStateChanging" (change)="onIsPublicCbChanged($event)" class="custom-control-input" id="isPublicSwitch" style="cursor: pointer;">
-                                <label class="custom-control-label" for="isPublicSwitch" style="cursor: pointer;">Public access</label>
+                                <label class="custom-control-label" for="isPublicSwitch" style="cursor: pointer;">{{ 'images.btnPublicAccess' | translate }}</label>
                             </div>
                         </summary>
-                        <summary *ngIf="info.isPublic" (click)="copyLink()" class="list-group-item border-0 list-group-item-action px-0 px-sm-2"><i class="fas fa-share mr-2"></i>Copy link</summary>
-                        <summary *ngIf="info.isPublic" (click)="copyDirectLink()" class="list-group-item border-0 list-group-item-action px-0 px-sm-2"><i class="fas fa-external-link-alt mr-2"></i>Copy direct link</summary>
+                        <summary *ngIf="info.isPublic" (click)="copyLink()" class="list-group-item border-0 list-group-item-action px-0 px-sm-2"><i class="fas fa-share mr-2"></i>{{ 'images.btnCopyLink' | translate }}</summary>
+                        <summary *ngIf="info.isPublic" (click)="copyDirectLink()" class="list-group-item border-0 list-group-item-action px-0 px-sm-2"><i class="fas fa-external-link-alt mr-2"></i>{{ 'images.btnCopyDirectLink' | translate }}</summary>
                     
                         <div *ngIf="isAdminAccess">
                             <hr class="w-100 m-0"/>
-                            <summary (click)="editImage()" class="list-group-item border-0 list-group-item-action px-0 px-sm-2"><i class="far fa-edit mr-2"></i>Edit</summary>
-                            <summary (click)="deleteImage()" class="list-group-item border-0 list-group-item-action px-0 px-sm-2"><i class="fas fa-trash mr-2"></i>Delete</summary>
+                            <summary (click)="editImage()" class="list-group-item border-0 list-group-item-action px-0 px-sm-2"><i class="far fa-edit mr-2"></i>{{ 'images.btnEdit' | translate }}</summary>
+                            <summary (click)="deleteImage()" class="list-group-item border-0 list-group-item-action px-0 px-sm-2"><i class="fas fa-trash mr-2"></i>{{ 'images.btnDelete' | translate }}</summary>
                         </div>
                     </div>
                 </div>

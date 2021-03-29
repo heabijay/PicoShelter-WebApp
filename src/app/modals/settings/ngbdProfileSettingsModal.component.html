@@ -1,5 +1,5 @@
 <div class="modal-header text-white bg-gradient-partyBliss">
-    <h4 class="modal-title"><i aria-hidden="true" class="fas fa-cog mr-2"></i>Settings</h4>
+    <h4 class="modal-title"><i aria-hidden="true" class="fas fa-cog mr-2"></i>{{ 'modals.settings.header' | translate }}</h4>
     <button type="button" class="btn close" aria-label="Close" (click)="close()">
     <span aria-hidden="true">&times;</span>
     </button>
@@ -8,8 +8,8 @@
     <div class="row w-100">
         <div class="col-4 col-lg-2">
             <div class="list-group text-center" id="list-tab" role="tablist">
-                <a class="list-group-item border-0 list-group-item-action active show px-0 px-sm-2" id="list-profile-list" data-toggle="tab" href="#list-profile" role="tab" aria-controls="list-profile" aria-selected="true"><i class="fas fa-user-alt mr-sm-2"></i><span class="d-none d-sm-inline">Profile</span></a>
-                <a class="list-group-item border-0 list-group-item-action px-0 px-sm-2" id="list-security-list" data-toggle="tab" href="#list-security" role="tab" aria-controls="list-security" aria-selected="false"><i class="fas fa-lock mr-sm-2"></i><span class="d-none d-sm-inline">Security</span></a>
+                <a class="list-group-item border-0 list-group-item-action active show px-0 px-sm-2" id="list-profile-list" data-toggle="tab" href="#list-profile" role="tab" aria-controls="list-profile" aria-selected="true"><i class="fas fa-user-alt mr-sm-2"></i><span class="d-none d-sm-inline">{{ 'modals.settings.profilePage.header' | translate }}</span></a>
+                <a class="list-group-item border-0 list-group-item-action px-0 px-sm-2" id="list-security-list" data-toggle="tab" href="#list-security" role="tab" aria-controls="list-security" aria-selected="false"><i class="fas fa-lock mr-sm-2"></i><span class="d-none d-sm-inline">{{ 'modals.settings.securityPage.header' | translate }}</span></a>
             </div>
         </div>
         <div class="col-8 col-lg-10">
@@ -25,5 +25,5 @@
     </div>
 </div>
 <div class="modal-footer">
-    <button type="button" class="btn btn-outline-primary" (click)="close()">Ok</button>
+    <button type="button" class="btn btn-outline-primary" (click)="close()">OK</button>
 </div>

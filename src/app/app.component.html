@@ -7,15 +7,15 @@
     </ng-container>
     <ng-template #serverFailureTemplate>
         <div class="component-fill jumbotron jumbotron-fluid">
-            <div class="d-flex justify-content-center">
-                <div class="d-flex flex-row">
+            <div class="d-flex justify-content-center w-100">
+                <div class="d-flex flex-row col-12 col-sm-10 col-md-8 col-lg-6">
                     <div class="text-right">
                         <h1 class="display-1">@</h1>
                     </div>
                     <div class="flex-grow-1 col align-self-center">
-                        <h2>Server is unavailable</h2>
-                        <p class="lead mb-0 text-break">It's probably maintenance. We think it will be quickly. Try again later.</p>
-                        <button class="btn btn-primary m-1 mt-2" type="button" onClick="window.location.reload();">Refresh page</button>
+                        <h2 class="text-break">{{ 'app.serverError.lbl' | translate }}</h2>
+                        <p class="lead mb-0 text-break">{{ 'app.serverError.desc' | translate }}</p>
+                        <button class="btn btn-primary m-1 mt-2" type="button" onClick="window.location.reload();">{{ 'app.serverError.btnReload' | translate }}</button>
                     </div>
                 </div>
             </div>
