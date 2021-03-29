@@ -1,4 +1,29 @@
 {
+	"app": {
+		"serverError": {
+			"btnReload": "Reload app",
+			"desc": "It's may under maintenance. We think it will be quickly. Please, try again later.",
+			"lbl": "Server is unavailable"
+		}
+	},
+	"images": {
+		"autodeletedIn": "Will be auto deleted",
+		"btnCopyDirectLink": "Copy direct link",
+		"btnCopyLink": "Copy link",
+		"btnDelete": "Delete",
+		"btnDownload": "Download",
+		"btnDownloadPrepairing": "Prepairing download",
+		"btnEdit": "Edit",
+		"btnOpenInNewTab": "Open in new tab",
+		"btnOpenInNewTabPrepairing": "Prepairing open",
+		"btnPublicAccess": "Public access",
+		"rightNow": "right now",
+		"toastr": {
+			"edited": "Image successfully edited!"
+		},
+		"uploadedBy": "Uploaded by",
+		"uploadedByAnonymous": "Anonymous upload"
+	},
 	"login": {
 		"btnLogin": "Login",
 		"forgotPassword": "Forgot password?",
@@ -19,8 +44,56 @@
 			"iRemembered": "Stop! I remembered!",
 			"lblEmail": "Email"
 		},
+		"toastr": {
+			"alreadyLogined": "You're already logined!",
+			"resetPwdInstructionSent": "Instruction sent to your email."
+		},
 		"username": {
 			"required": "Username couldn't be empty!"
+		}
+	},
+	"modals": {
+		"confirm": {
+			"areYouSure": "Are you sure you want to do this?",
+			"header": "Confirm"
+		},
+		"settings": {
+			"header": "Settings",
+			"profilePage": {
+				"avatar": "Your avatar",
+				"btnUpdate": "Update",
+				"firstname": "Name",
+				"header": "Profile",
+				"lastname": "Last name",
+				"toastr": {
+					"avatarChanged": "Avatar successfully changed. You will see changed after page reload.",
+					"infoChanged": "Profile information successfully changed. Sometimes need to reload page to see changes."
+				},
+				"updating": "Updating"
+			},
+			"securityPage": {
+				"btnChange": "Change",
+				"email": {
+					"desc": "Your current email is",
+					"lbl": "Email",
+					"newEmail": "New Email"
+				},
+				"header": "Security",
+				"password": {
+					"currentPassword": {
+						"incorrect": "Password incorrect",
+						"lbl": "Current password",
+						"required": "Current password required"
+					},
+					"lbl": "Password",
+					"newPassword": "New password",
+					"newPasswordConfirm": "Confirm new password"
+				},
+				"toastr": {
+					"emailChangeSentInstruction": "Instruction sent to your current email!",
+					"passwordChanged": "Password changed! You will be redirected to login page"
+				}
+			}
 		}
 	},
 	"navbar": {
@@ -28,19 +101,39 @@
 		"profile": {
 			"logout": "Logout",
 			"myProfile": "My Profile",
-			"notifications": "Notifications",
+			"notifications": {
+				"albumInvites": {
+					"accept": "Accept",
+					"discard": "Discard",
+					"header": "Album Invites",
+					"toastr": {
+						"accepted": "You successfully joined to album!",
+						"discarded": "Invite successfully discarded."
+					}
+				},
+				"label": "Notifications"
+			},
 			"settings": "Settings"
 		},
 		"register": "Register",
 		"upload": "Upload"
 	},
+	"notFound": {
+		"btnMainPage": "Main page",
+		"btnReturnBack": "Return back",
+		"desc": "Requested content doesn't exist or doesn't allowed for you.",
+		"lbl": "Sorry, this content is unavailable"
+	},
 	"profile": {
 		"albums": {
+			"btnCreate": "Create",
 			"header": "Albums",
 			"none": "There's no albums :(",
 			"noneImagesTag": "Without images",
-			"publicTag": "Public"
+			"publicTag": "Public",
+			"totalCount": "Totally {{count}} album(s)"
 		},
+		"copyLink": "Click to copy beautiful link",
 		"images": {
 			"btns": {
 				"delete": "Delete",
@@ -52,6 +145,8 @@
 				},
 				"upload": "Upload"
 			},
+			"deletingFailed": "{{count}} image(s) wasn't deleted due to error.",
+			"deletingSuccess": "{{count}} image(s) deleted!",
 			"header": "Images",
 			"none": "There's no images :(",
 			"totalCount": "Totally {{count}} image(s)"
@@ -86,8 +181,14 @@
 		}
 	},
 	"shared": {
+		"cancel": "Cancel",
+		"confirm": "Confirm",
+		"linkCopied": "Link copied to clipboard!",
 		"loadMore": "Load more",
-		"untitled": "Untitled"
+		"no": "No",
+		"somethingWentWrong": "Something went wrong :(",
+		"untitled": "Untitled",
+		"yes": "Yes"
 	},
 	"upload": {
 		"asAnonymous": {
@@ -138,6 +239,7 @@
 			"link": "Link"
 		},
 		"title": "Title",
-		"uploading": "Claiming a new shelter"
+		"uploading": "Claiming a new shelter",
+		"uploadingAlert": "File is still uploading. Are you sure you want leave?"
 	}
 }

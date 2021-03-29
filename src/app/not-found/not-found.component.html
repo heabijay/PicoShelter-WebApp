@@ -1,15 +1,15 @@
 <div class="component-fill jumbotron jumbotron-fluid">
-    <div class="container d-flex justify-content-center">
-        <div class="d-flex flex-row">
+    <div class="d-flex justify-content-center w-100">
+        <div class="d-flex flex-row col-12 col-sm-10 col-md-8 col-lg-6">
             <div class="text-right">
                 <h1 class="display-1">#</h1>
             </div>
             <div class="flex-grow-1 col align-self-center">
-                <h2>Sorry, this content is unavailable</h2>
+                <h2 class="text-break">{{ 'notFound.lbl' | translate }}</h2>
                 <!-- <p class="lead mb-0 text-break"></p> -->
-                <p class="lead text-secondary small">Possible HTTP Codes: 403, 404</p>
-                <button class="btn btn-primary m-1" type="button" routerLink="/">Main page</button>
-                <button class="btn btn-primary m-1" type="button" (click)="gotoBack()">Return back</button>
+                <p class="lead text-secondary small text-break">{{ 'notFound.desc' | translate }}</p>
+                <button class="btn btn-primary m-1" type="button" routerLink="/">{{ 'notFound.btnMainPage' | translate }}</button>
+                <button class="btn btn-primary m-1" type="button" (click)="gotoBack()">{{ 'notFound.btnReturnBack' | translate }}</button>
             </div>
         </div>
     </div>

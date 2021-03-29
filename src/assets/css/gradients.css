@@ -29,3 +29,7 @@
 .bg-gradient-fruitBlend {
     background-image: linear-gradient(to right, #f9d423 0%, #ff4e50 100%);
 }
+
+.bg-gradient-semiWhite {
+    background-image: linear-gradient(to right, #FFFFFFB3 0%, #FFFFFFB3 33%, #FFFFFF4D 100%);
+}

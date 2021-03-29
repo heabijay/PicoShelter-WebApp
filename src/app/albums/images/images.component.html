@@ -41,7 +41,10 @@
                 </ng-container>
                 <ng-template #notImageYet>
                     <div class="h-100 w-100 pz-image-background d-flex justify-content-center align-items-center text-shadow-1-1-grey" [style.background-image]="thumbnailResourceUrl ? 'url(' + thumbnailResourceUrl + ')' : 'none'">
-                        <i class="fa fa-2x fa-spinner-third fa-spin" aria-hidden="true"></i>
+                        <div class="w-100 square d-flex align-items-center justify-content-center d-md-none" style="max-height: 70vh;">
+                            <i class="fa fa-2x fa-spinner-third fa-spin" aria-hidden="true"></i>
+                        </div>
+                        <i class="fa fa-2x fa-spinner-third fa-spin d-none d-md-block" aria-hidden="true"></i>
                     </div>
                 </ng-template>
             </div>

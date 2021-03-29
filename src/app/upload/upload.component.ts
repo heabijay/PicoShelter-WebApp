@@ -15,6 +15,7 @@ import { Router } from "@angular/router";
 import { UploadExitGuard } from "../guards/upload.exit.guard";
 import { Observable } from "rxjs";
 import { ComponentCanDeactivate } from "../guards/componentCanDeactivate";
+import { TranslateService } from "@ngx-translate/core";
 
 @Component({
     templateUrl: "./upload.component.html",
@@ -31,7 +32,7 @@ export class UploadComponent implements UploadExitGuard {
 
     isAnonymous: boolean;
     dto = new UploadImageDto();
-    selectedFilename: string = "Choose file...";
+    selectedFilename: string;
     previewImageUrl: any;
 
     isUploading : boolean;
@@ -53,13 +54,14 @@ export class UploadComponent implements UploadExitGuard {
         private uploadService: UploadHttpService,
         private imagesService: ImagesHttpService,
         private toastrService: ToastrService,
-        private router: Router
+        private router: Router,
+        private translateService: TranslateService
     ) {
         
     }
     canDeactivate(component: ComponentCanDeactivate): boolean | Observable<boolean> {  
         if (this.isUploading && !this.isUploaded) {
-            return confirm("File is still uploading. Are you sure you want leave?")
+            return confirm(this.translateService.instant("upload.uploadingAlert"))
         }
         else {
             return true;
@@ -189,19 +191,19 @@ export class UploadComponent implements UploadExitGuard {
                     }
                 }
 
-                this.toastrService.error("Something went wrong. :(");
+                this.toastrService.error(this.translateService.instant("shared.somethingWentWrong"));
             }
         );
     }
 
     copyLink() {
         copyToClipboard(this.uploadedLink);
-        this.toastrService.success("Copied!");
+        this.toastrService.success(this.translateService.instant("shared.linkCopied"));
     }
 
     copyDirectLink() {
         copyToClipboard(this.uploadedDirectLink);
-        this.toastrService.success("Copied!");
+        this.toastrService.success(this.translateService.instant("shared.linkCopied"));
     }
 
     reinit() {

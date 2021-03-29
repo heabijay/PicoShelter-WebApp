@@ -8,6 +8,7 @@ import { NgForm, NgModel } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ErrorResponseDto } from 'src/app/models/errorResponseDto';
 import { ErrorType } from 'src/app/enum/ErrorType';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
     selector: 'profilesettings-profilePage',
@@ -40,7 +41,8 @@ export class ProfileSettingsProfilePageComponent {
         public currentUserService: CurrentUserService,
         private profilesService: ProfilesHttpService,
         private profileService: ProfileHttpService,
-        private toastrService: ToastrService
+        private toastrService: ToastrService,
+        private translateService: TranslateService
     ) { 
         
     }
@@ -65,7 +67,7 @@ export class ProfileSettingsProfilePageComponent {
                 data => {
                     this.currentUserService.currentUser.profile.firstname = this.profile.firstname;
                     this.currentUserService.currentUser.profile.lastname = this.profile.lastname;
-                    this.toastrService.success("Profile information successfully changed. You will see changes after page reload.");
+                    this.toastrService.success(this.translateService.instant("modals.settings.profilePage.toastr.infoChanged"));
                 },
                 (error: HttpErrorResponse) => {
                     const er = error.error as ErrorResponseDto;
@@ -79,7 +81,7 @@ export class ProfileSettingsProfilePageComponent {
                             return;
                     }
 
-                    this.toastrService.error("Something went wrong while updating profile information.");
+                    this.toastrService.error(this.translateService.instant("shared.somethingWentWrong"));
                 }
             ).add(
                 () => { 
@@ -92,10 +94,10 @@ export class ProfileSettingsProfilePageComponent {
             this.isAvatarUpdating = true;
             this.profileService.deleteAvatar().subscribe(
                 data => {
-                    this.toastrService.success("Avatar successfully deleted. You will see changes after page reload.");
+                    this.toastrService.success(this.translateService.instant("modals.settings.profilePage.toastr.avatarChanged"));
                 },
                 error => {
-                    this.toastrService.error("Something went wrong while deleting your avatar.");
+                    this.toastrService.error(this.translateService.instant("shared.somethingWentWrong"));
                 }
             ).add(
                 () => {
@@ -107,7 +109,7 @@ export class ProfileSettingsProfilePageComponent {
             this.isAvatarUpdating = true;
             this.profileService.uploadAvatar(this.avatarFile).subscribe(
                 data => {
-                    this.toastrService.success("Avatar successfully changed. You will see changed after page reload.");
+                    this.toastrService.success(this.translateService.instant("modals.settings.profilePage.toastr.avatarChanged"));
                 },
                 (error: HttpErrorResponse) => {
                     const er = error.error as ErrorResponseDto;
@@ -126,7 +128,7 @@ export class ProfileSettingsProfilePageComponent {
                             return;
                     }
 
-                    this.toastrService.error("Something went wrong while changing your avatar.");
+                    this.toastrService.error(this.translateService.instant("shared.somethingWentWrong"));
                 }
             ).add(
                 () => {

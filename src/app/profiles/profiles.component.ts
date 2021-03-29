@@ -11,6 +11,7 @@ import { ProfilesDataService } from './profiles.data.service';
 import { copyToClipboard } from "../static/copyToClipboard"
 import { AlbumHttpService } from '../services/albumHttp.service';
 import { AlbumsHttpService } from '../services/albumsHttp.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
     templateUrl: './profiles.component.html',
@@ -38,7 +39,8 @@ export class ProfilesComponent {
         private toastrService: ToastrService,
         private dataService: ProfilesDataService,
         private albumService: AlbumHttpService,
-        private albumsService: AlbumsHttpService
+        private albumsService: AlbumsHttpService,
+        private translateService: TranslateService
     ) {
         this.paramSubscription = this.activatedRoute.params.subscribe(param => 
         {
@@ -100,6 +102,6 @@ export class ProfilesComponent {
 
     copyBeautifulLink() {
         copyToClipboard(window.location.origin + "/p/" + this.profile.userinfo.username);
-        this.toastrService.info("Link copied to clipboard!");
+        this.toastrService.info(this.translateService.instant("shared.linkCopied"));
     }
 }

@@ -12,14 +12,14 @@
                                     <span>{{profile?.userinfo?.profile?.lastname}}</span>
                                 </h1>
                                 <div>
-                                    <summary class="d-inline-block pr-1" (click)="copyBeautifulLink()" placement="right" ngbTooltip="Click to copy beautiful link">
+                                    <summary class="d-inline-block pr-1" (click)="copyBeautifulLink()" placement="right" [ngbTooltip]="'profile.copyLink' | translate">
                                         <h4 class="d-inline-block">@{{profile?.userinfo?.username}}</h4>
                                     </summary>
                                 </div>
                             </ng-container>
                             <ng-template #nameExist>
                                 <div>
-                                    <summary class="d-inline-block pr-1" (click)="copyBeautifulLink()" placement="right" ngbTooltip="Click to copy beautiful link">
+                                    <summary class="d-inline-block pr-1" (click)="copyBeautifulLink()" placement="right" [ngbTooltip]="'profile.copyLink' | translate">
                                         <h1 class="d-inline-block" class="display-4 d-inline text-shadow-1-1-grey">{{profile?.userinfo?.username}}</h1>
                                     </summary>
                                 </div>

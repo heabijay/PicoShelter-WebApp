@@ -1,18 +1,18 @@
 <div class="modal-header">
-    <h4 class="modal-title">Confirm</h4>
+    <h4 class="modal-title">{{ 'modals.confirm.header' | translate }}</h4>
     <button type="button" class="btn close" aria-label="Close" (click)="close()">
     <span aria-hidden="true">&times;</span>
     </button>
 </div>
 <div class="modal-body">
     <ng-container *ngIf="text == null; else textExist">
-        <p>Are you sure you want to this?</p>
+        <p>{{ 'modals.confirm.areYouSure' | translate }}</p>
     </ng-container>
     <ng-template #textExist>
         <p>{{text}}</p>
     </ng-template>
 </div>
 <div class="modal-footer">
-    <button type="button" class="btn btn-danger" (click)="closeTrue()">Yes</button>
-    <button type="button" class="btn btn-outline-secondary" (click)="closeFalse()">No</button>
+    <button type="button" class="btn btn-danger" (click)="closeTrue()">{{ 'shared.yes' | translate }}</button>
+    <button type="button" class="btn btn-outline-secondary" (click)="closeFalse()">{{ 'shared.no' | translate }}</button>
 </div>

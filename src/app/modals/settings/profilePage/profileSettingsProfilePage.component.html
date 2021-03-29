@@ -5,17 +5,17 @@
                 <div class="row">
                     <div class="col-12 col-sm-6">
                         <div class="form-group">
-                            <label class="text-muted text-uppercase" for="firstname">Name</label>
+                            <label class="text-muted text-uppercase" for="firstname">{{ 'modals.settings.profilePage.firstname' | translate }}</label>
                             <input [ngClass]="{ 'is-invalid': firstname.touched && firstname.invalid }" id="firstname" class="form-control" type="text" spellcheck="false" name="firstname" #firstname="ngModel" [(ngModel)]="profile.firstname" maxlength="20" />
                         </div>
                         <div class="form-group">
-                            <label class="text-muted text-uppercase" for="lastname">Last name</label>
+                            <label class="text-muted text-uppercase" for="lastname">{{ 'modals.settings.profilePage.lastname' | translate }}</label>
                             <input [ngClass]="{ 'is-invalid': lastname.touched && lastname.invalid }" id="lastname" class="form-control" type="text" spellcheck="false" name="lastname" #lastname="ngModel" [(ngModel)]="profile.lastname" maxlength="20" />
                         </div>
                     </div>
                     <div class="col-12 col-sm-6">
                         <div class="form-group">
-                            <label class="text-muted text-uppercase" for="avatar">Your avatar</label>
+                            <label class="text-muted text-uppercase" for="avatar">{{ 'modals.settings.profilePage.avatar' | translate }}</label>
                             <div class="col-lg-4 px-0">
                                 <div class="square">
                                     <div class="avatarContainer image-thumbnail-frame border-100vh position-absolute" [style.background-image]="avatarFile == null ? 'url(assets/icons/no_image.jpg)' : 'none'" style="background-color: white; background-size: cover;">
@@ -31,7 +31,7 @@
                                 </div>
                             </div>
                             <div class="mt-2" [hidden]="file.valid">
-                                <p class="invalid-feedback d-block" *ngIf="file.errors?.invalidFile">Selected file is unsupported. Sorry.</p>
+                                <p class="invalid-feedback d-block" *ngIf="file.errors?.invalidFile">{{ 'upload.file.invalidFile' | translate }}</p>
                             </div>
                         </div>
                     </div>
@@ -40,10 +40,10 @@
             <div class="row mx-0">
                 <button class="btn btn-outline-secondary" type="button" [disabled]="profileEditForm.invalid || isUpdating" (click)="startProfileUpdating()">
                     <ng-container *ngIf="isUpdating; else notUpdating">
-                        <i class="fa fa-spinner-third fa-spin mr-2" aria-hidden="true"></i>Updating
+                        <i class="fa fa-spinner-third fa-spin mr-2" aria-hidden="true"></i>{{ 'modals.settings.profilePage.updating' | translate }}
                     </ng-container>
                     <ng-template #notUpdating>
-                        Update
+                        {{ 'modals.settings.profilePage.btnUpdate' | translate }}
                     </ng-template>
                 </button>
             </div>

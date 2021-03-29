@@ -1,4 +1,33 @@
 {
+	"app": {
+		"connectingToServer": {
+			"lbl": ""
+		},
+		"serverError": {
+			"btnReload": "",
+			"desc": "",
+			"lbl": ""
+		}
+	},
+	"btnDownloadPrepairing": "",
+	"images": {
+		"autodeletedIn": "",
+		"btnCopyDirectLink": "",
+		"btnCopyLink": "",
+		"btnDelete": "",
+		"btnDownload": "",
+		"btnDownloadPrepairing": "",
+		"btnEdit": "",
+		"btnOpenInNewTab": "",
+		"btnOpenInNewTabPrepairing": "",
+		"btnPublicAccess": "",
+		"rightNow": "",
+		"toastr": {
+			"edited": ""
+		},
+		"uploadedBy": "",
+		"uploadedByAnonymous": ""
+	},
 	"login": {
 		"btnLogin": "",
 		"forgotPassword": "",
@@ -19,8 +48,60 @@
 			"iRemembered": "",
 			"lblEmail": ""
 		},
+		"toastr": {
+			"alreadyLogined": "",
+			"resetPwdInstructionSent": ""
+		},
 		"username": {
 			"required": ""
+		}
+	},
+	"modals": {
+		"confirm": {
+			"areYouSure": "",
+			"header": ""
+		},
+		"settings": {
+			"header": "",
+			"profilePage": {
+				"avatar": "",
+				"btnUpdate": "",
+				"firstname": "",
+				"header": "",
+				"lastname": "",
+				"toastr": {
+					"avatarChanged": "",
+					"infoChanged": ""
+				},
+				"updating": ""
+			},
+			"securityPage": {
+				"btnChange": "",
+				"emai": {
+					"desc": ""
+				},
+				"email": {
+					"desc": "",
+					"lbl": "",
+					"newEmail": ""
+				},
+				"header": "",
+				"password": {
+					"currentPassword": {
+						"incorrect": "",
+						"lbl": "",
+						"required": ""
+					},
+					"lbl": "",
+					"newPassword": "",
+					"newPasswordConfirm": ""
+				},
+				"toastr": {
+					"emailChangeSentInstruction": "",
+					"emailChanged": "",
+					"passwordChanged": ""
+				}
+			}
 		}
 	},
 	"navbar": {
@@ -28,19 +109,31 @@
 		"profile": {
 			"logout": "",
 			"myProfile": "",
-			"notifications": "",
+			"notifications": {
+				"albumInvites": "",
+				"label": ""
+			},
 			"settings": ""
 		},
 		"register": "",
 		"upload": ""
 	},
+	"notFound": {
+		"btnMainPage": "",
+		"btnReturnBack": "",
+		"desc": "",
+		"lbl": ""
+	},
 	"profile": {
 		"albums": {
+			"btnCreate": "",
 			"header": "",
 			"none": "",
 			"noneImagesTag": "",
-			"publicTag": ""
+			"publicTag": "",
+			"totalCount": ""
 		},
+		"copyLink": "",
 		"images": {
 			"btns": {
 				"delete": "",
@@ -52,6 +145,8 @@
 				},
 				"upload": ""
 			},
+			"deletingFailed": "",
+			"deletingSuccess": "",
 			"header": "",
 			"none": "",
 			"totalCount": ""
@@ -86,8 +181,24 @@
 		}
 	},
 	"shared": {
+		"cancel": "",
+		"confirm": "",
+		"linkCopied": "",
 		"loadMore": "",
-		"untitled": ""
+		"no": "",
+		"somethingWentWrong": "",
+		"untitled": "",
+		"yes": ""
+	},
+	"toastr": {
+		"navbar": {
+			"albumInvites": {
+				"acceptError": "",
+				"accepted": "",
+				"discardError": "",
+				"discarded": ""
+			}
+		}
 	},
 	"upload": {
 		"asAnonymous": {
@@ -138,6 +249,7 @@
 			"link": ""
 		},
 		"title": "",
-		"uploading": ""
+		"uploading": "",
+		"uploadingAlert": ""
 	}
 }
