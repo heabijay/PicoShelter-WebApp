@@ -101,7 +101,7 @@ export class AlbumsComponent {
         }
     }
 
-    loadNextPage(size: number = 36) {
+    loadNextPage(size: number = 72) {
         if (!this.isAllAlbumsLoaded) {
             this.isLoading = true;
             const startIndex = this.albums.length;
