@@ -1,4 +1,36 @@
 {
+	"albums": {
+		"albumInfo": {
+			"createdTime": "",
+			"header": "",
+			"lblAccess": "",
+			"lblAlbumIsIn": "",
+			"lblPrivate": "",
+			"lblPublic": "",
+			"link": "",
+			"linkByUsercode": ""
+		},
+		"btnAddImage": "",
+		"btnDropImage": "",
+		"btnEditAlbum": "",
+		"droppingImage": "",
+		"lblAccess": "",
+		"lblAlbum": "",
+		"lblAlbumIsIn": "",
+		"lblMembers": "",
+		"lblPictures": "",
+		"lblPrivate": "",
+		"lblPublic": "",
+		"link": "",
+		"linkByUsercode": "",
+		"modals": {
+			"areYouSureToDropImages": ""
+		},
+		"toastr": {
+			"imageAdded": "",
+			"imagesDropped": ""
+		}
+	},
 	"app": {
 		"connectingToServer": {
 			"lbl": ""
@@ -10,19 +42,52 @@
 		}
 	},
 	"btnDownloadPrepairing": "",
+	"confirm": {
+		"couldntActivate": "",
+		"description": "",
+		"header": "",
+		"key": {
+			"btnActivate": "",
+			"couldntActivate": "",
+			"lbl": "",
+			"needAuthorize": "",
+			"notFound": "",
+			"patternInvalid": ""
+		},
+		"needAuthorize": "",
+		"newPassword": {
+			"lbl": ""
+		},
+		"status": {
+			"activated": "",
+			"attempt": "",
+			"lbl": "",
+			"notActivated": ""
+		},
+		"type": {
+			"lbl": ""
+		}
+	},
 	"images": {
+		"areYouSureToDropFromAlbum": "",
 		"autodeletedIn": "",
 		"btnCopyDirectLink": "",
 		"btnCopyLink": "",
 		"btnDelete": "",
 		"btnDownload": "",
 		"btnDownloadPrepairing": "",
+		"btnDropFromAlbum": "",
 		"btnEdit": "",
+		"btnLinks": "",
 		"btnOpenInNewTab": "",
 		"btnOpenInNewTabPrepairing": "",
 		"btnPublicAccess": "",
+		"droppingFromAlbum": "",
+		"in": "",
+		"lblAlbum": "",
 		"rightNow": "",
 		"toastr": {
+			"dropped": "",
 			"edited": ""
 		},
 		"uploadedBy": "",
@@ -57,8 +122,97 @@
 		}
 	},
 	"modals": {
+		"albumAddImage": {
+			"btnAdd": "",
+			"header": "",
+			"myGallery": ""
+		},
+		"albumImageLinks": {
+			"directLink": "",
+			"header": "",
+			"link": "",
+			"provideByImagePublic": "",
+			"providedByAlbumPublic": "",
+			"withAlbumUsercode": ""
+		},
+		"albumMembers": {
+			"header": "",
+			"invites": {
+				"btnInvite": "",
+				"header": "",
+				"invite": {
+					"alreadyInvited": "",
+					"alreadyJoined": "",
+					"notFound": ""
+				},
+				"inviting": "",
+				"leave": "",
+				"noInvites": ""
+			},
+			"joinedUsers": {
+				"btnCancelInvite": "",
+				"btnKick": "",
+				"header": "",
+				"roles": {
+					"admin": "",
+					"editor": "",
+					"viewer": ""
+				}
+			},
+			"leave": "",
+			"leaving": "",
+			"modals": {
+				"areYouSureToCancelInvite": "",
+				"areYouSureToKick": "",
+				"areYouSureToLeave": "",
+				"warningOnSetAdmin": ""
+			},
+			"toastr": {
+				"areYouSureToCancelInvite": "",
+				"areYouSureToKick": "",
+				"areYouSureToLeave": "",
+				"inviteSent": "",
+				"warningOnSetAdmin": ""
+			}
+		},
+		"albumSettings": {
+			"deleteAlbum": "",
+			"deletingAlbum": "",
+			"header": "",
+			"makePublic": {
+				"desc": "",
+				"lbl": ""
+			},
+			"manageMembers": "",
+			"modals": {
+				"areYouSureToDeleteAlbum": ""
+			},
+			"setUsercode": {
+				"desc": "",
+				"lbl": "",
+				"usercode": {
+					"alreadyRegistered": "",
+					"lbl": "",
+					"patternInvalid": "",
+					"preview": ""
+				}
+			},
+			"title": "",
+			"toastr": {
+				"albumDeleted": ""
+			}
+		},
 		"confirm": {
 			"areYouSure": "",
+			"header": ""
+		},
+		"imageDelete": {
+			"areYouSure": "",
+			"header": "",
+			"statusDeleting": ""
+		},
+		"imageEdit": {
+			"changeLifetime": "",
 			"header": ""
 		},
 		"settings": {

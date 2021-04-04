@@ -1,5 +1,6 @@
 import { Component, Input } from "@angular/core"
 import { NgbActiveModal } from "@ng-bootstrap/ng-bootstrap"
+import { TranslateService } from "@ngx-translate/core";
 import { ToastrService } from "ngx-toastr";
 import { AlbumInfoDto } from "src/app/models/albumInfoDto";
 import { ImageInfoDto } from "src/app/models/imageInfoDto";
@@ -51,14 +52,15 @@ export class NgbdAlbumImageLinksModalComponent {
         private albumsService: AlbumsHttpService,
         private imagesService: ImagesHttpService,
         private toastrService: ToastrService,
-        private currentUser: CurrentUserService
+        private currentUser: CurrentUserService,
+        private translateService: TranslateService
     ) {
 
     }
 
     copyLink(url: string) {
         copyToClipboard(url);
-        this.toastrService.info("Link copied to clipboard!");
+        this.toastrService.info(this.translateService.instant("shared.linkCopied"));
     }
 
     close() {

@@ -1,14 +1,14 @@
 <div class="modal-header">
-    <h4 class="modal-title">Public links</h4>
+    <h4 class="modal-title">{{ 'modals.albumImageLinks.header' | translate }}</h4>
     <button type="button" class="btn close" aria-label="Close" (click)="close()">
     <span aria-hidden="true">&times;</span>
     </button>
 </div>
 <div class="modal-body">
     <div *ngIf="imageInfo.isPublic">
-        <p class="text-uppercase text-muted">Provided by <b>image</b> public access</p>
+        <p class="text-uppercase text-muted" [innerHtml]="'modals.albumImageLinks.provideByImagePublic' | translate"></p>
         <div>
-            <label>Link:</label>
+            <label>{{ 'modals.albumImageLinks.link' | translate }}:</label>
             <div class="input-group mb-2">
                 <input type="text" [ngModel]="imageLink" class="form-control bg-white" readonly>
                 <summary class="input-group-prepend" (click)="copyLink(imageLink)">
@@ -17,7 +17,7 @@
             </div>
         </div>
         <div>
-            <label>Direct link:</label>
+            <label>{{ 'modals.albumImageLinks.directLink' | translate }}:</label>
             <div class="input-group mb-2">
                 <input type="text" [ngModel]="imageDirectLink" class="form-control bg-white" readonly>
                 <summary class="input-group-prepend" (click)="copyLink(imageDirectLink)">
@@ -28,10 +28,10 @@
     </div>
     <hr *ngIf="imageInfo.isPublic && albumInfo.isPublic" class="w-100"/>
     <div *ngIf="albumInfo.isPublic">
-        <p class="text-uppercase text-muted">Provided by <b>album</b> public access</p>
+        <p class="text-uppercase text-muted" [innerHtml]="'modals.albumImageLinks.providedByAlbumPublic' | translate"></p>
         <div>
             <div>
-                <label>Link:</label>
+                <label>{{ 'modals.albumImageLinks.link' | translate }}:</label>
                 <div class="input-group mb-2">
                     <input type="text" [ngModel]="albumImageLink" class="form-control bg-white" readonly>
                     <summary class="input-group-prepend" (click)="copyLink(albumImageLink)">
@@ -40,7 +40,7 @@
                 </div>
             </div>
             <div>
-                <label>Direct link:</label>
+                <label>{{ 'modals.albumImageLinks.directLink' | translate }}:</label>
                 <div class="input-group mb-2">
                     <input type="text" [ngModel]="albumImageDirectLink" class="form-control bg-white" readonly>
                     <summary class="input-group-prepend" (click)="copyLink(albumImageDirectLink)">
@@ -50,9 +50,9 @@
             </div>
         </div>
         <div *ngIf="albumInfo.usercode">
-            <p class="text-uppercase text-muted mt-3 mb-2">With album usercode</p>
+            <p class="text-uppercase text-muted mt-3 mb-2" [innerHtml]="'modals.albumImageLinks.withAlbumUsercode' | translate"></p>
             <div>
-                <label>Link:</label>
+                <label>{{ 'modals.albumImageLinks.link' | translate }}:</label>
                 <div class="input-group mb-2">
                     <input type="text" [ngModel]="albumImageLinkByUsercode" class="form-control bg-white" readonly>
                     <summary class="input-group-prepend" (click)="copyLink(albumImageLinkByUsercode)">
@@ -61,7 +61,7 @@
                 </div>
             </div>
             <div>
-                <label>Direct link:</label>
+                <label>{{ 'modals.albumImageLinks.directLink' | translate }}:</label>
                 <div class="input-group mb-2">
                     <input type="text" [ngModel]="albumImageDirectLinkByUsercode" class="form-control bg-white" readonly>
                     <summary class="input-group-prepend" (click)="copyLink(albumImageDirectLinkByUsercode)">
@@ -80,5 +80,5 @@
     </div>
 </div>
 <div class="modal-footer">
-    <button type="button" class="btn btn-primary" (click)="close()">Close</button>
+    <button type="button" class="btn btn-primary" (click)="close()">OK</button>
 </div>

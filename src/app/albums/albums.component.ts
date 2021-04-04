@@ -18,6 +18,7 @@ import { AlbumCreateDto } from '../models/albumCreateDto';
 import { dateFromUTС } from "../static/dateFromUTC";
 import { copyToClipboard } from '../static/copyToClipboard';
 import { NgbdAlbumMembersModalComponent } from '../modals/albumMembers/ngbdAlbumMembersModal.component';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
     templateUrl: './albums.component.html',
@@ -60,7 +61,8 @@ export class AlbumsComponent {
         private router: Router,
         private imageCacheService: ImageCacheService,
         private modalService: NgbModal,
-        private toastrService: ToastrService
+        private toastrService: ToastrService,
+        private translateService: TranslateService
     ) {
         this.paramSubscription = this.activatedRoute.params.subscribe(param => 
         {
@@ -213,11 +215,11 @@ export class AlbumsComponent {
                 const r = result as boolean;
 
                 if (r == true) {
-                    this.toastrService.success("Images successfully added!");
+                    this.toastrService.success(this.translateService.instant('albums.toastr.imageAdded'));
                     this.reload();
                 }
                 else if (r == false) {
-                    this.toastrService.error("Something went wrong while image adding :(");
+                    this.toastrService.error(this.translateService.instant('shared.somethingWentWrong'));
                     this.reload();
                 }
             },
@@ -236,7 +238,7 @@ export class AlbumsComponent {
 
     dropImages() {
         const modalRef = this.modalService.open(NgbdConfirmModalComponent, { centered: true });
-        modalRef.componentInstance.text = "Are you sure you want to drop " + this.selectedCount + " images from album?";
+        modalRef.componentInstance.text = this.translateService.instant('albums.modals.areYouSureToDropImages', { 'count': this.selectedCount });
         modalRef.result.then(
             result => {
                 const r = result as boolean;
@@ -248,11 +250,11 @@ export class AlbumsComponent {
                         this.imageThumbnailViewModel.filter(t => t.selected == true).map(t => t.info.imageId)
                     ).subscribe(
                         data => {
-                            this.toastrService.success("Images successfully dropped!");
+                            this.toastrService.success(this.translateService.instant('albums.toastr.imagesDropped'));
                             this.reload();
                         },
                         error => {
-                            this.toastrService.error("Something went wrong while image dropping :(");
+                            this.toastrService.error(this.translateService.instant('shared.somethingWentWrong'));
                         }
                     ).add(
                         () => this.isDropping = false
@@ -311,6 +313,6 @@ export class AlbumsComponent {
 
     copyLink(url: string) {
         copyToClipboard(url);
-        this.toastrService.info("Link copied to clipboard!");
+        this.toastrService.info(this.translateService.instant('shared.linkCopied'));
     }
 }

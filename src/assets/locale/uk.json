@@ -1,4 +1,30 @@
 {
+	"albums": {
+		"albumInfo": {
+			"createdTime": "Дата створення",
+			"header": "Інформація про альбом",
+			"lblAccess": "Доступі",
+			"lblAlbumIsIn": "Альбом у",
+			"lblPrivate": "Приватному",
+			"lblPublic": "Публічному",
+			"link": "Посилання",
+			"linkByUsercode": "Посилання через користувацький код"
+		},
+		"btnAddImage": "Додати",
+		"btnDropImage": "Викинути",
+		"btnEditAlbum": "Редагувати",
+		"droppingImage": "Викидуємо",
+		"lblAlbum": "Альбом",
+		"lblMembers": "{{count}} учасники",
+		"lblPictures": "{{count}} зображення",
+		"modals": {
+			"areYouSureToDropImages": "Ви впевнені що хочете викинути {{count}} зображень з альбому?"
+		},
+		"toastr": {
+			"imageAdded": "Зображення успішно додане!",
+			"imagesDropped": "Зображення успішно викинуте!"
+		}
+	},
 	"app": {
 		"serverError": {
 			"btnReload": "Перезагрузити",
@@ -6,20 +32,51 @@
 			"lbl": "Сервер недоступний"
 		}
 	},
+	"confirm": {
+		"description": "Тут Ви можете активувати спеціальний ключ (токен). Це може бути ключ підтверження дій, активації бонусів тощо.",
+		"header": "Підтвердження",
+		"key": {
+			"btnActivate": "Активувати",
+			"couldntActivate": "Цей ключ не може бути активований",
+			"lbl": "Ключ",
+			"needAuthorize": "Для активації ключа потрібен авторизований користувач.",
+			"notFound": "Цей ключ не знайдений!",
+			"patternInvalid": "Набраний ключ не правильний."
+		},
+		"newPassword": {
+			"lbl": "Новий пароль"
+		},
+		"status": {
+			"activated": "Активований",
+			"attempt": "Спроба активувати",
+			"lbl": "Статус",
+			"notActivated": "Не активований"
+		},
+		"type": {
+			"lbl": "Тип"
+		}
+	},
 	"images": {
+		"areYouSureToDropFromAlbum": "Ви впевнені що хочете викинути це зображення з альбому?",
 		"autodeletedIn": "Буде автоматично видалено",
 		"btnCopyDirectLink": "Скопіювати пряме посилання",
 		"btnCopyLink": "Скопіювати посилання",
 		"btnDelete": "Видалити",
 		"btnDownload": "Завантажити",
 		"btnDownloadPrepairing": "Підготовка до завантаження",
+		"btnDropFromAlbum": "Викинути з альбому",
 		"btnEdit": "Редагувати",
+		"btnLinks": "Посилання",
 		"btnOpenInNewTab": "Відкрити в новій вкладці",
 		"btnOpenInNewTabPrepairing": "Підготовка до відкриття",
 		"btnPublicAccess": "Публічний доступ",
+		"droppingFromAlbum": "Викидаємо",
+		"in": "в",
+		"lblAlbum": "альбом",
 		"rightNow": "прямо зараз",
 		"toastr": {
-			"edited": "Інформація успішно змінена"
+			"dropped": "Зображення успішно викинуте з альбому!",
+			"edited": "Інформація успішно змінена!"
 		},
 		"uploadedBy": "Завантажив",
 		"uploadedByAnonymous": "Анонімне завантаження"
@@ -53,9 +110,93 @@
 		}
 	},
 	"modals": {
+		"albumAddImage": {
+			"btnAdd": "Додати {{count}} зображень",
+			"header": "Виберіть зображення, які Ви хочете додати",
+			"myGallery": "Моя галерея"
+		},
+		"albumImageLinks": {
+			"directLink": "Пряме посилання",
+			"header": "Публічні посилання",
+			"link": "Посилання",
+			"provideByImagePublic": "Через публічний доступ <b>зображення</b>",
+			"providedByAlbumPublic": "Через публічний доступ <b>альбому</b>",
+			"withAlbumUsercode": "З користувацьким кодом"
+		},
+		"albumMembers": {
+			"header": "Учасники",
+			"invites": {
+				"btnInvite": "Запросити",
+				"header": "Надіслані запрошення",
+				"invite": {
+					"alreadyInvited": "Цей користувач вже запрошений!",
+					"alreadyJoined": "Цей користувач вже долучився!",
+					"notFound": "Користувач не знайдений!"
+				},
+				"inviting": "Запрошуємо",
+				"noInvites": "Немає активних запрошень. Надішліть зараз!"
+			},
+			"joinedUsers": {
+				"btnCancelInvite": "Скасувати запрошення",
+				"btnKick": "Виключити",
+				"header": "Долучені користувачі ({{count}})",
+				"roles": {
+					"admin": "Адмін (Власник)",
+					"editor": "Редактор",
+					"viewer": "Глядач"
+				}
+			},
+			"leave": "Покинути цей альбом",
+			"leaving": "Покидаємо...",
+			"modals": {
+				"areYouSureToCancelInvite": "Ви впевнені що хочете скасувати запрошення для {{name}}?",
+				"areYouSureToKick": "Ви впевнені що хочете виключити {{name}} з альбому?",
+				"areYouSureToLeave": "Ви впевнені що хочете покинути цей альбом?",
+				"warningOnSetAdmin": "Якщо Ви оберете іншого користувача Адміном, тоді Ваша роль зміниться на Редактора! Ви впевнені?"
+			},
+			"toastr": {
+				"inviteSent": "Запрошення успішно надіслане!"
+			}
+		},
+		"albumSettings": {
+			"deleteAlbum": "Видалити альбом",
+			"deletingAlbum": "Видаляємо",
+			"header": "Налаштування альбому",
+			"makePublic": {
+				"desc": "Це дозволяє ділитись альбомом за посиланням.",
+				"lbl": "Зробити публічним"
+			},
+			"manageMembers": "Керувати учасниками",
+			"modals": {
+				"areYouSureToDeleteAlbum": "Ви впевнені що хочете видалити цей альбом?"
+			},
+			"setUsercode": {
+				"desc": "Ви можете встановити власне посилання",
+				"lbl": "Створити користувацький код",
+				"usercode": {
+					"alreadyRegistered": "Цей користувацький код вже занятий.",
+					"lbl": "Користувацький код",
+					"patternInvalid": "Користувацький код має мати довжину від 3 до 20, може містити числа, латинські літери та знаки підкреслювання '_'",
+					"preview": "Посилання буде <b>{{link}}</b>"
+				}
+			},
+			"title": "Назва",
+			"toastr": {
+				"albumDeleted": "Альбом успішно видалено!"
+			}
+		},
 		"confirm": {
 			"areYouSure": "Ви впевнені що хочете зробити це?",
 			"header": "Підтвердження"
+		},
+		"imageDelete": {
+			"areYouSure": "Ви впевнені що хочете видалити {{count}} зображень?",
+			"header": "Видалення зображень",
+			"statusDeleting": "Видаляємо {{done}}/{{total}}"
+		},
+		"imageEdit": {
+			"changeLifetime": "Змінити час зберігання",
+			"header": "Редагування зображення"
 		},
 		"settings": {
 			"header": "Налаштування",

@@ -17,6 +17,7 @@ import { ErrorType } from "src/app/enum/ErrorType";
 import { NgModel } from "@angular/forms";
 import { UserInfo } from "src/app/models/userInfo";
 import { CurrentUserService } from "src/app/services/currentUser.service";
+import { TranslateService } from "@ngx-translate/core";
 
 @Component({
     selector: "ngbd-albummembers-modal",
@@ -63,7 +64,8 @@ export class NgbdAlbumMembersModalComponent {
         private toastrService: ToastrService,
         private albumsService: AlbumsHttpService,
         private modalService: NgbModal,
-        private currentUserService: CurrentUserService
+        private currentUserService: CurrentUserService,
+        private translateService: TranslateService
     ) {
 
     }
@@ -143,7 +145,7 @@ export class NgbdAlbumMembersModalComponent {
                 event.srcElement.blur();
                 event.preventDefault();
                 const modalRef = this.modalService.open(NgbdConfirmModalComponent);
-                modalRef.componentInstance.text = "If you set another user as Admin, your role will be set to editor! Are you sure?"; 
+                modalRef.componentInstance.text = this.translateService.instant("modals.albumMembers.modals.warningOnSetAdmin"); 
                 const result = await modalRef.result;
                 if (result != true) {
                     item.roleViewModel = item.info.albumRole;
@@ -166,7 +168,7 @@ export class NgbdAlbumMembersModalComponent {
                     item.info.albumRole = item.roleViewModel;
                 },
                 error => {
-                    this.toastrService.error("Something went wrong while changing role :(");
+                    this.toastrService.error(this.translateService.instant("shared.somethingWentWrong"));
                     item.roleViewModel = item.info.albumRole;
                 }
             ).add(
@@ -193,7 +195,7 @@ export class NgbdAlbumMembersModalComponent {
             nameStr += "(@" + user.username + ")";
         }
 
-        modalRef.componentInstance.text = "Are you sure you want to kick " + nameStr + '?';
+        modalRef.componentInstance.text = this.translateService.instant("modals.albumMembers.modals.areYouSureToKick", { 'name': nameStr });
         modalRef.result.then(
             result => {
                 const r = result as boolean;
@@ -213,7 +215,7 @@ export class NgbdAlbumMembersModalComponent {
                             this.result = true;
                         },
                         error => {
-                            this.toastrService.error("Something went wrong while kicking user out :(");
+                            this.toastrService.error(this.translateService.instant("shared.somethingWentWrong"));
                         }
                     ).add(
                         () => item.isDeleting = false
@@ -231,7 +233,7 @@ export class NgbdAlbumMembersModalComponent {
         this.albumsService.sendInvite(this.targetAlbumDto.code, username).subscribe(
             data => {
                 this.sendInviteField.control.setValue("");
-                this.toastrService.success("Invite successfully sent!");
+                this.toastrService.success(this.translateService.instant("modals.albumMembers.toastr.inviteSent"));
                 this.invitesTotalCount++;
                 if (this.albumInviteViewModels?.length >= this.invitesTotalCount - 1)
                     this.loadNextInvitesPage();
@@ -258,7 +260,7 @@ export class NgbdAlbumMembersModalComponent {
                     }
                 }
 
-                this.toastrService.error("Something went wrong. :(");
+                this.toastrService.error(this.translateService.instant("shared.somethingWentWrong"));
             }
         ).add(
             () => this.isInviteSending = false
@@ -283,7 +285,7 @@ export class NgbdAlbumMembersModalComponent {
             nameStr += "(@" + user.username + ")";
         }
 
-        modalRef.componentInstance.text = "Are you sure you want to cancel invite for " + nameStr + '?';
+        modalRef.componentInstance.text = this.translateService.instant("modals.albumMembers.modals.areYouSureToCancelInvite", { 'name': nameStr });
         modalRef.result.then(
             result => {
                 const r = result as boolean;
@@ -302,7 +304,7 @@ export class NgbdAlbumMembersModalComponent {
                             this.invitesTotalCount--;
                         },
                         error => {
-                            this.toastrService.error("Something went wrong while canceling invite :(");
+                            this.toastrService.error(this.translateService.instant("shared.somethingWentWrong"));
                         }
                     ).add(
                         () => item.isDeleting = false
@@ -317,7 +319,7 @@ export class NgbdAlbumMembersModalComponent {
 
     leaveFromAlbum() {
         const modalRef = this.modalService.open(NgbdConfirmModalComponent);
-        modalRef.componentInstance.text = "Are you sure you want to leave from this album?";
+        modalRef.componentInstance.text = this.translateService.instant("modals.albumMembers.modals.areYouSureToLeave");
         modalRef.result.then(
             result => {
                 const r = result as boolean;
@@ -333,7 +335,7 @@ export class NgbdAlbumMembersModalComponent {
                             this.close();
                         },
                         error => {
-                            this.toastrService.error("Something went wrong while leaving out :(");
+                            this.toastrService.error(this.translateService.instant("shared.somethingWentWrong"));
                         }
                     ).add(
                         () => this.isLeaving = false
