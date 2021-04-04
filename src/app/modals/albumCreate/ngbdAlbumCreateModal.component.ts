@@ -2,6 +2,7 @@ import { HttpErrorResponse } from "@angular/common/http";
 import { Component, Input, ViewChild } from "@angular/core"
 import { NgModel } from "@angular/forms";
 import { NgbActiveModal, NgbModal } from "@ng-bootstrap/ng-bootstrap"
+import { TranslateService } from "@ngx-translate/core";
 import { ToastrService } from "ngx-toastr";
 import { ErrorType } from "src/app/enum/ErrorType";
 import { AlbumInfoDto } from "src/app/models/albumInfoDto";
@@ -42,7 +43,8 @@ export class NgbdAlbumCreateModalComponent {
         private toastrService: ToastrService,
         private albumService: AlbumHttpService,
         private albumsService: AlbumsHttpService,
-        private modalService: NgbModal
+        private modalService: NgbModal,
+        private translateService: TranslateService
     ) {
 
     }
@@ -85,7 +87,7 @@ export class NgbdAlbumCreateModalComponent {
                                 return;
                         }
     
-                        this.toastrService.error("Something went wrong. :(");
+                        this.toastrService.error(this.translateService.instant("shared.somethingWentWrong"));
                     }
                 }
             ).add(
@@ -126,7 +128,7 @@ export class NgbdAlbumCreateModalComponent {
                                 return;
                         }
     
-                        this.toastrService.error("Something went wrong. :(");
+                        this.toastrService.error(this.translateService.instant("shared.somethingWentWrong"));
                     }
                 }
             ).add(
@@ -150,7 +152,7 @@ export class NgbdAlbumCreateModalComponent {
 
     deleteAlbum() {
         const modalRef = this.modalService.open(NgbdConfirmModalComponent);
-        modalRef.componentInstance.text = "Are you sure you want to delete this album?"; 
+        modalRef.componentInstance.text = this.translateService.instant('modals.albumSettings.modals.areYouSureToDeleteAlbum'); 
         modalRef.result.then(
             result => {
                 const r = result as boolean;
@@ -161,11 +163,11 @@ export class NgbdAlbumCreateModalComponent {
                         this.targetCode
                     ).subscribe(
                         data => {
-                            this.toastrService.success("Album successfully deleted!");
+                            this.toastrService.success(this.translateService.instant('modals.albumSettings.toastr.albumDeleted'));
                             this.activeModal.close(true);
                         },
                         error => {
-                            this.toastrService.error("Something went wrong while album deleting :(");
+                            this.toastrService.error(this.translateService.instant('shared.somethingWentWrong'));
                         }
                     ).add(
                         () => this.isAlbumDeleting = false

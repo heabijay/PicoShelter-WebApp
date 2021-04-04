@@ -10,21 +10,21 @@
                 <div class="col-12 col-md-10 col-lg-8 mt-md-3">
                     <h1 *ngIf="info.title" class="display-4">{{info.title}}</h1>
                     <p class="float-left text-muted m-0">
-                        <span class="text-uppercase">Uploaded by </span>
+                        <span class="text-uppercase">{{ 'images.uploadedBy' | translate }} </span>
                         <a [routerLink]="'/profiles/' + info.user.id">
                             <ng-container *ngIf="info.user.profile.firstname || info.user.profile.lastname; else noName">{{info.user.profile.firstname}} {{info.user.profile.lastname}} (@{{info.user.username}})</ng-container>
                             <ng-template #noName>@{{info.user.username}}</ng-template>
                         </a>
                         <ng-container *ngIf="albumInfo.title; else noTitle">
-                            <span class="text-uppercase"> In album </span>
+                            <span class="text-uppercase"> {{ 'images.in' | translate }} {{ 'images.lblAlbum' | translate }} </span>
                             <a [routerLink]="'../'">
                                 {{albumInfo.title}}
                             </a>
                         </ng-container>
                         <ng-template #noTitle>
-                            <span class="text-uppercase"> In </span> 
+                            <span class="text-uppercase"> {{ 'images.in' | translate }} </span> 
                             <a class="text-uppercase" [routerLink]="'../'">
-                                Album
+                                {{ 'images.lblAlbum' | translate }}
                             </a>
                         </ng-template>
                     </p>
@@ -58,49 +58,49 @@
                         </div>
 
                         <div *ngIf="info.autoDeleteIn">
-                            <p class="m-0 text-muted">Will be auto deleted</p>
+                            <p class="m-0 text-muted">{{ 'images.autodeletedIn' | translate }}</p>
                             <ng-container *ngIf="countToDelete > 0; else countNegative">
                                 <p>{{countToDelete | formatTime}}</p>
                             </ng-container>
                             <ng-template #countNegative>
-                                <p>right now</p>
+                                <p>{{ 'images.rightNow' | translate }}</p>
                             </ng-template>
                             
                         </div>
 
                         <summary (click)="downloadImage()" class="list-group-item border-0 list-group-item-action px-0 px-sm-2">
                             <ng-container *ngIf="isRequestedDownload; else noRequestedDownload">
-                                <i class="fa fa-spinner-third fa-spin mr-2" aria-hidden="true"></i>Preparing download
+                                <i class="fa fa-spinner-third fa-spin mr-2" aria-hidden="true"></i>{{ 'images.btnDownloadPrepairing' | translate }}
                             </ng-container>
                             <ng-template #noRequestedDownload>
-                                <i class="fas fa-download mr-2"></i>Download
+                                <i class="fas fa-download mr-2"></i>{{ 'images.btnDownload' | translate }}
                             </ng-template>
                         </summary>
                         <summary (click)="openInNewTab()" class="list-group-item border-0 list-group-item-action px-0 px-sm-2">
                             <ng-container *ngIf="isRequestedOpen; else noRequestedOpen">
-                                <i class="fa fa-spinner-third fa-spin mr-2" aria-hidden="true"></i>Preparing open
+                                <i class="fa fa-spinner-third fa-spin mr-2" aria-hidden="true"></i>{{ 'images.btnOpenInNewTabPrepairing' | translate }}
                             </ng-container>
                             <ng-template #noRequestedOpen>
-                                <i class="fas fa-external-link-alt mr-2"></i>Open in new tab
+                                <i class="fas fa-external-link-alt mr-2"></i>{{ 'images.btnOpenInNewTab' | translate }}
                             </ng-template>
                         </summary>
                         <summary *ngIf="info.isPublic || albumInfo.isPublic" (click)="showLinks()" class="list-group-item border-0 list-group-item-action px-0 px-sm-2">
-                            <i class="fas fa-link mr-2"></i>Links
+                            <i class="fas fa-link mr-2"></i>{{ 'images.btnLinks' | translate }}
                         </summary>
 
                         <div *ngIf="isAdminAccess">
                             <hr class="w-100 m-0"/>
-                            <summary (click)="editImage()" class="list-group-item border-0 list-group-item-action px-0 px-sm-2"><i class="far fa-edit mr-2"></i>Edit</summary>
-                            <summary (click)="deleteImage()" class="list-group-item border-0 list-group-item-action px-0 px-sm-2"><i class="fas fa-trash mr-2"></i>Delete Image</summary>
+                            <summary (click)="editImage()" class="list-group-item border-0 list-group-item-action px-0 px-sm-2"><i class="far fa-edit mr-2"></i>{{ 'images.btnEdit' | translate }}</summary>
+                            <summary (click)="deleteImage()" class="list-group-item border-0 list-group-item-action px-0 px-sm-2"><i class="fas fa-trash mr-2"></i>{{ 'images.btnDelete' | translate }}</summary>
                         </div>
                         <div *ngIf="albumInfo.accessRole <= roleType.editor">
                             <hr class="w-100 m-0"/>
                             <summary (click)="dropFromAlbum()" class="list-group-item border-0 list-group-item-action px-0 px-sm-2">
                                 <ng-container *ngIf="isDropping; else noDropping">
-                                    <i class="fa fa-spinner-third fa-spin mr-2" aria-hidden="true"></i>Dropping
+                                    <i class="fa fa-spinner-third fa-spin mr-2" aria-hidden="true"></i>{{ 'images.droppingFromAlbum' | translate }}
                                 </ng-container>
                                 <ng-template #noDropping>
-                                    <i class="fas fa-ban mr-2"></i>Drop from album
+                                    <i class="fas fa-ban mr-2"></i>{{ 'images.btnDropFromAlbum' | translate }}
                                 </ng-template>
                             </summary>
                         </div>

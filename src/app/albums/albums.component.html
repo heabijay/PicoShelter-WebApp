@@ -5,28 +5,28 @@
                 <div class="container mt-md-3">
                     <h1 *ngIf="album.title" class="display-4" style="font-size: 2.5em;">{{album.title}}</h1>
                     <p>
-                        <span class="onHoverUnderline text-uppercase lead" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Album</span>
+                        <span class="onHoverUnderline text-uppercase lead" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ 'albums.lblAlbum' | translate }}</span>
                         <span class="dropdown-menu p-4" style="margin-left: -1px;">
-                            <h6 class="dropdown-header p-0 mb-3 text-uppercase">Album information</h6>
+                            <h6 class="dropdown-header p-0 mb-3 text-uppercase">{{ 'albums.albumInfo.header' | translate }}</h6>
                             <p>
-                                <span class="text-muted text-uppercase">Created time: </span>
+                                <span class="text-muted text-uppercase">{{ 'albums.albumInfo.createdTime' | translate }}: </span>
                                 <span>{{albumCreatedDate | date:'dd.MM.yy, hh:mm aa'}}</span>
                             </p>
                             <p [ngClass]="{'mb-0': !album.isPublic}">
-                                <span class="text-muted text-uppercase">Album is in </span>
+                                <span class="text-muted text-uppercase">{{ 'albums.albumInfo.lblAlbumIsIn' | translate }} </span>
                                 <span class="text-uppercase">
                                     <ng-container *ngIf="album.isPublic; else notPublic">
-                                        Public
+                                        {{ 'albums.albumInfo.lblPublic' | translate }}
                                     </ng-container>
                                     <ng-template #notPublic>
-                                        Private
+                                        {{ 'albums.albumInfo.lblPrivate' | translate }}
                                     </ng-template>
                                 </span>
-                                <span class="text-muted text-uppercase">Mode</span>
+                                <span class="text-muted text-uppercase">{{ 'albums.albumInfo.lblAccess' | translate }}</span>
                             </p>
                             <div *ngIf="album.isPublic">
                                 <div>
-                                    <label>Link:</label>
+                                    <label>{{ 'albums.albumInfo.link' | translate }}:</label>
                                     <div class="input-group mb-2">
                                         <input type="text" [ngModel]="albumLink" class="form-control bg-white" readonly>
                                         <summary class="input-group-prepend" (click)="copyLink(albumLink)">
@@ -35,7 +35,7 @@
                                     </div>
                                 </div>
                                 <div *ngIf="album.usercode">
-                                    <label>Link by usercode:</label>
+                                    <label>{{ 'albums.albumInfo.linkByUsercode' | translate }}:</label>
                                     <div class="input-group mb-2">
                                         <input type="text" [ngModel]="albumLinkByUsercode" class="form-control bg-white" readonly>
                                         <summary class="input-group-prepend" (click)="copyLink(albumLinkByUsercode)">
@@ -46,9 +46,9 @@
                             </div>
                         </span>
                         <span class="text-uppercase lead"> • </span>
-                        <span class="onHoverUnderline text-uppercase lead" type="button" (click)="albumMembers()">{{album.users.totalCount}} members</span>
+                        <span class="onHoverUnderline text-uppercase lead" type="button" (click)="albumMembers()">{{ 'albums.lblMembers' | translate:{'count': album.users.totalCount} }}</span>
                         <span class="text-uppercase lead"> • </span>
-                        <span class="text-uppercase lead">{{album.images.totalCount}} pictures</span>
+                        <span class="text-uppercase lead">{{ 'albums.lblPictures' | translate:{'count': album.images.totalCount} }}</span>
                     </p>
                 </div>
             </div>
@@ -56,14 +56,14 @@
         <div class="container mt-3">
             <div class="d-flex flex-column flex-sm-row align-items-sm-center justify-content-end">
                 <div class="d-flex flex-column flex-sm-row mb-2">
-                    <button *ngIf="album.accessRole <= roleType.editor" class="btn btn-primary" type="button" (click)="addImage()"><i class="fa fa-plus mr-2" aria-hidden="true"></i>Add</button>
-                    <button *ngIf="album.accessRole <= roleType.admin" class="btn btn-secondary ml-sm-1 mt-1 mt-sm-0" type="button" (click)="editAlbum()"><i class="far fa-edit mr-2"></i>Edit</button>
+                    <button *ngIf="album.accessRole <= roleType.editor" class="btn btn-primary" type="button" (click)="addImage()"><i class="fa fa-plus mr-2" aria-hidden="true"></i>{{ 'albums.btnAddImage' | translate }}</button>
+                    <button *ngIf="album.accessRole <= roleType.admin" class="btn btn-secondary ml-sm-1 mt-1 mt-sm-0" type="button" (click)="editAlbum()"><i class="far fa-edit mr-2"></i>{{ 'albums.btnEditAlbum' | translate }}</button>
                     <button *ngIf="selectedCount > 0 && album.accessRole <= roleType.editor" [disabled]="isDropping" class="btn btn-danger ml-sm-1 mt-1 mt-sm-0" type="button" (click)="dropImages()">
                         <ng-container *ngIf="isDropping; else notDropping">
-                            <i class="fa fa-spinner-third fa-spin mr-2" aria-hidden="true"></i> Dropping
+                            <i class="fa fa-spinner-third fa-spin mr-2" aria-hidden="true"></i>{{ 'albums.droppingImage' | translate }}
                         </ng-container>
                         <ng-template #notDropping>
-                            <i class="fas fa-ban mr-2"></i>Drop
+                            <i class="fas fa-ban mr-2"></i>{{ 'albums.btnDropImage' | translate }}
                         </ng-template>
                     </button>
                 </div>
@@ -89,13 +89,13 @@
                     </summary>
                 </div>
                 <p *ngIf="album?.images?.totalCount == 0" class="text-muted text-center w-100 mt-3 lead">
-                    There's no pictures.
+                    {{ 'profile.images.none' | translate }}
                 </p>
         
                 <p *ngIf="isLoading" class="text-muted text-center w-100 mt-3">
                     <i class="fa fa-spinner-third fa-spin" aria-hidden="true"></i>
                 </p>
-                <button *ngIf="!isAllImagesLoaded && !isLoading" (click)="loadNextPage()" class="btn btn-primary w-100 mt-3" type="button"><i class="fa fa-bolt mr-2" aria-hidden="true"></i>Load more images</button>
+                <button *ngIf="!isAllImagesLoaded && !isLoading" (click)="loadNextPage()" class="btn btn-primary w-100 mt-3" type="button"><i class="fa fa-bolt mr-2" aria-hidden="true"></i>{{ 'shared.loadMore' | translate }}</button>
             </div>
         </div>
     </div>

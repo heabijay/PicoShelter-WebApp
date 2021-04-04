@@ -17,6 +17,8 @@ import { AlbumsHttpService } from "../services/albumsHttp.service";
 import { UserAlbumInviteDto } from "../models/userAlbumInviteDto";
 import { ConfirmationHttpService } from "../services/confirmationHttp.service";
 import { TranslateService } from "@ngx-translate/core";
+import { HttpErrorResponse } from "@angular/common/http";
+import { isThisTypeNode } from "typescript";
 
 @Component({
     selector: "navbar",
@@ -95,10 +97,18 @@ export class NavbarComponent {
             }
             else {
                 this.updatesTimer = timer(0, 60000).subscribe(
-                    async () => {
-                        const data = await this.identityService.getAlbumInvites(null, 5).toPromise();
-                        if (data.success)
-                            this.lastAlbumInvitesResponse = data.data;
+                    () => {
+                        this.identityService.getAlbumInvites(null, 5).subscribe(
+                            data => {
+                                if (data.success)
+                                    this.lastAlbumInvitesResponse = data.data;
+                            },
+                            (error: HttpErrorResponse) => {
+                                if (error?.status == 401) {
+                                    this.tokenService.setTokenWithProfile(null);
+                                }
+                            }
+                        );
                     }
                 );
             }

@@ -1,12 +1,12 @@
 <div class="modal-header">
-    <h4 class="modal-title">Members</h4>
+    <h4 class="modal-title">{{ 'modals.albumMembers.header' | translate }}</h4>
     <button type="button" class="btn close" aria-label="Close" (click)="close()">
     <span aria-hidden="true">&times;</span>
     </button>
 </div>
 <div class="modal-body">
     <div>
-        <label class="text-muted text-uppercase">Joined users ({{totalCount}})</label>
+        <label class="text-muted text-uppercase">{{ 'modals.albumMembers.joinedUsers.header' | translate:{'count': totalCount } }}</label>
         <table class="table table-striped table-content-middle table-responsive">
             <tbody>
                 <tr *ngFor="let profile of albumProfileViewModels">
@@ -45,9 +45,9 @@
                             class="custom-select" 
                             required 
                             style="min-width: 150px;">
-                            <option value="0">Admin (Owner)</option>
-                            <option value="1">Editor</option>
-                            <option value="2">Viewer</option>
+                            <option value="0">{{ 'modals.albumMembers.joinedUsers.roles.admin' | translate }}</option>
+                            <option value="1">{{ 'modals.albumMembers.joinedUsers.roles.editor' | translate }}</option>
+                            <option value="2">{{ 'modals.albumMembers.joinedUsers.roles.viewer' | translate }}</option>
                         </select>
                         </div>
                     </td>
@@ -60,7 +60,7 @@
                             [openDelay]="500" 
                             (click)="kickUser(profile)"
                             [disabled]="profile.isDeleting"
-                            ngbTooltip="Kick out">
+                            ngbTooltip="{{ 'modals.albumMembers.joinedUsers.btnKick' | translate }}">
                             <ng-container *ngIf="profile.isDeleting; else notDeleting">
                                 <i class="fa fa-spinner-third fa-spin" aria-hidden="true"></i>
                             </ng-container>
@@ -75,11 +75,11 @@
         <p *ngIf="isLoading" class="text-muted text-center w-100 mt-3">
             <i class="fa fa-spinner-third fa-spin" aria-hidden="true"></i>
         </p>
-        <button *ngIf="!isAllUsersLoaded && !isLoading" (click)="loadNextPage()" class="btn btn-primary w-100 mb-3" type="button"><i class="fa fa-bolt mr-2" aria-hidden="true"></i>Load more</button>
+        <button *ngIf="!isAllUsersLoaded && !isLoading" (click)="loadNextPage()" class="btn btn-primary w-100 mb-3" type="button"><i class="fa fa-bolt mr-2" aria-hidden="true"></i>{{ 'shared.loadMore' | translate }}</button>
     </div>
     <div *ngIf="targetAlbumDto?.accessRole != null && targetAlbumDto?.accessRole <= albumUserRole.admin">
         <div class="pt-3">
-            <label class="text-muted text-uppercase">Invites sent <span *ngIf="invitesTotalCount">({{invitesTotalCount}})</span></label>
+            <label class="text-muted text-uppercase">{{ 'modals.albumMembers.invites.header' | translate }} <span *ngIf="invitesTotalCount">({{invitesTotalCount}})</span></label>
             <table class="table table-striped table-content-middle table-responsive">
                 <tbody>
                     <tr *ngFor="let invite of albumInviteViewModels">
@@ -111,7 +111,7 @@
                                 [openDelay]="500" 
                                 (click)="cancelInvite(invite)"
                                 [disabled]="invite.isDeleting"
-                                ngbTooltip="Cancel invite">
+                                ngbTooltip="{{ 'modals.albumMembers.joinedUsers.btnCancelInvite' | translate }}">
                                 <ng-container *ngIf="invite.isDeleting; else notDeleting">
                                     <i class="fa fa-spinner-third fa-spin" aria-hidden="true"></i>
                                 </ng-container>
@@ -124,12 +124,12 @@
                 </tbody>
             </table>
             <p *ngIf="invitesTotalCount == 0" class="text-muted text-center w-100 lead">
-                There's no invites. Send it now!
+                {{ 'modals.albumMembers.invites.noInvites' | translate }}
             </p>
             <p *ngIf="isInvitesLoading" class="text-muted text-center w-100 mt-3">
                 <i class="fa fa-spinner-third fa-spin" aria-hidden="true"></i>
             </p>
-            <button *ngIf="!isAllInvitesLoaded && !isInvitesLoading" (click)="loadNextInvitesPage()" class="btn btn-primary w-100 mb-3" type="button"><i class="fa fa-bolt mr-2" aria-hidden="true"></i>Load more</button>
+            <button *ngIf="!isAllInvitesLoaded && !isInvitesLoading" (click)="loadNextInvitesPage()" class="btn btn-primary w-100 mb-3" type="button"><i class="fa fa-bolt mr-2" aria-hidden="true"></i>{{ 'shared.loadMore' | translate }}</button>
         </div>
         <div class="form-group m-3">
             <form class="input-group" (submit)="sendInviteByUsername(sendInvite.value)">
@@ -137,18 +137,18 @@
                 <div class="input-group-append">
                     <button class="btn btn-outline-primary" [disabled]="sendInvite.invalid || sendInvite.value == '' || isInviteSending" type="submit">
                         <ng-container *ngIf="isInviteSending; else notSending">
-                            <i class="fa fa-spinner-third fa-spin mr-2" aria-hidden="true"></i>Inviting
+                            <i class="fa fa-spinner-third fa-spin mr-2" aria-hidden="true"></i>{{ 'modals.albumMembers.invites.inviting' | translate }}
                         </ng-container>
                         <ng-template #notSending>
-                            <i class="far fa-paper-plane mr-2"></i>Invite
+                            <i class="far fa-paper-plane mr-2"></i>{{ 'modals.albumMembers.invites.btnInvite' | translate }}
                         </ng-template>
                     </button>
                 </div>
             </form>
             <div [hidden]="sendInvite.valid || sendInvite.untouched">
-                <p class="invalid-feedback d-block" *ngIf="sendInvite.errors?.notFound">Entered username not found!</p>
-                <p class="invalid-feedback d-block" *ngIf="sendInvite.errors?.alreadyInvited">Selected user is already invited!</p>
-                <p class="invalid-feedback d-block" *ngIf="sendInvite.errors?.alreadyJoined">Selected user is already joined!</p>
+                <p class="invalid-feedback d-block" *ngIf="sendInvite.errors?.notFound">{{ 'modals.albumMembers.invites.invite.notFound' | translate }}</p>
+                <p class="invalid-feedback d-block" *ngIf="sendInvite.errors?.alreadyInvited">{{ 'modals.albumMembers.invites.invite.alreadyInvited' | translate }}</p>
+                <p class="invalid-feedback d-block" *ngIf="sendInvite.errors?.alreadyJoined">{{ 'modals.albumMembers.invites.invite.alreadyJoined' | translate }}</p>
             </div>
         </div>
     </div>
@@ -156,15 +156,15 @@
     <p class="text-danger float-left">
         <ng-container *ngIf="isLeaving; else notLeaving">
             <i class="fa fa-spinner-third mr-2 fa-spin" aria-hidden="true"></i>
-            Leaving
+            {{ 'modals.albumMembers.leaving' | translate }}
         </ng-container>
         <ng-template #notLeaving>
             <summary *ngIf="targetAlbumDto?.accessRole > albumUserRole.admin" (click)="leaveFromAlbum()" class="onHoverUnderline">
-                Leave from album
+                {{ 'modals.albumMembers.leave' | translate }}
             </summary>
         </ng-template>
     </p>
     
     <div class="flex-fill"></div>
-    <button type="button" class="btn btn-outline-secondary" (click)="close()">Close</button>
+    <button type="button" class="btn btn-outline-secondary" (click)="close()">OK</button>
 </div>

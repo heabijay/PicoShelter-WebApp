@@ -1,4 +1,30 @@
 {
+	"albums": {
+		"albumInfo": {
+			"createdTime": "Created time",
+			"header": "Album information",
+			"lblAccess": "Access",
+			"lblAlbumIsIn": "Album is in",
+			"lblPrivate": "Private",
+			"lblPublic": "Public",
+			"link": "Link",
+			"linkByUsercode": "Link by usercode"
+		},
+		"btnAddImage": "Add",
+		"btnDropImage": "Drop",
+		"btnEditAlbum": "Edit",
+		"droppingImage": "Dropping",
+		"lblAlbum": "Album",
+		"lblMembers": "{{count}} members",
+		"lblPictures": "{{count}} pictures",
+		"modals": {
+			"areYouSureToDropImages": "Are you sure you want to drop {{count}} images from album?"
+		},
+		"toastr": {
+			"imageAdded": "Images successfully added!",
+			"imagesDropped": "Images successfully dropped!"
+		}
+	},
 	"app": {
 		"serverError": {
 			"btnReload": "Reload app",
@@ -6,19 +32,50 @@
 			"lbl": "Server is unavailable"
 		}
 	},
+	"confirm": {
+		"description": "Here you can activate a special key(token). It's could be a confirmation, bonuses, etc.",
+		"header": "Confirmation",
+		"key": {
+			"btnActivate": "Activate",
+			"couldntActivate": "This key couldn't be activated.",
+			"lbl": "Key",
+			"needAuthorize": "This key needs authorized user.",
+			"notFound": "This key not found!",
+			"patternInvalid": "Entered key is invalid."
+		},
+		"newPassword": {
+			"lbl": "New password"
+		},
+		"status": {
+			"activated": "Activated",
+			"attempt": "Attempt to activate",
+			"lbl": "Status",
+			"notActivated": "Not Activated"
+		},
+		"type": {
+			"lbl": "Type"
+		}
+	},
 	"images": {
+		"areYouSureToDropFromAlbum": "Are you sure you want to drop this image from album?",
 		"autodeletedIn": "Will be auto deleted",
 		"btnCopyDirectLink": "Copy direct link",
 		"btnCopyLink": "Copy link",
 		"btnDelete": "Delete",
 		"btnDownload": "Download",
 		"btnDownloadPrepairing": "Prepairing download",
+		"btnDropFromAlbum": "Drop from album",
 		"btnEdit": "Edit",
+		"btnLinks": "Links",
 		"btnOpenInNewTab": "Open in new tab",
 		"btnOpenInNewTabPrepairing": "Prepairing open",
 		"btnPublicAccess": "Public access",
+		"droppingFromAlbum": "Dropping",
+		"in": "in",
+		"lblAlbum": "album",
 		"rightNow": "right now",
 		"toastr": {
+			"dropped": "Image successfully dropped!",
 			"edited": "Image successfully edited!"
 		},
 		"uploadedBy": "Uploaded by",
@@ -53,9 +110,93 @@
 		}
 	},
 	"modals": {
+		"albumAddImage": {
+			"btnAdd": "Add {{count}} images",
+			"header": "Select pictures to add",
+			"myGallery": "My gallery"
+		},
+		"albumImageLinks": {
+			"directLink": "Direct link",
+			"header": "Public links",
+			"link": "Link",
+			"provideByImagePublic": "Provided by <b>image</b> public access",
+			"providedByAlbumPublic": "Provided by <b>album</b> public access",
+			"withAlbumUsercode": "With album usercode"
+		},
+		"albumMembers": {
+			"header": "Members",
+			"invites": {
+				"btnInvite": "Invite",
+				"header": "Invites sent",
+				"invite": {
+					"alreadyInvited": "Selected user is already invited!",
+					"alreadyJoined": "Selected user is already joined!",
+					"notFound": "Entered username not found!"
+				},
+				"inviting": "Inviting",
+				"noInvites": "There's no invites. Send it now!"
+			},
+			"joinedUsers": {
+				"btnCancelInvite": "Cancel invite",
+				"btnKick": "Kick out",
+				"header": "Joined users ({{count}})",
+				"roles": {
+					"admin": "Admin (Owner)",
+					"editor": "Editor",
+					"viewer": "Viewer"
+				}
+			},
+			"leave": "Leave from album",
+			"leaving": "Leaving",
+			"modals": {
+				"areYouSureToCancelInvite": "Are you sure you want to cancel invite for {{name}}?",
+				"areYouSureToKick": "Are you sure you want to kick {{name}}?",
+				"areYouSureToLeave": "Are you sure you want to leave from this album?",
+				"warningOnSetAdmin": "If you set another user as Admin, your role will be set to editor! Are you sure?"
+			},
+			"toastr": {
+				"inviteSent": "Invite successfully sent!"
+			}
+		},
+		"albumSettings": {
+			"deleteAlbum": "Delete album",
+			"deletingAlbum": "Deleting",
+			"header": "Album settings",
+			"makePublic": {
+				"desc": "It's allow you to share this album simplify by link",
+				"lbl": "Make public"
+			},
+			"manageMembers": "Manage members",
+			"modals": {
+				"areYouSureToDeleteAlbum": "Are you sure you want to delete this album?"
+			},
+			"setUsercode": {
+				"desc": "You can set your own link",
+				"lbl": "Set usercode",
+				"usercode": {
+					"alreadyRegistered": "This usercode already registered.",
+					"lbl": "Usercode",
+					"patternInvalid": "Usercode length must be 3..20, can contains numbers, letters and '_'",
+					"preview": "Link will be <b>{{link}}</b>"
+				}
+			},
+			"title": "Title",
+			"toastr": {
+				"albumDeleted": "Album successfully deleted!"
+			}
+		},
 		"confirm": {
 			"areYouSure": "Are you sure you want to do this?",
 			"header": "Confirm"
+		},
+		"imageDelete": {
+			"areYouSure": "Are you sure you want to delete {{count}} images?",
+			"header": "Delete images",
+			"statusDeleting": "Deleting {{done}}/{{total}}"
+		},
+		"imageEdit": {
+			"changeLifetime": "Change image lifetime",
+			"header": "Editing image"
 		},
 		"settings": {
 			"header": "Settings",
@@ -204,7 +345,7 @@
 			"required": "You must select an image to upload.",
 			"sizeOverflow": "File size must be < 10MB."
 		},
-		"header": "Image Uploading",
+		"header": "Image Upload",
 		"makePublic": {
 			"desc": "It allows you to share this image simplify by link",
 			"lbl": "Make public"

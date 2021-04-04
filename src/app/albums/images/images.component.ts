@@ -22,6 +22,7 @@ import { SuccessResponseDto } from 'src/app/models/successResponseDto';
 import { AlbumUserRole } from 'src/app/enum/albumUserRole';
 import { NgbdConfirmModalComponent } from 'src/app/modals/confirm/ngbdConfirmModal.component';
 import { NgbdAlbumImageLinksModalComponent } from 'src/app/modals/albumImageLinks/ngbdAlbumImageLinksModal.component';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
     templateUrl: './images.component.html',
@@ -70,8 +71,8 @@ export class ImagesComponent {
         private currentUserService: CurrentUserService,
         public location: Location,
         private modalService: NgbModal,
-        private sanitizer: DomSanitizer,
-        private toastrService: ToastrService
+        private toastrService: ToastrService,
+        private translateService: TranslateService
     ) { 
         this.paramSubscription = this.activatedRoute.params.subscribe(param => 
         {
@@ -216,12 +217,12 @@ export class ImagesComponent {
 
     copyLink() {
         copyToClipboard(window.location.origin + "/i/" + this.info.imageCode);
-        this.toastrService.info("Link copied to clipboard!");
+        this.toastrService.info(this.translateService.instant("shared.linkCopied"));
     }
 
     copyDirectLink() {
         copyToClipboard(this.imagesService.getImageDirectLink(this.info.imageCode, this.info.imageType.replace("jpeg", "jpg")));
-        this.toastrService.info("Direct link copied to clipboard!");
+        this.toastrService.info(this.translateService.instant("shared.linkCopied"));
     }
 
     onIsPublicCbChanged(event) {
@@ -283,11 +284,11 @@ export class ImagesComponent {
                 const r = result as boolean;
 
                 if (r == true) {
-                    this.toastrService.success("Image successfully edited!");
+                    this.toastrService.success(this.translateService.instant("images.toastr.edited"));
                     this.reload();
                 }
                 else if (r == false) {
-                    this.toastrService.error("Something went wrong while image editing :(");
+                    this.toastrService.error(this.translateService.instant("shared.somethingWentWrong"));
                     this.reload();
                 }
             }
@@ -301,10 +302,10 @@ export class ImagesComponent {
             result => {
                 const r = result as { success: number, failed: number };
                 if (r.failed > 0) {
-                    this.toastrService.error(r.failed + " image(s) wasn't deleted due to error.");
+                    this.toastrService.error(this.translateService.instant("profile.images.deletingFailed", { count: r.failed }));
                 }
                 if (r.success > 0) {
-                    this.toastrService.success(r.success + " image(s) deleted!");
+                    this.toastrService.success(this.translateService.instant("profile.images.deletingSuccess", { count:r.success }));
                     
                     if (this.isFirstPage) {
                         this.redirectNotFound();
@@ -323,7 +324,7 @@ export class ImagesComponent {
     dropFromAlbum() {
         if (!this.isDropping) {
             const modalRef = this.modalService.open(NgbdConfirmModalComponent, { centered: true });
-            modalRef.componentInstance.text = "Are you sure you want to drop this image from album?";
+            modalRef.componentInstance.text = this.translateService.instant("images.areYouSureToDropFromAlbum");
             modalRef.result.then(
                 result => {
                     const r = result as boolean;
@@ -335,7 +336,7 @@ export class ImagesComponent {
                             [this.info.imageId]
                         ).subscribe(
                             data => {
-                                this.toastrService.success("Images successfully dropped!");
+                                this.toastrService.success(this.translateService.instant("images.toastr.dropped"));
 
                                 if (this.isFirstPage) {
                                     this.redirectNotFound();
@@ -345,7 +346,7 @@ export class ImagesComponent {
                                 }
                             },
                             error => {
-                                this.toastrService.error("Something went wrong while image dropping :(");
+                                this.toastrService.error(this.translateService.instant("shared.somethingWentWrong"));
                             }
                         ).add(
                             () => this.isDropping = false

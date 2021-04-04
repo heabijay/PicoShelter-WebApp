@@ -1,5 +1,5 @@
 <div class="modal-header">
-    <h4 class="modal-title">Editing image</h4>
+    <h4 class="modal-title">{{ 'modals.imageEdit.header' | translate }}</h4>
     <button type="button" class="btn close" aria-label="Close" (click)="close()">
     <span aria-hidden="true">&times;</span>
     </button>
@@ -7,37 +7,37 @@
 <div class="modal-body">
     <fieldset [disabled]="isProceeding">
         <div class="form-group">
-            <label class="text-muted text-uppercase" for="title">Title</label>
+            <label class="text-muted text-uppercase" for="title">{{ 'upload.title' | translate }}</label>
             <input [ngClass]="{ 'is-invalid': title.touched && title.invalid }" id="title" class="form-control" type="text" name="title" [(ngModel)]="dto.title" #title="ngModel" maxlength="64" />
         </div>
         <div class="custom-control custom-checkbox mb-3">
             <input type="checkbox" class="custom-control-input" name="isChangeLifetime" [(ngModel)]="dto.isChangeLifetime" #isChangeLifetime="ngModel" id="isChangeLifetime">
-            <label class="custom-control-label" for="isChangeLifetime">Change image lifetime</label>
+            <label class="custom-control-label" for="isChangeLifetime">{{ 'modals.imageEdit.changeLifetime' | translate }}</label>
         </div>
         <div class="form-group" [hidden]="!isChangeLifetime.value">
             <select [ngClass]="{ 'is-invalid': deleteInHours.touched && deleteInHours.invalid }" name="deleteInHours" [(ngModel)]="dto.deleteInHours" #deleteInHours="ngModel" class="custom-select" required>
-                <option value="0">Save for Forever</option>
-                <option value="1">Save for 1 Hour</option>
-                <option value="24">Save for 24 Hours</option>
-                <option value="168">Save for Week</option>
-                <option value="720">Save for Month</option>
+                <option value="0">{{ 'upload.saveFor.lifetime' | translate }}</option>
+                <option value="1">{{ 'upload.saveFor._1hour' | translate }}</option>
+                <option value="24">{{ 'upload.saveFor._24hours' | translate }}</option>
+                <option value="168">{{ 'upload.saveFor.week' | translate }}</option>
+                <option value="720">{{ 'upload.saveFor.month' | translate }}</option>
             </select>
         </div>
         <div class="custom-control custom-checkbox mb-3">
             <input type="checkbox" class="custom-control-input" name="isPublic" [(ngModel)]="dto.isPublic" #isPublic="ngModel" id="isPublic">
-            <label class="custom-control-label" for="isPublic">Make public</label>
-            <small class="form-text text-muted">It's allow you to share this image simplify by link</small>
+            <label class="custom-control-label" for="isPublic">{{ 'upload.makePublic.lbl' | translate }}</label>
+            <small class="form-text text-muted">{{ 'upload.makePublic.desc' | translate }}</small>
         </div>
     </fieldset>
 </div>
 <div class="modal-footer">
-    <button type="button" class="btn btn-outline-secondary" (click)="close()">Cancel</button>
+    <button type="button" class="btn btn-outline-secondary" (click)="close()">{{ 'shared.cancel' | translate }}</button>
     <button [disabled]="isProceeding" type="button" class="btn btn-primary" (click)="update()">
         <ng-container *ngIf="isProceeding; else notProceeding">
             <i class="fa fa-spinner-third fa-spin" aria-hidden="true"></i>
         </ng-container>
         <ng-template #notProceeding>
-            Ok
+            OK
         </ng-template>
     </button>
 </div>

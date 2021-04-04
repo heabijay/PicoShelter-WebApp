@@ -1,5 +1,5 @@
 <div class="modal-header">
-    <h4 class="modal-title">Album settings</h4>
+    <h4 class="modal-title">{{ 'modals.albumSettings.header' | translate }}</h4>
     <button type="button" class="btn close" aria-label="Close" (click)="close()">
     <span aria-hidden="true">&times;</span>
     </button>
@@ -8,27 +8,27 @@
     <form #albumCreateFrom="ngForm" name="albumCreateFrom">
         <fieldset [disabled]="isProceeding">
             <div class="form-group">
-                <label class="text-muted text-uppercase" for="title">Title</label>
+                <label class="text-muted text-uppercase" for="title">{{ 'modals.albumSettings.title' | translate }}</label>
                 <input [ngClass]="{ 'is-invalid': title.touched && title.invalid }" id="title" class="form-control" type="text" name="title" [(ngModel)]="dto.title" #title="ngModel" maxlength="64" />
             </div>
             <div class="custom-control custom-checkbox mb-3">
                 <input type="checkbox" class="custom-control-input" name="isSetUsercode" [(ngModel)]="isSetUsercodeCheck"  id="isSetUsercode">
-                <label class="custom-control-label" for="isSetUsercode">Set usercode</label>
-                <small class="form-text text-muted">You can set your own link</small>
+                <label class="custom-control-label" for="isSetUsercode">{{ 'modals.albumSettings.setUsercode.lbl' | translate }}</label>
+                <small class="form-text text-muted">{{ 'modals.albumSettings.setUsercode.desc' | translate }}</small>
             </div>
             <div class="form-group" *ngIf="isSetUsercodeCheck">
-                <label class="text-muted text-uppercase" for="usercode">Usercode</label>
+                <label class="text-muted text-uppercase" for="usercode">{{ 'modals.albumSettings.setUsercode.usercode.lbl' | translate }}</label>
                 <input [ngClass]="{ 'is-invalid': userCode.touched && userCode.invalid }" id="userCode" class="form-control" type="text" name="userCode" [(ngModel)]="dto.userCode" #userCode="ngModel" required pattern="^[a-zA-Z0-9_]{3,20}$"/>
                 <div [hidden]="userCode.valid || userCode.untouched">
-                    <p class="invalid-feedback d-block" *ngIf="userCode.errors?.required || userCode.errors?.pattern">Usercode length must be 3..20, can contains numbers, letters and '_'</p>
-                    <p class="invalid-feedback d-block" *ngIf="userCode.errors?.alreadyRegistered">This usercode already registered.</p>
+                    <p class="invalid-feedback d-block" *ngIf="userCode.errors?.required || userCode.errors?.pattern">{{ 'modals.albumSettings.setUsercode.usercode.patternInvalid' | translate }}</p>
+                    <p class="invalid-feedback d-block" *ngIf="userCode.errors?.alreadyRegistered">{{ 'modals.albumSettings.setUsercode.usercode.alreadyRegistered' | translate }}</p>
                 </div>
-                <small *ngIf="userCode.valid" class="form-text text-muted">Short link will be <b>{{userCodeLink}}</b></small>
+                <small *ngIf="userCode.valid" class="form-text text-muted" [innerHtml]="'modals.albumSettings.setUsercode.usercode.preview' | translate:{'link': userCodeLink}"></small>
             </div>
             <div class="custom-control custom-checkbox mb-3">
                 <input type="checkbox" class="custom-control-input" name="isPublic" [(ngModel)]="dto.isPublic" #isPublic="ngModel" id="isPublic">
-                <label class="custom-control-label" for="isPublic">Make public</label>
-                <small class="form-text text-muted">It's allow you to share this album simplify by link</small>
+                <label class="custom-control-label" for="isPublic">{{ 'modals.albumSettings.makePublic.lbl' | translate }}</label>
+                <small class="form-text text-muted">{{ 'modals.albumSettings.makePublic.desc' | translate }}</small>
             </div>
         </fieldset>
     </form>
@@ -37,35 +37,30 @@
         <hr />
         <p class="m-0 text-primary">
             <summary class="onHoverUnderline" (click)="openMembers()">
-                Manage members
+                {{ 'modals.albumSettings.manageMembers' | translate }}
             </summary>
         </p>
         <p class="m-0 text-danger">
             <ng-container *ngIf="isAlbumDeleting; else notDeleting">
                 <i class="fa fa-spinner-third mr-2 fa-spin" aria-hidden="true"></i>
-                Deleting
+                {{ 'modals.albumSettings.deletingAlbum' | translate }}
             </ng-container>
             <ng-template #notDeleting>
                 <summary class="onHoverUnderline" (click)="deleteAlbum()">
-                    Delete album
+                    {{ 'modals.albumSettings.deleteAlbum' | translate }}
                 </summary>
             </ng-template>
         </p>
     </div>
 </div>
 <div class="modal-footer">
-    <button type="button" class="btn btn-outline-secondary" (click)="close()">Cancel</button>
+    <button type="button" class="btn btn-outline-secondary" (click)="close()">{{ 'shared.cancel' | translate }}</button>
     <button [disabled]="albumCreateFrom.invalid || isProceeding" type="button" class="btn btn-primary" (click)="confirm()">
         <ng-container *ngIf="isProceeding; else notProceeding">
             <i class="fa fa-spinner-third fa-spin" aria-hidden="true"></i>
         </ng-container>
         <ng-template #notProceeding>
-            <ng-container *ngIf="targetCode; else createNew">
-                Change
-            </ng-container>
-            <ng-template #createNew>
-                Create
-            </ng-template>
+            {{ 'shared.confirm' | translate }}
         </ng-template>
     </button>
 </div>
