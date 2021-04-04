@@ -56,9 +56,9 @@
         <div class="container mt-3">
             <div class="d-flex flex-column flex-sm-row align-items-sm-center justify-content-end">
                 <div class="d-flex flex-column flex-sm-row mb-2">
-                    <button *ngIf="album.accessRole <= roleType.editor" class="btn btn-primary" type="button" (click)="addImage()"><i class="fa fa-plus mr-2" aria-hidden="true"></i>{{ 'albums.btnAddImage' | translate }}</button>
-                    <button *ngIf="album.accessRole <= roleType.admin" class="btn btn-secondary ml-sm-1 mt-1 mt-sm-0" type="button" (click)="editAlbum()"><i class="far fa-edit mr-2"></i>{{ 'albums.btnEditAlbum' | translate }}</button>
-                    <button *ngIf="selectedCount > 0 && album.accessRole <= roleType.editor" [disabled]="isDropping" class="btn btn-danger ml-sm-1 mt-1 mt-sm-0" type="button" (click)="dropImages()">
+                    <button *ngIf="album.accessRole != null && album.accessRole <= roleType.editor" class="btn btn-primary" type="button" (click)="addImage()"><i class="fa fa-plus mr-2" aria-hidden="true"></i>{{ 'albums.btnAddImage' | translate }}</button>
+                    <button *ngIf="album.accessRole != null && album.accessRole <= roleType.admin" class="btn btn-secondary ml-sm-1 mt-1 mt-sm-0" type="button" (click)="editAlbum()"><i class="far fa-edit mr-2"></i>{{ 'albums.btnEditAlbum' | translate }}</button>
+                    <button *ngIf="selectedCount > 0 && album.accessRole != null && album.accessRole <= roleType.editor" [disabled]="isDropping" class="btn btn-danger ml-sm-1 mt-1 mt-sm-0" type="button" (click)="dropImages()">
                         <ng-container *ngIf="isDropping; else notDropping">
                             <i class="fa fa-spinner-third fa-spin mr-2" aria-hidden="true"></i>{{ 'albums.droppingImage' | translate }}
                         </ng-container>
@@ -81,7 +81,7 @@
                         <div class="image-thumbnail-overlay-loading" *ngIf="image?.resourceUrl == null">
                             <i class="fa fa-spinner-third fa-spin" aria-hidden="true"></i>
                         </div>
-                        <summary *ngIf="album.accessRole <= roleType.editor" [style.opacity]="(image.selected ? 1 : 0.3)" class="image-thumbnail-overlay-selected px-1" (click)="performToggleSelect(image, $event)">
+                        <summary *ngIf="album.accessRole != null && album.accessRole <= roleType.editor" [style.opacity]="(image.selected ? 1 : 0.3)" class="image-thumbnail-overlay-selected px-1" (click)="performToggleSelect(image, $event)">
                             <i [ngClass]="{'text-primary': image.selected, 'fas': image.selected }" class="far fa-check-square"></i>
                         </summary>
                         <div *ngIf="image?.preselect" class="image-thumbnail-overlay-preselect"></div>
