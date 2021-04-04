@@ -88,7 +88,7 @@ export class ImagesComponent {
         }
     }
 
-    loadNextPage(size: number = 36) {
+    loadNextPage(size: number = 72) {
         if (!this.isAllImagesLoaded) {
             this.isLoading = true;
             const startIndex = this.imageThumbnailViewModel.length;
