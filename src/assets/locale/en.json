@@ -300,7 +300,7 @@
 		},
 		"email": {
 			"alreadyRegistered": "This email already registered.",
-			"patternInvalid": "Email doesn't matching default email template. Example: abc123@gmail.com"
+			"patternInvalid": "Email doesn't match the default email template. Example: abc123@gmail.com"
 		},
 		"header": "Registration",
 		"lblConfirmPassword": "Confirm Password",
