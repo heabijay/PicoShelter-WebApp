@@ -238,6 +238,7 @@
 		}
 	},
 	"navbar": {
+		"apps": "Додатки",
 		"login": "Ввійти",
 		"profile": {
 			"logout": "Вийти",

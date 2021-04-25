@@ -238,6 +238,7 @@
 		}
 	},
 	"navbar": {
+		"apps": "Apps",
 		"login": "Login",
 		"profile": {
 			"logout": "Logout",
