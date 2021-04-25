@@ -39,19 +39,22 @@ export class AppComponent {
     }
     
     set currentLocale(locale: string) {
-        this.translateService.use(locale);
-        localStorage.setItem('locale', locale);
+        if (environment.locales.indexOf(locale) != -1) {
+            this.translateService.use(locale);
+            localStorage.setItem('locale', locale);
+        } 
+        else {
+            if (locale != null)
+                console.error('Locale "' + locale + '" not found!');
+
+            this.translateService.use(environment.defaultLocale);
+        }
     }
 
     ngOnInit(): void {
         this.translateService.setDefaultLang(environment.defaultLocale);
         const savedLocale = localStorage.getItem('locale');
-        if (savedLocale != null) {
-            this.translateService.use(savedLocale);
-        }
-        else {
-            this.translateService.use(environment.defaultLocale);
-        }
+        this.currentLocale = savedLocale;
 
         this.identityHttpService.getCurrentUser().subscribe(
             data => 

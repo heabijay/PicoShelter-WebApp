@@ -1,4 +1,4 @@
 export const environment = {
-    locales: ['en', 'ru', 'uk'],
+    locales: ['en', 'uk'],
     defaultLocale: 'en',
 };
