@@ -79,4 +79,8 @@ export class AppComponent {
             this.toastrService.info(str);
         })
     }
+
+    onActivate(event) {
+        document.getElementById('bodyAndFooter').scrollTo(0, 0);
+    }
 }

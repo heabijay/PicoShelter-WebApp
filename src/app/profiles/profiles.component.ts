@@ -104,4 +104,8 @@ export class ProfilesComponent {
         copyToClipboard(window.location.origin + "/p/" + this.profile.userinfo.username);
         this.toastrService.info(this.translateService.instant("shared.linkCopied"));
     }
+
+    onActivate(event) {
+        document.getElementById('bodyAndFooter').scrollTo(0, 0);
+    }
 }

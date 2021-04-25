@@ -59,7 +59,7 @@
             </summary>
         </ng-template>
     </div>
-    <router-outlet></router-outlet>
+    <router-outlet (activate)="onActivate($event)"></router-outlet>
     <p class="py-5"></p>
 </ng-container>
 <ng-template #noInfo>
