@@ -15,8 +15,8 @@
 		"btnEditAlbum": "Редагувати",
 		"droppingImage": "Викидуємо",
 		"lblAlbum": "Альбом",
-		"lblMembers": "{{count}} учасники",
-		"lblPictures": "{{count}} зображення",
+		"lblMembers": "{{count}} учасників",
+		"lblPictures": "{{count}} зображень",
 		"modals": {
 			"areYouSureToDropImages": "Ви впевнені що хочете викинути {{count}} зображень з альбому?"
 		},
