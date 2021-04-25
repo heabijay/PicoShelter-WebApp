@@ -1,8 +1,36 @@
 <ng-container *ngIf="isLoaded; else notLoadedTemplate">
     <ng-container *ngIf="!isServerFailure; else serverFailureTemplate">
         <navbar></navbar>
-        <div class="main-content">
-            <router-outlet></router-outlet>
+        <div class="d-flex flex-column flex-fill" style="overflow-y: scroll;">
+            <div class="flex-fill">
+                <div style="min-height: 80vh;">
+                    <router-outlet></router-outlet>
+                </div>
+            </div>
+            <footer>
+                <div class="text-white" style="background-color: black;">
+                    <div class="container py-3">
+                        <div class="row">
+                            <img src="assets/icons/picoShelter/White Icon + Text.svg" class="col-8 col-sm-8 col-md-6 col-lg-3 py-4" />
+                        </div>
+                        <div class="row">
+                            <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+                                <p class="text-muted text-uppercase font-weight-bold">References</p>
+                            </div>
+                            <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+                                <p class="text-muted text-uppercase font-weight-bold">Language</p>
+                                <ul class="pl-0">
+                                    <li type="button" (click)="changeLocale('en')">English</li>
+                                    <li type="button" (click)="changeLocale('uk')">Українська</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="mt-2 lead">
+                            <p class="text-muted">PicoShelter®. 2020-2021</p>
+                        </div>
+                    </div>
+                </div>
+            </footer>
         </div>
     </ng-container>
     <ng-template #serverFailureTemplate>

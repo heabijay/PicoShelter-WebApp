@@ -6,6 +6,7 @@ import { CurrentUserService } from "./services/currentUser.service";
 import { IdentityHttpService } from "./services/identityHttp.service";
 import { TokenService } from "./services/token.service";
 import { environment } from "./enviroment"
+import { env } from "process";
 
 @Component({
     selector: "app",
@@ -27,15 +28,30 @@ export class AppComponent {
         private currentUserService: CurrentUserService,
         private tokenService: TokenService,
         private identityHttpService: IdentityHttpService,
-        private translateService: TranslateService
+        private translateService: TranslateService,
+        private toastrService: ToastrService
     ) {
 
     }
 
+    get currentLocale() {
+        return this.translateService.currentLang;
+    }
+    
+    set currentLocale(locale: string) {
+        this.translateService.use(locale);
+        localStorage.setItem('locale', locale);
+    }
+
     ngOnInit(): void {
         this.translateService.setDefaultLang(environment.defaultLocale);
-        this.translateService.use(environment.locales[2]);
-        //this.translateService.use(environment.locales[0]);
+        const savedLocale = localStorage.getItem('locale');
+        if (savedLocale != null) {
+            this.translateService.use(savedLocale);
+        }
+        else {
+            this.translateService.use(environment.defaultLocale);
+        }
 
         this.identityHttpService.getCurrentUser().subscribe(
             data => 
@@ -55,5 +71,12 @@ export class AppComponent {
         ).add(
             () => this.isLoaded = true
         );
+    }
+
+    changeLocale(locale: string) {
+        this.currentLocale = locale;
+        this.translateService.get('app.toastr.languageChanged').subscribe(str => {
+            this.toastrService.info(str);
+        })
     }
 }

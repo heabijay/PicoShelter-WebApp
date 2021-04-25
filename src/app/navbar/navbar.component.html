@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-sm navbar-light">
+<nav class="navbar navbar-expand-sm navbar-light shadow-sm">
     <a class="navbar-brand p-0" data-toggle="collapse" data-target="#collapsibleNavId.show" routerLink="/">
         <img src="assets/icons/picoShelter/Black Icon + Text.svg" height="30" class="mr-1"/>
         <h6 class="d-inline align-top"><span class="badge badge-secondary text-uppercase">alpha</span></h6>
@@ -15,9 +15,6 @@
             <li class="nav-item">
                 <a class="nav-link" [href]="profilesHttpService.serverUrl + '/apidocs'"><i class="fab fa-windows mr-1"></i>{{ 'navbar.apps' | translate }}</a>
             </li>
-            <!-- <li class="nav-item">
-                <a class="nav-link" data-toggle="collapse" data-target="#collapsibleNavId.show" (click)="toggleLocale()" type="button">Toggle language (EN/UK)</a>
-            </li> -->
         </ul>
         <ul class="navbar-nav nav-flex-icons">
             <ng-container *ngIf="currentUser == null; else loginedTemplate">

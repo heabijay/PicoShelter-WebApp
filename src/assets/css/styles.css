@@ -9,13 +9,8 @@ summary {
     overflow: hidden;
 }
 
-.main-content {
-    overflow: auto;
-    flex: 1;
-}
-
 .component-fill {
-    min-height: 100%!important;
+    min-height: 100vh!important;
     margin: 0!important;
     display: flex!important;
     flex-wrap: wrap!important;

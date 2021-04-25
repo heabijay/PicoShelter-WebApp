@@ -30,6 +30,9 @@
 			"btnReload": "Reload app",
 			"desc": "It's may under maintenance. We think it will be quickly. Please, try again later.",
 			"lbl": "Server is unavailable"
+		},
+		"toastr": {
+			"languageChanged": "Language changed!"
 		}
 	},
 	"confirm": {

@@ -69,14 +69,6 @@ export class NavbarComponent {
         
     }
 
-    toggleLocale() {
-        const locale = this.translateService.currentLang;
-        if (locale == "en")
-            this.translateService.use("uk");
-        else
-            this.translateService.use("en");
-    }
-
     ngOnInit(): void {
         this.subscription = this.currentUserService.onCurrentUserChanged.subscribe(
             data => this.onCurrentUserUpdated(data),
