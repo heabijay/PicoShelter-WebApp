@@ -6,9 +6,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, Subscription, timer } from 'rxjs';
 import { ImageInfoDto } from '../../models/imageInfoDto';
 import { ImageCacheService } from '../../services/imageCache.service';
-import { copyToClipboard } from "../../static/copyToClipboard"
-import { downloadFileQuery } from "../../static/downloadFileQuery"
-import { dateFromUTС } from "../../static/dateFromUTC"
+import { copyToClipboard } from "../../statics/copyToClipboard"
+import { downloadFileQuery } from "../../statics/downloadFileQuery"
+import { dateFromUTС } from "../../statics/dateFromUTC"
 import { ToastrService } from 'ngx-toastr';
 import { CurrentUserService } from '../../services/currentUser.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';

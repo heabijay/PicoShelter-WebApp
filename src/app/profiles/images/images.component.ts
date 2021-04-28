@@ -13,7 +13,7 @@ import { ImagesHttpService } from 'src/app/services/imagesHttp.service';
 import { ProfilesHttpService } from 'src/app/services/profilesHttp.service';
 import { ImageThumbnailViewModel } from '../models/imageThumbnailViewModel';
 import { ProfilesDataService } from '../profiles.data.service';
-import { copyToClipboard } from "../../static/copyToClipboard";
+import { copyToClipboard } from "../../statics/copyToClipboard";
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({

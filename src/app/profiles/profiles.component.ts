@@ -8,7 +8,7 @@ import { CurrentUserService } from '../services/currentUser.service';
 import { ProfilesHttpService } from "../services/profilesHttp.service"
 import { ImagesHttpService } from "../services/imagesHttp.service"
 import { ProfilesDataService } from './profiles.data.service';
-import { copyToClipboard } from "../static/copyToClipboard"
+import { copyToClipboard } from "../statics/copyToClipboard"
 import { AlbumHttpService } from '../services/albumHttp.service';
 import { AlbumsHttpService } from '../services/albumsHttp.service';
 import { TranslateService } from '@ngx-translate/core';

@@ -15,8 +15,8 @@ import { ToastrService } from 'ngx-toastr';
 import { NgbdConfirmModalComponent } from '../modals/confirm/ngbdConfirmModal.component';
 import { NgbdAlbumCreateModalComponent } from '../modals/albumCreate/ngbdAlbumCreateModal.component';
 import { AlbumCreateDto } from '../models/albumCreateDto';
-import { dateFromUTС } from "../static/dateFromUTC";
-import { copyToClipboard } from '../static/copyToClipboard';
+import { dateFromUTС } from "../statics/dateFromUTC";
+import { copyToClipboard } from '../statics/copyToClipboard';
 import { NgbdAlbumMembersModalComponent } from '../modals/albumMembers/ngbdAlbumMembersModal.component';
 import { TranslateService } from '@ngx-translate/core';
 

@@ -10,7 +10,7 @@ import { ErrorResponseDto } from "../models/errorResponseDto";
 import { ToastrService } from "ngx-toastr";
 import { ErrorType } from "../enum/ErrorType";
 import { ImagesHttpService } from "../services/imagesHttp.service";
-import { copyToClipboard } from "../static/copyToClipboard"
+import { copyToClipboard } from "../statics/copyToClipboard"
 import { Router } from "@angular/router";
 import { UploadExitGuard } from "../guards/upload.exit.guard";
 import { Observable } from "rxjs";

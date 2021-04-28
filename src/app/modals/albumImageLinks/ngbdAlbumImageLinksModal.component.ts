@@ -8,7 +8,7 @@ import { AlbumsHttpService } from "src/app/services/albumsHttp.service";
 import { CurrentUserService } from "src/app/services/currentUser.service";
 import { ImagesHttpService } from "src/app/services/imagesHttp.service";
 import { BooleanLiteral } from "typescript";
-import { copyToClipboard } from "../../static/copyToClipboard"
+import { copyToClipboard } from "../../statics/copyToClipboard"
 
 @Component({
     selector: "ngbd-albumimagelinks-modal",
