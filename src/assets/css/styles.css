@@ -10,7 +10,7 @@ summary {
 }
 
 .component-fill {
-    min-height: 100vh!important;
+    min-height: calc(100vh - 56px)!important;
     margin: 0!important;
     display: flex!important;
     flex-wrap: wrap!important;
