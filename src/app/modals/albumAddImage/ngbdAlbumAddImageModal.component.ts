@@ -177,7 +177,7 @@ export class NgbdAlbumAddImageModalComponent {
 
     confirm() {
         this.isProceeding = true;
-        const imageIds = this.imageThumbnailViewModel.filter(t => t.selected == true).map(t => t.info.imageId);
+        const imageIds = this.imageThumbnailViewModel.filter(t => t.selected == true).map(t => t.info.imageId).reverse();
         this.albumsService.addImages(this.targetAlbumCode, imageIds).subscribe(
             data => {
                 this.result = true;
