@@ -7,6 +7,7 @@ import { IdentityHttpService } from "./services/identityHttp.service";
 import { TokenService } from "./services/token.service";
 import { environment } from "./enviroment"
 import { env } from "process";
+import { ProfilesHttpService } from "./services/profilesHttp.service";
 
 @Component({
     selector: "app",
@@ -27,7 +28,7 @@ export class AppComponent {
     constructor(
         private currentUserService: CurrentUserService,
         private tokenService: TokenService,
-        private identityHttpService: IdentityHttpService,
+        public identityHttpService: IdentityHttpService,
         private translateService: TranslateService,
         private toastrService: ToastrService
     ) {

@@ -44,6 +44,7 @@ import { NgbdAlbumMembersModalComponent } from "./modals/albumMembers/ngbdAlbumM
 import { MissingTranslationHandler, TranslateLoader, TranslateModule } from "@ngx-translate/core";
 import { HttpLoaderFactory } from "./httpLoaderFactory"
 import { MissingTranslationService } from "./services/missingTranslation.service"
+import { AppsComponent } from "./apps/apps.component"
 
 @NgModule({
     imports: [
@@ -100,7 +101,8 @@ import { MissingTranslationService } from "./services/missingTranslation.service
         NgbdConfirmModalComponent,
         AlbumImagesComponent,
         NgbdAlbumImageLinksModalComponent,
-        NgbdAlbumMembersModalComponent
+        NgbdAlbumMembersModalComponent,
+        AppsComponent
     ],
     providers: [
         TokenService,

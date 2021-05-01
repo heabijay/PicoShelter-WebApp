@@ -13,7 +13,7 @@
                 <a class="nav-link" data-toggle="collapse" data-target="#collapsibleNavId.show" routerLink="/upload" routerLinkActive="active"><i class="far fa-cloud-upload-alt mr-1"></i>{{ 'navbar.upload' | translate }}</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" [href]="profilesHttpService.serverUrl + '/apidocs'"><i class="fab fa-windows mr-1"></i>{{ 'navbar.apps' | translate }}</a>
+                <a class="nav-link" data-toggle="collapse" data-target="#collapsibleNavId.show" routerLink="/apps" routerLinkActive="active"><i class="fab fa-windows mr-1"></i>{{ 'navbar.apps' | translate }}</a>
             </li>
         </ul>
         <ul class="navbar-nav nav-flex-icons">

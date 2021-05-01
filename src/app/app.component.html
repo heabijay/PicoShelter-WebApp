@@ -16,10 +16,13 @@
                         <div class="row">
                             <div class="col-12 col-sm-6 col-md-4 col-lg-3">
                                 <p class="text-muted text-uppercase font-weight-bold">References</p>
+                                <ul class="pl-0 list-unstyled">
+                                    <li type="button"><a class="text-white text-decoration-none" [href]="identityHttpService.serverUrl + '/apidocs'">API</a></li>
+                                </ul>
                             </div>
                             <div class="col-12 col-sm-6 col-md-4 col-lg-3">
                                 <p class="text-muted text-uppercase font-weight-bold">Language</p>
-                                <ul class="pl-0">
+                                <ul class="pl-0 list-unstyled">
                                     <li type="button" (click)="changeLocale('en')">English</li>
                                     <li type="button" (click)="changeLocale('uk')">Українська</li>
                                 </ul>
@@ -34,7 +37,7 @@
         </div>
     </ng-container>
     <ng-template #serverFailureTemplate>
-        <div class="component-fill jumbotron jumbotron-fluid">
+        <div class="component-fill h-100 jumbotron jumbotron-fluid">
             <div class="d-flex justify-content-center w-100">
                 <div class="d-flex flex-row col-12 col-sm-10 col-md-8 col-lg-6">
                     <div class="text-right">
@@ -51,7 +54,7 @@
     </ng-template>
 </ng-container>
 <ng-template #notLoadedTemplate>
-    <div class="component-fill jumbotron jumbotron-fluid bg-particles">
+    <div class="component-fill h-100 jumbotron jumbotron-fluid bg-particles">
         <div class="container text-center">
             <img src="assets/icons/picoShelter/Black Icon.svg" class="mb-3" style="max-height: 7em;" />
             <h1>PicoShelter</h1>

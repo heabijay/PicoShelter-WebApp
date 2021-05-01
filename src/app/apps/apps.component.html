@@ -1,0 +1,98 @@
+<div>
+    <div class="d-flex jumbotron jumbotron-fluid mb-0 align-items-center" style="min-height: 66vh;">
+        <div class="container">
+            <div class="row align-items-lg-center">
+                <div class="col-12 col-md-5 order-md-2 col-lg-5 py-5 py-md-0 align-self-center">
+                    <img class="w-100 shadow" src="assets/media/apps/PicoShelter-DesktopApp.Main.png"/>
+                </div>
+                <div class="col-md-7 order-md-1 col-lg-7 text-md-start">
+                    <h1 class="display-4 mb-3">
+                        <span class="font-weight-bold">PicoShelter</span>
+                        <span> Uploader</span>
+                    </h1>
+                    <p class="lead mb-4">{{ 'apps.subheader' | translate }}</p>
+            
+                    <div class="d-flex flex-column flex-md-row">
+                        <a href="assets/files/PicoShelter-DesktopApp.exe" class="btn btn-lg btn-primary mb-3">
+                            <div class="d-flex flex-row align-items-center" style="font-size: .85em;">
+                                <div class="mr-3"><i class="fab fa-windows"></i></div>
+                                <div class="d-flex flex-column text-left">
+                                    <div class="font-weight-light">{{ 'apps.downloadFor' | translate }}</div>
+                                    <div class="font-weight-bold mt-n1">Windows x64/x86</div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <p class="text-muted mb-0">
+                        <strong>v1.0.1.2</strong>
+                        <span class="px-1">·</span>
+                        <span>{{ 'apps.requires' | translate }} </span>
+                        <a href="https://dotnet.microsoft.com/download/dotnet/3.1" target="_blank" class="link-secondary">.NET Runtime 3.1</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="d-flex jumbotron jumbotron-fluid mb-0 align-items-center bg-white">
+        <div class="container">
+            <div class="row align-items-lg-center">
+                <div class="col-12 col-md-6 order-md-1 col-lg-6 py-5 py-md-0 align-self-center">
+                    <video class="w-100" autoplay="autoplay">
+                        <source src="assets/media/apps/PicoShelter-DesktopApp.Adding.mp4" type="video/mp4" />
+                    </video>
+                </div>
+                <div class="col-md-6 order-md-2 col-lg-6 text-md-start">
+                    <h2 class="mb-3">{{ 'apps.featureIntegrations.header' | translate }}</h2>
+                    <div class="lead" [innerHtml]="'apps.featureIntegrations.content' | translate">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="d-flex jumbotron jumbotron-fluid mb-0 align-items-center bg-gradient-saintPetersburg">
+        <div class="container">
+            <div class="row align-items-lg-center">
+                <div class="col-12 col-md-6 order-md-2 col-lg-6 py-5 py-md-0 align-self-center">
+                    <img class="w-100 shadow" src="assets/media/apps/PicoShelter-DesktopApp.Login.png"/>
+                </div>
+                <div class="col-md-6 order-md-1 col-lg-6 text-md-start">
+                    <h2 class="mb-3">{{ 'apps.featureAccountSupport.header' | translate }}</h2>
+                    <div class="lead" [innerHtml]="'apps.featureAccountSupport.content' | translate">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="d-flex jumbotron jumbotron-fluid mb-0 align-items-center bg-white">
+        <div class="container">
+            <div class="row align-items-lg-center">
+                <div class="col-12 col-md-6 order-md-1 col-lg-6 py-5 py-md-0 align-self-center">
+                    <img class="w-100 shadow" src="assets/media/apps/PicoShelter-DesktopApp.Settings.png"/>
+                </div>
+                <div class="col-md-6 order-md-2 col-lg-6 text-md-start">
+                    <h2 class="mb-3">{{ 'apps.featurePortable.header' | translate }}</h2>
+                    <div class="lead" [innerHtml]="'apps.featurePortable.content' | translate">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="d-flex jumbotron jumbotron-fluid mb-0 align-items-center">
+        <div class="container">
+            <div class="row align-items-lg-center justify-content-center">
+                <a href="assets/files/PicoShelter-DesktopApp.exe" class="btn btn-lg btn-outline-primary mb-3">
+                    <div class="d-flex flex-row align-items-center" style="font-size: .85em;">
+                        <div class="mr-3"><i class="fab fa-windows"></i></div>
+                        <div class="d-flex flex-column text-left">
+                            <div class="font-weight-light">{{ 'apps.downloadFor' | translate }}</div>
+                            <div class="font-weight-bold mt-n1">Windows x64/x86</div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

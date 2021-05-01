@@ -35,6 +35,23 @@
 			"languageChanged": "Language changed!"
 		}
 	},
+	"apps": {
+		"downloadFor": "Download for",
+		"featureAccountSupport": {
+			"content": "<p>You can use your own account or be as Anonymous (with limits).</p>",
+			"header": "Account Support"
+		},
+		"featureIntegrations": {
+			"content": "<p>Application has three different methods to add files:</p><ol><li>Directly by in-app button</li><li>Drag & Drop into app</li><li>Using Context Menu integration</li></ol>",
+			"header": "Drag & Drop and Integrations"
+		},
+		"featurePortable": {
+			"content": "<p>Application is ready to run and could be installed.</p>",
+			"header": "Portable and Installation mode"
+		},
+		"requires": "Requires",
+		"subheader": "The official desktop client for PicoShelter."
+	},
 	"confirm": {
 		"description": "Here you can activate a special key(token). It's could be a confirmation, bonuses, etc.",
 		"header": "Confirmation",
