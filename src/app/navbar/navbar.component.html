@@ -8,15 +8,15 @@
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="collapsibleNavId">
-        <ul class="navbar-nav mr-auto mt-2 mt-sm-0">
+        <ul class="navbar-nav mr-auto mt-2 mt-sm-0 align-items-center text-center">
             <li class="nav-item">
                 <a class="nav-link" data-toggle="collapse" data-target="#collapsibleNavId.show" routerLink="/upload" routerLinkActive="active"><i class="far fa-cloud-upload-alt mr-1"></i>{{ 'navbar.upload' | translate }}</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" data-toggle="collapse" data-target="#collapsibleNavId.show" routerLink="/apps" routerLinkActive="active"><i class="fab fa-windows mr-1"></i>{{ 'navbar.apps' | translate }}</a>
+                <a class="nav-link" data-toggle="collapse" data-target="#collapsibleNavId.show" routerLink="/apps" routerLinkActive="active"><i class="fab fa-windows mr-2"></i>{{ 'navbar.apps' | translate }}</a>
             </li>
         </ul>
-        <ul class="navbar-nav nav-flex-icons">
+        <ul class="navbar-nav nav-flex-icons mt-2 mt-sm-0">
             <ng-container *ngIf="currentUser == null; else loginedTemplate">
                 <li class="nav-item ml-0 ml-sm-1 mt-1 mt-sm-0" routerLinkActive="d-none">
                     <button class="btn btn-secondary" routerLink="/login" data-toggle="collapse" data-target="#collapsibleNavId.show"><i class="fas fa-sign-in"></i> {{ 'navbar.login' | translate }}</button>
@@ -27,7 +27,7 @@
             </ng-container>
             <ng-template #loginedTemplate>
                 <li class="nav-item dropdown">
-                    <summary class="d-flex flex-row" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <summary class="d-flex flex-row justify-content-center" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <img [src]="currentUserAvatarLink" onload="this.style.display='block'" class="rounded-circle z-depth-0" height="40" style="display: none;">
                         <div class="d-flex flex-column ml-2 justify-content-center">
                             <ng-container *ngIf="currentUser?.profile?.firstname != null || currentUser?.profile?.lastname != null; else nameExist">
