@@ -1,7 +1,10 @@
 <ng-container *ngIf="isLoaded; else notLoadedTemplate">
     <ng-container *ngIf="!isServerFailure; else serverFailureTemplate">
-        <navbar></navbar>
-        <div id="bodyAndFooter" class="d-flex flex-column flex-fill" style="overflow-y: scroll;">
+        <div style="position: fixed; top: 0; z-index: 10000; width: 100%;">
+            <navbar></navbar>
+        </div>
+
+        <div id="bodyAndFooter" class="d-flex flex-column flex-fill" style="margin-top: 56px;">
             <div class="flex-fill">
                 <div style="min-height: 80vh;">
                     <router-outlet (activate)="onActivate($event)"></router-outlet>
