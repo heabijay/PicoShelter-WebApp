@@ -20,6 +20,20 @@ summary {
 
 .bg-particles {
     background-image: url("../backgrounds/particles.svg");
+    background-position: center;
+    background-size: cover;
+}
+
+.bg-fluid {
+    background-image: url("../backgrounds/fluid.svg");
+    background-position: center;
+    background-size: cover;
+}
+
+.bg-wave {
+    background-image: url("../backgrounds/wave.svg");
+    background-position: center;
+    background-size: cover;
 }
 
 .text-shadow-1-1-grey {
@@ -73,11 +87,11 @@ summary {
 .image-thumbnail-overlay-shared {
     color: white;
     position: absolute;
-    right: 3px; 
-    pointer-events: none; 
-    opacity: 0.3; 
-    top: 0; 
-    z-index: 100; 
+    right: 3px;
+    pointer-events: none;
+    opacity: 0.3;
+    top: 0;
+    z-index: 100;
     text-shadow: 1px 1px #000000;
 }
 
@@ -86,8 +100,8 @@ summary {
     position: absolute;
     left: 3px;
     opacity: 0.3;
-    top: 0; 
-    z-index: 200; 
+    top: 0;
+    z-index: 200;
     text-shadow: 1px 1px #000000;
 }
 
@@ -130,13 +144,13 @@ summary {
 
 .image-thumbnail-overlay-loading {
     color: white;
-    position: absolute; 
+    position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    pointer-events: none; 
-    opacity: 0.3; 
-    z-index: 100; 
+    pointer-events: none;
+    opacity: 0.3;
+    z-index: 100;
 }
 
 .overflow-x-hidden {
@@ -187,7 +201,6 @@ summary {
     align-items: center;
     color: white;
     background-color: rgba(0, 0, 0, 0.3);
-
     opacity: 0;
     transition: opacity .5s;
 }
@@ -223,4 +236,63 @@ summary {
 
 .table.table-content-middle th, .table.table-content-middle td {
     vertical-align: middle;
+}
+
+.slider {
+    position: relative;
+    width: 100%;
+    height: 5px;
+    overflow-x: hidden;
+}
+
+.line {
+    position: absolute;
+    opacity: 0.4;
+    background: #4a8df8;
+    width: 150%;
+    height: 5px;
+}
+
+.subline {
+    position: absolute;
+    background: #4a8df8;
+    height: 5px;
+}
+
+.inc {
+    animation: increase 2s infinite;
+}
+
+.dec {
+    animation: decrease 2s 0.5s infinite;
+}
+
+@keyframes increase {
+    from {
+        left: -5%;
+        width: 5%;
+    }
+    to {
+        left: 130%;
+        width: 100%;
+    }
+}
+
+@keyframes decrease {
+    from {
+        left: -80%;
+        width: 80%;
+    }
+    to {
+        left: 110%;
+        width: 10%;
+    }
+}
+
+.onHoverTextPrimary {
+    transition: color .5s ease-out;
+}
+
+.onHoverTextPrimary:hover {
+    color: #007bff;
 }

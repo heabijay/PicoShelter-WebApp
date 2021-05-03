@@ -76,6 +76,36 @@
 			"lbl": "Type"
 		}
 	},
+	"home": {
+		"btnUpload": "Start upload",
+		"features": {
+			"albums": {
+				"header": "Albums",
+				"text": "Create an album with images and invite people for interaction."
+			},
+			"desktopApp": {
+				"header": "Desktop App",
+				"text": "Boost your work experience on Windows."
+			},
+			"directLinks": {
+				"header": "Direct Links",
+				"text": "Share anything with direct links."
+			},
+			"privacity": {
+				"header": "Privacity Control",
+				"text": "Instant change access setting in one click."
+			},
+			"profiles": {
+				"header": "Profiles",
+				"text": "Save all pictures in one profile and share it."
+			},
+			"unlimited": {
+				"header": "Unlimited",
+				"text": "Register and get unlimited storage for your images."
+			}
+		},
+		"subheader": "Yours pictures shelter"
+	},
 	"images": {
 		"areYouSureToDropFromAlbum": "Are you sure you want to drop this image from album?",
 		"autodeletedIn": "Will be auto deleted",

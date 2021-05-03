@@ -24,12 +24,23 @@
 </head>
 <body>
     <app>
-        <div class="component-fill h-100 jumbotron jumbotron-fluid bg-particles">
+        <div class="component-fill jumbotron jumbotron-fluid bg-white" style="min-height: 100vh!important;">
             <div class="container" style="text-align: center;">
                 <img src="assets/icons/picoShelter/Black Icon.svg" class="mb-3" style="max-height: 7em;" />
                 <h1>PicoShelter</h1>
                 <p class="lead mb-0 text-break text-secondary">App is loading</p>
+                <div class="my-4 mx-auto col-sm-9 col-md-6 col-lg-3">
+                    <div class="slider w-100">
+                        <div class="line"></div>
+                        <div class="subline inc"></div>
+                        <div class="subline dec"></div>
+                    </div>
+                </div>
             </div>
+        </div>
+        <div id="pre-load" style="position: absolute; max-height: 0; max-width: 0; overflow: hidden;">
+            <div class="bg-particles"></div>
+            <img src="assets/icons/picoShelter/Black Icon + Text.svg">
         </div>
     </app>
 

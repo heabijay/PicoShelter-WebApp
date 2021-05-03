@@ -38,7 +38,7 @@
         </div>
     </ng-container>
     <ng-template #serverFailureTemplate>
-        <div class="component-fill h-100 jumbotron jumbotron-fluid">
+        <div class="component-fill jumbotron jumbotron-fluid" style="min-height: 100vh!important;">
             <div class="d-flex justify-content-center w-100">
                 <div class="d-flex flex-row col-12 col-sm-10 col-md-8 col-lg-6">
                     <div class="text-right">
@@ -55,11 +55,18 @@
     </ng-template>
 </ng-container>
 <ng-template #notLoadedTemplate>
-    <div class="component-fill h-100 jumbotron jumbotron-fluid bg-particles">
+    <div class="component-fill jumbotron jumbotron-fluid bg-white" style="min-height: 100vh!important;">
         <div class="container text-center">
             <img src="assets/icons/picoShelter/Black Icon.svg" class="mb-3" style="max-height: 7em;" />
             <h1>PicoShelter</h1>
             <p class="lead mb-0 text-break text-secondary">Connecting to server</p>
+            <div class="my-4 mx-auto col-sm-9 col-md-6 col-lg-3">
+                <div class="slider w-100">
+                    <div class="line"></div>
+                    <div class="subline inc"></div>
+                    <div class="subline dec"></div>
+                </div>
+            </div>
         </div>
     </div>
 </ng-template>
