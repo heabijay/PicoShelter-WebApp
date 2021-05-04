@@ -63,7 +63,7 @@
 				"lbl": "Force Cleanup",
 				"tooltip": "Force recheck of auto-delete images and confirmations"
 			},
-			"header": "Server Statistics",
+			"header": "Server Stats",
 			"imagesText": "images is stored",
 			"toastr": {
 				"accessForbidden": "Access forbidden! Please, reload the app.",
