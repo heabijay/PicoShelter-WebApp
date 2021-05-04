@@ -8,6 +8,7 @@ import { ToastrService } from "ngx-toastr";
 import { NgModel } from "@angular/forms";
 import { ErrorResponseDto } from "../models/errorResponseDto";
 import { ErrorType } from "../enum/ErrorType";
+import { TranslateService } from "@ngx-translate/core";
 
 @Component({
     templateUrl: "./confirm.component.html",
@@ -33,11 +34,11 @@ export class ConfirmComponent {
 
     get confirmationTypeStr() {
         switch (this.confirmationType) {
-            case ConfirmationType.EmailChanging: return "Email changing (Step 1/2)";
-            case ConfirmationType.EmailChangingNew: return "Email changing (Step 2/2)";
-            case ConfirmationType.EmailRegistration: return "Account registration";
-            case ConfirmationType.PasswordRestore: return "Password restore";
-            case ConfirmationType.AlbumInvite: return "Album invite";
+            case ConfirmationType.EmailChanging: return this.translateService.instant("confirm.type.EmailChanging");
+            case ConfirmationType.EmailChangingNew: return this.translateService.instant("confirm.type.EmailChangingNew");
+            case ConfirmationType.EmailRegistration: return this.translateService.instant("confirm.type.EmailRegistration");
+            case ConfirmationType.PasswordRestore: return this.translateService.instant("confirm.type.PasswordRestore");
+            case ConfirmationType.AlbumInvite: return this.translateService.instant("confirm.type.AlbumInvite");
             default: "Unknown type";
         }
     }
@@ -46,7 +47,8 @@ export class ConfirmComponent {
         private activatedRoute: ActivatedRoute, 
         private router: Router,
         private confirmationService: ConfirmationHttpService,
-        private toastrService: ToastrService
+        private toastrService: ToastrService,
+        private translateService: TranslateService
     ) {
         this.paramSubscription = this.activatedRoute.queryParams.subscribe(param => 
         {
@@ -100,7 +102,7 @@ export class ConfirmComponent {
                         return;
                 }
 
-                this.toastrService.error("Something went wrong. :(");
+                this.toastrService.error(this.translateService.instant("shared.somethingWentWrong"));
             }
         ).add(
             () => {
@@ -119,19 +121,20 @@ export class ConfirmComponent {
                 switch (this.confirmationType)
                 {
                     case ConfirmationType.EmailRegistration:
-                        this.toastrService.success("Account successfully registered!");
+                        this.toastrService.success(this.translateService.instant("confirm.toastr.onSuccess.EmailRegistration"));
+                        this.router.navigateByUrl("/login");
                         break;
                     case ConfirmationType.EmailChanging:
-                        this.toastrService.success("Next instruction sent to your new email.");
+                        this.toastrService.success(this.translateService.instant("confirm.toastr.onSuccess.EmailChanging"));
                         break;
                     case ConfirmationType.EmailChangingNew:
-                        this.toastrService.success("Email successfully changed.");
+                        this.toastrService.success(this.translateService.instant("confirm.toastr.onSuccess.EmailChangingNew"));
                         break;
                     case ConfirmationType.AlbumInvite:
-                            this.toastrService.success("You successfully joined to album!");
-                            break;
+                        this.toastrService.success(this.translateService.instant("confirm.toastr.onSuccess.AlbumInvite"));
+                        break;
                     default:
-                        this.toastrService.success("Key successfully activated!");
+                        this.toastrService.success(this.translateService.instant("confirm.toastr.onSuccess.default"));
                         break;
                 }
             },
@@ -149,17 +152,17 @@ export class ConfirmComponent {
 
                 switch (ErrorType[error?.error?.type]) {
                     case ErrorType.CONFIRMATIONTYPE_UNSUPPORTED:
-                        this.toastrService.info("Sorry, this key could be activated.");
+                        this.toastrService.info(this.translateService.instant("confirm.toastr.onError.CONFIRMATIONTYPE_UNSUPPORTED"));
                         return;
                     case ErrorType.CURRENT_EMAIL_WAS_ALREADY_CHANGED:
-                        this.toastrService.error("You already changed your email since create this request.");
+                        this.toastrService.error(this.translateService.instant("confirm.toastr.onError.CURRENT_EMAIL_WAS_ALREADY_CHANGED"));
                         return;
                     case ErrorType.EMAIL_ALREADY_REGISTERED:
-                        this.toastrService.error("Selected email already registered.");
+                        this.toastrService.error(this.translateService.instant("confirm.toastr.onError.EMAIL_ALREADY_REGISTERED"));
                         return;
                 }
 
-                this.toastrService.error("Something went wrong while attempted to confirm. :(");
+                this.toastrService.error(this.translateService.instant("shared.somethingWentWrong"));
             }
         ).add(
             () => {
@@ -174,7 +177,8 @@ export class ConfirmComponent {
             data => {
                 this.isConfirmationActivated = true;
 
-                this.toastrService.success("Password successfully changed!");
+                this.toastrService.success(this.translateService.instant("confirm.toastr.onSuccess.PasswordRestore"));
+                this.router.navigateByUrl("/login");
             },
             (e: HttpErrorResponse) => {
                 let error = e.error as ErrorResponseDto;
@@ -188,7 +192,7 @@ export class ConfirmComponent {
                     return;
                 }
 
-                this.toastrService.error("Something went wrong while attempted to confirm. :(");
+                this.toastrService.error(this.translateService.instant("shared.somethingWentWrong"));
             }
         ).add(
             () => {

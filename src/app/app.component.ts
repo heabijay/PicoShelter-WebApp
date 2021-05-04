@@ -8,6 +8,7 @@ import { TokenService } from "./services/token.service";
 import { environment } from "./enviroment"
 import { env } from "process";
 import { ProfilesHttpService } from "./services/profilesHttp.service";
+import { log } from "console";
 
 @Component({
     selector: "app",
@@ -85,6 +86,6 @@ export class AppComponent {
     }
 
     onActivate(event) {
-        document.getElementById('bodyAndFooter').scrollTo(0, 0);
+        window.scrollTo(0, 0);
     }
 }

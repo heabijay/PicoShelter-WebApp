@@ -25,6 +25,56 @@
 			"imagesDropped": "Images successfully dropped!"
 		}
 	},
+	"apanel": {
+		"header": "Admin Panel",
+		"images": {
+			"btnGet": "Get",
+			"code": {
+				"forbidden": "Access forbidden. Image hasn't public endpoints.",
+				"notFound": "Image with this code not found.",
+				"required": "Code required."
+			},
+			"header": "Image Moderate",
+			"info": {
+				"autoDeleteDate": "Auto Delete",
+				"code": "Code",
+				"id": "Id",
+				"public": "Public",
+				"resolution": "Resolution",
+				"size": "Size",
+				"title": "Title",
+				"type": "Type",
+				"uploadedDate": "Uploaded",
+				"user": "User"
+			},
+			"toastr": {
+				"successfullyDeleted": "Successfully deleted!"
+			}
+		},
+		"nav": {
+			"images": "Images",
+			"stats": "Stats"
+		},
+		"stats": {
+			"accountsText": "accounts registered",
+			"albumsText": "albums available",
+			"error": "Hey! We got the receiving error. Try to reload the app.",
+			"forceCleanup": {
+				"lbl": "Force Cleanup",
+				"tooltip": "Force recheck of auto-delete images and confirmations"
+			},
+			"header": "Server Statistics",
+			"imagesText": "images is stored",
+			"toastr": {
+				"accessForbidden": "Access forbidden! Please, reload the app.",
+				"cleanupSuccess": "Cleanup success!"
+			}
+		},
+		"toastr": {
+			"accesssForbidden": "Access forbidden! Please, reload the app."
+		},
+		"usingByAdmin": "Using by Administrator"
+	},
 	"app": {
 		"serverError": {
 			"btnReload": "Reload app",
@@ -72,8 +122,38 @@
 			"lbl": "Status",
 			"notActivated": "Not Activated"
 		},
+		"toastr": {
+			"onError": {
+				"CONFIRMATIONTYPE_UNSUPPORTED": "Sorry, this key couldn't be activated.",
+				"CURRENT_EMAIL_WAS_ALREADY_CHANGED": "You already changed your email since create this request.",
+				"EMAIL_ALREADY_REGISTERED": "Selected email already registered."
+			},
+			"onSuccess": {
+				"AlbumInvite": "You successfully joined to album!",
+				"EmailChanging": "Next instruction sent to your new email.",
+				"EmailChangingNew": "Email successfully changed.",
+				"EmailRegistration": "Account successfully registered!",
+				"PasswordRestore": "Password successfully changed!",
+				"default": "Key successfully activated!"
+			}
+		},
 		"type": {
+			"AlbumInvite": "Album invite",
+			"EmailChanging": "Email changing (Step 1/2)",
+			"EmailChangingNew": "Email changing (Step 2/2)",
+			"EmailRegistration": "Account registration",
+			"PasswordRestore": "Password restore",
 			"lbl": "Type"
+		}
+	},
+	"footer": {
+		"language": {
+			"header": "Language"
+		},
+		"references": {
+			"about": "About PicoShelter",
+			"confirm": "Activate key",
+			"header": "References"
 		}
 	},
 	"home": {
@@ -291,6 +371,7 @@
 		"apps": "Apps",
 		"login": "Login",
 		"profile": {
+			"adminPanel": "Admin Panel",
 			"logout": "Logout",
 			"myProfile": "My Profile",
 			"notifications": {

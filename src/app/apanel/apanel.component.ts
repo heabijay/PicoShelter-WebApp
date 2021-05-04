@@ -65,7 +65,7 @@ export class APanelComponent {
 
     ngOnInit(): void {
         if (this.currentUserService.currentUser?.role != 'admin') {
-            this.toastrService.error("You aren't the admin. Access Forbidden.");
+            this.toastrService.error(this.translateService.instant("apanel.toastr.accesssForbidden"));
             this.routerService.navigateByUrl("/");
         }
 
@@ -89,7 +89,7 @@ export class APanelComponent {
             },
             (error: HttpErrorResponse) => {
                 if (error.status == 401 || error.status == 403) {
-                    this.toastrService.error("Access forbidden! Please, reload the app.");
+                    this.toastrService.error(this.translateService.instant("apanel.stats.toastr.accessForbidden"));
                 }
                 
                 this.isStatsError = true;
@@ -109,7 +109,7 @@ export class APanelComponent {
                     this.isForceCleanuping = true;
                     this.adminService.forceCleanup().subscribe(
                         data => {
-                            this.toastrService.success("Cleanup success!");
+                            this.toastrService.success(this.translateService.instant("apanel.stats.toastr.cleanupSuccess"));
                             this.updateStats(false);
                         },
                         error => {
@@ -233,7 +233,7 @@ export class APanelComponent {
                     this.isImageDeleting = true;
                     this.adminService.deleteImage(this.imageInfo.imageCode).subscribe(
                         data => {
-                            this.toastrService.success("Successfully deleted!");
+                            this.toastrService.success(this.translateService.instant("apanel.images.toastr.successfullyDeleted"));
                             this.getImageInfo();
                         },
                         error => {
