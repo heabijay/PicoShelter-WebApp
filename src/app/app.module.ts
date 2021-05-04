@@ -45,6 +45,7 @@ import { MissingTranslationHandler, TranslateLoader, TranslateModule } from "@ng
 import { HttpLoaderFactory } from "./httpLoaderFactory"
 import { MissingTranslationService } from "./services/missingTranslation.service"
 import { AppsComponent } from "./apps/apps.component"
+import { APanelComponent } from "./apanel/apanel.component"
 
 @NgModule({
     imports: [
@@ -102,7 +103,8 @@ import { AppsComponent } from "./apps/apps.component"
         AlbumImagesComponent,
         NgbdAlbumImageLinksModalComponent,
         NgbdAlbumMembersModalComponent,
-        AppsComponent
+        AppsComponent,
+        APanelComponent
     ],
     providers: [
         TokenService,

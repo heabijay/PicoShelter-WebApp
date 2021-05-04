@@ -116,6 +116,7 @@
                             </div>
                         </span>
                         <button class="btn dropdown-item" data-toggle="collapse" data-target="#collapsibleNavId.show" (click)="openSettingsModal()"><i class="fas fa-cog pr-1" aria-hidden="true"></i> {{ 'navbar.profile.settings' | translate }}</button>
+                        <button *ngIf="currentUser?.role == 'admin'" class="btn dropdown-item" data-toggle="collapse" data-target="#collapsibleNavId.show" routerLink="/apanel"><i class="fas fa-hammer pr-1"></i> Admin Panel</button>
                         <button class="btn dropdown-item" data-toggle="collapse" data-target="#collapsibleNavId.show" (click)="logout()"><i class="fas fa-sign-out-alt pr-1"></i> {{ 'navbar.profile.logout' | translate }}</button>
                     </div>
                 </li>

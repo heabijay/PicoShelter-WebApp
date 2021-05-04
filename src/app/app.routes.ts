@@ -12,6 +12,7 @@ import { ConfirmComponent } from "./confirm/confirm.component";
 import { AlbumsComponent } from "./albums/albums.component";
 import { ImagesComponent as AlbumImagesComponent } from "./albums/images/images.component";
 import { AppsComponent } from "./apps/apps.component";
+import { APanelComponent } from "./apanel/apanel.component";
 
 export const appRoutes: Routes = [
     { path: "", component: HomeComponent },
@@ -28,5 +29,6 @@ export const appRoutes: Routes = [
     { path: "s/:usercode/:imgCode", component: AlbumImagesComponent },
     { path: "confirm", component: ConfirmComponent },
     { path: "apps", component: AppsComponent },
+    { path: "apanel", component: APanelComponent },
     { path: "**", component: NotFoundComponent }
 ]
