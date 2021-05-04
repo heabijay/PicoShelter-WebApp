@@ -294,5 +294,14 @@ summary {
 }
 
 .onHoverTextPrimary:hover {
-    color: #007bff;
+    color: #007bff!important;
+}
+
+.grayscale {
+    filter: grayscale(100%);
+    transition: filter .5s ease-out;
+}
+
+.grayscale:hover {
+    filter: grayscale(0%);
 }

@@ -1,4 +1,20 @@
 {
+	"about": {
+		"lblAbout": "About",
+		"specialThanks": {
+			"azure": {
+				"text": "Cloud computing platform. Using as Server, MySQL and Web-Client hosting."
+			},
+			"fontAwesome": {
+				"text": "Web's most popular icon set and toolkit for sites and apps."
+			},
+			"header": "Special Thanks",
+			"loadingIo": {
+				"text": "Ajax Loader, Animated Icons, Live Background in GIF / SVG / APNG / CSS"
+			}
+		},
+		"text": "PicoShelter is a free image hosting service with user profiles, shared albums and direct links. Also we provide the official desktop application for more comfortable experience."
+	},
 	"albums": {
 		"albumInfo": {
 			"createdTime": "Created time",

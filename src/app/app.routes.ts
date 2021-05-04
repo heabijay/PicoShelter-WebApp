@@ -13,6 +13,7 @@ import { AlbumsComponent } from "./albums/albums.component";
 import { ImagesComponent as AlbumImagesComponent } from "./albums/images/images.component";
 import { AppsComponent } from "./apps/apps.component";
 import { APanelComponent } from "./apanel/apanel.component";
+import { AboutComponent } from "./about/about.component";
 
 export const appRoutes: Routes = [
     { path: "", component: HomeComponent },
@@ -30,5 +31,6 @@ export const appRoutes: Routes = [
     { path: "confirm", component: ConfirmComponent },
     { path: "apps", component: AppsComponent },
     { path: "apanel", component: APanelComponent },
+    { path: "about", component: AboutComponent },
     { path: "**", component: NotFoundComponent }
 ]

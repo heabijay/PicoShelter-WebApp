@@ -46,6 +46,7 @@ import { HttpLoaderFactory } from "./httpLoaderFactory"
 import { MissingTranslationService } from "./services/missingTranslation.service"
 import { AppsComponent } from "./apps/apps.component"
 import { APanelComponent } from "./apanel/apanel.component"
+import { AboutComponent } from "./about/about.component"
 
 @NgModule({
     imports: [
@@ -104,7 +105,8 @@ import { APanelComponent } from "./apanel/apanel.component"
         NgbdAlbumImageLinksModalComponent,
         NgbdAlbumMembersModalComponent,
         AppsComponent,
-        APanelComponent
+        APanelComponent,
+        AboutComponent
     ],
     providers: [
         TokenService,
