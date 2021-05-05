@@ -13,7 +13,7 @@ import { AlbumProfileInfoDto } from "src/app/models/albumProfileInfoDto";
 import { NgbdConfirmModalComponent } from "../confirm/ngbdConfirmModal.component";
 import { ToastrService } from "ngx-toastr";
 import { ErrorResponseDto } from "src/app/models/errorResponseDto";
-import { ErrorType } from "src/app/enum/ErrorType";
+import { ErrorType } from "src/app/enum/errorType";
 import { NgModel } from "@angular/forms";
 import { UserInfo } from "src/app/models/userInfo";
 import { CurrentUserService } from "src/app/services/currentUser.service";

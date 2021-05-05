@@ -8,7 +8,7 @@ import { SuccessResponseDto } from "../models/successResponseDto";
 import { ImageInfoDto } from "../models/imageInfoDto";
 import { ErrorResponseDto } from "../models/errorResponseDto";
 import { ToastrService } from "ngx-toastr";
-import { ErrorType } from "../enum/ErrorType";
+import { ErrorType } from "../enum/errorType";
 import { ImagesHttpService } from "../services/imagesHttp.service";
 import { copyToClipboard } from "../statics/copyToClipboard"
 import { Router } from "@angular/router";

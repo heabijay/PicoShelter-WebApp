@@ -1,12 +1,6 @@
-import { HttpErrorResponse } from "@angular/common/http";
 import { Component, HostListener, Input, ViewChild } from "@angular/core"
-import { NgModel } from "@angular/forms";
 import { NgbActiveModal } from "@ng-bootstrap/ng-bootstrap"
-import { ToastrService } from "ngx-toastr";
 import { Subscription } from "rxjs";
-import { ErrorType } from "src/app/enum/ErrorType";
-import { AlbumInfoDto } from "src/app/models/albumInfoDto";
-import { ErrorResponseDto } from "src/app/models/errorResponseDto";
 import { ImageShortInfoDto } from "src/app/models/imageShortInfoDto";
 import { ImageThumbnailViewModel } from "src/app/profiles/models/imageThumbnailViewModel";
 import { AlbumsHttpService } from "src/app/services/albumsHttp.service";
@@ -14,8 +8,6 @@ import { CurrentUserService } from "src/app/services/currentUser.service";
 import { ImageCacheService } from "src/app/services/imageCache.service";
 import { ImagesHttpService } from "src/app/services/imagesHttp.service";
 import { ProfilesHttpService } from "src/app/services/profilesHttp.service";
-import { AlbumCreateDto } from "../../models/albumCreateDto";
-import { AlbumHttpService } from "../../services/albumHttp.service";
 
 @Component({
     selector: "ngbd-albumaddimage-modal",

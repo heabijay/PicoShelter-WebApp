@@ -4,7 +4,7 @@ import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { ToastrService } from 'ngx-toastr';
-import { ErrorType } from 'src/app/enum/ErrorType';
+import { ErrorType } from 'src/app/enum/errorType';
 import { ErrorResponseDto } from 'src/app/models/errorResponseDto';
 import { UserChangePasswordDto } from 'src/app/models/userChangePasswordDto';
 import { IdentityHttpService } from 'src/app/services/identityHttp.service';

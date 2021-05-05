@@ -4,7 +4,7 @@ import { NgModel } from "@angular/forms";
 import { NgbActiveModal, NgbModal } from "@ng-bootstrap/ng-bootstrap"
 import { TranslateService } from "@ngx-translate/core";
 import { ToastrService } from "ngx-toastr";
-import { ErrorType } from "src/app/enum/ErrorType";
+import { ErrorType } from "src/app/enum/errorType";
 import { AlbumInfoDto } from "src/app/models/albumInfoDto";
 import { ErrorResponseDto } from "src/app/models/errorResponseDto";
 import { AlbumsHttpService } from "src/app/services/albumsHttp.service";

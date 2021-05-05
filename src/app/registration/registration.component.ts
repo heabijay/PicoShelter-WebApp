@@ -3,14 +3,11 @@ import { Router } from "@angular/router";
 import { ToastrService } from "ngx-toastr";
 import { CurrentUserService } from "../services/currentUser.service";
 import { UserRegistrationDto } from "../models/userRegistrationDto"
-import { TokenService } from "../services/token.service";
 import { IdentityHttpService } from "../services/identityHttp.service";
-import { UserLoginData } from "../models/userLoginData";
-import { SuccessResponseDto } from "../models/successResponseDto";
 import { HttpErrorResponse } from "@angular/common/http";
 import { ErrorResponseDto } from "../models/errorResponseDto";
-import { ErrorType } from "../enum/ErrorType";
-import { FormControl, FormGroup, NgForm, NgModel } from "@angular/forms";
+import { ErrorType } from "../enum/errorType";
+import { NgForm, NgModel } from "@angular/forms";
 import { TranslateService } from "@ngx-translate/core";
 
 export const emailRegex = /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/gm;

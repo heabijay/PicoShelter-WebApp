@@ -7,7 +7,7 @@ import { ToastrService } from 'ngx-toastr';
 import { NgForm, NgModel } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ErrorResponseDto } from 'src/app/models/errorResponseDto';
-import { ErrorType } from 'src/app/enum/ErrorType';
+import { ErrorType } from 'src/app/enum/errorType';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
