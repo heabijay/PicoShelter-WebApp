@@ -12,7 +12,7 @@ import { copyToClipboard } from "../../statics/copyToClipboard"
 
 @Component({
     selector: "ngbd-albumimagelinks-modal",
-    templateUrl: "./NgbdAlbumImageLinksModal.component.html",
+    templateUrl: "./ngbdAlbumImageLinksModal.component.html",
     providers: [
         AlbumsHttpService,
         ImagesHttpService
