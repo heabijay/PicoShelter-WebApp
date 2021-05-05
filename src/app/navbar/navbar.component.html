@@ -18,10 +18,10 @@
         </ul>
         <ul class="navbar-nav nav-flex-icons mt-2 mt-sm-0">
             <ng-container *ngIf="currentUser == null; else loginedTemplate">
-                <li class="nav-item ml-0 ml-sm-1 mt-1 mt-sm-0" routerLinkActive="d-none">
+                <li class="nav-item ml-0 ml-sm-1 mt-1 mt-sm-0 align-self-center" routerLinkActive="d-none">
                     <button class="btn btn-secondary" routerLink="/login" data-toggle="collapse" data-target="#collapsibleNavId.show"><i class="fas fa-sign-in"></i> {{ 'navbar.login' | translate }}</button>
                 </li>
-                <li class="nav-item ml-0 ml-sm-1 mt-1 mt-sm-0" routerLinkActive="d-none">
+                <li class="nav-item ml-0 ml-sm-1 mt-1 mt-sm-0 align-self-center" routerLinkActive="d-none">
                     <button class="btn btn-primary" routerLink="/registration" data-toggle="collapse" data-target="#collapsibleNavId.show"><i class="fas fa-user-plus"></i> {{ 'navbar.register' | translate }}</button>
                 </li>
             </ng-container>
