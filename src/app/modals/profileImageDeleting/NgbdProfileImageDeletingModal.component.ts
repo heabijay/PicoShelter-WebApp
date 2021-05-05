@@ -3,7 +3,7 @@ import { NgbActiveModal } from "@ng-bootstrap/ng-bootstrap"
 import { ImagesHttpService } from "../../services/imagesHttp.service";
 
 @Component({
-    selector: "ngbd-profileimagedeleting-modal",
+    selector: "ngbd-profileimagedeleting-modal", 
     templateUrl: "./ngbdProfileImageDeletingModal.component.html",
     providers: [
         ImagesHttpService
