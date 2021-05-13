@@ -16,6 +16,8 @@ import { MissingTranslationHandler, TranslateLoader, TranslateModule } from "@ng
 import { HttpLoaderFactory } from "./shared/httpLoaderFactory"
 import { MissingTranslationService } from "./services/missingTranslation.service"
 import { SharedModule } from "./shared/shared.module"
+import { RouteReuseStrategy } from "@angular/router";
+import { CustomReuseStrategy } from "./custom-reuse.strategy";
 
 @NgModule({
     imports: [
@@ -54,6 +56,12 @@ import { SharedModule } from "./shared/shared.module"
     ],
     bootstrap: [
         AppComponent
+    ],
+    providers: [
+        {
+            provide: RouteReuseStrategy,
+            useClass: CustomReuseStrategy
+        }
     ]
 })
 export class AppModule {
