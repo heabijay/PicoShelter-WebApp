@@ -40,12 +40,11 @@ export class CustomReuseStrategy implements RouteReuseStrategy {
         // If url is profile
         if (cUrl.startsWith("profiles/") || cUrl.startsWith("p/")) {
             // Delete all handles which isn't of the this profile
-            const id = route.params["id"];
-            const username = route.params["username"];
+            const deleteFrom = rUrl.indexOf('/', cUrl.indexOf('/') + 1);
+            const profileUrl = rUrl.substring(0, deleteFrom == -1 ? undefined : deleteFrom);
+            
             [...this.storedRouteHandles.entries()]
-                .filter(
-                    t => !t[0].startsWith("profiles/" + id + "/") && t[0] != "profiles/" + id && 
-                        !t[0].startsWith("p/" + username + "/") && t[0] != "p/" + username)
+                .filter(t => !t[0].startsWith(profileUrl))
                 .forEach(t => this.storedRouteHandles.delete(t[0]));
         }
 
