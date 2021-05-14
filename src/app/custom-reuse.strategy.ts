@@ -1,3 +1,4 @@
+import { ComponentRef } from '@angular/core';
 import { ActivatedRouteSnapshot, RouteReuseStrategy, DetachedRouteHandle } from '@angular/router';
 
 export class CustomReuseStrategy implements RouteReuseStrategy {
@@ -17,6 +18,7 @@ export class CustomReuseStrategy implements RouteReuseStrategy {
         "s:/:usercode/:imgCode"
     ]
     storedRouteHandles = new Map<string, DetachedRouteHandle>();
+    storedRouteScrollY = new Map<string, number>();
 
     // Decides if the route should be stored
     shouldDetach(route: ActivatedRouteSnapshot): boolean {
@@ -25,7 +27,9 @@ export class CustomReuseStrategy implements RouteReuseStrategy {
 
     //Store the information for the route we're destructing
     store(route: ActivatedRouteSnapshot, handle: DetachedRouteHandle): void {
-        this.storedRouteHandles.set(this.getResolvedUrl(route), handle);
+        const url = this.getResolvedUrl(route);
+        this.storedRouteHandles.set(url, handle);
+        this.storedRouteScrollY.set(url, window.scrollY);
     }
 
     //Return true if we have a stored route object for the next route
@@ -34,8 +38,10 @@ export class CustomReuseStrategy implements RouteReuseStrategy {
         const rUrl = this.getResolvedUrl(route);
 
         // Trying to Cleanup handles
-        if (this.routesToCache.indexOf(cUrl) == -1 && this.routesWhenCacheActive.indexOf(cUrl) == -1)
+        if (this.routesToCache.indexOf(cUrl) == -1 && this.routesWhenCacheActive.indexOf(cUrl) == -1) {
             this.storedRouteHandles.clear();
+            this.storedRouteScrollY.clear();
+        }
 
         // If url is profile
         if (cUrl.startsWith("profiles/") || cUrl.startsWith("p/")) {
@@ -46,6 +52,10 @@ export class CustomReuseStrategy implements RouteReuseStrategy {
             [...this.storedRouteHandles.entries()]
                 .filter(t => !t[0].startsWith(profileUrl))
                 .forEach(t => this.storedRouteHandles.delete(t[0]));
+
+            [...this.storedRouteScrollY.entries()]
+                .filter(t => !t[0].startsWith(profileUrl))
+                .forEach(t => this.storedRouteHandles.delete(t[0]));
         }
 
         return this.storedRouteHandles.has(rUrl) && this.storedRouteHandles.get(rUrl) != null;
@@ -53,7 +63,15 @@ export class CustomReuseStrategy implements RouteReuseStrategy {
 
     //If we returned true in shouldAttach(), now return the actual route data for restoration
     retrieve(route: ActivatedRouteSnapshot): DetachedRouteHandle {
-        return this.storedRouteHandles.get(this.getResolvedUrl(route));
+        const url = this.getResolvedUrl(route);
+        const scrollY = this.storedRouteScrollY.get(url);
+        if (scrollY != null)
+            setTimeout(() => {
+                window.scrollTo({ behavior: 'auto', left: 0, top: scrollY });
+            });
+        
+        const handle = this.storedRouteHandles.get(url);
+        return handle;
     }
 
     //Reuse the route if we're going to and from the same route

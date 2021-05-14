@@ -6,9 +6,8 @@ import { CurrentUserService } from "./services/currentUser.service";
 import { IdentityHttpService } from "./services/identityHttp.service";
 import { TokenService } from "./services/token.service";
 import { environment } from "./enviroment"
-import { env } from "process";
-import { ProfilesHttpService } from "./services/profilesHttp.service";
-import { log } from "console";
+import { NavigationEnd, NavigationStart, Router, RouteReuseStrategy } from "@angular/router";
+import { CustomReuseStrategy } from "./custom-reuse.strategy";
 
 @Component({
     selector: "app",
@@ -31,7 +30,9 @@ export class AppComponent {
         private tokenService: TokenService,
         public identityHttpService: IdentityHttpService,
         private translateService: TranslateService,
-        private toastrService: ToastrService
+        private toastrService: ToastrService,
+        private router: Router,
+        private reuseStrategy: RouteReuseStrategy
     ) {
 
     }
@@ -83,9 +84,5 @@ export class AppComponent {
         this.translateService.get('app.toastr.languageChanged').subscribe(str => {
             this.toastrService.info(str);
         })
-    }
-
-    onActivate(event) {
-        window?.scrollTo(0, 0);
     }
 }
