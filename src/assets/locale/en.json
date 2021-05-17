@@ -187,9 +187,9 @@
 				"header": "Direct Links",
 				"text": "Share anything with direct links."
 			},
-			"privacity": {
-				"header": "Privacity Control",
-				"text": "Instant change access setting in one click."
+			"privacy": {
+				"header": "Privacy Control",
+				"text": "Instant change access settings in one click."
 			},
 			"profiles": {
 				"header": "Profiles",
