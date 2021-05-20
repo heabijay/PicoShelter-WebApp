@@ -1,72 +1,78 @@
-<div class="container mt-5" id="images">
-    <div class="d-flex flex-column flex-sm-row align-items-sm-center">
-        <h1 class="mr-2 flex-grow-1">{{ 'profile.images.header' | translate }}</h1>
-        <div *ngIf="isMyAccount" class="d-flex flex-column flex-sm-row">
-            <button class="btn btn-primary" type="button" routerLink="/upload"><i class="fa fa-plus mr-2" aria-hidden="true"></i>{{ 'profile.images.btns.upload' | translate }}</button>
-            <div class="d-flex flex-row" *ngIf="selectedCount > 0">
-                <div *ngIf="selectedCount == 1" class="btn-group flex-grow-1 mt-2 mt-sm-0 ml-sm-1">
-                    <button type="button" class="btn btn-success dropdown-toggle" [disabled]="isSharing" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <ng-container *ngIf="isSharing; else notSharing">
-                            <i class="fa fa-spinner-third fa-spin mr-2" aria-hidden="true"></i>{{ 'profile.images.btns.share.sharing' | translate }}
-                        </ng-container>
-                        <ng-template #notSharing>
-                            <i class="fas fa-share-alt mr-2"></i>{{ 'profile.images.btns.share.label' | translate }}
-                        </ng-template>
-                    </button>
-                    <div class="dropdown-menu dropdown-menu-right" style="z-index: 1100;">
-                        <summary (click)="shareImage()">
-                            <a class="dropdown-item"><i class="fas fa-link mr-2"></i>{{ 'profile.images.btns.share.makeImgPublic' | translate }}</a>
-                        </summary>
-                        <summary (click)="shareAsAlbum()">
-                            <a class="dropdown-item"><i class="fas fa-layer-group mr-2"></i>{{ 'profile.images.btns.share.asAlbum' | translate }}</a>
-                        </summary>
+<div class="mt-4" id="images">
+    <div class="pt-3 bg-white" [ngClass]="{'sticky': isMyAccount}">
+        <div class="container">
+            <div class="d-flex flex-column flex-sm-row align-items-sm-center">
+                <h1 class="mr-2 flex-grow-1">{{ 'profile.images.header' | translate }}</h1>
+                <div *ngIf="isMyAccount" class="d-flex flex-column flex-sm-row">
+                    <button class="btn btn-primary" type="button" routerLink="/upload"><i class="fa fa-plus mr-2" aria-hidden="true"></i>{{ 'profile.images.btns.upload' | translate }}</button>
+                    <div class="d-flex flex-row" *ngIf="selectedCount > 0">
+                        <div *ngIf="selectedCount == 1" class="btn-group flex-grow-1 mt-2 mt-sm-0 ml-sm-1">
+                            <button type="button" class="btn btn-success dropdown-toggle" [disabled]="isSharing" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <ng-container *ngIf="isSharing; else notSharing">
+                                    <i class="fa fa-spinner-third fa-spin mr-2" aria-hidden="true"></i>{{ 'profile.images.btns.share.sharing' | translate }}
+                                </ng-container>
+                                <ng-template #notSharing>
+                                    <i class="fas fa-share-alt mr-2"></i>{{ 'profile.images.btns.share.label' | translate }}
+                                </ng-template>
+                            </button>
+                            <div class="dropdown-menu dropdown-menu-right" style="z-index: 1100;">
+                                <summary (click)="shareImage()">
+                                    <a class="dropdown-item"><i class="fas fa-link mr-2"></i>{{ 'profile.images.btns.share.makeImgPublic' | translate }}</a>
+                                </summary>
+                                <summary (click)="shareAsAlbum()">
+                                    <a class="dropdown-item"><i class="fas fa-layer-group mr-2"></i>{{ 'profile.images.btns.share.asAlbum' | translate }}</a>
+                                </summary>
+                            </div>
+                        </div>
+                        <button *ngIf="selectedCount > 1" class="btn flex-grow-1 btn-success mt-2 mt-sm-0 ml-sm-1" type="button" [disabled]="isSharing" (click)="shareAsAlbum()">
+                            <ng-container *ngIf="isSharing; else notSharing">
+                                <i class="fa fa-spinner-third fa-spin mr-2" aria-hidden="true"></i>{{ 'profile.images.btns.share.sharing' | translate }}
+                            </ng-container>
+                            <ng-template #notSharing>
+                                <i class="fas fa-share-alt mr-2"></i>{{ 'profile.images.btns.share.asAlbum' | translate }}
+                            </ng-template>
+                        </button>
+                        <button class="btn flex-grow-1 btn-danger mt-2 mt-sm-0 ml-1" type="button" (click)="deleteSelectedImages()"><i class="fas fa-trash mr-2"></i>{{ 'profile.images.btns.delete' | translate }}</button>
                     </div>
                 </div>
-                <button *ngIf="selectedCount > 1" class="btn flex-grow-1 btn-success mt-2 mt-sm-0 ml-sm-1" type="button" [disabled]="isSharing" (click)="shareAsAlbum()">
-                    <ng-container *ngIf="isSharing; else notSharing">
-                        <i class="fa fa-spinner-third fa-spin mr-2" aria-hidden="true"></i>{{ 'profile.images.btns.share.sharing' | translate }}
-                    </ng-container>
-                    <ng-template #notSharing>
-                        <i class="fas fa-share-alt mr-2"></i>{{ 'profile.images.btns.share.asAlbum' | translate }}
-                    </ng-template>
-                </button>
-                <button class="btn flex-grow-1 btn-danger mt-2 mt-sm-0 ml-1" type="button" (click)="deleteSelectedImages()"><i class="fas fa-trash mr-2"></i>{{ 'profile.images.btns.delete' | translate }}</button>
             </div>
+            <hr class="my-1">
         </div>
     </div>
-    <hr class="my-1">
-    <div class="row mx-n1">
-        <div *ngFor="let image of imageThumbnailViewModel" 
-            class="col-4 
-                col-sm-3
-                col-md-2 
-                col-lg-1 
-                square 
-                d-inline-block p-1" >
-            <summary class="image-thumbnail-frame" (mouseenter)="onMouseEnter(image)" (mouseleave)="onMouseLeave(image)" placement="bottom" [ngbTooltip]="image?.info?.title">
-                <div class="image-thumbnail-overlay-shared" *ngIf="isMyAccount && image?.info?.isPublic">
-                    <i class="fa fa-link" aria-hidden="true"></i>
-                </div>
-                <div class="image-thumbnail-overlay-loading" *ngIf="image?.resourceUrl == null">
-                    <i class="fa fa-spinner-third fa-spin" aria-hidden="true"></i>
-                </div>
-                <summary *ngIf="isMyAccount" [style.opacity]="(image.selected ? 1 : 0.3)" class="image-thumbnail-overlay-selected px-1" (click)="performToggleSelect(image, $event)">
-                    <i [ngClass]="{'text-primary': image.selected, 'fas': image.selected }" class="far fa-check-square"></i>
+    <div class="container">
+        <div class="row mx-n1">
+            <div *ngFor="let image of imageThumbnailViewModel" 
+                class="col-4 
+                    col-sm-3
+                    col-md-2 
+                    col-lg-1 
+                    square 
+                    d-inline-block p-1" >
+                <summary class="image-thumbnail-frame" (mouseenter)="onMouseEnter(image)" (mouseleave)="onMouseLeave(image)" placement="bottom" [ngbTooltip]="image?.info?.title">
+                    <div class="image-thumbnail-overlay-shared" *ngIf="isMyAccount && image?.info?.isPublic">
+                        <i class="fa fa-link" aria-hidden="true"></i>
+                    </div>
+                    <div class="image-thumbnail-overlay-loading" *ngIf="image?.resourceUrl == null">
+                        <i class="fa fa-spinner-third fa-spin" aria-hidden="true"></i>
+                    </div>
+                    <summary *ngIf="isMyAccount" [style.opacity]="(image.selected ? 1 : 0.3)" class="image-thumbnail-overlay-selected px-1" (click)="performToggleSelect(image, $event)">
+                        <i [ngClass]="{'text-primary': image.selected, 'fas': image.selected }" class="far fa-check-square"></i>
+                    </summary>
+                    <div *ngIf="image?.preselect" class="image-thumbnail-overlay-preselect"></div>
+                    <a [routerLink]="'/i/' + image?.info?.imageCode" class="image-thumbnail image-thumbnail-zoomIn" [style.background-image]="image?.resourceUrl == null ? 'none' : 'url(' + image.resourceUrl + ')'"></a>
                 </summary>
-                <div *ngIf="image?.preselect" class="image-thumbnail-overlay-preselect"></div>
-                <a [routerLink]="'/i/' + image?.info?.imageCode" class="image-thumbnail image-thumbnail-zoomIn" [style.background-image]="image?.resourceUrl == null ? 'none' : 'url(' + image.resourceUrl + ')'"></a>
-            </summary>
+            </div>
+            <p *ngIf="profile?.images?.totalCount == 0" class="text-muted text-center w-100 mt-3 lead">
+                {{ 'profile.images.none' | translate }}
+            </p>
+    
+            <p *ngIf="isLoading" class="text-muted text-center w-100 mt-3">
+                <i class="fa fa-spinner-third fa-spin" aria-hidden="true"></i>
+            </p>
+            <button *ngIf="!isAllImagesLoaded && !isLoading" (click)="loadNextPage()" class="btn btn-primary w-100 mt-3" type="button"><i class="fa fa-bolt mr-2" aria-hidden="true"></i>{{ 'shared.loadMore' | translate }}</button>
+            <small *ngIf="profile?.images?.totalCount > 0 && isAllImagesLoaded" class="text-muted text-center w-100 mt-3">
+                {{ 'profile.images.totalCount' | translate:{'count': profile?.images?.totalCount} }}
+            </small>
         </div>
-        <p *ngIf="profile?.images?.totalCount == 0" class="text-muted text-center w-100 mt-3 lead">
-            {{ 'profile.images.none' | translate }}
-        </p>
-
-        <p *ngIf="isLoading" class="text-muted text-center w-100 mt-3">
-            <i class="fa fa-spinner-third fa-spin" aria-hidden="true"></i>
-        </p>
-        <button *ngIf="!isAllImagesLoaded && !isLoading" (click)="loadNextPage()" class="btn btn-primary w-100 mt-3" type="button"><i class="fa fa-bolt mr-2" aria-hidden="true"></i>{{ 'shared.loadMore' | translate }}</button>
-        <small *ngIf="profile?.images?.totalCount > 0 && isAllImagesLoaded" class="text-muted text-center w-100 mt-3">
-            {{ 'profile.images.totalCount' | translate:{'count': profile?.images?.totalCount} }}
-        </small>
     </div>
 </div>

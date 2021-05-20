@@ -53,49 +53,55 @@
                 </div>
             </div>
         </div>
-        <div class="container mt-3">
-            <div class="d-flex flex-column flex-sm-row align-items-sm-center justify-content-end">
-                <div class="d-flex flex-column flex-sm-row mb-2">
-                    <button *ngIf="album.accessRole != null && album.accessRole <= roleType.editor" class="btn btn-primary" type="button" (click)="addImage()"><i class="fa fa-plus mr-2" aria-hidden="true"></i>{{ 'albums.btnAddImage' | translate }}</button>
-                    <button *ngIf="album.accessRole != null && album.accessRole <= roleType.admin" class="btn btn-secondary ml-sm-1 mt-1 mt-sm-0" type="button" (click)="editAlbum()"><i class="far fa-edit mr-2"></i>{{ 'albums.btnEditAlbum' | translate }}</button>
-                    <button *ngIf="selectedCount > 0 && album.accessRole != null && album.accessRole <= roleType.editor" [disabled]="isDropping" class="btn btn-danger ml-sm-1 mt-1 mt-sm-0" type="button" (click)="dropImages()">
-                        <ng-container *ngIf="isDropping; else notDropping">
-                            <i class="fa fa-spinner-third fa-spin mr-2" aria-hidden="true"></i>{{ 'albums.droppingImage' | translate }}
-                        </ng-container>
-                        <ng-template #notDropping>
-                            <i class="fas fa-ban mr-2"></i>{{ 'albums.btnDropImage' | translate }}
-                        </ng-template>
-                    </button>
+        <div class="mt-3">
+            <div *ngIf="album.accessRole != null && album.accessRole <= roleType.editor" class="pt-3 bg-white sticky">
+                <div class="container">
+                    <div class="d-flex flex-column flex-sm-row align-items-sm-center justify-content-end">
+                        <div class="d-flex flex-row mb-2">
+                            <button *ngIf="album.accessRole != null && album.accessRole <= roleType.editor" class="btn flex-grow-1 btn-primary" type="button" (click)="addImage()"><i class="fa fa-plus mr-2" aria-hidden="true"></i>{{ 'albums.btnAddImage' | translate }}</button>
+                            <button *ngIf="album.accessRole != null && album.accessRole <= roleType.admin" class="btn flex-grow-1 btn-secondary ml-1" type="button" (click)="editAlbum()"><i class="far fa-edit mr-2"></i>{{ 'albums.btnEditAlbum' | translate }}</button>
+                            <button *ngIf="selectedCount > 0 && album.accessRole != null && album.accessRole <= roleType.editor" [disabled]="isDropping" class="btn flex-grow-1 btn-danger ml-1" type="button" (click)="dropImages()">
+                                <ng-container *ngIf="isDropping; else notDropping">
+                                    <i class="fa fa-spinner-third fa-spin mr-2" aria-hidden="true"></i>{{ 'albums.droppingImage' | translate }}
+                                </ng-container>
+                                <ng-template #notDropping>
+                                    <i class="fas fa-ban mr-2"></i>{{ 'albums.btnDropImage' | translate }}
+                                </ng-template>
+                            </button>
+                        </div>
+                    </div>
+                    <hr class="my-1">
                 </div>
             </div>
-            <hr class="my-1" *ngIf="album.accessRole <= roleType.editor">
-            <div class="row mx-n1">
-                <div *ngFor="let image of imageThumbnailViewModel" 
-                    class="col-4 
-                        col-sm-3
-                        col-md-2 
-                        col-lg-1 
-                        square 
-                        d-inline-block p-1" >
-                    <summary class="image-thumbnail-frame" (mouseenter)="onMouseEnter(image)" (mouseleave)="onMouseLeave(image)" placement="bottom" [ngbTooltip]="image?.info?.title">
-                        <div class="image-thumbnail-overlay-loading" *ngIf="image?.resourceUrl == null">
-                            <i class="fa fa-spinner-third fa-spin" aria-hidden="true"></i>
-                        </div>
-                        <summary *ngIf="album.accessRole != null && album.accessRole <= roleType.editor" [style.opacity]="(image.selected ? 1 : 0.3)" class="image-thumbnail-overlay-selected px-1" (click)="performToggleSelect(image, $event)">
-                            <i [ngClass]="{'text-primary': image.selected, 'fas': image.selected }" class="far fa-check-square"></i>
+            <div class="container">
+                <div class="row mx-n1">
+                    <div *ngFor="let image of imageThumbnailViewModel" 
+                        class="col-4 
+                            col-sm-3
+                            col-md-2 
+                            col-lg-1 
+                            square 
+                            d-inline-block p-1" >
+                        <summary class="image-thumbnail-frame" (mouseenter)="onMouseEnter(image)" (mouseleave)="onMouseLeave(image)" placement="bottom" [ngbTooltip]="image?.info?.title">
+                            <div class="image-thumbnail-overlay-loading" *ngIf="image?.resourceUrl == null">
+                                <i class="fa fa-spinner-third fa-spin" aria-hidden="true"></i>
+                            </div>
+                            <summary *ngIf="album.accessRole != null && album.accessRole <= roleType.editor" [style.opacity]="(image.selected ? 1 : 0.3)" class="image-thumbnail-overlay-selected px-1" (click)="performToggleSelect(image, $event)">
+                                <i [ngClass]="{'text-primary': image.selected, 'fas': image.selected }" class="far fa-check-square"></i>
+                            </summary>
+                            <div *ngIf="image?.preselect" class="image-thumbnail-overlay-preselect"></div>
+                            <a [routerLink]="image?.info?.imageCode" class="image-thumbnail image-thumbnail-zoomIn" [style.background-image]="image?.resourceUrl == null ? 'none' : 'url(' + image.resourceUrl + ')'"></a>
                         </summary>
-                        <div *ngIf="image?.preselect" class="image-thumbnail-overlay-preselect"></div>
-                        <a [routerLink]="image?.info?.imageCode" class="image-thumbnail image-thumbnail-zoomIn" [style.background-image]="image?.resourceUrl == null ? 'none' : 'url(' + image.resourceUrl + ')'"></a>
-                    </summary>
+                    </div>
+                    <p *ngIf="album?.images?.totalCount == 0" class="text-muted text-center w-100 mt-3 lead">
+                        {{ 'profile.images.none' | translate }}
+                    </p>
+            
+                    <p *ngIf="isLoading" class="text-muted text-center w-100 mt-3">
+                        <i class="fa fa-spinner-third fa-spin" aria-hidden="true"></i>
+                    </p>
+                    <button *ngIf="!isAllImagesLoaded && !isLoading" (click)="loadNextPage()" class="btn btn-primary w-100 mt-3" type="button"><i class="fa fa-bolt mr-2" aria-hidden="true"></i>{{ 'shared.loadMore' | translate }}</button>
                 </div>
-                <p *ngIf="album?.images?.totalCount == 0" class="text-muted text-center w-100 mt-3 lead">
-                    {{ 'profile.images.none' | translate }}
-                </p>
-        
-                <p *ngIf="isLoading" class="text-muted text-center w-100 mt-3">
-                    <i class="fa fa-spinner-third fa-spin" aria-hidden="true"></i>
-                </p>
-                <button *ngIf="!isAllImagesLoaded && !isLoading" (click)="loadNextPage()" class="btn btn-primary w-100 mt-3" type="button"><i class="fa fa-bolt mr-2" aria-hidden="true"></i>{{ 'shared.loadMore' | translate }}</button>
             </div>
         </div>
     </div>

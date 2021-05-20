@@ -305,3 +305,13 @@ summary {
 .grayscale:hover {
     filter: grayscale(0%);
 }
+
+.sticky {
+    position: sticky; 
+    top: 56px; 
+    z-index: 1000;
+}
+
+.tooltip {
+    z-index: 300!important;
+}
