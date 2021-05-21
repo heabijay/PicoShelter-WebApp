@@ -12,7 +12,7 @@
                 <tr *ngFor="let profile of albumProfileViewModels">
                     <td class="fit">
                         <a [href]="window.location.origin + '/profiles/' + profile?.info?.user?.id" target="_blank">
-                            <img class="rounded-circle z-depth-0" height="50px" [src]="profile?.avatarUrl" onload="this.style.display='block'; this.style.margin='0 0 0 1rem'" onerror="this.style.display='none'" onloadstart="this.style.display='none'" style="display: none; cursor: pointer;">
+                            <img class="rounded-circle z-depth-0" height="50px" [src]="profile?.avatarUrl" onload="this.style.display='block'; this.style.margin='0 0 0 1rem'" onerror="this.style.display='none'" style="display: none; cursor: pointer;">
                         </a>
                     </td>
                     <td class="fit pl-3">
@@ -85,7 +85,7 @@
                     <tr *ngFor="let invite of albumInviteViewModels">
                         <td class="fit">
                             <a [href]="window.location.origin + '/profiles/' + invite?.info?.id" target="_blank">
-                                <img class="rounded-circle z-depth-0" height="50px" [src]="invite?.avatarUrl" onload="this.style.display='block'; this.style.margin='0 0 0 1rem'" onerror="this.style.display='none'" onloadstart="this.style.display='none'" style="display: none; cursor: pointer;">
+                                <img class="rounded-circle z-depth-0" height="50px" [src]="invite?.avatarUrl" onload="this.style.display='block'; this.style.margin='0 0 0 1rem'" onerror="this.style.display='none'" style="display: none; cursor: pointer;">
                             </a>
                         </td>
                         <td class="fit pl-3">
