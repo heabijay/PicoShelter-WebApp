@@ -309,7 +309,7 @@ summary {
 .sticky {
     position: sticky; 
     top: 56px; 
-    z-index: 1000;
+    z-index: 500;
 }
 
 .tooltip {
