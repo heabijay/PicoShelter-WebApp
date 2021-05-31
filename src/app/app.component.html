@@ -20,18 +20,18 @@
                             <div class="col-12 col-sm-6 col-md-4 col-lg-3">
                                 <p class="text-muted text-uppercase font-weight-bold">{{ 'footer.references.header' | translate }}</p>
                                 <ul class="pl-0 list-unstyled">
-                                    <!-- <li type="button"><a class="text-white text-decoration-none" [href]="identityHttpService.serverUrl + '/apidocs'">API</a></li> -->
-                                    <li type="button"><a class="text-white text-decoration-none" routerLink="/confirm">{{ 'footer.references.confirm' | translate }}</a></li>
-                                    <li type="button"><a class="text-white text-decoration-none" routerLink="/apps">{{ 'navbar.apps' | translate }}</a></li>
-                                    <li type="button"><a class="text-white text-decoration-none" routerLink="/upload">{{ 'navbar.upload' | translate }}</a></li>
-                                    <li type="button"><a class="text-white text-decoration-none" routerLink="/about">{{ 'footer.references.about' | translate }}</a></li>
+                                    <!-- <li role="button"><a class="text-white text-decoration-none" [href]="identityHttpService.serverUrl + '/apidocs'">API</a></li> -->
+                                    <li role="button"><a class="text-white text-decoration-none" routerLink="/confirm">{{ 'footer.references.confirm' | translate }}</a></li>
+                                    <li role="button"><a class="text-white text-decoration-none" routerLink="/apps">{{ 'navbar.apps' | translate }}</a></li>
+                                    <li role="button"><a class="text-white text-decoration-none" routerLink="/upload">{{ 'navbar.upload' | translate }}</a></li>
+                                    <li role="button"><a class="text-white text-decoration-none" routerLink="/about">{{ 'footer.references.about' | translate }}</a></li>
                                 </ul>
                             </div>
                             <div class="col-12 col-sm-6 col-md-4 col-lg-3">
                                 <p class="text-muted text-uppercase font-weight-bold">{{ 'footer.language.header' | translate }}</p>
                                 <ul class="pl-0 list-unstyled">
-                                    <li type="button" (click)="changeLocale('en')">English</li>
-                                    <li type="button" (click)="changeLocale('uk')">Українська</li>
+                                    <li role="button" (click)="changeLocale('en')">English</li>
+                                    <li role="button" (click)="changeLocale('uk')">Українська</li>
                                 </ul>
                             </div>
                         </div>

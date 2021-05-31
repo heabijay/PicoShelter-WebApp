@@ -5,7 +5,7 @@
                 <div class="container mt-md-3">
                     <h1 *ngIf="album.title" class="display-4" style="font-size: 2.5em;">{{album.title}}</h1>
                     <p>
-                        <span class="onHoverUnderline text-uppercase lead" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ 'albums.lblAlbum' | translate }}</span>
+                        <span class="onHoverUnderline text-uppercase lead" role="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ 'albums.lblAlbum' | translate }}</span>
                         <span class="dropdown-menu p-4" style="margin-left: -1px;">
                             <h6 class="dropdown-header p-0 mb-3 text-uppercase">{{ 'albums.albumInfo.header' | translate }}</h6>
                             <p>
@@ -46,7 +46,7 @@
                             </div>
                         </span>
                         <span class="text-uppercase lead"> • </span>
-                        <span class="onHoverUnderline text-uppercase lead" type="button" (click)="albumMembers()">{{ 'albums.lblMembers' | translate:{'count': album.users.totalCount} }}</span>
+                        <span class="onHoverUnderline text-uppercase lead" role="button" (click)="albumMembers()">{{ 'albums.lblMembers' | translate:{'count': album.users.totalCount} }}</span>
                         <span class="text-uppercase lead"> • </span>
                         <span class="text-uppercase lead">{{ 'albums.lblPictures' | translate:{'count': album.images.totalCount} }}</span>
                     </p>
