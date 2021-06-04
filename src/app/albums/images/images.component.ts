@@ -23,6 +23,7 @@ import { AlbumUserRole } from 'src/app/enum/albumUserRole';
 import { NgbdConfirmModalComponent } from 'src/app/modals/confirm/ngbdConfirmModal.component';
 import { NgbdAlbumImageLinksModalComponent } from 'src/app/modals/albumImageLinks/ngbdAlbumImageLinksModal.component';
 import { TranslateService } from '@ngx-translate/core';
+import { customReuseStrategyClear } from 'src/app/custom-reuse.strategy';
 
 @Component({
     templateUrl: './images.component.html',
@@ -311,6 +312,7 @@ export class ImagesComponent {
                         this.redirectNotFound();
                     }
                     else {
+                        customReuseStrategyClear();
                         this.location.back();
                     }
                 }
@@ -342,6 +344,7 @@ export class ImagesComponent {
                                     this.redirectNotFound();
                                 }
                                 else {
+                                    customReuseStrategyClear();
                                     this.location.back();
                                 }
                             },

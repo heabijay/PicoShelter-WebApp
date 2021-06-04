@@ -1,35 +1,40 @@
 import { ComponentRef } from '@angular/core';
 import { ActivatedRouteSnapshot, RouteReuseStrategy, DetachedRouteHandle } from '@angular/router';
 
-export class CustomReuseStrategy implements RouteReuseStrategy {
-    routesToCache: string[] = [
-        "a/:code", 
-        "s/:usercode",
-        "profiles/:id",
-        "profiles/:id/images",
-        "profiles/:id/albums",
-        "p/:username",
-        "p/:username/images",
-        "p/:username/albums"
-    ];
-    routesWhenCacheActive: string[] = [
-        "i/:code",
-        "a/:code/:imgCode",
-        "s:/:usercode/:imgCode"
-    ]
-    storedRouteHandles = new Map<string, DetachedRouteHandle>();
-    storedRouteScrollY = new Map<string, number>();
+const routesToCache: string[] = [
+    "a/:code", 
+    "s/:usercode",
+    "profiles/:id",
+    "profiles/:id/images",
+    "profiles/:id/albums",
+    "p/:username",
+    "p/:username/images",
+    "p/:username/albums"
+];
+const routesWhenCacheActive: string[] = [
+    "i/:code",
+    "a/:code/:imgCode",
+    "s:/:usercode/:imgCode"
+]
+const storedRouteHandles = new Map<string, DetachedRouteHandle>();
+const storedRouteScrollY = new Map<string, number>();
 
+export function customReuseStrategyClear() {
+    storedRouteHandles.clear();
+    storedRouteScrollY.clear();
+}
+
+export class CustomReuseStrategy implements RouteReuseStrategy {
     // Decides if the route should be stored
     shouldDetach(route: ActivatedRouteSnapshot): boolean {
-        return this.routesToCache.indexOf(this.getConfiguredUrl(route)) > -1;
+        return routesToCache.indexOf(this.getConfiguredUrl(route)) > -1;
     }
 
     //Store the information for the route we're destructing
     store(route: ActivatedRouteSnapshot, handle: DetachedRouteHandle): void {
         const url = this.getResolvedUrl(route);
-        this.storedRouteHandles.set(url, handle);
-        this.storedRouteScrollY.set(url, window.scrollY);
+        storedRouteHandles.set(url, handle);
+        storedRouteScrollY.set(url, window.scrollY);
     }
 
     //Return true if we have a stored route object for the next route
@@ -38,9 +43,8 @@ export class CustomReuseStrategy implements RouteReuseStrategy {
         const rUrl = this.getResolvedUrl(route);
 
         // Trying to Cleanup handles
-        if (this.routesToCache.indexOf(cUrl) == -1 && this.routesWhenCacheActive.indexOf(cUrl) == -1) {
-            this.storedRouteHandles.clear();
-            this.storedRouteScrollY.clear();
+        if (routesToCache.indexOf(cUrl) == -1 && routesWhenCacheActive.indexOf(cUrl) == -1) {
+            customReuseStrategyClear();
         }
 
         // If url is profile
@@ -49,28 +53,28 @@ export class CustomReuseStrategy implements RouteReuseStrategy {
             const deleteFrom = rUrl.indexOf('/', cUrl.indexOf('/') + 1);
             const profileUrl = rUrl.substring(0, deleteFrom == -1 ? undefined : deleteFrom);
             
-            [...this.storedRouteHandles.entries()]
+            [...storedRouteHandles.entries()]
                 .filter(t => !t[0].startsWith(profileUrl))
-                .forEach(t => this.storedRouteHandles.delete(t[0]));
+                .forEach(t => storedRouteHandles.delete(t[0]));
 
-            [...this.storedRouteScrollY.entries()]
+            [...storedRouteScrollY.entries()]
                 .filter(t => !t[0].startsWith(profileUrl))
-                .forEach(t => this.storedRouteHandles.delete(t[0]));
+                .forEach(t => storedRouteHandles.delete(t[0]));
         }
 
-        return this.storedRouteHandles.has(rUrl) && this.storedRouteHandles.get(rUrl) != null;
+        return storedRouteHandles.has(rUrl) && storedRouteHandles.get(rUrl) != null;
     }
 
     //If we returned true in shouldAttach(), now return the actual route data for restoration
     retrieve(route: ActivatedRouteSnapshot): DetachedRouteHandle {
         const url = this.getResolvedUrl(route);
-        const scrollY = this.storedRouteScrollY.get(url);
+        const scrollY = storedRouteScrollY.get(url);
         if (scrollY != null)
             setTimeout(() => {
                 window.scrollTo({ behavior: 'auto', left: 0, top: scrollY });
             });
         
-        const handle = this.storedRouteHandles.get(url);
+        const handle = storedRouteHandles.get(url);
         return handle;
     }
 

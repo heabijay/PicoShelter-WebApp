@@ -15,6 +15,7 @@ import { AlbumViewModel } from '../models/albumViewModel';
 import { ImageShortInfoDto } from 'src/app/models/imageShortInfoDto';
 import { AlbumHttpService } from 'src/app/services/albumHttp.service';
 import { AlbumsHttpService } from 'src/app/services/albumsHttp.service';
+import { customReuseStrategyClear } from 'src/app/custom-reuse.strategy';
 
 @Component({
     templateUrl: './albums.component.html'
@@ -76,6 +77,7 @@ export class AlbumsComponent {
             result => {
                 const r = result as AlbumInfoDto;
                 if (r != null) {
+                    setTimeout(customReuseStrategyClear);
                     this.router.navigateByUrl("/a/" + r.code);
                 }
             },

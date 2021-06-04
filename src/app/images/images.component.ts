@@ -17,6 +17,7 @@ import { NgbdProfileImageDeletingModalComponent } from '../modals/profileImageDe
 import { ImageEditDto } from '../models/imageEditDto';
 import { NgbdImageEditModalComponent } from '../modals/imageEdit/ngbdImageEditModal.component';
 import { TranslateService } from '@ngx-translate/core';
+import { customReuseStrategyClear } from '../custom-reuse.strategy';
 
 @Component({
     templateUrl: './images.component.html',
@@ -272,6 +273,7 @@ export class ImagesComponent {
                         this.redirectNotFound();
                     }
                     else {
+                        customReuseStrategyClear();
                         this.location.back();
                     }
                 }
