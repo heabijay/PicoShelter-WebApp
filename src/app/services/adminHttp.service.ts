@@ -52,13 +52,4 @@ export class AdminHttpService extends HttpService {
             }
         )
     }
-
-    forceCleanup() {
-        return this.httpClient.get<SuccessResponseDto<StatsModel>>(
-            this.serverUrl + this.subPath + "/forceCleanup",
-            {
-                headers: this.identityService.getHeaders()
-            }
-        )
-    }
 }

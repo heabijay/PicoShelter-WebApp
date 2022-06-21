@@ -23,7 +23,6 @@ import { DomSanitizer } from "@angular/platform-browser";
 export class APanelComponent {
     isStatsLoading: boolean = true;
     isStatsError: boolean = false;
-    isForceCleanuping: boolean = false;
     stats: StatsModel;
 
     isImageInfoLoading: boolean = false;
@@ -98,33 +97,7 @@ export class APanelComponent {
             () => this.isStatsLoading = false
         );
     }
-
-    forceCleanup() {
-        const modalRef = this.modalService.open(NgbdConfirmModalComponent, { centered: true });
-        modalRef.result.then(
-            result => {
-                const r = result as boolean;
-
-                if (r == true) {
-                    this.isForceCleanuping = true;
-                    this.adminService.forceCleanup().subscribe(
-                        data => {
-                            this.toastrService.success(this.translateService.instant("apanel.stats.toastr.cleanupSuccess"));
-                            this.updateStats(false);
-                        },
-                        error => {
-                            this.toastrService.error(this.translateService.instant("shared.somethingWentWrong"));
-                        }
-                    ).add(
-                        () => this.isForceCleanuping = false
-                    )
-                }
-            },
-            rejected => {
-
-            }
-        )
-    }
+    
 
     getImageInfo() {
         this.imageInfo = null;

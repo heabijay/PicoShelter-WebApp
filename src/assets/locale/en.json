@@ -75,10 +75,6 @@
 			"accountsText": "accounts registered",
 			"albumsText": "albums available",
 			"error": "Hey! We got the receiving error. Try to reload the app.",
-			"forceCleanup": {
-				"lbl": "Force Cleanup",
-				"tooltip": "Force recheck of auto-delete images and confirmations"
-			},
 			"header": "Server Stats",
 			"imagesText": "images is stored",
 			"toastr": {
