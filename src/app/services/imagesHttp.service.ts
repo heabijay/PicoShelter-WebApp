@@ -80,4 +80,14 @@ export class ImagesHttpService extends HttpService {
             }
         );
     }
+
+    reportImage(code: string, comment: string) {
+        return this.httpClient.post(
+            this.getImageLink(code) + "/report",
+            '"' + comment + '"',
+            {
+                headers: this.identityService.getHeaders().set("Content-Type", "application/json")
+            }
+        );
+    }
 }

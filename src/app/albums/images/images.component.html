@@ -104,6 +104,11 @@
                                 </ng-template>
                             </summary>
                         </div>
+
+                        <div *ngIf="isLoggined && !isAdminAccess">
+                            <hr class="w-100 m-0"/>
+                            <summary (click)="submitReport()" class="list-group-item border-0 list-group-item-action px-0 px-sm-2"><i class="far fa-flag mr-2"></i>Report</summary>
+                        </div>
                     </div>
                 </div>
             </div>

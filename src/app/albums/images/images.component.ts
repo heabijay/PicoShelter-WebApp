@@ -8,13 +8,13 @@ import { ImageInfoDto } from '../../models/imageInfoDto';
 import { ImageCacheService } from '../../services/imageCache.service';
 import { copyToClipboard } from "../../statics/copyToClipboard"
 import { downloadFileQuery } from "../../statics/downloadFileQuery"
-import { dateFromUTС } from "../../statics/dateFromUTC"
+import { dateFromUTC } from "../../statics/dateFromUTC"
 import { ToastrService } from 'ngx-toastr';
 import { CurrentUserService } from '../../services/currentUser.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { NgbdProfileImageDeletingModalComponent } from '../../modals/profileImageDeleting/ngbdProfileImageDeletingModal.component';
-import { ImageEditDto } from '../../models/imageEditDto';
 import { NgbdImageEditModalComponent } from '../../modals/imageEdit/ngbdImageEditModal.component';
+import { NgbdImageReportModalComponent } from '../../modals/imageReport/ngbdImageReportModal.component';
 import { AlbumsHttpService } from 'src/app/services/albumsHttp.service';
 import { ImagesHttpService } from 'src/app/services/imagesHttp.service';
 import { AlbumInfoDto } from 'src/app/models/albumInfoDto';
@@ -61,6 +61,10 @@ export class ImagesComponent {
 
     get isAdminAccess() {
         return this.info.user?.id != null && this.currentUserService.currentUser?.id == this.info.user?.id
+    }
+
+    get isLoggined() {
+        return this.currentUserService.currentUser != null;
     }
 
     constructor(
@@ -120,10 +124,10 @@ export class ImagesComponent {
     }
 
     onDataLoaded() {
-        this.infoUploadedDate = dateFromUTС(this.info.uploadedTime);
+        this.infoUploadedDate = dateFromUTC(this.info.uploadedTime);
         this.isPublicStateViewModel = this.info.isPublic;
         if (this.info.autoDeleteIn) {
-            this.countToDelete = dateFromUTС(this.info.autoDeleteIn).getTime() - new Date().getTime();
+            this.countToDelete = dateFromUTC(this.info.autoDeleteIn).getTime() - new Date().getTime();
             this.countDownToDeleteSub = timer(0, 1000).subscribe(
                 () => {
                     this.countToDelete -= 1000;
@@ -319,6 +323,23 @@ export class ImagesComponent {
             },
             rejected => {
                 
+            }
+        )
+    }
+
+    submitReport() {
+        const modalRef = this.modalService.open(NgbdImageReportModalComponent, { centered: true });
+        modalRef.componentInstance.imageCode = this.info.imageCode;
+        modalRef.result.then(
+            result => {
+                const r = result as boolean;
+
+                if (r == true) {
+                    this.toastrService.success("Image report was successfully submitted!");
+                }
+                else if (r == false) {
+                    this.toastrService.error(this.translateService.instant("shared.somethingWentWrong"));
+                }
             }
         )
     }

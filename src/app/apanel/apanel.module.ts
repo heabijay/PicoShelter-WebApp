@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { APanelComponent } from "./apanel.component"
+import { ReportsComponent } from "./reports/reports.component"
 import { SharedModule } from '../shared/shared.module';
 import { RouterModule, Routes } from '@angular/router';
 
@@ -13,7 +14,8 @@ const routes: Routes = [
         RouterModule.forChild(routes)
     ],
     declarations: [
-        APanelComponent
+        APanelComponent,
+        ReportsComponent
     ],
     exports: [
         RouterModule

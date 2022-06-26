@@ -9,13 +9,13 @@ import { ImageCacheService } from '../services/imageCache.service';
 import { ImagesHttpService } from '../services/imagesHttp.service';
 import { copyToClipboard } from "../statics/copyToClipboard"
 import { downloadFileQuery } from "../statics/downloadFileQuery"
-import { dateFromUTС } from "../statics/dateFromUTC"
+import { dateFromUTC } from "../statics/dateFromUTC"
 import { ToastrService } from 'ngx-toastr';
 import { CurrentUserService } from '../services/currentUser.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { NgbdProfileImageDeletingModalComponent } from '../modals/profileImageDeleting/ngbdProfileImageDeletingModal.component';
-import { ImageEditDto } from '../models/imageEditDto';
 import { NgbdImageEditModalComponent } from '../modals/imageEdit/ngbdImageEditModal.component';
+import { NgbdImageReportModalComponent } from '../modals/imageReport/ngbdImageReportModal.component';
 import { TranslateService } from '@ngx-translate/core';
 import { customReuseStrategyClear } from '../custom-reuse.strategy';
 
@@ -52,6 +52,10 @@ export class ImagesComponent {
         return this.info.user?.id != null && this.currentUserService.currentUser?.id == this.info.user?.id
     }
 
+    get isLoggined() {
+        return this.currentUserService.currentUser != null;
+    }
+
     constructor(
         private router: Router,
         private activatedRoute: ActivatedRoute,
@@ -78,10 +82,10 @@ export class ImagesComponent {
                 data => {
                     if (data.success) {
                         this.info = data.data;
-                        this.infoUploadedDate = dateFromUTС(data.data.uploadedTime);
+                        this.infoUploadedDate = dateFromUTC(data.data.uploadedTime);
                         this.isPublicStateViewModel = data.data.isPublic;
                         if (data.data.autoDeleteIn) {
-                            this.countToDelete = dateFromUTС(data.data.autoDeleteIn).getTime() - new Date().getTime();
+                            this.countToDelete = dateFromUTC(data.data.autoDeleteIn).getTime() - new Date().getTime();
                             this.countDownToDeleteSub = timer(0, 1000).subscribe(
                                 () => {
                                     this.countToDelete -= 1000;
@@ -280,6 +284,23 @@ export class ImagesComponent {
             },
             rejected => {
                 
+            }
+        )
+    }
+
+    submitReport() {
+        const modalRef = this.modalService.open(NgbdImageReportModalComponent, { centered: true });
+        modalRef.componentInstance.imageCode = this.info.imageCode;
+        modalRef.result.then(
+            result => {
+                const r = result as boolean;
+
+                if (r == true) {
+                    this.toastrService.success("Image report was successfully submitted!");
+                }
+                else if (r == false) {
+                    this.toastrService.error(this.translateService.instant("shared.somethingWentWrong"));
+                }
             }
         )
     }

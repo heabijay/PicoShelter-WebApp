@@ -1,0 +1,25 @@
+<div class="modal-header">
+    <h4 class="modal-title">Report the image</h4>
+    <button type="button" class="btn close" aria-label="Close" (click)="close()">
+    <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <fieldset [disabled]="isProceeding">
+        <div class="form-group">
+            <label for="imageReportComment">Comment</label>
+            <textarea class="form-control" id="imageReportComment" rows="3" [(ngModel)]="comment"></textarea>
+        </div>
+    </fieldset>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-outline-secondary" (click)="close()">{{ 'shared.cancel' | translate }}</button>
+    <button [disabled]="isProceeding" type="button" class="btn btn-primary" (click)="submit()">
+        <ng-container *ngIf="isProceeding; else notProceeding">
+            <i class="fa fa-spinner-third fa-spin" aria-hidden="true"></i>
+        </ng-container>
+        <ng-template #notProceeding>
+            OK
+        </ng-template>
+    </button>
+</div>

@@ -10,7 +10,7 @@ import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { NgbdConfirmModalComponent } from "../modals/confirm/ngbdConfirmModal.component";
 import { ImageInfoDto } from "../models/imageInfoDto";
 import { NgModel } from "@angular/forms";
-import { dateFromUTС } from "../statics/dateFromUTC";
+import { dateFromUTC } from "../statics/dateFromUTC";
 import { ImageCacheService } from "../services/imageCache.service";
 import { DomSanitizer } from "@angular/platform-browser";
 
@@ -38,11 +38,11 @@ export class APanelComponent {
     @ViewChild("codeInput") codeField : NgModel;
 
     get imageInfoUploadedDate() {
-        return dateFromUTС(this.imageInfo.uploadedTime);
+        return dateFromUTC(this.imageInfo.uploadedTime);
     }
 
     get imageInfoAutoDeleteDate() {
-        return dateFromUTС(this.imageInfo.autoDeleteIn);
+        return dateFromUTC(this.imageInfo.autoDeleteIn);
     }
 
     get sanitizedImageResourceUrl() {
