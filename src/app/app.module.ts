@@ -12,6 +12,7 @@ import { ToastrModule } from "ngx-toastr";
 import { NgbdProfileSettingsModalComponent } from './modals/settings/ngbdProfileSettingsModal.component';
 import { ProfileSettingsSecurityPageComponent } from './modals/settings/securityPage/profileSettingsSecurityPage.component';
 import { ProfileSettingsProfilePageComponent } from './modals/settings/profilePage/profileSettingsProfilePage.component';
+import { ProfileSettingsDesignPageComponent } from './modals/settings/designPage/profileSettingsDesignPage.component';
 import { MissingTranslationHandler, TranslateLoader, TranslateModule } from "@ngx-translate/core";
 import { HttpLoaderFactory } from "./shared/httpLoaderFactory"
 import { MissingTranslationService } from "./services/missingTranslation.service"
@@ -53,6 +54,7 @@ import { CustomReuseStrategy } from "./custom-reuse.strategy";
         NgbdProfileSettingsModalComponent,
         ProfileSettingsSecurityPageComponent,
         ProfileSettingsProfilePageComponent,
+        ProfileSettingsDesignPageComponent
     ],
     bootstrap: [
         AppComponent

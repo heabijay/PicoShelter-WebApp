@@ -24,6 +24,17 @@ export class ProfileHttpService extends HttpService {
         )
     }
 
+    editProfileBackgroundCss(backgroundCss: string) {
+        return this.httpClient.put(
+            this.serverUrl + this.subPath + "/edit/backgroundCss",
+            backgroundCss ? ('"' + backgroundCss + '"') : null,
+            {
+                headers: this.identityService.getHeaders().set("Content-Type", "application/json")
+            }
+        )
+    }
+
+
     uploadAvatar(file: File) {
         let formData = new FormData();
         formData.append('file', file);
