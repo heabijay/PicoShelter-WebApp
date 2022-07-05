@@ -45,6 +45,20 @@
                 <input type="checkbox" class="form-check-input" id="isRemoveImageAction" [(ngModel)]="isRemoveImageAction">
                 <label class="form-check-label" for="isRemoveImageAction">Force delete image</label>
             </div>
+            <div class="form-check" *ngIf="currentReportImageInfo?.user">
+                <input type="checkbox" class="form-check-input" id="isBanUserAction" [(ngModel)]="isBanUserAction">
+                <label class="form-check-label" for="isBanUserAction">Ban user</label>
+            </div>
+            <div class="row my-2 mx-0" *ngIf="isBanUserAction">
+                <div class="col-6">
+                    <label for="startDate">Until:</label>
+                    <input id="startDate" class="form-control" type="datetime-local" [(ngModel)]="banUserUntil" />
+                </div>
+                <div class="col-6">
+                    <label for="banComment" class="form-label">Comment</label>
+                    <input type="text" class="form-control" id="banComment" [(ngModel)]="banUserComment" >
+                </div>
+            </div>
 
             <div class="d-flex flex-row my-4">
                 <button (click)="processVerdictAsync()" class="btn btn-outline-danger w-100" type="button">Verdict</button>

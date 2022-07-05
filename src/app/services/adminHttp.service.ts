@@ -9,6 +9,7 @@ import { Observable } from "rxjs";
 import { ImageShortInfoDto } from "../models/imageShortInfoDto";
 import { PaginationResultDto } from "../models/paginationResultDto";
 import { ReportMessageModel } from "../apanel/models/reportMessageModel";
+import { connect } from "http2";
 
 
 @Injectable()
@@ -93,6 +94,16 @@ export class AdminHttpService extends HttpService {
             null,
             {
                 headers: this.identityService.getHeaders()
+            }
+        )
+    }
+
+    postBanUser(userId: number, untilDate: Date, comment: string) {
+        return this.httpClient.post(
+            this.serverUrl + this.subPath + '/ban/' + userId + '?untilDate=' + new Date(untilDate).toJSON(),
+            '"' + comment + '"',
+            {
+                headers: this.identityService.getHeaders().set("Content-Type", "application/json")
             }
         )
     }

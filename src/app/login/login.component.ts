@@ -88,6 +88,12 @@ export class LoginComponent {
                             'incorrectCredentials': true,
                         });
                         return;
+                    case ErrorType.USER_BANNED:
+                        this.toastrService.error("Unfortunetly, you get banned until " + new Date(error?.error?.data?.toDate).toLocaleString() + '. Reason: ' + error?.error?.data?.comment, null,
+                        {
+                            timeOut: 30000
+                        });
+                        return;
                 }
 
                 this.toastrService.error(this.translateService.instant("shared.somethingWentWrong"));

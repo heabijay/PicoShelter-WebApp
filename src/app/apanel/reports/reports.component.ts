@@ -11,6 +11,9 @@ import { ProfilesHttpService } from 'src/app/services/profilesHttp.service';
 import { ReportMessageModel } from '../models/reportMessageModel';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { NgbdConfirmModalComponent } from 'src/app/modals/confirm/ngbdConfirmModal.component';
+import { HttpErrorResponse } from '@angular/common/http';
+import { ErrorType } from 'src/app/enum/errorType';
+import { ErrorResponseDto } from 'src/app/models/errorResponseDto';
 
 @Component({
     selector: 'app-apanel-reports-component',
@@ -31,6 +34,10 @@ export class ReportsComponent {
     currentReportMessages?: ReportMessageModel[];
 
     isRemoveImageAction: boolean = false;
+
+    isBanUserAction: boolean = false;
+    banUserUntil: Date;
+    banUserComment: string;
 
     get currentReport() {
         return this.currentReportIndex < this.reports.length ? this.reports[this.currentReportIndex] : null;
@@ -154,6 +161,13 @@ export class ReportsComponent {
                 this.toastr.success("Image was successfully deleted!");
             }
 
+            if (this.isBanUserAction) {
+                console.log(this.banUserUntil);
+                
+                await this.adminService.postBanUser(this.currentReportImageInfo?.user?.id, this.banUserUntil, this.banUserComment).toPromise();
+                this.toastr.success("User was successfully banned!");
+            }
+
             await this.adminService.postReportProcessed(this.currentReportImageInfo.imageId).toPromise();
 
             this.toastr.success("Report was successfully processed!");
@@ -162,6 +176,15 @@ export class ReportsComponent {
             this._currentReportIndex--;
             this.gotoNext();
         } catch (err) {
+            if (err as HttpErrorResponse) {
+                let error = err?.error as ErrorResponseDto;
+                switch (ErrorType[error?.error?.type]) {
+                    case ErrorType.ADMIN_BAN_DISALLOWED:
+                        this.toastr.error("Ban admin user is disallowed.");
+                        return;
+                }
+            }
+
             this.toastr.error(this.translate.instant("shared.somethingWentWrong"));
             throw err;
         }
