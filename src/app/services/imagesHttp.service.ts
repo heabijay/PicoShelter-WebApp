@@ -4,10 +4,10 @@ import { Observable } from "rxjs"
 import { HttpService } from "../abstract/httpService"
 import { SuccessResponseDto } from "../models/successResponseDto";
 import { TokenService } from "./token.service";
-import { ProfileInfoDto } from "../models/profileInfoDto";
-import { ImageCacheDto } from "../models/imageCacheDto";
+import { ImageCommentDto } from "../models/imageCommentDto";
 import { ImageInfoDto } from "../models/imageInfoDto";
 import { ImageEditDto } from "../models/imageEditDto";
+import { PaginationResultDto } from "../models/paginationResultDto";
 
 @Injectable()
 export class ImagesHttpService extends HttpService {
@@ -89,5 +89,40 @@ export class ImagesHttpService extends HttpService {
                 headers: this.identityService.getHeaders().set("Content-Type", "application/json")
             }
         );
+    }
+
+
+    commentImage(code: string, comment: string) {
+        return this.httpClient.post(
+            this.getImageLink(code) + "/comment",
+            '"' + comment + '"',
+            {
+                headers: this.identityService.getHeaders().set("Content-Type", "application/json")
+            }
+        );
+    }
+
+    getComments(code: string, starts?: number, count?: number) {
+        let url = this.getImageLink(code) + '/comments?';
+        if (starts != null)
+            url += "starts=" + starts + "&";
+        if (count != null)
+            url += "count=" + count + "&";
+        
+        return this.httpClient.get<SuccessResponseDto<PaginationResultDto<ImageCommentDto>>>(
+            url,
+            {
+                headers: this.identityService.getHeaders()
+            }
+        )
+    }
+
+    deleteComment(code: string, commentId: number) {
+        return this.httpClient.delete(
+            this.getImageLink(code) + '/comment/' + commentId,
+            {
+                headers: this.identityService.getHeaders()
+            }
+        )
     }
 }

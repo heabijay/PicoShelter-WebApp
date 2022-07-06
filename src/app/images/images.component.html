@@ -83,6 +83,9 @@
                                 <i class="fas fa-external-link-alt mr-2"></i>{{ 'images.btnOpenInNewTab' | translate }}
                             </ng-template>
                         </summary>
+                        <summary (click)="discussImageAsync()" class="list-group-item border-0 list-group-item-action px-0 px-sm-2" *ngIf="this.info?.isPublic">
+                            <i class="fas fa-comments-alt mr-2"></i> Discuss
+                        </summary>
                         <hr class="w-100 m-0"/>
                         <summary *ngIf="isAdminAccess" (click)="performIsPublicCbChanged()" class="list-group-item border-0 list-group-item-action px-0 px-sm-2">
                             <div class="custom-control custom-switch">

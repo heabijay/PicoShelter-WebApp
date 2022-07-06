@@ -18,6 +18,7 @@ import { NgbdImageEditModalComponent } from '../modals/imageEdit/ngbdImageEditMo
 import { NgbdImageReportModalComponent } from '../modals/imageReport/ngbdImageReportModal.component';
 import { TranslateService } from '@ngx-translate/core';
 import { customReuseStrategyClear } from '../custom-reuse.strategy';
+import { NgbdImageCommentsModalComponent } from '../modals/imageComments/ngbdImageCommentsModal.component';
 
 @Component({
     templateUrl: './images.component.html',
@@ -240,6 +241,12 @@ export class ImagesComponent {
         else {
             this.isRequestedOpen = true;
         }
+    }
+
+    async discussImageAsync() {
+        const modalRef = this.modalService.open(NgbdImageCommentsModalComponent, { centered: true, backdrop: false, windowClass: "image-comments-modal" });
+        modalRef.componentInstance.imageCode = this.code;
+        await modalRef.result;
     }
 
     editImage() {

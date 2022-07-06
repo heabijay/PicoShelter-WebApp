@@ -8,13 +8,13 @@ import { ProfileHttpService } from 'src/app/services/profileHttp.service';
 
 
 @Component({
-    selector: 'profilesettings-designPage',
-    templateUrl: './profileSettingsDesignPage.component.html',
+    selector: 'profilesettings-appearancePage',
+    templateUrl: './profileSettingsAppearancePage.component.html',
     providers: [
         ProfileHttpService
     ]
 })
-export class ProfileSettingsDesignPageComponent {
+export class ProfileSettingsAppearancePageComponent {
     @ViewChild("changeProfileBackgroundForm") changeProfileBackgroundForm: NgForm;
     changeProfileBackgroundMode: string = "reset";
 

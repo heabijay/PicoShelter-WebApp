@@ -152,7 +152,6 @@ export class ReportsComponent {
     
     async processVerdictAsync() {
         const modalRef = this.modal.open(NgbdConfirmModalComponent, { centered: true });
-        modalRef.componentInstance.text = "Are you sure?";
         if (!await modalRef.result) return;
 
         try {

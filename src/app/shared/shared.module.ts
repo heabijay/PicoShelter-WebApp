@@ -14,6 +14,7 @@ import { ImageCacheService } from '../services/imageCache.service';
 import { CurrentUserService } from '../services/currentUser.service';
 import { TokenService } from '../services/token.service';
 import { NgbdImageReportModalComponent } from '../modals/imageReport/ngbdImageReportModal.component';
+import { NgbdImageCommentsModalComponent } from '../modals/imageComments/ngbdImageCommentsModal.component';
 
 @NgModule({
     imports: [
@@ -30,7 +31,8 @@ import { NgbdImageReportModalComponent } from '../modals/imageReport/ngbdImageRe
         ComparePasswordDirective,
         NgbdConfirmModalComponent,
         NgbdImageEditModalComponent,
-        NgbdImageReportModalComponent
+        NgbdImageReportModalComponent,
+        NgbdImageCommentsModalComponent
     ],
     exports: [
         RouterModule,
@@ -44,7 +46,8 @@ import { NgbdImageReportModalComponent } from '../modals/imageReport/ngbdImageRe
         ComparePasswordDirective,
         NgbdConfirmModalComponent,
         NgbdImageEditModalComponent,
-        NgbdImageReportModalComponent
+        NgbdImageReportModalComponent,
+        NgbdImageCommentsModalComponent
     ],
     providers: [
         TokenService,

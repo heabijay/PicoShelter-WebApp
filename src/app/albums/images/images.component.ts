@@ -24,6 +24,7 @@ import { NgbdConfirmModalComponent } from 'src/app/modals/confirm/ngbdConfirmMod
 import { NgbdAlbumImageLinksModalComponent } from 'src/app/modals/albumImageLinks/ngbdAlbumImageLinksModal.component';
 import { TranslateService } from '@ngx-translate/core';
 import { customReuseStrategyClear } from 'src/app/custom-reuse.strategy';
+import { NgbdImageCommentsModalComponent } from 'src/app/modals/imageComments/ngbdImageCommentsModal.component';
 
 @Component({
     templateUrl: './images.component.html',
@@ -395,5 +396,11 @@ export class ImagesComponent {
         this.router.navigateByUrl("/not-found", { skipLocationChange: true }).then(() => {
             this.router.navigateByUrl(currentUrl);
         })
+    }
+
+    async discussImageAsync() {
+        const modalRef = this.modalService.open(NgbdImageCommentsModalComponent, { centered: true, backdrop: false, windowClass: "image-comments-modal" });
+        modalRef.componentInstance.imageCode = this.imageCode;
+        await modalRef.result;
     }
 }
