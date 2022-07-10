@@ -53,6 +53,9 @@ export class NgbdAlbumAddImageModalComponent {
 
     loadImageThumbnails(data: Array<ImageShortInfoDto>) {
         for (let i = 0; i < data.length; i++) {
+            if (this.imageThumbnailViewModel.find(t => t.info.imageId == data[i].imageId))
+                continue;
+
             const newItem = new ImageThumbnailViewModel();
             newItem.info = data[i];
             const sub = this.imageCacheService.requestThumbnailUsingCache(data[i].imageCode, code => this.imagesService.getThumbnailBlob(code))

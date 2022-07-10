@@ -89,6 +89,9 @@ export class AlbumsComponent {
 
     loadAlbums(dtos: Array<AlbumShortInfoDto>) {
         for (let i = 0; i < dtos.length; i++) {
+            if (this.albums.find(t => t.dto.id == dtos[i].id))
+                continue;
+
             const el = new AlbumViewModel();
             el.dto = dtos[i];
 
