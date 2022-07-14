@@ -172,7 +172,6 @@ export class ReportsComponent {
             this.toastr.success("Report was successfully processed!");
             this.reports = this.reports.length == 1 ? [] : this.reports.splice(this.currentReportIndex, 1);
             this.total--;
-            this._currentReportIndex--;
             this.gotoNext();
         } catch (err) {
             if (err as HttpErrorResponse) {
