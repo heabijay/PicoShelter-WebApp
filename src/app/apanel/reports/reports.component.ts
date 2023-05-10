@@ -157,19 +157,19 @@ export class ReportsComponent {
         try {
             if (this.isRemoveImageAction) {
                 await this.adminService.deleteImage(this.currentReportImageInfo.imageCode).toPromise();
-                this.toastr.success("Image was successfully deleted!");
+                this.toastr.success(this.translate.instant("apanel.reports.toastr.imageSuccessfullyDeleted"));
             }
 
             if (this.isBanUserAction) {
                 console.log(this.banUserUntil);
                 
                 await this.adminService.postBanUser(this.currentReportImageInfo?.user?.id, this.banUserUntil, this.banUserComment).toPromise();
-                this.toastr.success("User was successfully banned!");
+                this.toastr.success(this.translate.instant("apanel.reports.toastr.userSuccessfullyBanned"));
             }
 
             await this.adminService.postReportProcessed(this.currentReportImageInfo.imageId).toPromise();
 
-            this.toastr.success("Report was successfully processed!");
+            this.toastr.success(this.translate.instant("apanel.reports.toastr.successfullyProcessed"));
             this.reports = this.reports.length == 1 ? [] : this.reports.splice(this.currentReportIndex, 1);
             this.total--;
             this.gotoNext();
@@ -178,7 +178,7 @@ export class ReportsComponent {
                 let error = err?.error as ErrorResponseDto;
                 switch (ErrorType[error?.error?.type]) {
                     case ErrorType.ADMIN_BAN_DISALLOWED:
-                        this.toastr.error("Ban admin user is disallowed.");
+                        this.toastr.error(this.translate.instant("apanel.reports.toastr.banAdminIsDisallowed"));
                         return;
                 }
             }

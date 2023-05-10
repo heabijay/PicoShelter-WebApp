@@ -102,7 +102,7 @@ export class ProfileSettingsAppearancePageComponent {
             const css = this.interpreteUserCssBody();
             this.profileService.editProfileBackgroundCss(css).toPromise();
             this.currentUser.currentUser.profile.backgroundCss = css;
-            this.toastr.success("Background was successfully changed!");
+            this.toastr.success(this.translate.instant("modals.settings.appearancePage.toastr.backgroundSuccessfullyChanged"));
             this.closeChanging();
         } catch (err) {
             this.toastr.error(this.translate.instant("shared.somethingWentWrong"));

@@ -1,5 +1,5 @@
 <div class="modal-header">
-    <h4 class="modal-title">Comments <span *ngIf="commentsTotal != null">({{ commentsTotal }})</span></h4>
+    <h4 class="modal-title">{{ 'modals.imageComments.header' | translate }} <span *ngIf="commentsTotal != null">({{ commentsTotal }})</span></h4>
     <button type="button" class="btn close" aria-label="Close" (click)="close()">
         <span aria-hidden="true">&times;</span>
     </button>
@@ -39,10 +39,10 @@
 </div>
 <div class="modal-footer">
     <ng-container *ngIf="this.currentUser.currentUser; else loginToDiscuss">
-        <textarea class="form-control" id="imageComment" rows="3" [(ngModel)]="commentInput" placeholder="Type something here..." style="resize: none;"></textarea>
-        <button type="button" class="btn btn-outline-primary" (click)="sendCommentAsync()" [disabled]="commentInput == null || commentInput.length == 0 || isCommentSending">Send <i class="ml-2 fas fa-paper-plane"></i></button>
+        <textarea class="form-control" id="imageComment" rows="3" [(ngModel)]="commentInput" placeholder="{{ 'modals.imageComments.inputPlaceholder' | translate }}" style="resize: none;"></textarea>
+        <button type="button" class="btn btn-outline-primary" (click)="sendCommentAsync()" [disabled]="commentInput == null || commentInput.length == 0 || isCommentSending">{{ 'modals.imageComments.btnSend' | translate }} <i class="ml-2 fas fa-paper-plane"></i></button>
     </ng-container>
     <ng-template #loginToDiscuss>
-        <p class="text-muted font-italic text-center w-100">Please, register or login to discuss together!</p>
+        <p class="text-muted font-italic text-center w-100">{{ 'modals.imageComments.needToLoginMessage' | translate }}</p>
     </ng-template>
 </div>

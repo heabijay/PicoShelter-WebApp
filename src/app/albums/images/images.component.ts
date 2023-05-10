@@ -337,7 +337,7 @@ export class ImagesComponent {
                 const r = result as boolean;
 
                 if (r == true) {
-                    this.toastrService.success("Image report was successfully submitted!");
+                    this.toastrService.success(this.translateService.instant("images.toastr.reportSubmitted"));
                 }
                 else if (r == false) {
                     this.toastrService.error(this.translateService.instant("shared.somethingWentWrong"));

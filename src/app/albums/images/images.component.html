@@ -85,10 +85,10 @@
                             </ng-template>
                         </summary>
                         <summary (click)="toggleLikeAsync()" class="list-group-item border-0 list-group-item-action px-0 px-sm-2" *ngIf="this.info?.isPublic || this.albumInfo?.isPublic"  [disabled]="isLikeProcessing" [class.text-primary]="this.info?.youLikeIt">
-                            <i class="fas fa-thumbs-up mr-2"></i> ({{ this.info?.likes }}) Like
+                            <i class="fas fa-thumbs-up mr-2"></i> ({{ this.info?.likes }}) {{ 'images.btnLike' | translate }}
                         </summary>
                         <summary (click)="discussImageAsync()" class="list-group-item border-0 list-group-item-action px-0 px-sm-2" *ngIf="this.info?.isPublic || this.albumInfo?.isPublic">
-                            <i class="fas fa-comments-alt mr-2"></i> Discuss
+                            <i class="fas fa-comments-alt mr-2"></i> {{ 'images.btnDiscuss' | translate }}
                         </summary>
                         <summary *ngIf="info.isPublic || albumInfo.isPublic" (click)="showLinks()" class="list-group-item border-0 list-group-item-action px-0 px-sm-2">
                             <i class="fas fa-link mr-2"></i>{{ 'images.btnLinks' | translate }}
@@ -113,7 +113,10 @@
 
                         <div *ngIf="isLoggined && !isAdminAccess">
                             <hr class="w-100 m-0"/>
-                            <summary (click)="submitReport()" class="list-group-item border-0 list-group-item-action px-0 px-sm-2"><i class="far fa-flag mr-2"></i>Report</summary>
+                            <summary (click)="submitReport()" class="list-group-item border-0 list-group-item-action px-0 px-sm-2">
+                                <i class="far fa-flag mr-2"></i>
+                                {{ 'images.btnReport' | translate }}
+                            </summary>
                         </div>
                     </div>
                 </div>

@@ -89,10 +89,15 @@ export class LoginComponent {
                         });
                         return;
                     case ErrorType.USER_BANNED:
-                        this.toastrService.error("Unfortunetly, you get banned until " + new Date(error?.error?.data?.toDate).toLocaleString() + '. Reason: ' + error?.error?.data?.comment, null,
-                        {
-                            timeOut: 30000
-                        });
+                        this.toastrService.error(
+                            this.translateService.instant("login.toastr.youAreBanned", {
+                                untilDateString: new Date(error?.error?.data?.toDate).toLocaleString(),
+                                comment: error?.error?.data?.comment
+                            }), 
+                            null,
+                            {
+                                timeOut: 30000
+                            });
                         return;
                 }
 
