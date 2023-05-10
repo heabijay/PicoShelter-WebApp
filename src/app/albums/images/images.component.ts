@@ -51,6 +51,7 @@ export class ImagesComponent {
     countToDelete: number;
 
     isFirstPage: boolean = true;
+    isLikeProcessing: boolean = false;
     isPublicStateChanging: boolean;
     isPublicStateViewModel: boolean;
     isRequestedDownload: boolean;
@@ -397,6 +398,39 @@ export class ImagesComponent {
             this.router.navigateByUrl(currentUrl);
         })
     }
+
+    
+    async toggleLikeAsync() {
+        if (this.isLikeProcessing)
+            return;
+
+        this.isLikeProcessing = true;
+
+        if (this.info.youLikeIt) {
+            this.imagesService.undoLikeImage(this.info.imageCode)
+                .subscribe(
+                    data => {
+                        if (this.info.youLikeIt)
+                            this.info.likes -= 1;
+
+                        this.info.youLikeIt = false;
+                    }
+                )
+                .add(() => this.isLikeProcessing = false);
+        } else {
+            this.imagesService.setLikeImage(this.info.imageCode)
+                .subscribe(
+                    data => {
+                        if (!this.info.youLikeIt)
+                            this.info.likes += 1;
+
+                        this.info.youLikeIt = true;
+                    }
+                )
+                .add(() => this.isLikeProcessing = false);
+        }
+    }
+
 
     async discussImageAsync() {
         const modalRef = this.modalService.open(NgbdImageCommentsModalComponent, { centered: true, backdrop: false, windowClass: "image-comments-modal" });

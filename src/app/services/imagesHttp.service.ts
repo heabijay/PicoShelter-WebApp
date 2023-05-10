@@ -92,6 +92,26 @@ export class ImagesHttpService extends HttpService {
     }
 
 
+    setLikeImage(code: string) {
+        return this.httpClient.post(
+            this.getImageLink(code) + "/setLike",
+            null,
+            {
+                headers: this.identityService.getHeaders().set("Content-Type", "application/json")
+            }
+        );
+    }
+
+    undoLikeImage(code: string) {
+        return this.httpClient.delete(
+            this.getImageLink(code) + "/undoLike",
+            {
+                headers: this.identityService.getHeaders().set("Content-Type", "application/json")
+            }
+        );
+    }
+
+
     commentImage(code: string, comment: string) {
         return this.httpClient.post(
             this.getImageLink(code) + "/comment",
