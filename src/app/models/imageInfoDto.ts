@@ -9,4 +9,6 @@ export class ImageInfoDto {
     user: UserInfo;
     uploadedTime: Date;
     autoDeleteIn?: Date;
+    likes: number;
+    youLikeIt: boolean;
 }

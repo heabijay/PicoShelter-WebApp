@@ -10,7 +10,7 @@ import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { NgbdConfirmModalComponent } from "../modals/confirm/ngbdConfirmModal.component";
 import { ImageInfoDto } from "../models/imageInfoDto";
 import { NgModel } from "@angular/forms";
-import { dateFromUTС } from "../statics/dateFromUTC";
+import { dateFromUTC } from "../statics/dateFromUTC";
 import { ImageCacheService } from "../services/imageCache.service";
 import { DomSanitizer } from "@angular/platform-browser";
 
@@ -23,7 +23,6 @@ import { DomSanitizer } from "@angular/platform-browser";
 export class APanelComponent {
     isStatsLoading: boolean = true;
     isStatsError: boolean = false;
-    isForceCleanuping: boolean = false;
     stats: StatsModel;
 
     isImageInfoLoading: boolean = false;
@@ -39,11 +38,11 @@ export class APanelComponent {
     @ViewChild("codeInput") codeField : NgModel;
 
     get imageInfoUploadedDate() {
-        return dateFromUTС(this.imageInfo.uploadedTime);
+        return dateFromUTC(this.imageInfo.uploadedTime);
     }
 
     get imageInfoAutoDeleteDate() {
-        return dateFromUTС(this.imageInfo.autoDeleteIn);
+        return dateFromUTC(this.imageInfo.autoDeleteIn);
     }
 
     get sanitizedImageResourceUrl() {
@@ -98,33 +97,7 @@ export class APanelComponent {
             () => this.isStatsLoading = false
         );
     }
-
-    forceCleanup() {
-        const modalRef = this.modalService.open(NgbdConfirmModalComponent, { centered: true });
-        modalRef.result.then(
-            result => {
-                const r = result as boolean;
-
-                if (r == true) {
-                    this.isForceCleanuping = true;
-                    this.adminService.forceCleanup().subscribe(
-                        data => {
-                            this.toastrService.success(this.translateService.instant("apanel.stats.toastr.cleanupSuccess"));
-                            this.updateStats(false);
-                        },
-                        error => {
-                            this.toastrService.error(this.translateService.instant("shared.somethingWentWrong"));
-                        }
-                    ).add(
-                        () => this.isForceCleanuping = false
-                    )
-                }
-            },
-            rejected => {
-
-            }
-        )
-    }
+    
 
     getImageInfo() {
         this.imageInfo = null;

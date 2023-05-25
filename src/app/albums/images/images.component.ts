@@ -8,13 +8,13 @@ import { ImageInfoDto } from '../../models/imageInfoDto';
 import { ImageCacheService } from '../../services/imageCache.service';
 import { copyToClipboard } from "../../statics/copyToClipboard"
 import { downloadFileQuery } from "../../statics/downloadFileQuery"
-import { dateFromUTС } from "../../statics/dateFromUTC"
+import { dateFromUTC } from "../../statics/dateFromUTC"
 import { ToastrService } from 'ngx-toastr';
 import { CurrentUserService } from '../../services/currentUser.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { NgbdProfileImageDeletingModalComponent } from '../../modals/profileImageDeleting/ngbdProfileImageDeletingModal.component';
-import { ImageEditDto } from '../../models/imageEditDto';
 import { NgbdImageEditModalComponent } from '../../modals/imageEdit/ngbdImageEditModal.component';
+import { NgbdImageReportModalComponent } from '../../modals/imageReport/ngbdImageReportModal.component';
 import { AlbumsHttpService } from 'src/app/services/albumsHttp.service';
 import { ImagesHttpService } from 'src/app/services/imagesHttp.service';
 import { AlbumInfoDto } from 'src/app/models/albumInfoDto';
@@ -24,6 +24,7 @@ import { NgbdConfirmModalComponent } from 'src/app/modals/confirm/ngbdConfirmMod
 import { NgbdAlbumImageLinksModalComponent } from 'src/app/modals/albumImageLinks/ngbdAlbumImageLinksModal.component';
 import { TranslateService } from '@ngx-translate/core';
 import { customReuseStrategyClear } from 'src/app/custom-reuse.strategy';
+import { NgbdImageCommentsModalComponent } from 'src/app/modals/imageComments/ngbdImageCommentsModal.component';
 
 @Component({
     templateUrl: './images.component.html',
@@ -50,6 +51,7 @@ export class ImagesComponent {
     countToDelete: number;
 
     isFirstPage: boolean = true;
+    isLikeProcessing: boolean = false;
     isPublicStateChanging: boolean;
     isPublicStateViewModel: boolean;
     isRequestedDownload: boolean;
@@ -61,6 +63,10 @@ export class ImagesComponent {
 
     get isAdminAccess() {
         return this.info.user?.id != null && this.currentUserService.currentUser?.id == this.info.user?.id
+    }
+
+    get isLoggined() {
+        return this.currentUserService.currentUser != null;
     }
 
     constructor(
@@ -120,10 +126,10 @@ export class ImagesComponent {
     }
 
     onDataLoaded() {
-        this.infoUploadedDate = dateFromUTС(this.info.uploadedTime);
+        this.infoUploadedDate = dateFromUTC(this.info.uploadedTime);
         this.isPublicStateViewModel = this.info.isPublic;
         if (this.info.autoDeleteIn) {
-            this.countToDelete = dateFromUTС(this.info.autoDeleteIn).getTime() - new Date().getTime();
+            this.countToDelete = dateFromUTC(this.info.autoDeleteIn).getTime() - new Date().getTime();
             this.countDownToDeleteSub = timer(0, 1000).subscribe(
                 () => {
                     this.countToDelete -= 1000;
@@ -323,6 +329,23 @@ export class ImagesComponent {
         )
     }
 
+    submitReport() {
+        const modalRef = this.modalService.open(NgbdImageReportModalComponent, { centered: true });
+        modalRef.componentInstance.imageCode = this.info.imageCode;
+        modalRef.result.then(
+            result => {
+                const r = result as boolean;
+
+                if (r == true) {
+                    this.toastrService.success(this.translateService.instant("images.toastr.reportSubmitted"));
+                }
+                else if (r == false) {
+                    this.toastrService.error(this.translateService.instant("shared.somethingWentWrong"));
+                }
+            }
+        )
+    }
+
     dropFromAlbum() {
         if (!this.isDropping) {
             const modalRef = this.modalService.open(NgbdConfirmModalComponent, { centered: true });
@@ -374,5 +397,44 @@ export class ImagesComponent {
         this.router.navigateByUrl("/not-found", { skipLocationChange: true }).then(() => {
             this.router.navigateByUrl(currentUrl);
         })
+    }
+
+    
+    async toggleLikeAsync() {
+        if (this.isLikeProcessing)
+            return;
+
+        this.isLikeProcessing = true;
+
+        if (this.info.youLikeIt) {
+            this.imagesService.undoLikeImage(this.info.imageCode)
+                .subscribe(
+                    data => {
+                        if (this.info.youLikeIt)
+                            this.info.likes -= 1;
+
+                        this.info.youLikeIt = false;
+                    }
+                )
+                .add(() => this.isLikeProcessing = false);
+        } else {
+            this.imagesService.setLikeImage(this.info.imageCode)
+                .subscribe(
+                    data => {
+                        if (!this.info.youLikeIt)
+                            this.info.likes += 1;
+
+                        this.info.youLikeIt = true;
+                    }
+                )
+                .add(() => this.isLikeProcessing = false);
+        }
+    }
+
+
+    async discussImageAsync() {
+        const modalRef = this.modalService.open(NgbdImageCommentsModalComponent, { centered: true, backdrop: false, windowClass: "image-comments-modal" });
+        modalRef.componentInstance.imageCode = this.imageCode;
+        await modalRef.result;
     }
 }

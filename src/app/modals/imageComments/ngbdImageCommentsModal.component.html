@@ -1,0 +1,48 @@
+<div class="modal-header">
+    <h4 class="modal-title">{{ 'modals.imageComments.header' | translate }} <span *ngIf="commentsTotal != null">({{ commentsTotal }})</span></h4>
+    <button type="button" class="btn close" aria-label="Close" (click)="close()">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body overflow-auto py-0">
+    <table class="table table-content-middle table-responsive overflow-hidden mt-n1">
+        <tbody *ngIf="commentsList" class="w-100">
+            <tr class="w-100" *ngFor="let comment of commentsList">
+                <td class="fit" style="vertical-align: top;">
+                    <img class="z-depth-0 mx-2" height="50px" width="50px" [src]="this.profilesService.getAvatarLink(comment.profile.id)"
+                            onload="this.style.display='block';"
+                            onerror="this.style.display='none'" style="object-fit: cover; border-radius: 100vh;">
+                </td>
+                <td class="fit w-100 px-2">
+                    <p class="m-0">
+                        <a [routerLink]="'/profiles/' + comment.profile.id" target="_blank">
+                            <ng-container *ngIf="comment.profile.profile.firstname || comment.profile.profile.lastname; else noName">
+                                {{comment.profile.profile.firstname}} {{comment.profile.profile.lastname}} (@{{comment.profile.username}})
+                            </ng-container>
+                            <ng-template #noName>
+                                @{{comment.profile.username}}
+                            </ng-template>
+                        </a>
+                    </p>
+                    <p class="mb-1 small text-muted">{{ comment.date | date:'dd.MM.yy, hh:mm aa' }}</p>
+                    <p class="mb-0 text-wrap">{{ comment.text }}</p>
+                </td>
+                <td class="fit" style="vertical-align: top;">
+                    <button type="button" class="btn" (click)="deleteCommentAsync(comment.id)" *ngIf="comment.profile.id == this.currentUser.currentUser?.id">
+                        <span aria-hidden="true" class="text-danger">&times;</span>
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <button *ngIf="commentsList && commentsTotal > commentsList.length" (click)="loadNextCommentsPageAsync()" class="btn btn-primary w-100 mb-3" type="button"><i class="fa fa-bolt mr-2" aria-hidden="true"></i>{{ 'shared.loadMore' | translate }}</button>
+</div>
+<div class="modal-footer">
+    <ng-container *ngIf="this.currentUser.currentUser; else loginToDiscuss">
+        <textarea class="form-control" id="imageComment" rows="3" [(ngModel)]="commentInput" placeholder="{{ 'modals.imageComments.inputPlaceholder' | translate }}" style="resize: none;"></textarea>
+        <button type="button" class="btn btn-outline-primary" (click)="sendCommentAsync()" [disabled]="commentInput == null || commentInput.length == 0 || isCommentSending">{{ 'modals.imageComments.btnSend' | translate }} <i class="ml-2 fas fa-paper-plane"></i></button>
+    </ng-container>
+    <ng-template #loginToDiscuss>
+        <p class="text-muted font-italic text-center w-100">{{ 'modals.imageComments.needToLoginMessage' | translate }}</p>
+    </ng-template>
+</div>

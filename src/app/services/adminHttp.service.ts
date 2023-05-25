@@ -6,6 +6,10 @@ import { ImageInfoDto } from "../models/imageInfoDto"
 import { SuccessResponseDto } from "../models/successResponseDto"
 import { StatsModel } from "../apanel/models/statsModel";
 import { Observable } from "rxjs";
+import { ImageShortInfoDto } from "../models/imageShortInfoDto";
+import { PaginationResultDto } from "../models/paginationResultDto";
+import { ReportMessageModel } from "../apanel/models/reportMessageModel";
+import { connect } from "http2";
 
 
 @Injectable()
@@ -53,11 +57,53 @@ export class AdminHttpService extends HttpService {
         )
     }
 
-    forceCleanup() {
-        return this.httpClient.get<SuccessResponseDto<StatsModel>>(
-            this.serverUrl + this.subPath + "/forceCleanup",
+
+    getReports(starts?: number, count?: number) {
+        let url = this.serverUrl + this.subPath + '/reports?';
+        if (starts != null)
+            url += "starts=" + starts + "&";
+        if (count != null)
+            url += "count=" + count + "&";
+        
+        return this.httpClient.get<SuccessResponseDto<PaginationResultDto<ImageShortInfoDto>>>(
+            url,
             {
                 headers: this.identityService.getHeaders()
+            }
+        )
+    }
+
+    getReportMessages(imageId: number, starts?: number, count?: number) {
+        let url = this.serverUrl + this.subPath + '/report/' + imageId + '?';
+        if (starts != null)
+            url += "starts=" + starts + "&";
+        if (count != null)
+            url += "count=" + count + "&";
+        
+        return this.httpClient.get<SuccessResponseDto<PaginationResultDto<ReportMessageModel>>>(
+            url,
+            {
+                headers: this.identityService.getHeaders()
+            }
+        )
+    }
+
+    postReportProcessed(imageId : number) {
+        return this.httpClient.post(
+            this.serverUrl + this.subPath + '/report/' + imageId + '/process',
+            null,
+            {
+                headers: this.identityService.getHeaders()
+            }
+        )
+    }
+
+    postBanUser(userId: number, untilDate: Date, comment: string) {
+        return this.httpClient.post(
+            this.serverUrl + this.subPath + '/ban/' + userId + '?untilDate=' + new Date(untilDate).toJSON(),
+            '"' + comment + '"',
+            {
+                headers: this.identityService.getHeaders().set("Content-Type", "application/json")
             }
         )
     }

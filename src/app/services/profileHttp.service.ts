@@ -1,9 +1,8 @@
 import { Injectable } from "@angular/core";
 import { HttpService } from "../abstract/httpService";
 import { TokenService } from "./token.service";
-import { HttpClient, HttpEvent } from "@angular/common/http"
+import { HttpClient } from "@angular/common/http"
 import { ProfileEditDto } from "../models/profileEditDto"
-import { Observable } from "rxjs";
 
 
 @Injectable()
@@ -23,6 +22,17 @@ export class ProfileHttpService extends HttpService {
             }
         )
     }
+
+    editProfileBackgroundCss(backgroundCss: string) {
+        return this.httpClient.put(
+            this.serverUrl + this.subPath + "/edit/backgroundCss",
+            backgroundCss ? ('"' + backgroundCss + '"') : '""',
+            {
+                headers: this.identityService.getHeaders().set("Content-Type", "application/json")
+            }
+        )
+    }
+
 
     uploadAvatar(file: File) {
         let formData = new FormData();

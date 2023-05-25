@@ -3,7 +3,8 @@ export class UserInfo {
     username: string;
     profile: {
         firstname: string,
-        lastname: string
+        lastname: string,
+        backgroundCss: string
     }
     role: string;
 }

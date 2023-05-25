@@ -115,6 +115,9 @@ export class NavbarComponent {
 
     pushInviteViewModels(array: Array<UserAlbumInviteDto>) {
         array?.forEach(el => {
+            if (this.albumInvitesViewModels.find(t => t.info.key == el.key))
+                return;
+
             const vm = new AlbumInviteViewModel();
             vm.info = el;
             this.albumInvitesViewModels?.push(vm);

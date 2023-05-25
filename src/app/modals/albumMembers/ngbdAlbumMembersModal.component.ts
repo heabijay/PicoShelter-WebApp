@@ -80,6 +80,9 @@ export class NgbdAlbumMembersModalComponent {
 
     pushViewModels(array: Array<AlbumProfileInfoDto>) {
         array?.forEach(el => {
+            if (this.albumProfileViewModels.find(t => t.info.user.id == el.user.id))
+                return;
+
             const elVm = new AlbumProfileInfoViewModel();
             elVm.info = el;
             elVm.roleViewModel = el.albumRole;
@@ -90,6 +93,9 @@ export class NgbdAlbumMembersModalComponent {
 
     pushInviteViewModels(array: Array<UserInfo>) {
         array?.forEach(el => {
+            if (this.albumInviteViewModels.find(t => t.info.id == el.id))
+                return;
+
             const elVm = new AlbumInviteViewModel();
             elVm.info = el;
             elVm.avatarUrl = this.profilesService.getAvatarLink(el.id);

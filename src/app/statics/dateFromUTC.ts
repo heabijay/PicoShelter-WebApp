@@ -1,4 +1,4 @@
-export function dateFromUTС(date: Date) {
+export function dateFromUTC(date: Date) {
     let d = new Date(date);
     return new Date(
         Date.UTC(

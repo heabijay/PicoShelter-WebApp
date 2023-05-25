@@ -1,0 +1,94 @@
+<div class="d-flex flex-column">
+    <div class="w-100">
+        <ng-container *ngIf="!isSomeChanging; else someChanging">
+            <div class="row m-0 align-items-center">
+                <div class="flex-fill">
+                    <h5>{{ 'modals.settings.appearancePage.profileBackground.header' | translate }}</h5>
+                    <p class="m-0">{{ 'modals.settings.appearancePage.profileBackground.description' | translate }}</p>
+                </div>
+                <a role="button" class="text-primary" (click)="startProfileBackgroundChanging()">
+                    {{ 'modals.settings.appearancePage.btnChange' | translate }}
+                </a>
+            </div>
+            <hr/>
+        </ng-container>
+        <ng-template #someChanging>
+            <div *ngIf="isProfileBackgroundChanging">
+                <form name="changeProfileBackgroundForm" #changeProfileBackgroundForm="ngForm" novalidate>
+                    <fieldset [disabled]="isProfileBackgroundProceeding">
+                        <div class="row m-0">
+                            <label for="newEmailField" class="col-12 col-form-label pl-0">{{ 'modals.settings.appearancePage.profileBackground.currentBackgroundLabel' | translate }}:</label>
+                            <div class="my-2 w-100 bg-gradient-mailuBeach" style="height: 100px;" [style.background]="currentUser?.currentUser?.profile?.backgroundCss"></div>
+                        </div>
+                        <div class="row m-0">
+                            <label for="newEmailField" class="col-12 col-form-label pl-0">{{ 'modals.settings.appearancePage.profileBackground.newBackgroundLabel' | translate }}:</label>
+                            <div class="mb-2 w-100 bg-gradient-mailuBeach" style="height: 100px;" [style.background]="customCssBody"></div>
+                        </div>
+                        <div class="row m-0">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="profileBackgroundMode" [(ngModel)]="changeProfileBackgroundMode" id="profileBackgroundReset" value="reset" checked>
+                                <label class="form-check-label" for="profileBackgroundReset">{{ 'modals.settings.appearancePage.profileBackground.resetToDefault' | translate }}</label>
+                            </div>
+                        </div>
+                        <div class="row m-0">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="profileBackgroundMode" [(ngModel)]="changeProfileBackgroundMode" id="profileBackgroundGradient" value="gradient">
+                                <label class="form-check-label" for="profileBackgroundGradient">{{ 'modals.settings.appearancePage.profileBackground.gradientFill.title' | translate }}</label>
+                            </div>
+                        </div>
+                        <div class="row m-0">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="profileBackgroundMode" [(ngModel)]="changeProfileBackgroundMode" id="profileBackgroundImage" value="image">
+                                <label class="form-check-label" for="profileBackgroundImage">{{ 'modals.settings.appearancePage.profileBackground.imageFill.title' | translate }}</label>
+                            </div>
+                        </div>
+                        <div class="row m-0">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="profileBackgroundMode" [(ngModel)]="changeProfileBackgroundMode" id="profileBackgroundCustom" value="custom">
+                                <label class="form-check-label" for="profileBackgroundCustom">{{ 'modals.settings.appearancePage.profileBackground.customCss.title' | translate }}</label>
+                            </div>
+                        </div>
+                        
+                        <div class="my-2" *ngIf="changeProfileBackgroundMode == 'gradient'">
+                            <table>
+                                <tr>
+                                    <td><input type="color" id="gradientStart" name="gradientStart" value="#000000" [(ngModel)]="changeProfileBackgroundGradientStart" ></td>
+                                    <td class="w-100"><input type="range" name="gradientDeg" [(ngModel)]="changeProfileBackgroundGradientDeg" class="form-range w-100" style="vertical-align: middle;" min="0" max="360" id="colorRange"></td>
+                                    <td><input type="color" id="gradientEnd" name="gradientEnd" value="#ffffff" [(ngModel)]="changeProfileBackgroundGradientEnd"></td>
+                                </tr>
+                                <tr>
+                                    <td class="text-center">{{ 'modals.settings.appearancePage.profileBackground.gradientFill.startLabel' | translate }}</td>
+                                    <td class="text-center">{{ 'modals.settings.appearancePage.profileBackground.gradientFill.angleLabel' | translate }}</td>
+                                    <td class="text-center">{{ 'modals.settings.appearancePage.profileBackground.gradientFill.endLabel' | translate }}</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="my-2" *ngIf="changeProfileBackgroundMode == 'image'">
+                            <div class="row m-0">
+                                <label for="changeProfileBackgroundImageUrl" class="col-12 col-form-label pl-0">{{ 'modals.settings.appearancePage.profileBackground.imageFill.directLinkLabel' | translate }}: </label>
+                                <input type="url" class="col-12 form-control" id="changeProfileBackgroundImageUrl" name="changeProfileBackgroundImageUrl" [(ngModel)]="changeProfileBackgroundImageUrl" required>
+                            </div>
+                        </div>
+                        <div class="my-2" *ngIf="changeProfileBackgroundMode == 'custom'">
+                            <div class="row m-0">
+                                <label for="changeProfileBackgroundImageUrl" class="col-12 col-form-label pl-0">{{ 'modals.settings.appearancePage.profileBackground.customCss.cssFieldLabel' | translate }}: </label>
+                                <input type="text" class="col-12 form-control" id="changeProfileBackgroundCssCode" name="changeProfileBackgroundCssCode" [(ngModel)]="changeProfileBackgroundCssCode" required>
+                            </div>
+                        </div>
+                    </fieldset>
+                    <div class="d-flex flex-row mt-2">
+                        <button type="submit" class="btn col btn-success mr-2" [disabled]="isProfileBackgroundProceeding" (click)="changeBackgroundAsync()">
+                            <ng-container *ngIf="isProfileBackgroundProceeding; else notProceeding">
+                                <i class="fa fa-spinner-third fa-spin" aria-hidden="true"></i>
+                            </ng-container>
+                            <ng-template #notProceeding>
+                                {{ 'shared.confirm' | translate }}
+                            </ng-template>
+                        </button>
+                        <button type="button" class="btn col btn-outline-danger" [disabled]="isProfileBackgroundProceeding" (click)="closeChanging()">{{ 'shared.cancel' | translate }}</button>
+                    </div>
+                </form>
+            </div>
+        </ng-template>
+    </div>
+</div>

@@ -69,16 +69,32 @@
 		},
 		"nav": {
 			"images": "Зображення",
+			"reports": "Скарги",
 			"stats": "Показники"
+		},
+		"reports": {
+			"actionsLabel": "Дії",
+			"ban": {
+				"caption": "Заблокувати користувача",
+				"untilLabel": "До дати",
+				"commentLabel": "Коментар"
+			},
+			"btnVerdict": "Підтвердити рішення",
+			"emptyList": "Немає жодної активної скарги. Гарна робота!",
+			"forceDeleteImage": "Примусово видалити зображення",
+			"imageHeader": "Цільове зображення",
+			"toastr": {
+				"banAdminIsDisallowed": "Заблокувати адміністратора заборонено.",
+				"imageSuccessfullyDeleted": "Зображення було успішно видалене!",
+				"successfullyProcessed": "Скаргу було успішно опрацьовано!",
+				"userSuccessfullyBanned": "Користувача було заблоковано!"
+			},
+			"userMessagesGroupLabel": "Користувачі скаржаться"
 		},
 		"stats": {
 			"accountsText": "акаунтів зареєстровано",
 			"albumsText": "альбомів доступно",
 			"error": "Хей! Ми отримуємо помилку при запиті. Спробуйте перезавантажити додаток.",
-			"forceCleanup": {
-				"lbl": "Примусове очищення",
-				"tooltip": "Примусово перевіряє усі автоматично-видаляємі зображення та ключі підтвердження"
-			},
 			"header": "Серверні показники",
 			"imagesText": "зображень зберігається",
 			"toastr": {
@@ -208,21 +224,25 @@
 		"btnCopyDirectLink": "Скопіювати пряме посилання",
 		"btnCopyLink": "Скопіювати посилання",
 		"btnDelete": "Видалити",
+		"btnDiscuss": "Обговорення",
 		"btnDownload": "Завантажити",
 		"btnDownloadPrepairing": "Підготовка до завантаження",
 		"btnDropFromAlbum": "Викинути з альбому",
 		"btnEdit": "Редагувати",
+		"btnLike": "Вподобайка",
 		"btnLinks": "Посилання",
 		"btnOpenInNewTab": "Відкрити в новій вкладці",
 		"btnOpenInNewTabPrepairing": "Підготовка до відкриття",
 		"btnPublicAccess": "Публічний доступ",
+		"btnReport": "Поскаржитись",
 		"droppingFromAlbum": "Викидаємо",
 		"in": "в",
 		"lblAlbum": "альбом",
 		"rightNow": "прямо зараз",
 		"toastr": {
 			"dropped": "Зображення успішно викинуте з альбому!",
-			"edited": "Інформація успішно змінена!"
+			"edited": "Інформація успішно змінена!",
+			"reportSubmitted": "Скаргу було успішно відправлено!"
 		},
 		"uploadedBy": "Завантажив",
 		"uploadedByAnonymous": "Анонімне завантаження"
@@ -249,7 +269,8 @@
 		},
 		"toastr": {
 			"alreadyLogined": "Ви вже ввійшли в акаунт!",
-			"resetPwdInstructionSent": "Інструкції були надіслані на Вашу ел. пошту."
+			"resetPwdInstructionSent": "Інструкції були надіслані на Вашу ел. пошту.",
+			"youAreBanned": "На жаль, Вас було заблоковано до {{ untilDateString }}. Причина: {{ comment }}"
 		},
 		"username": {
 			"required": "Логін не може бути пустим"
@@ -331,6 +352,12 @@
 				"albumDeleted": "Альбом успішно видалено!"
 			}
 		},
+		"imageComments": {
+			"btnSend": "Відправити",
+			"header": "Коментарі",
+			"inputPlaceholder": "Напишіть щось тут..",
+			"needToLoginMessage": "Будь ласка, зареєструйтесь або увійдіть щоб долучитись до обговорення!"
+		},
 		"confirm": {
 			"areYouSure": "Ви впевнені що хочете зробити це?",
 			"header": "Підтвердження"
@@ -344,7 +371,39 @@
 			"changeLifetime": "Змінити час зберігання",
 			"header": "Редагування зображення"
 		},
+		"reportSubmission": {
+			"header": "Скарга на зображення",
+			"commentLabel": "Коментар"
+		},
 		"settings": {
+			"appearancePage": {
+				"btnChange": "Змінити",
+				"header": "Вигляд",
+				"profileBackground": {
+					"currentBackgroundLabel": "Поточний фон",
+					"customCss": {
+						"cssFieldLabel": "Власний CSS (вміст властивості 'background')",
+						"title": "Власний CSS"
+					},
+					"description": "Буде відображатись на сторінці Вашого профілю",
+					"header": "Фон профілю",
+					"imageFill": {
+						"directLinkLabel": "Пряме посилання на зображення (lifetime-збереження на PicoShelter підходить)",
+						"title": "Заливка зображенням"
+					},
+					"gradientFill": {
+						"angleLabel": "Кут",
+						"endLabel": "Кінець",
+						"startLabel": "Початок",
+						"title": "Заливка градієнтом"
+					},
+					"newBackgroundLabel": "Новий фон",
+					"resetToDefault": "Скинути на замовчування"
+				},
+				"toastr": {
+					"backgroundSuccessfullyChanged": "Фон було успішно змінено!"
+				}
+			},
 			"header": "Налаштування",
 			"profilePage": {
 				"avatar": "Ваш аватар",

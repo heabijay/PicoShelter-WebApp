@@ -69,16 +69,32 @@
 		},
 		"nav": {
 			"images": "Images",
+			"reports": "Reports",
 			"stats": "Stats"
+		},
+		"reports": {
+			"actionsLabel": "Actions",
+			"ban": {
+				"caption": "Ban user",
+				"untilLabel": "Until",
+				"commentLabel": "Comment"
+			},
+			"btnVerdict": "Submit verdict",
+			"emptyList": "There's no any active report. Good job!",
+			"forceDeleteImage": "Forcefully delete image",
+			"imageHeader": "Target image",
+			"toastr": {
+				"banAdminIsDisallowed": "Ban admin user is disallowed.",
+				"imageSuccessfullyDeleted": "Image was successfully deleted!",
+				"successfullyProcessed": "Report was successfully processed!",
+				"userSuccessfullyBanned": "User was successfully banned!"
+			},
+			"userMessagesGroupLabel": "Users reports"
 		},
 		"stats": {
 			"accountsText": "accounts registered",
 			"albumsText": "albums available",
 			"error": "Hey! We got the receiving error. Try to reload the app.",
-			"forceCleanup": {
-				"lbl": "Force Cleanup",
-				"tooltip": "Force recheck of auto-delete images and confirmations"
-			},
 			"header": "Server Stats",
 			"imagesText": "images is stored",
 			"toastr": {
@@ -208,21 +224,25 @@
 		"btnCopyDirectLink": "Copy direct link",
 		"btnCopyLink": "Copy link",
 		"btnDelete": "Delete",
+		"btnDiscuss": "Discuss",
 		"btnDownload": "Download",
 		"btnDownloadPrepairing": "Prepairing download",
 		"btnDropFromAlbum": "Drop from album",
 		"btnEdit": "Edit",
+		"btnLike": "Like",
 		"btnLinks": "Links",
 		"btnOpenInNewTab": "Open in new tab",
 		"btnOpenInNewTabPrepairing": "Prepairing open",
 		"btnPublicAccess": "Public access",
+		"btnReport": "Report",
 		"droppingFromAlbum": "Dropping",
 		"in": "in",
 		"lblAlbum": "album",
 		"rightNow": "right now",
 		"toastr": {
 			"dropped": "Image successfully dropped!",
-			"edited": "Image successfully edited!"
+			"edited": "Image successfully edited!",
+			"reportSubmitted": "Image report was successfully submitted!"
 		},
 		"uploadedBy": "Uploaded by",
 		"uploadedByAnonymous": "Anonymous upload"
@@ -249,7 +269,8 @@
 		},
 		"toastr": {
 			"alreadyLogined": "You're already logined!",
-			"resetPwdInstructionSent": "Instruction sent to your email."
+			"resetPwdInstructionSent": "Instruction sent to your email.",
+			"youAreBanned": "Unfortunately, you get banned until {{ untilDateString }}. Reason: {{ comment }}"
 		},
 		"username": {
 			"required": "Username couldn't be empty!"
@@ -331,6 +352,12 @@
 				"albumDeleted": "Album successfully deleted!"
 			}
 		},
+		"imageComments": {
+			"btnSend": "Send",
+			"header": "Comments",
+			"inputPlaceholder": "Write something here..",
+			"needToLoginMessage": "Please, register or login to discuss together!"
+		},
 		"confirm": {
 			"areYouSure": "Are you sure you want to do this?",
 			"header": "Confirm"
@@ -344,7 +371,39 @@
 			"changeLifetime": "Change image lifetime",
 			"header": "Editing image"
 		},
+		"reportSubmission": {
+			"header": "Report the image",
+			"commentLabel": "Comment"
+		},
 		"settings": {
+			"appearancePage": {
+				"btnChange": "Change",
+				"header": "Appearance",
+				"profileBackground": {
+					"currentBackgroundLabel": "Current background",
+					"customCss": {
+						"cssFieldLabel": "Custom CSS (body of 'background' property)",
+						"title": "Custom CSS"
+					},
+					"description": "Will be shown on your profile home page",
+					"header": "Profile background",
+					"imageFill": {
+						"directLinkLabel": "Image direct link (could be lifetime-hosted on PicoShelter)",
+						"title": "Image fill"
+					},
+					"gradientFill": {
+						"angleLabel": "Angle",
+						"endLabel": "End",
+						"startLabel": "Start",
+						"title": "Gradient fill"
+					},
+					"newBackgroundLabel": "New background",
+					"resetToDefault": "Reset to default"
+				},
+				"toastr": {
+					"backgroundSuccessfullyChanged": "Background was successfully changed!"
+				}
+			},
 			"header": "Settings",
 			"profilePage": {
 				"avatar": "Your avatar",

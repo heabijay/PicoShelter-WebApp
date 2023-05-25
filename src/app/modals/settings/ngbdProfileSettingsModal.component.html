@@ -10,6 +10,7 @@
             <div class="list-group text-center" id="list-tab" role="tablist">
                 <a class="list-group-item border-0 list-group-item-action active show px-0 px-sm-2" id="list-profile-list" data-toggle="tab" href="#list-profile" role="tab" aria-controls="list-profile" aria-selected="true"><i class="fas fa-user-alt mr-sm-2"></i><span class="d-none d-sm-inline">{{ 'modals.settings.profilePage.header' | translate }}</span></a>
                 <a class="list-group-item border-0 list-group-item-action px-0 px-sm-2" id="list-security-list" data-toggle="tab" href="#list-security" role="tab" aria-controls="list-security" aria-selected="false"><i class="fas fa-lock mr-sm-2"></i><span class="d-none d-sm-inline">{{ 'modals.settings.securityPage.header' | translate }}</span></a>
+                <a class="list-group-item border-0 list-group-item-action px-0 px-sm-2" id="list-appearance-list" data-toggle="tab" href="#list-appearance" role="tab" aria-controls="list-appearance" aria-selected="false"><i class="fas fa-eye mr-sm-2"></i><span class="d-none d-sm-inline">{{ 'modals.settings.appearancePage.header' | translate }}</span></a>
             </div>
         </div>
         <div class="col-8 col-lg-10">
@@ -19,6 +20,9 @@
                 </div>
                 <div class="tab-pane fade" id="list-security" role="tabpanel" aria-labelledby="list-security-list">
                     <profilesettings-securityPage></profilesettings-securityPage>
+                </div>
+                <div class="tab-pane fade" id="list-appearance" role="tabpanel" aria-labelledby="list-appearance-list">
+                    <profilesettings-appearancePage></profilesettings-appearancePage>
                 </div>
             </div>
         </div>

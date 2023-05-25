@@ -15,7 +15,7 @@ import { ToastrService } from 'ngx-toastr';
 import { NgbdConfirmModalComponent } from '../modals/confirm/ngbdConfirmModal.component';
 import { NgbdAlbumCreateModalComponent } from '../modals/albumCreate/ngbdAlbumCreateModal.component';
 import { AlbumCreateDto } from '../models/albumCreateDto';
-import { dateFromUTС } from "../statics/dateFromUTC";
+import { dateFromUTC } from "../statics/dateFromUTC";
 import { copyToClipboard } from '../statics/copyToClipboard';
 import { NgbdAlbumMembersModalComponent } from '../modals/albumMembers/ngbdAlbumMembersModal.component';
 import { TranslateService } from '@ngx-translate/core';
@@ -43,7 +43,7 @@ export class AlbumsComponent {
     }
 
     get albumCreatedDate() {
-        return dateFromUTС(this.album?.createdDate);
+        return dateFromUTC(this.album?.createdDate);
     }
 
     get albumLink() {
@@ -97,6 +97,9 @@ export class AlbumsComponent {
 
     loadImageThumbnails(data: Array<ImageShortInfoDto>) {
         for (let i = 0; i < data.length; i++) {
+            if (this.imageThumbnailViewModel.find(t => t.info.imageId == data[i].imageId))
+                continue;
+
             const newItem = new ImageThumbnailViewModel();
             newItem.info = data[i];
             const sub = this.imageCacheService.requestThumbnailUsingCache(data[i].imageCode, code => this.albumsService.getThumbnailBlob(this.album.code, code))
