@@ -20,11 +20,11 @@
     "@angular/router": "~11.2.4",
     "@biesbjerg/ngx-translate-extract": "^7.0.3",
     "@microsoft/signalr": "^7.0.5",
-    "@ng-bootstrap/ng-bootstrap": "^8.0.1",
+    "@ng-bootstrap/ng-bootstrap": "^9.0.0",
     "@ngx-translate/core": "^13.0.0",
     "@ngx-translate/http-loader": "^6.0.0",
     "bootstrap": "^4.5.0",
-    "ngx-pinch-zoom": "^2.5.4",
+    "ngx-pinch-zoom": "^2.6.2",
     "ngx-toastr": "^13.2.0",
     "rxjs": "~6.6.6",
     "zone.js": "~0.10.3"
